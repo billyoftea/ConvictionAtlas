@@ -1,0 +1,62 @@
+[
+  {
+    "id": "cmmwudrhs0000ur8sx6ws4nyx",
+    "slug": "narrative-manager",
+    "name": "Narrative Manager",
+    "description": "Tracks breakout themes, attention flow, and cross-market story rotation to express high-conviction thematic bets.",
+    "style": "Narrative",
+    "riskProfile": "Aggressive",
+    "rebalanceCadence": "Daily",
+    "memoStyle": "Theme-led, thesis-first",
+    "universe": "Large cap tokens, catalyst-heavy markets, narrative breakouts",
+    "pricingSummary": "$29/month research stream",
+    "metadata": "{\"signalWeights\":{\"narrative_strength\":0.34,\"news_heat\":0.24,\"market_momentum\":0.18,\"volume_spike\":0.12,\"risk_flag\":-0.22}}",
+    "createdAt": "2026-03-19T02:19:29.776Z",
+    "updatedAt": "2026-03-19T02:19:29.776Z"
+  },
+  {
+    "id": "cmmwudri00002ur8sbgt3ezgm",
+    "slug": "event-driven-manager",
+    "name": "Event-driven Manager",
+    "description": "Focuses on event calendars, probability shifts, and deadline proximity across prediction markets and tokens.",
+    "style": "Event-driven",
+    "riskProfile": "Balanced",
+    "rebalanceCadence": "Intraday",
+    "memoStyle": "Catalyst and scenario analysis",
+    "universe": "Prediction markets, catalysts, high-impact news events",
+    "pricingSummary": "$39/month catalyst desk",
+    "metadata": "{\"signalWeights\":{\"event_proximity\":0.33,\"probability_edge\":0.24,\"news_heat\":0.18,\"market_momentum\":0.08,\"risk_flag\":-0.18}}",
+    "createdAt": "2026-03-19T02:19:29.784Z",
+    "updatedAt": "2026-03-19T02:19:29.784Z"
+  },
+  {
+    "id": "cmmwudri60004ur8scnbwmx8a",
+    "slug": "quant-manager",
+    "name": "Quant Manager",
+    "description": "Scores liquid opportunities with momentum, turnover, and price dislocation signals to keep a rules-first portfolio.",
+    "style": "Quant",
+    "riskProfile": "Systematic",
+    "rebalanceCadence": "Twice daily",
+    "memoStyle": "Rule-based market recap",
+    "universe": "Liquid tokens and price-discovering prediction markets",
+    "pricingSummary": "$19/month systematic feed",
+    "metadata": "{\"signalWeights\":{\"market_momentum\":0.32,\"volume_spike\":0.23,\"price_dislocation\":0.19,\"probability_edge\":0.08,\"risk_flag\":-0.2}}",
+    "createdAt": "2026-03-19T02:19:29.790Z",
+    "updatedAt": "2026-03-19T02:19:29.790Z"
+  },
+  {
+    "id": "cmmwudrie0006ur8sqifdphhn",
+    "slug": "hybrid-manager",
+    "name": "Hybrid Manager",
+    "description": "Blends market structure, catalyst detection, and thematic context to run a diversified conviction book.",
+    "style": "Hybrid",
+    "riskProfile": "Adaptive",
+    "rebalanceCadence": "Daily",
+    "memoStyle": "Balanced portfolio letter",
+    "universe": "Tokens, prediction markets, and cross-market catalyst baskets",
+    "pricingSummary": "$49/month flagship strategy",
+    "metadata": "{\"signalWeights\":{\"market_momentum\":0.2,\"narrative_strength\":0.18,\"news_heat\":0.18,\"event_proximity\":0.14,\"volume_spike\":0.12,\"price_dislocation\":0.1,\"risk_flag\":-0.18}}",
+    "createdAt": "2026-03-19T02:19:29.798Z",
+    "updatedAt": "2026-03-19T02:19:29.798Z"
+  }
+]

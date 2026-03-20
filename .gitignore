@@ -1,0 +1,19 @@
+node_modules
+# Keep environment variables out of version control
+.env
+.env.local
+.env.*.local
+
+dist
+.next
+.nx
+coverage
+tmp
+logs
+.vscode
+deepseek api
+
+prisma/*.db
+prisma/*.db-journal
+
+/generated/prisma

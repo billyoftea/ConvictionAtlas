@@ -1,0 +1,42 @@
+{
+  "ok": true,
+  "status": 200,
+  "data": [
+    {
+      "slug": "event-driven-manager",
+      "name": "Event-driven Manager",
+      "nav": 100,
+      "cumulativeReturn": 0,
+      "sharpe": 0,
+      "hitRate": 0,
+      "averageRating": null
+    },
+    {
+      "slug": "quant-manager",
+      "name": "Quant Manager",
+      "nav": 99.98,
+      "cumulativeReturn": -0.0002,
+      "sharpe": -0.0001,
+      "hitRate": 0,
+      "averageRating": null
+    },
+    {
+      "slug": "hybrid-manager",
+      "name": "Hybrid Manager",
+      "nav": 96.0988,
+      "cumulativeReturn": -0.039,
+      "sharpe": -139.3,
+      "hitRate": 0.2,
+      "averageRating": null
+    },
+    {
+      "slug": "narrative-manager",
+      "name": "Narrative Manager",
+      "nav": 95.9812,
+      "cumulativeReturn": -0.0402,
+      "sharpe": -143.5427,
+      "hitRate": 0.2,
+      "averageRating": null
+    }
+  ]
+}

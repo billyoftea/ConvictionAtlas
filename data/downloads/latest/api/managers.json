@@ -1,0 +1,155 @@
+{
+  "ok": true,
+  "status": 200,
+  "data": [
+    {
+      "id": "cmmwudrhs0000ur8sx6ws4nyx",
+      "slug": "narrative-manager",
+      "name": "Narrative Manager",
+      "style": "Narrative",
+      "riskProfile": "Aggressive",
+      "description": "Tracks breakout themes, attention flow, and cross-market story rotation to express high-conviction thematic bets.",
+      "pricingSummary": "$29/month research stream",
+      "latestNav": 95.9812,
+      "cumulativeReturn": -0.0402,
+      "averageRating": null,
+      "topPositions": [
+        {
+          "id": "cmmwueqyc009huruo7oej0d0p",
+          "title": "Tether",
+          "slug": "tether-usdt",
+          "weight": 0.1821
+        },
+        {
+          "id": "cmmwueqyr00e7uruoexpvb83z",
+          "title": "XRP",
+          "slug": "xrp-xrp",
+          "weight": 0.1821
+        },
+        {
+          "id": "cmmwueqzj00nnuruoojlfvydt",
+          "title": "USDC",
+          "slug": "usdc-usdc",
+          "weight": 0.1643
+        }
+      ],
+      "pricingPlans": [
+        {
+          "id": "cmmwudrhw0001ur8smft98cr2",
+          "managerId": "cmmwudrhs0000ur8sx6ws4nyx",
+          "name": "Narrative Pro",
+          "cadence": "monthly",
+          "amountUsd": 29,
+          "description": "Unlock thematic memos and daily opportunity watchlist.",
+          "isActive": true,
+          "createdAt": "2026-03-19T02:19:29.781Z",
+          "updatedAt": "2026-03-19T02:19:29.781Z"
+        }
+      ]
+    },
+    {
+      "id": "cmmwudri00002ur8sbgt3ezgm",
+      "slug": "event-driven-manager",
+      "name": "Event-driven Manager",
+      "style": "Event-driven",
+      "riskProfile": "Balanced",
+      "description": "Focuses on event calendars, probability shifts, and deadline proximity across prediction markets and tokens.",
+      "pricingSummary": "$39/month catalyst desk",
+      "latestNav": 100,
+      "cumulativeReturn": 0,
+      "averageRating": null,
+      "topPositions": [],
+      "pricingPlans": [
+        {
+          "id": "cmmwudri30003ur8s550ldzay",
+          "managerId": "cmmwudri00002ur8sbgt3ezgm",
+          "name": "Catalyst Desk",
+          "cadence": "monthly",
+          "amountUsd": 39,
+          "description": "Access event memos, alert feed, and rebalance commentary.",
+          "isActive": true,
+          "createdAt": "2026-03-19T02:19:29.788Z",
+          "updatedAt": "2026-03-19T02:19:29.788Z"
+        }
+      ]
+    },
+    {
+      "id": "cmmwudri60004ur8scnbwmx8a",
+      "slug": "quant-manager",
+      "name": "Quant Manager",
+      "style": "Quant",
+      "riskProfile": "Systematic",
+      "description": "Scores liquid opportunities with momentum, turnover, and price dislocation signals to keep a rules-first portfolio.",
+      "pricingSummary": "$19/month systematic feed",
+      "latestNav": 99.98,
+      "cumulativeReturn": -0.0002,
+      "averageRating": null,
+      "topPositions": [
+        {
+          "id": "cmmwueqyc009huruo7oej0d0p",
+          "title": "Tether",
+          "slug": "tether-usdt",
+          "weight": 0.8
+        }
+      ],
+      "pricingPlans": [
+        {
+          "id": "cmmwudria0005ur8swrzl6u12",
+          "managerId": "cmmwudri60004ur8scnbwmx8a",
+          "name": "Quant Feed",
+          "cadence": "monthly",
+          "amountUsd": 19,
+          "description": "Daily signal digest and latest systematic portfolio.",
+          "isActive": true,
+          "createdAt": "2026-03-19T02:19:29.795Z",
+          "updatedAt": "2026-03-19T02:19:29.795Z"
+        }
+      ]
+    },
+    {
+      "id": "cmmwudrie0006ur8sqifdphhn",
+      "slug": "hybrid-manager",
+      "name": "Hybrid Manager",
+      "style": "Hybrid",
+      "riskProfile": "Adaptive",
+      "description": "Blends market structure, catalyst detection, and thematic context to run a diversified conviction book.",
+      "pricingSummary": "$49/month flagship strategy",
+      "latestNav": 96.0988,
+      "cumulativeReturn": -0.039,
+      "averageRating": null,
+      "topPositions": [
+        {
+          "id": "cmmwueqyc009huruo7oej0d0p",
+          "title": "Tether",
+          "slug": "tether-usdt",
+          "weight": 0.2315
+        },
+        {
+          "id": "cmmwueqyr00e7uruoexpvb83z",
+          "title": "XRP",
+          "slug": "xrp-xrp",
+          "weight": 0.1816
+        },
+        {
+          "id": "cmmwueqzj00nnuruoojlfvydt",
+          "title": "USDC",
+          "slug": "usdc-usdc",
+          "weight": 0.1615
+        }
+      ],
+      "pricingPlans": [
+        {
+          "id": "cmmwudrih0007ur8sgjxan8rv",
+          "managerId": "cmmwudrie0006ur8sqifdphhn",
+          "name": "Flagship Atlas",
+          "cadence": "monthly",
+          "amountUsd": 49,
+          "description": "Full memo access, portfolio visibility, and premium unlocks.",
+          "isActive": true,
+          "createdAt": "2026-03-19T02:19:29.802Z",
+          "updatedAt": "2026-03-19T02:19:29.802Z"
+        }
+      ]
+    }
+  ]
+}

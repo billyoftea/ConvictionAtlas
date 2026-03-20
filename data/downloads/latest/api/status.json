@@ -1,0 +1,16 @@
+{
+  "ok": true,
+  "status": 200,
+  "data": {
+    "name": "Conviction Atlas",
+    "status": "ok",
+    "timestamp": "2026-03-19T02:29:13.728Z",
+    "counts": {
+      "managers": 4,
+      "opportunities": 24,
+      "memos": 3,
+      "reviews": 0
+    },
+    "latestPortfolioRunAt": "2026-03-19T02:26:24.332Z"
+  }
+}

@@ -1,0 +1,285 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum OpportunityType {
+  TOKEN
+  PREDICTION_MARKET
+}
+
+enum SourceKind {
+  COINGECKO
+  POLYMARKET
+  CRYPTOPANIC
+  GNEWS
+  NEWSAPI
+}
+
+enum Direction {
+  BULLISH
+  NEUTRAL
+  BEARISH
+}
+
+model Manager {
+  id                 String                @id @default(cuid())
+  slug               String                @unique
+  name               String
+  description        String
+  style              String
+  riskProfile        String
+  rebalanceCadence   String
+  memoStyle          String
+  universe           String
+  pricingSummary     String?
+  metadata           String?               @default("{}")
+  createdAt          DateTime              @default(now())
+  updatedAt          DateTime              @updatedAt
+  memos              Memo[]
+  reviews            Review[]
+  pricingPlans       PricingPlan[]
+  decisions          ManagerDecision[]
+  portfolioSnapshots PortfolioSnapshot[]
+  performance        PerformanceSnapshot[]
+  subscriptions      Subscription[]
+}
+
+model PricingPlan {
+  id          String   @id @default(cuid())
+  managerId   String
+  name        String
+  cadence     String
+  amountUsd   Float
+  description String
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  manager     Manager  @relation(fields: [managerId], references: [id], onDelete: Cascade)
+
+  @@index([managerId])
+}
+
+model Subscription {
+  id            String   @id @default(cuid())
+  managerId     String
+  subscriberRef String
+  status        String
+  startedAt     DateTime @default(now())
+  expiresAt     DateTime?
+  metadata      String?  @default("{}")
+  manager       Manager  @relation(fields: [managerId], references: [id], onDelete: Cascade)
+
+  @@index([managerId, status])
+}
+
+model RawIngestion {
+  id                    String     @id @default(cuid())
+  sourceKind            SourceKind
+  externalId            String?
+  opportunityExternalKey String?
+  itemType              String
+  payload               String
+  fetchedAt             DateTime   @default(now())
+  processedAt           DateTime?
+
+  @@index([sourceKind, fetchedAt])
+  @@index([externalId])
+}
+
+model Opportunity {
+  id             String             @id @default(cuid())
+  externalKey    String             @unique
+  sourceKind     SourceKind
+  type           OpportunityType
+  slug           String             @unique
+  title          String
+  symbol         String?
+  summary        String?
+  description    String?
+  imageUrl       String?
+  sourceUrl      String?
+  status         String?
+  category       String?
+  currentPrice   Float?
+  priceChange24h Float?
+  volume24h      Float?
+  marketCap      Float?
+  liquidity      Float?
+  eventDate      DateTime?
+  lastUpdatedAt  DateTime?
+  metadata       String?            @default("{}")
+  createdAt      DateTime           @default(now())
+  updatedAt      DateTime           @updatedAt
+  historyPoints  OpportunityHistory[]
+  signals        Signal[]
+  newsItems      NewsItem[]
+  decisions      ManagerDecision[]
+  positions      Position[]
+  memos          Memo[]
+
+  @@index([type, updatedAt])
+  @@index([sourceKind, updatedAt])
+}
+
+model OpportunityHistory {
+  id            String      @id @default(cuid())
+  opportunityId String
+  pointAt       DateTime
+  price         Float
+  volume        Float?
+  metadata      String?     @default("{}")
+  opportunity   Opportunity @relation(fields: [opportunityId], references: [id], onDelete: Cascade)
+
+  @@unique([opportunityId, pointAt])
+  @@index([opportunityId, pointAt])
+}
+
+model NewsItem {
+  id            String      @id @default(cuid())
+  provider      SourceKind
+  externalId    String
+  opportunityId String?
+  title         String
+  summary       String?
+  url           String      @unique
+  imageUrl      String?
+  publishedAt   DateTime
+  sourceName    String?
+  sentimentScore Float?
+  metadata      String?     @default("{}")
+  createdAt     DateTime    @default(now())
+  opportunity   Opportunity? @relation(fields: [opportunityId], references: [id], onDelete: SetNull)
+
+  @@unique([provider, externalId])
+  @@index([opportunityId, publishedAt])
+}
+
+model Signal {
+  id            String      @id @default(cuid())
+  opportunityId String
+  name          String
+  value         Float
+  direction     Direction
+  confidence    Float
+  rationale     String
+  metadata      String?     @default("{}")
+  computedAt    DateTime    @default(now())
+  opportunity   Opportunity @relation(fields: [opportunityId], references: [id], onDelete: Cascade)
+
+  @@index([opportunityId, computedAt])
+  @@index([name, computedAt])
+}
+
+model ManagerDecision {
+  id              String      @id @default(cuid())
+  managerId       String
+  opportunityId   String
+  direction       Direction
+  convictionScore Float
+  targetWeight    Float
+  rationale       String
+  metadata        String?     @default("{}")
+  computedAt      DateTime    @default(now())
+  manager         Manager     @relation(fields: [managerId], references: [id], onDelete: Cascade)
+  opportunity     Opportunity @relation(fields: [opportunityId], references: [id], onDelete: Cascade)
+
+  @@index([managerId, computedAt])
+  @@index([opportunityId, computedAt])
+}
+
+model PortfolioSnapshot {
+  id              String                @id @default(cuid())
+  managerId        String
+  cashWeight       Float
+  grossExposure    Float
+  netExposure      Float
+  riskScore        Float
+  nav              Float
+  metadata         String?              @default("{}")
+  computedAt       DateTime             @default(now())
+  manager          Manager              @relation(fields: [managerId], references: [id], onDelete: Cascade)
+  positions        Position[]
+  performanceEntry PerformanceSnapshot?
+
+  @@index([managerId, computedAt])
+}
+
+model Position {
+  id                String            @id @default(cuid())
+  portfolioSnapshotId String
+  opportunityId     String
+  weight            Float
+  convictionScore   Float
+  entryPrice        Float?
+  note              String?
+  portfolioSnapshot PortfolioSnapshot @relation(fields: [portfolioSnapshotId], references: [id], onDelete: Cascade)
+  opportunity       Opportunity       @relation(fields: [opportunityId], references: [id], onDelete: Cascade)
+
+  @@unique([portfolioSnapshotId, opportunityId])
+  @@index([opportunityId])
+}
+
+model PerformanceSnapshot {
+  id                String            @id @default(cuid())
+  managerId         String
+  portfolioSnapshotId String?         @unique
+  nav               Float
+  dailyReturn       Float
+  cumulativeReturn  Float
+  drawdown          Float
+  sharpe            Float
+  hitRate           Float
+  metadata          String?           @default("{}")
+  computedAt        DateTime          @default(now())
+  manager           Manager           @relation(fields: [managerId], references: [id], onDelete: Cascade)
+  portfolioSnapshot PortfolioSnapshot? @relation(fields: [portfolioSnapshotId], references: [id], onDelete: SetNull)
+
+  @@index([managerId, computedAt])
+}
+
+model Memo {
+  id            String       @id @default(cuid())
+  managerId     String
+  opportunityId String?
+  title         String
+  summary       String
+  content       String
+  isPremium     Boolean      @default(true)
+  accessTier    String       @default("premium")
+  generatedBy   String       @default("deepseek")
+  createdAt     DateTime     @default(now())
+  manager       Manager      @relation(fields: [managerId], references: [id], onDelete: Cascade)
+  opportunity   Opportunity? @relation(fields: [opportunityId], references: [id], onDelete: SetNull)
+  unlocks       MemoUnlock[]
+
+  @@index([managerId, createdAt])
+}
+
+model MemoUnlock {
+  id          String   @id @default(cuid())
+  memoId       String
+  customerRef  String
+  status       String
+  createdAt    DateTime @default(now())
+  metadata     String?  @default("{}")
+  memo         Memo     @relation(fields: [memoId], references: [id], onDelete: Cascade)
+
+  @@index([memoId, status])
+}
+
+model Review {
+  id         String   @id @default(cuid())
+  managerId   String
+  authorName String
+  rating     Int
+  comment    String
+  createdAt  DateTime @default(now())
+  manager    Manager  @relation(fields: [managerId], references: [id], onDelete: Cascade)
+
+  @@index([managerId, createdAt])
+}

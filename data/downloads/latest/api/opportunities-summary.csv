@@ -1,0 +1,25 @@
+id,slug,title,symbol,type,sourceKind,currentPrice,priceChange24h,volume24h,marketCap,liquidity,updatedAt
+cmmwueqyc009huruo7oej0d0p,tether-usdt,Tether,USDT,TOKEN,COINGECKO,1,-0.01402,79311585717,184097133887,79311585717,2026-03-19T02:24:10.127Z
+cmmwueqxk0001uruor1lgbrlq,bitcoin-btc,Bitcoin,BTC,TOKEN,COINGECKO,71198,-4.10486,47198697477,1424433592256,47198697477,2026-03-19T02:24:10.115Z
+cmmwueqxz004ruruon71uxym4,ethereum-eth,Ethereum,ETH,TOKEN,COINGECKO,2201.25,-5.59967,25385635790,265754345055,25385635790,2026-03-19T02:24:10.121Z
+cmmwueqzj00nnuruoojlfvydt,usdc-usdc,USDC,USDC,TOKEN,COINGECKO,0.999858,0.00378,11209470358,79431629697,11209470358,2026-03-19T02:24:10.144Z
+cmmwueqzv00sduruo758wazs7,solana-sol,Solana,SOL,TOKEN,COINGECKO,90.29,-4.80856,4073743496,51580031598,4073743496,2026-03-19T02:24:10.149Z
+cmmwueqyr00e7uruoexpvb83z,xrp-xrp,XRP,XRP,TOKEN,COINGECKO,1.46,-4.04973,2872656904,89548913435,2872656904,2026-03-19T02:24:10.132Z
+cmmwuer13014vuruo6zq34eo2,dogecoin-doge,Dogecoin,DOGE,TOKEN,COINGECKO,0.09487,-6.11435,1499842811,14559028022,1499842811,2026-03-19T02:24:10.164Z
+cmmwueqz600ixuruoe7hl89yo,bnb-bnb,BNB,BNB,TOKEN,COINGECKO,652.04,-2.87254,1237903562,88913227366,1237903562,2026-03-19T02:24:10.138Z
+cmmwuer0900x3uruo1yym7gyp,tron-trx,TRON,TRX,TOKEN,COINGECKO,0.304936,-1.08412,567241453,28890603708,567241453,2026-03-19T02:24:10.153Z
+cmmwuer1h019luruoyba4uzfq,whitebit-coin-wbt,WhiteBIT Coin,WBT,TOKEN,COINGECKO,56.86,-2.32175,80470700,12130274035,80470700,2026-03-19T02:24:10.170Z
+cmmwuer0p011turuo1ald2noy,figure-heloc-figr-heloc,Figure Heloc,FIGR_HELOC,TOKEN,COINGECKO,1.025,-0.63698,41738342,16241170453,41738342,2026-03-19T02:24:10.158Z
+cmmwuer1t01eburuool9tiodf,usds-usds,USDS,USDS,TOKEN,COINGECKO,0.999878,-0.02832,11423025,11562961626,11423025,2026-03-19T02:24:10.177Z
+cmmwuf74x01k1uruot9fjv5z6,will-harvey-weinstein-be-sentenced-to-no-prison-time,Will Harvey Weinstein be sentenced to no prison time?,,PREDICTION_MARKET,POLYMARKET,0.301,-21.7,95440.409247,,1579.90717,2026-03-19T02:24:10.235Z
+cmmwuf74m01jxuruoso6bkxsv,gta-vi-released-before-june-2026,GTA VI released before June 2026?,,PREDICTION_MARKET,POLYMARKET,0.03,-0.25,80301.16566099998,,53635.07708,2026-03-19T02:24:10.230Z
+cmmwuf72j01j1uruoyjdh49oc,bitboy-convicted,BitBoy convicted?,,PREDICTION_MARKET,POLYMARKET,0.115,-1.9,20073.35042700001,,2543.47386,2026-03-19T02:24:10.184Z
+cmmwuf74d01jturuors1h45x3,will-bitcoin-hit-1m-before-gta-vi-872,Will bitcoin hit $1m before GTA VI?,,PREDICTION_MARKET,POLYMARKET,0.488,-0.1,11566.41817200001,,408209.14264,2026-03-19T02:24:10.223Z
+cmmwuf73l01jhuruo4rjbet6m,will-jesus-christ-return-before-gta-vi-665,Will Jesus Christ return before GTA VI?,,PREDICTION_MARKET,POLYMARKET,0.48,0,3815.942727000001,,690273.8205,2026-03-19T02:24:10.207Z
+cmmwuf72v01j5uruoclx9xjyx,russia-ukraine-ceasefire-before-gta-vi-554,Russia-Ukraine Ceasefire before GTA VI?,,PREDICTION_MARKET,POLYMARKET,0.54,0,3609.417383,,48226.4241,2026-03-19T02:24:10.190Z
+cmmwuf73401j9uruogfgep5tm,new-rhianna-album-before-gta-vi-926,New Rihanna Album before GTA VI?,,PREDICTION_MARKET,POLYMARKET,0.64,-1,2721.581609,,34147.9611,2026-03-19T02:24:10.196Z
+cmmwuf73d01jduruoxfb07gia,new-playboi-carti-album-before-gta-vi-421,New Playboi Carti Album before GTA VI?,,PREDICTION_MARKET,POLYMARKET,0.52,1.5,2676.769729,,25141.1728,2026-03-19T02:24:10.202Z
+cmmwuf74501jpuruoe9uy4zcd,will-china-invades-taiwan-before-gta-vi-716,Will China invades Taiwan before GTA VI?,,PREDICTION_MARKET,POLYMARKET,0.51,0.5,1682.961454,,95741.6043,2026-03-19T02:24:10.218Z
+cmmwuf75g01k9uruo0m88a3xf,will-harvey-weinstein-be-sentenced-to-between-5-and-10-years-in-prison,Will Harvey Weinstein be sentenced to between 5 and 10 years in prison?,,PREDICTION_MARKET,POLYMARKET,0.095,-1.5,1290.547129,,1521.81325,2026-03-19T02:24:10.245Z
+cmmwuf75501k5uruobq8ytb16,will-harvey-weinstein-be-sentenced-to-less-than-5-years-in-prison,Will Harvey Weinstein be sentenced to less than 5 years in prison?,,PREDICTION_MARKET,POLYMARKET,0.122,-14.5,1275.361304,,5340.80008,2026-03-19T02:24:10.240Z
+cmmwuf73u01jluruokxy3ywlb,trump-out-as-president-before-gta-vi-846,Trump out as President before GTA VI?,,PREDICTION_MARKET,POLYMARKET,0.53,0,1127.098989,,56885.5172,2026-03-19T02:24:10.213Z

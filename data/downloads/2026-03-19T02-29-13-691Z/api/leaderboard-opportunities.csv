@@ -1,0 +1,25 @@
+id,slug,title,type,currentPrice,priceChange24h,volume24h,convictionAverage,signalStrength
+cmmwueqyc009huruo7oej0d0p,tether-usdt,Tether,TOKEN,1,-0.01402,79311585717,0.28,0.2684
+cmmwueqyr00e7uruoexpvb83z,xrp-xrp,XRP,TOKEN,1.46,-4.04973,2872656904,0.1743,0.3432
+cmmwueqzv00sduruo758wazs7,solana-sol,Solana,TOKEN,90.29,-4.80856,4073743496,0.1459,0.36
+cmmwuf72j01j1uruoyjdh49oc,bitboy-convicted,BitBoy convicted?,PREDICTION_MARKET,0.115,-1.9,20073.35042700001,0.1001,0.3751
+cmmwueqxz004ruruon71uxym4,ethereum-eth,Ethereum,TOKEN,2201.25,-5.59967,25385635790,0.074,0.3225
+cmmwueqxk0001uruor1lgbrlq,bitcoin-btc,Bitcoin,TOKEN,71198,-4.10486,47198697477,0.1101,0.2795
+cmmwueqzj00nnuruoojlfvydt,usdc-usdc,USDC,TOKEN,0.999858,0.00378,11209470358,0.1937,0.1932
+cmmwuer13014vuruo6zq34eo2,dogecoin-doge,Dogecoin,TOKEN,0.09487,-6.11435,1499842811,-0.0158,0.2853
+cmmwuf74x01k1uruot9fjv5z6,will-harvey-weinstein-be-sentenced-to-no-prison-time,Will Harvey Weinstein be sentenced to no prison time?,PREDICTION_MARKET,0.301,-21.7,95440.409247,-0.2622,0.4605
+cmmwuf73401j9uruogfgep5tm,new-rhianna-album-before-gta-vi-926,New Rihanna Album before GTA VI?,PREDICTION_MARKET,0.64,-1,2721.581609,0.0495,0.1092
+cmmwuf74m01jxuruoso6bkxsv,gta-vi-released-before-june-2026,GTA VI released before June 2026?,PREDICTION_MARKET,0.03,-0.25,80301.16566099998,-0.0314,0.1848
+cmmwuf73d01jduruoxfb07gia,new-playboi-carti-album-before-gta-vi-421,New Playboi Carti Album before GTA VI?,PREDICTION_MARKET,0.52,1.5,2676.769729,0.0436,0.0773
+cmmwuf72v01j5uruoclx9xjyx,russia-ukraine-ceasefire-before-gta-vi-554,Russia-Ukraine Ceasefire before GTA VI?,PREDICTION_MARKET,0.54,0,3609.417383,0.0409,0.0626
+cmmwuf73u01jluruokxy3ywlb,trump-out-as-president-before-gta-vi-846,Trump out as President before GTA VI?,PREDICTION_MARKET,0.53,0,1127.098989,0.0345,0.0556
+cmmwuf74501jpuruoe9uy4zcd,will-china-invades-taiwan-before-gta-vi-716,Will China invades Taiwan before GTA VI?,PREDICTION_MARKET,0.51,0.5,1682.961454,0.0312,0.055
+cmmwuf74d01jturuors1h45x3,will-bitcoin-hit-1m-before-gta-vi-872,Will bitcoin hit $1m before GTA VI?,PREDICTION_MARKET,0.488,-0.1,11566.41817200001,0.0258,0.0542
+cmmwueqz600ixuruoe7hl89yo,bnb-bnb,BNB,TOKEN,652.04,-2.87254,1237903562,-0.0306,0.1099
+cmmwuf75g01k9uruo0m88a3xf,will-harvey-weinstein-be-sentenced-to-between-5-and-10-years-in-prison,Will Harvey Weinstein be sentenced to between 5 and 10 years in prison?,PREDICTION_MARKET,0.095,-1.5,1290.547129,-0.1427,0.2122
+cmmwuf73l01jhuruo4rjbet6m,will-jesus-christ-return-before-gta-vi-665,Will Jesus Christ return before GTA VI?,PREDICTION_MARKET,0.48,0,3815.942727000001,0.0206,0.0471
+cmmwuer0900x3uruo1yym7gyp,tron-trx,TRON,TOKEN,0.304936,-1.08412,567241453,0.0027,0.0527
+cmmwuer0p011turuo1ald2noy,figure-heloc-figr-heloc,Figure Heloc,TOKEN,1.025,-0.63698,41738342,-0.028,0.0437
+cmmwuer1h019luruoyba4uzfq,whitebit-coin-wbt,WhiteBIT Coin,TOKEN,56.86,-2.32175,80470700,-0.0565,0.0697
+cmmwuer1t01eburuool9tiodf,usds-usds,USDS,TOKEN,0.999878,-0.02832,11423025,-0.0134,0.0261
+cmmwuf75501k5uruobq8ytb16,will-harvey-weinstein-be-sentenced-to-less-than-5-years-in-prison,Will Harvey Weinstein be sentenced to less than 5 years in prison?,PREDICTION_MARKET,0.122,-14.5,1275.361304,-0.3495,0.3044

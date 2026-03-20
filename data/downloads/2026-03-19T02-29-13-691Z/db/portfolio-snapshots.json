@@ -1,0 +1,90 @@
+[
+  {
+    "id": "cmmwumnd803ryuruojraxta65",
+    "managerId": "cmmwudrie0006ur8sqifdphhn",
+    "cashWeight": 0.15,
+    "grossExposure": 0.85,
+    "netExposure": 0.85,
+    "riskScore": 0.1039,
+    "nav": 96.0988,
+    "metadata": "{\"decisionCount\":5,\"model\":\"portfolio-engine-v1\"}",
+    "computedAt": "2026-03-19T02:26:24.332Z"
+  },
+  {
+    "id": "cmmwumncs03rvuruozsildofs",
+    "managerId": "cmmwudri60004ur8scnbwmx8a",
+    "cashWeight": 0.2,
+    "grossExposure": 0.8,
+    "netExposure": 0.8,
+    "riskScore": 0.0006,
+    "nav": 99.98,
+    "metadata": "{\"decisionCount\":1,\"model\":\"portfolio-engine-v1\"}",
+    "computedAt": "2026-03-19T02:26:24.316Z"
+  },
+  {
+    "id": "cmmwumncj03rturuozi2kfpi1",
+    "managerId": "cmmwudri00002ur8sbgt3ezgm",
+    "cashWeight": 1,
+    "grossExposure": 0,
+    "netExposure": 0,
+    "riskScore": 0,
+    "nav": 100,
+    "metadata": "{\"decisionCount\":0,\"model\":\"portfolio-engine-v1\"}",
+    "computedAt": "2026-03-19T02:26:24.308Z"
+  },
+  {
+    "id": "cmmwumnc603rmuruo8semc68g",
+    "managerId": "cmmwudrhs0000ur8sx6ws4nyx",
+    "cashWeight": 0.18,
+    "grossExposure": 0.82,
+    "netExposure": 0.82,
+    "riskScore": 0.1039,
+    "nav": 95.9812,
+    "metadata": "{\"decisionCount\":5,\"model\":\"portfolio-engine-v1\"}",
+    "computedAt": "2026-03-19T02:26:24.294Z"
+  },
+  {
+    "id": "cmmwuhzwx01vpuruoi2azkryk",
+    "managerId": "cmmwudrie0006ur8sqifdphhn",
+    "cashWeight": 0.15,
+    "grossExposure": 0.85,
+    "netExposure": 0.85,
+    "riskScore": 0.1036,
+    "nav": 98.04,
+    "metadata": "{\"decisionCount\":5,\"model\":\"portfolio-engine-v1\"}",
+    "computedAt": "2026-03-19T02:22:47.313Z"
+  },
+  {
+    "id": "cmmwuhzwj01vmuruoj70685pd",
+    "managerId": "cmmwudri60004ur8scnbwmx8a",
+    "cashWeight": 0.2,
+    "grossExposure": 0.8,
+    "netExposure": 0.8,
+    "riskScore": 0.0004,
+    "nav": 99.99,
+    "metadata": "{\"decisionCount\":1,\"model\":\"portfolio-engine-v1\"}",
+    "computedAt": "2026-03-19T02:22:47.300Z"
+  },
+  {
+    "id": "cmmwuhzwc01vkuruophz10q3e",
+    "managerId": "cmmwudri00002ur8sbgt3ezgm",
+    "cashWeight": 1,
+    "grossExposure": 0,
+    "netExposure": 0,
+    "riskScore": 0,
+    "nav": 100,
+    "metadata": "{\"decisionCount\":0,\"model\":\"portfolio-engine-v1\"}",
+    "computedAt": "2026-03-19T02:22:47.292Z"
+  },
+  {
+    "id": "cmmwuhzw001vduruopppgk0en",
+    "managerId": "cmmwudrhs0000ur8sx6ws4nyx",
+    "cashWeight": 0.18,
+    "grossExposure": 0.82,
+    "netExposure": 0.82,
+    "riskScore": 0.1036,
+    "nav": 97.98,
+    "metadata": "{\"decisionCount\":5,\"model\":\"portfolio-engine-v1\"}",
+    "computedAt": "2026-03-19T02:22:47.281Z"
+  }
+]

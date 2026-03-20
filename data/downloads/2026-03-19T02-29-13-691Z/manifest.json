@@ -1,0 +1,22 @@
+{
+  "generatedAt": "2026-03-19T02:29:13.825Z",
+  "baseUrl": "http://localhost:3001",
+  "snapshotDir": "C:\\Users\\Lenovo\\Desktop\\Conviction_Atlas\\data\\downloads\\2026-03-19T02-29-13-691Z",
+  "apiAvailable": true,
+  "exportedTokenIds": [
+    "cmmwueqyc009huruo7oej0d0p",
+    "cmmwueqxk0001uruor1lgbrlq",
+    "cmmwueqxz004ruruon71uxym4"
+  ],
+  "dbCounts": {
+    "managerCount": 4,
+    "opportunityCount": 24,
+    "rawIngestionCount": 120,
+    "newsItemCount": 20,
+    "signalCount": 192,
+    "managerDecisionCount": 96,
+    "portfolioSnapshotCount": 8,
+    "performanceSnapshotCount": 8,
+    "memoCount": 3
+  }
+}

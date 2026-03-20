@@ -1,0 +1,5 @@
+slug,name,nav,cumulativeReturn,sharpe,hitRate,averageRating
+event-driven-manager,Event-driven Manager,100,0,0,0,
+quant-manager,Quant Manager,99.98,-0.0002,-0.0001,0,
+hybrid-manager,Hybrid Manager,96.0988,-0.039,-139.3,0.2,
+narrative-manager,Narrative Manager,95.9812,-0.0402,-143.5427,0.2,

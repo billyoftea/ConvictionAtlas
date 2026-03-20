@@ -1,0 +1,2983 @@
+{
+  "detail": {
+    "ok": true,
+    "status": 200,
+    "data": {
+      "id": "cmmwueqxz004ruruon71uxym4",
+      "externalKey": "coingecko:ethereum",
+      "sourceKind": "COINGECKO",
+      "type": "TOKEN",
+      "slug": "ethereum-eth",
+      "title": "Ethereum",
+      "symbol": "ETH",
+      "summary": "Ethereum ranks #2 by market cap with -5.6% 24h move.",
+      "description": "Ethereum is tracked from CoinGecko market data.",
+      "imageUrl": "https://coin-images.coingecko.com/coins/images/279/large/ethereum.png?1696501628",
+      "sourceUrl": "https://www.coingecko.com/en/coins/ethereum",
+      "status": "active",
+      "category": "token",
+      "currentPrice": 2201.25,
+      "priceChange24h": -5.59967,
+      "volume24h": 25385635790,
+      "marketCap": 265754345055,
+      "liquidity": 25385635790,
+      "eventDate": null,
+      "lastUpdatedAt": "2026-03-19T02:23:06.712Z",
+      "metadata": {
+        "marketCapRank": 2,
+        "ath": 4946.05,
+        "athGap": 0.5549476
+      },
+      "createdAt": "2026-03-19T02:20:15.719Z",
+      "updatedAt": "2026-03-19T02:24:10.121Z",
+      "signals": [
+        {
+          "id": "cmmwumnap03k0uruoqrkx391j",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "name": "risk_flag",
+          "value": 0.224,
+          "direction": "NEUTRAL",
+          "confidence": 0.374,
+          "rationale": "Higher values imply timing, liquidity, or volatility risk.",
+          "metadata": "{\"generator\":\"signal-engine-v1\"}",
+          "computedAt": "2026-03-19T02:26:24.241Z"
+        },
+        {
+          "id": "cmmwumnap03jzuruo9uq0ctoc",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "name": "price_dislocation",
+          "value": 0.3977,
+          "direction": "BULLISH",
+          "confidence": 0.5477,
+          "rationale": "Distance from fair-value proxy or crowded range.",
+          "metadata": "{\"generator\":\"signal-engine-v1\"}",
+          "computedAt": "2026-03-19T02:26:24.241Z"
+        },
+        {
+          "id": "cmmwumnap03jyuruo955erl97",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "name": "probability_edge",
+          "value": -0.3733,
+          "direction": "BEARISH",
+          "confidence": 0.5233,
+          "rationale": "Current price expressed as directional edge.",
+          "metadata": "{\"generator\":\"signal-engine-v1\"}",
+          "computedAt": "2026-03-19T02:26:24.241Z"
+        },
+        {
+          "id": "cmmwumnap03jxuruoho9xxqoe",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "name": "event_proximity",
+          "value": 0,
+          "direction": "NEUTRAL",
+          "confidence": 0.2,
+          "rationale": "No explicit catalyst date attached.",
+          "metadata": "{\"generator\":\"signal-engine-v1\"}",
+          "computedAt": "2026-03-19T02:26:24.241Z"
+        },
+        {
+          "id": "cmmwumnap03jwuruoidakx50q",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "name": "narrative_strength",
+          "value": 0.341,
+          "direction": "BULLISH",
+          "confidence": 0.491,
+          "rationale": "Composite of attention, trend strength, and turnover.",
+          "metadata": "{\"generator\":\"signal-engine-v1\"}",
+          "computedAt": "2026-03-19T02:26:24.241Z"
+        },
+        {
+          "id": "cmmwumnap03jvuruov2w334gi",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "name": "news_heat",
+          "value": 0.5,
+          "direction": "BULLISH",
+          "confidence": 0.65,
+          "rationale": "2 recent article(s) mapped to this opportunity.",
+          "metadata": "{\"generator\":\"signal-engine-v1\"}",
+          "computedAt": "2026-03-19T02:26:24.241Z"
+        },
+        {
+          "id": "cmmwumnap03juuruogu0rghwh",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "name": "volume_spike",
+          "value": 0.464,
+          "direction": "BULLISH",
+          "confidence": 0.614,
+          "rationale": "Turnover intensity versus market cap or orderbook liquidity.",
+          "metadata": "{\"generator\":\"signal-engine-v1\"}",
+          "computedAt": "2026-03-19T02:26:24.241Z"
+        },
+        {
+          "id": "cmmwumnap03jturuo5zyy0aii",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "name": "market_momentum",
+          "value": -0.28,
+          "direction": "BEARISH",
+          "confidence": 0.43,
+          "rationale": "24h move at -5.6%.",
+          "metadata": "{\"generator\":\"signal-engine-v1\"}",
+          "computedAt": "2026-03-19T02:26:24.241Z"
+        }
+      ],
+      "newsItems": [
+        {
+          "id": "cmmwug5y401leuruotr8zchqy",
+          "provider": "GNEWS",
+          "externalId": "https://www.benzinga.com/trading-ideas/movers/26/03/51334668/ethereum-falls-5-as-bitcoin-loses-momentum",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "title": "Ethereum Falls 5% As Bitcoin Loses Momentum",
+          "summary": "Ethereum (CRYPTO: ETH) is trading lower Wednesday afternoon, down 5.4% on the day to about $2,200 as broader crypto weakness intensifies after Bitcoin",
+          "url": "https://www.benzinga.com/trading-ideas/movers/26/03/51334668/ethereum-falls-5-as-bitcoin-loses-momentum",
+          "imageUrl": "https://cdn.benzinga.com/files/images/story/2026/03/18/Ethereum-Hits-New-Record--Ethereum-And-N.jpeg?width=1200&height=800&fit=crop",
+          "publishedAt": "2026-03-18T13:52:00.000Z",
+          "sourceName": "Benzinga",
+          "sentimentScore": null,
+          "metadata": "{\"query\":\"\\\"Ethereum\\\" OR \\\"ETH\\\" crypto\",\"matchedOpportunity\":\"Ethereum\",\"providerMetadata\":null}",
+          "createdAt": "2026-03-19T02:21:21.820Z"
+        },
+        {
+          "id": "cmmwug5yp01lkuruoaowja8sr",
+          "provider": "GNEWS",
+          "externalId": "https://techbullion.com/this-0-04-emerging-crypto-hits-300-growth-why-analysts-eye-another-5x-move/",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "title": "This $0.04 Emerging Crypto Hits 300% Growth, Why Analysts Eye Another 5x Move",
+          "summary": "Ethereum based Mutuum Finance (MUTM) is positioning itself as a primary utility hub ahead of Q2 2026. By combining a functional V1 engine with au",
+          "url": "https://techbullion.com/this-0-04-emerging-crypto-hits-300-growth-why-analysts-eye-another-5x-move/",
+          "imageUrl": "https://techbullion.com/wp-content/uploads/2026/03/Screenshot-2026-03-18-172227.png",
+          "publishedAt": "2026-03-18T12:26:23.000Z",
+          "sourceName": "TechBullion",
+          "sentimentScore": null,
+          "metadata": "{\"query\":\"\\\"Ethereum\\\" OR \\\"ETH\\\" crypto\",\"matchedOpportunity\":\"Ethereum\",\"providerMetadata\":null}",
+          "createdAt": "2026-03-19T02:21:21.841Z"
+        }
+      ],
+      "historyPoints": [
+        {
+          "id": "cmmwujbbs0211uruo62ml66mu",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-12T02:23:06.712Z",
+          "price": 2055.842606,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbs0212uruoyur1mw46",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-12T03:23:28.268Z",
+          "price": 2045.775297,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbs0213uruozwofrrid",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-12T04:23:49.825Z",
+          "price": 2024.912361,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbs0214uruo59oow46l",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-12T05:24:11.382Z",
+          "price": 2023.110753,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbs0215uruomnzfwwde",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-12T06:24:32.939Z",
+          "price": 2022.744927,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbs0216uruoybxx81e9",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-12T07:24:54.496Z",
+          "price": 2026.332158,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbs0217uruor5aefvnd",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-12T08:25:16.053Z",
+          "price": 2029.968731,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbs0218uruoo9pexoam",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-12T09:25:37.610Z",
+          "price": 2040.083841,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbs0219uruoeasiydak",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-12T10:25:59.167Z",
+          "price": 2047.242695,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbs021auruo3drvoahk",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-12T11:26:20.723Z",
+          "price": 2055.68943,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbs021buruokoism61p",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-12T12:26:42.280Z",
+          "price": 2069.940515,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbs021curuorudrjv0i",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-12T13:27:03.837Z",
+          "price": 2063.366694,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbs021duruo7y22l8bf",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-12T14:27:25.394Z",
+          "price": 2065.512797,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbs021euruob24o4l40",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-12T15:27:46.951Z",
+          "price": 2064.995717,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbs021furuoohu9s5nb",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-12T16:28:08.508Z",
+          "price": 2044.894404,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbs021guruo6o1ifmwm",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-12T17:28:30.065Z",
+          "price": 2071.053324,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbs021huruoinslgosv",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-12T18:28:51.622Z",
+          "price": 2069.662223,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbs021iuruox775sdjs",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-12T19:29:13.179Z",
+          "price": 2059.11938,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbs021juruomj68buwk",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-12T20:29:34.735Z",
+          "price": 2049.100947,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbs021kuruoj9nal33a",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-12T21:29:56.292Z",
+          "price": 2071.533664,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbs021luruofy0azxp3",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-12T22:30:17.849Z",
+          "price": 2063.075783,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbs021muruoet1w8gw4",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-12T23:30:39.406Z",
+          "price": 2063.784957,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbs021nuruo9kfas9s6",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-13T00:31:00.963Z",
+          "price": 2064.72314,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbs021ouruonlzpckxg",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-13T01:31:22.520Z",
+          "price": 2073.080307,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbs021puruo2ke8c7pi",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-13T02:31:44.077Z",
+          "price": 2119.459012,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbs021quruosk4mpy0b",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-13T03:32:05.634Z",
+          "price": 2124.20122,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbs021ruruocsxeixct",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-13T04:32:27.191Z",
+          "price": 2106.204773,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbs021suruohvfo4h8e",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-13T05:32:48.747Z",
+          "price": 2118.482251,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbs021turuogxb2chdc",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-13T06:33:10.304Z",
+          "price": 2110.850368,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbs021uuruo1gxezu7f",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-13T07:33:31.861Z",
+          "price": 2111.903264,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbs021vuruoyv5za6ar",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-13T08:33:53.418Z",
+          "price": 2097.774412,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbs021wuruoy258myac",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-13T09:34:14.975Z",
+          "price": 2100.353586,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbs021xuruo5p1ifg0t",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-13T10:34:36.532Z",
+          "price": 2100.57357,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbs021yuruoyu6paknp",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-13T11:34:58.089Z",
+          "price": 2113.891944,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbs021zuruotu0kv52l",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-13T12:35:19.646Z",
+          "price": 2127.636932,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbs0220uruocfg0srdg",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-13T13:35:41.203Z",
+          "price": 2121.722576,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbs0221uruorqi3raq9",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-13T14:36:02.759Z",
+          "price": 2147.414009,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbs0222uruodvxbic5v",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-13T15:36:24.316Z",
+          "price": 2188.529984,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbs0223uruoeygjl9l2",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-13T16:36:45.873Z",
+          "price": 2149.18392,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt0224uruoxmv8vycm",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-13T17:37:07.430Z",
+          "price": 2127.915387,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt0225uruo1gpib8y3",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-13T18:37:28.987Z",
+          "price": 2136.314421,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt0226uruoox0ybalp",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-13T19:37:50.544Z",
+          "price": 2100.126975,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt0227uruo5nx00psb",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-13T20:38:12.101Z",
+          "price": 2101.414136,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt0228uruojtw5gv3e",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-13T21:38:33.658Z",
+          "price": 2102.70509,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt0229uruohpzm0j02",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-13T22:38:55.214Z",
+          "price": 2111.429288,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt022auruojmriphc5",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-13T23:39:16.771Z",
+          "price": 2104.667998,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt022buruof589j4ts",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-14T00:39:38.328Z",
+          "price": 2089.383529,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt022curuomorxzey1",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-14T01:39:59.885Z",
+          "price": 2093.00634,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt022duruok1qk4td5",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-14T02:40:21.442Z",
+          "price": 2086.531734,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt022euruo7h13m8jp",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-14T03:40:42.999Z",
+          "price": 2093.541688,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt022furuojmq3pxcr",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-14T04:41:04.556Z",
+          "price": 2093.716802,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt022guruoecenrv87",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-14T05:41:26.113Z",
+          "price": 2101.060052,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt022huruo8ibk9yx6",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-14T06:41:47.670Z",
+          "price": 2090.532142,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt022iuruonlop8ldh",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-14T07:42:09.226Z",
+          "price": 2092.313759,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt022juruoo49ufxra",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-14T08:42:30.783Z",
+          "price": 2078.654139,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt022kuruou2dmqnrx",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-14T09:42:52.340Z",
+          "price": 2077.956119,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt022luruok96djk4x",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-14T10:43:13.897Z",
+          "price": 2074.295806,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt022muruo8ar5b6xn",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-14T11:43:35.454Z",
+          "price": 2067.741744,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt022nuruoi8tueydo",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-14T12:43:57.011Z",
+          "price": 2066.500552,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt022ouruoowutze0d",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-14T13:44:18.568Z",
+          "price": 2073.41939,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt022puruoqtxpe6m4",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-14T14:44:40.125Z",
+          "price": 2074.805608,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt022quruon0becyu1",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-14T15:45:01.682Z",
+          "price": 2078.919213,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt022ruruoifda7lef",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-14T16:45:23.238Z",
+          "price": 2072.675556,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt022suruo3ewm9yz7",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-14T17:45:44.795Z",
+          "price": 2074.820617,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt022turuo5y5vuuv7",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-14T18:46:06.352Z",
+          "price": 2077.756667,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt022uuruob84kwq06",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-14T19:46:27.909Z",
+          "price": 2075.069757,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt022vuruodjwzkoae",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-14T20:46:49.466Z",
+          "price": 2077.460251,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt022wuruo65n0qlqw",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-14T21:47:11.023Z",
+          "price": 2077.413885,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt022xuruo4pgu8ffl",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-14T22:47:32.580Z",
+          "price": 2086.783851,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt022yuruo8s963cb1",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-14T23:47:54.137Z",
+          "price": 2087.745146,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt022zuruoq57soe8x",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-15T00:48:15.694Z",
+          "price": 2083.960659,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt0230uruo7uypg4zt",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-15T01:48:37.250Z",
+          "price": 2094.205222,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt0231uruorya6y0cu",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-15T02:48:58.807Z",
+          "price": 2088.865057,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt0232uruoztgjagh4",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-15T03:49:20.364Z",
+          "price": 2092.731319,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt0233uruoof8gq2xa",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-15T04:49:41.921Z",
+          "price": 2102.590003,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt0234uruoad31rwy2",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-15T05:50:03.478Z",
+          "price": 2098.892911,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt0235uruofwxp570i",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-15T06:50:25.035Z",
+          "price": 2103.822502,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt0236uruo0he0ih83",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-15T07:50:46.592Z",
+          "price": 2110.462342,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt0237uruo8k5jpzb0",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-15T08:51:08.149Z",
+          "price": 2109.342116,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt0238uruo63ct9r56",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-15T09:51:29.706Z",
+          "price": 2105.490215,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt0239uruoyj7npu22",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-15T10:51:51.262Z",
+          "price": 2111.459203,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt023auruoc0icgtba",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-15T11:52:12.819Z",
+          "price": 2117.825193,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt023buruoprepf3tf",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-15T12:52:34.376Z",
+          "price": 2119.776141,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt023curuo91i7z0yv",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-15T13:52:55.933Z",
+          "price": 2119.87161,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt023duruow00uvbdv",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-15T14:53:17.490Z",
+          "price": 2109.406954,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt023euruocl92mbe6",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-15T15:53:39.047Z",
+          "price": 2095.381821,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt023furuoc5sra2cy",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-15T16:54:00.604Z",
+          "price": 2096.621033,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt023guruocefgibyc",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-15T17:54:22.161Z",
+          "price": 2094.216757,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt023huruogg45gcfn",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-15T18:54:43.717Z",
+          "price": 2092.138008,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt023iuruom40w98p7",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-15T19:55:05.274Z",
+          "price": 2110.299178,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt023juruo75m8yvym",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-15T20:55:26.831Z",
+          "price": 2099.208475,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt023kuruogbxkx4hh",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-15T21:55:48.388Z",
+          "price": 2113.450919,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt023luruonz7iidct",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-15T22:56:09.945Z",
+          "price": 2129.721196,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt023muruo8jifjcn2",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-15T23:56:31.502Z",
+          "price": 2138.004508,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt023nuruoon874jcw",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-16T00:56:53.059Z",
+          "price": 2184.567994,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt023ouruoitw44zyu",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-16T01:57:14.616Z",
+          "price": 2177.721023,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt023puruo6j3obvo4",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-16T02:57:36.173Z",
+          "price": 2171.948603,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt023quruo3lxns8jc",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-16T03:57:57.729Z",
+          "price": 2185.945886,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt023ruruo3s7z1ruv",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-16T04:58:19.286Z",
+          "price": 2182.05212,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt023suruokv3mgm1t",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-16T05:58:40.843Z",
+          "price": 2237.700196,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt023turuoq5f9ga0u",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-16T06:59:02.400Z",
+          "price": 2263.522919,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt023uuruoa0w2xyyh",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-16T07:59:23.957Z",
+          "price": 2283.798648,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt023vuruox9qy5ox3",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-16T08:59:45.514Z",
+          "price": 2262.235196,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt023wuruod5dfwnc6",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-16T10:00:07.071Z",
+          "price": 2249.471351,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt023xuruon2i0gdmx",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-16T11:00:28.628Z",
+          "price": 2243.899,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt023yuruojo9pmktl",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-16T12:00:50.185Z",
+          "price": 2260.257707,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt023zuruokmacxcjw",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-16T13:01:11.741Z",
+          "price": 2277.103409,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt0240uruop589kvam",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-16T14:01:33.298Z",
+          "price": 2270.52743,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt0241uruojgnl2jor",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-16T15:01:54.855Z",
+          "price": 2279.495254,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt0242uruoxu8twclj",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-16T16:02:16.412Z",
+          "price": 2284.265016,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt0243uruo62pfx50u",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-16T17:02:37.969Z",
+          "price": 2282.643859,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt0244uruoo60wl7j6",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-16T18:02:59.526Z",
+          "price": 2273.037851,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt0245uruo082er5l9",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-16T19:03:21.083Z",
+          "price": 2297.661151,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt0246uruomfy3qhtl",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-16T20:03:42.640Z",
+          "price": 2315.044913,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt0247uruoq9rxc5qn",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-16T21:04:04.197Z",
+          "price": 2323.968954,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt0248uruoqbwfp9k9",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-16T22:04:25.753Z",
+          "price": 2332.022068,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt0249uruo5r4z1y1p",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-16T23:04:47.310Z",
+          "price": 2345.783058,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt024auruo4t866brv",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-17T00:05:08.867Z",
+          "price": 2361.508324,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt024buruos2et5qmx",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-17T01:05:30.424Z",
+          "price": 2357.561738,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbt024curuo9rolzqgs",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-17T02:05:51.981Z",
+          "price": 2351.17293,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbu024duruo52gszx52",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-17T03:06:13.538Z",
+          "price": 2354.320529,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbu024euruopm6b66qi",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-17T04:06:35.095Z",
+          "price": 2360.757764,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbu024furuocwfnzxel",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-17T05:06:56.652Z",
+          "price": 2352.749753,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbu024guruotsqpulhn",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-17T06:07:18.209Z",
+          "price": 2319.329843,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbu024huruo36cz1o48",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-17T07:07:39.765Z",
+          "price": 2311.704042,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbu024iuruo704i8erj",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-17T08:08:01.322Z",
+          "price": 2306.34016,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbu024juruoegtc0mxa",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-17T09:08:22.879Z",
+          "price": 2314.986769,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbu024kuruo78aznfoq",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-17T10:08:44.436Z",
+          "price": 2326.563445,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbu024luruo38onn8ok",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-17T11:09:05.993Z",
+          "price": 2319.979622,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbu024muruoo57y92pw",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-17T12:09:27.550Z",
+          "price": 2315.183782,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbu024nuruomi0h0wvl",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-17T13:09:49.107Z",
+          "price": 2312.60361,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbu024ouruocphanaty",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-17T14:10:10.664Z",
+          "price": 2327.573227,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbu024puruolnxsxfb9",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-17T15:10:32.220Z",
+          "price": 2315.858487,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbu024quruo98l6gt0b",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-17T16:10:53.777Z",
+          "price": 2330.004053,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbu024ruruo13b9zq9u",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-17T17:11:15.334Z",
+          "price": 2344.015447,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbu024suruolkwh7rzp",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-17T18:11:36.891Z",
+          "price": 2315.92641,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbu024turuogxb7vyk5",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-17T19:11:58.448Z",
+          "price": 2326.029159,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbu024uuruo7l39ewre",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-17T20:12:20.005Z",
+          "price": 2340.236147,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbu024vuruoay3hmg64",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-17T21:12:41.562Z",
+          "price": 2332.136742,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbu024wuruoypdgk17o",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-17T22:13:03.119Z",
+          "price": 2320.999676,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbu024xuruoxg8wm3vf",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-17T23:13:24.676Z",
+          "price": 2328.610212,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbu024yuruo2h1xqom5",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-18T00:13:46.232Z",
+          "price": 2338.832574,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbu024zuruoyltj70fl",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-18T01:14:07.789Z",
+          "price": 2329.484866,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbu0250uruozq6kf27i",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-18T02:14:29.346Z",
+          "price": 2318.119603,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbu0251uruoqh33z9l3",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-18T03:14:50.903Z",
+          "price": 2324.000809,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbu0252uruo01afussm",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-18T04:15:12.460Z",
+          "price": 2325.776395,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbu0253uruoel2k1u5d",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-18T05:15:34.017Z",
+          "price": 2332.149808,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbu0254uruor1glcjnh",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-18T06:15:55.574Z",
+          "price": 2340.993298,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbu0255uruo0op3euoj",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-18T07:16:17.131Z",
+          "price": 2328.018288,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbu0256uruosyfb2fq3",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-18T08:16:38.688Z",
+          "price": 2318.453138,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbu0257uruo8sk8qi16",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-18T09:17:00.244Z",
+          "price": 2323.799865,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbu0258uruo6f2fhynz",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-18T10:17:21.801Z",
+          "price": 2318.167419,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbu0259uruot7zx30uk",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-18T11:17:43.358Z",
+          "price": 2322.440163,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbu025auruob9idf8o0",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-18T12:18:04.915Z",
+          "price": 2328.847424,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbu025buruocwj9cpzc",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-18T13:18:26.472Z",
+          "price": 2312.529454,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbu025curuoguvophvn",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-18T14:18:48.029Z",
+          "price": 2269.394786,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbu025duruou03rrd7x",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-18T15:19:09.586Z",
+          "price": 2238.656311,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbu025euruo4qh8zbqr",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-18T16:19:31.143Z",
+          "price": 2233.608576,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbu025furuovo0slg4s",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-18T17:19:52.700Z",
+          "price": 2191.074314,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbu025guruoq2zlqezo",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-18T18:20:14.256Z",
+          "price": 2188.712018,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbu025huruo1aflf9fo",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-18T19:20:35.813Z",
+          "price": 2181.960459,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbu025iuruoqw89pq0u",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-18T20:20:57.370Z",
+          "price": 2203.576187,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbu025juruongsw4gzf",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-18T21:21:18.927Z",
+          "price": 2178.890261,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbu025kuruon54cktr1",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-18T22:21:40.484Z",
+          "price": 2185.000229,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbu025luruoiwq2y7tf",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-18T23:22:02.041Z",
+          "price": 2188.384185,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbu025muruohbymamfz",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-19T00:22:23.598Z",
+          "price": 2204.386214,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbu025nuruoldjm82d3",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-19T01:22:45.155Z",
+          "price": 2193.698182,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        },
+        {
+          "id": "cmmwujbbu025ouruoitfstjbr",
+          "opportunityId": "cmmwueqxz004ruruon71uxym4",
+          "pointAt": "2026-03-19T02:23:06.712Z",
+          "price": 2203.380058,
+          "volume": 25385635790,
+          "metadata": "{\"source\":\"sparkline_7d\"}"
+        }
+      ]
+    }
+  },
+  "signals": {
+    "ok": true,
+    "status": 200,
+    "data": [
+      {
+        "id": "cmmwumnap03k0uruoqrkx391j",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "name": "risk_flag",
+        "value": 0.224,
+        "direction": "NEUTRAL",
+        "confidence": 0.374,
+        "rationale": "Higher values imply timing, liquidity, or volatility risk.",
+        "metadata": "{\"generator\":\"signal-engine-v1\"}",
+        "computedAt": "2026-03-19T02:26:24.241Z"
+      },
+      {
+        "id": "cmmwumnap03jzuruo9uq0ctoc",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "name": "price_dislocation",
+        "value": 0.3977,
+        "direction": "BULLISH",
+        "confidence": 0.5477,
+        "rationale": "Distance from fair-value proxy or crowded range.",
+        "metadata": "{\"generator\":\"signal-engine-v1\"}",
+        "computedAt": "2026-03-19T02:26:24.241Z"
+      },
+      {
+        "id": "cmmwumnap03jyuruo955erl97",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "name": "probability_edge",
+        "value": -0.3733,
+        "direction": "BEARISH",
+        "confidence": 0.5233,
+        "rationale": "Current price expressed as directional edge.",
+        "metadata": "{\"generator\":\"signal-engine-v1\"}",
+        "computedAt": "2026-03-19T02:26:24.241Z"
+      },
+      {
+        "id": "cmmwumnap03jxuruoho9xxqoe",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "name": "event_proximity",
+        "value": 0,
+        "direction": "NEUTRAL",
+        "confidence": 0.2,
+        "rationale": "No explicit catalyst date attached.",
+        "metadata": "{\"generator\":\"signal-engine-v1\"}",
+        "computedAt": "2026-03-19T02:26:24.241Z"
+      },
+      {
+        "id": "cmmwumnap03jwuruoidakx50q",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "name": "narrative_strength",
+        "value": 0.341,
+        "direction": "BULLISH",
+        "confidence": 0.491,
+        "rationale": "Composite of attention, trend strength, and turnover.",
+        "metadata": "{\"generator\":\"signal-engine-v1\"}",
+        "computedAt": "2026-03-19T02:26:24.241Z"
+      },
+      {
+        "id": "cmmwumnap03jvuruov2w334gi",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "name": "news_heat",
+        "value": 0.5,
+        "direction": "BULLISH",
+        "confidence": 0.65,
+        "rationale": "2 recent article(s) mapped to this opportunity.",
+        "metadata": "{\"generator\":\"signal-engine-v1\"}",
+        "computedAt": "2026-03-19T02:26:24.241Z"
+      },
+      {
+        "id": "cmmwumnap03juuruogu0rghwh",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "name": "volume_spike",
+        "value": 0.464,
+        "direction": "BULLISH",
+        "confidence": 0.614,
+        "rationale": "Turnover intensity versus market cap or orderbook liquidity.",
+        "metadata": "{\"generator\":\"signal-engine-v1\"}",
+        "computedAt": "2026-03-19T02:26:24.241Z"
+      },
+      {
+        "id": "cmmwumnap03jturuo5zyy0aii",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "name": "market_momentum",
+        "value": -0.28,
+        "direction": "BEARISH",
+        "confidence": 0.43,
+        "rationale": "24h move at -5.6%.",
+        "metadata": "{\"generator\":\"signal-engine-v1\"}",
+        "computedAt": "2026-03-19T02:26:24.241Z"
+      }
+    ]
+  },
+  "news": {
+    "ok": true,
+    "status": 200,
+    "data": [
+      {
+        "id": "cmmwug5y401leuruotr8zchqy",
+        "provider": "GNEWS",
+        "externalId": "https://www.benzinga.com/trading-ideas/movers/26/03/51334668/ethereum-falls-5-as-bitcoin-loses-momentum",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "title": "Ethereum Falls 5% As Bitcoin Loses Momentum",
+        "summary": "Ethereum (CRYPTO: ETH) is trading lower Wednesday afternoon, down 5.4% on the day to about $2,200 as broader crypto weakness intensifies after Bitcoin",
+        "url": "https://www.benzinga.com/trading-ideas/movers/26/03/51334668/ethereum-falls-5-as-bitcoin-loses-momentum",
+        "imageUrl": "https://cdn.benzinga.com/files/images/story/2026/03/18/Ethereum-Hits-New-Record--Ethereum-And-N.jpeg?width=1200&height=800&fit=crop",
+        "publishedAt": "2026-03-18T13:52:00.000Z",
+        "sourceName": "Benzinga",
+        "sentimentScore": null,
+        "metadata": "{\"query\":\"\\\"Ethereum\\\" OR \\\"ETH\\\" crypto\",\"matchedOpportunity\":\"Ethereum\",\"providerMetadata\":null}",
+        "createdAt": "2026-03-19T02:21:21.820Z"
+      },
+      {
+        "id": "cmmwug5yp01lkuruoaowja8sr",
+        "provider": "GNEWS",
+        "externalId": "https://techbullion.com/this-0-04-emerging-crypto-hits-300-growth-why-analysts-eye-another-5x-move/",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "title": "This $0.04 Emerging Crypto Hits 300% Growth, Why Analysts Eye Another 5x Move",
+        "summary": "Ethereum based Mutuum Finance (MUTM) is positioning itself as a primary utility hub ahead of Q2 2026. By combining a functional V1 engine with au",
+        "url": "https://techbullion.com/this-0-04-emerging-crypto-hits-300-growth-why-analysts-eye-another-5x-move/",
+        "imageUrl": "https://techbullion.com/wp-content/uploads/2026/03/Screenshot-2026-03-18-172227.png",
+        "publishedAt": "2026-03-18T12:26:23.000Z",
+        "sourceName": "TechBullion",
+        "sentimentScore": null,
+        "metadata": "{\"query\":\"\\\"Ethereum\\\" OR \\\"ETH\\\" crypto\",\"matchedOpportunity\":\"Ethereum\",\"providerMetadata\":null}",
+        "createdAt": "2026-03-19T02:21:21.841Z"
+      }
+    ]
+  },
+  "history": {
+    "ok": true,
+    "status": 200,
+    "data": [
+      {
+        "id": "cmmwujbbs0211uruo62ml66mu",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-12T02:23:06.712Z",
+        "price": 2055.842606,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbs0212uruoyur1mw46",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-12T03:23:28.268Z",
+        "price": 2045.775297,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbs0213uruozwofrrid",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-12T04:23:49.825Z",
+        "price": 2024.912361,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbs0214uruo59oow46l",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-12T05:24:11.382Z",
+        "price": 2023.110753,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbs0215uruomnzfwwde",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-12T06:24:32.939Z",
+        "price": 2022.744927,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbs0216uruoybxx81e9",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-12T07:24:54.496Z",
+        "price": 2026.332158,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbs0217uruor5aefvnd",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-12T08:25:16.053Z",
+        "price": 2029.968731,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbs0218uruoo9pexoam",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-12T09:25:37.610Z",
+        "price": 2040.083841,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbs0219uruoeasiydak",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-12T10:25:59.167Z",
+        "price": 2047.242695,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbs021auruo3drvoahk",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-12T11:26:20.723Z",
+        "price": 2055.68943,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbs021buruokoism61p",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-12T12:26:42.280Z",
+        "price": 2069.940515,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbs021curuorudrjv0i",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-12T13:27:03.837Z",
+        "price": 2063.366694,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbs021duruo7y22l8bf",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-12T14:27:25.394Z",
+        "price": 2065.512797,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbs021euruob24o4l40",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-12T15:27:46.951Z",
+        "price": 2064.995717,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbs021furuoohu9s5nb",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-12T16:28:08.508Z",
+        "price": 2044.894404,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbs021guruo6o1ifmwm",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-12T17:28:30.065Z",
+        "price": 2071.053324,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbs021huruoinslgosv",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-12T18:28:51.622Z",
+        "price": 2069.662223,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbs021iuruox775sdjs",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-12T19:29:13.179Z",
+        "price": 2059.11938,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbs021juruomj68buwk",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-12T20:29:34.735Z",
+        "price": 2049.100947,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbs021kuruoj9nal33a",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-12T21:29:56.292Z",
+        "price": 2071.533664,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbs021luruofy0azxp3",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-12T22:30:17.849Z",
+        "price": 2063.075783,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbs021muruoet1w8gw4",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-12T23:30:39.406Z",
+        "price": 2063.784957,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbs021nuruo9kfas9s6",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-13T00:31:00.963Z",
+        "price": 2064.72314,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbs021ouruonlzpckxg",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-13T01:31:22.520Z",
+        "price": 2073.080307,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbs021puruo2ke8c7pi",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-13T02:31:44.077Z",
+        "price": 2119.459012,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbs021quruosk4mpy0b",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-13T03:32:05.634Z",
+        "price": 2124.20122,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbs021ruruocsxeixct",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-13T04:32:27.191Z",
+        "price": 2106.204773,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbs021suruohvfo4h8e",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-13T05:32:48.747Z",
+        "price": 2118.482251,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbs021turuogxb2chdc",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-13T06:33:10.304Z",
+        "price": 2110.850368,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbs021uuruo1gxezu7f",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-13T07:33:31.861Z",
+        "price": 2111.903264,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbs021vuruoyv5za6ar",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-13T08:33:53.418Z",
+        "price": 2097.774412,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbs021wuruoy258myac",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-13T09:34:14.975Z",
+        "price": 2100.353586,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbs021xuruo5p1ifg0t",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-13T10:34:36.532Z",
+        "price": 2100.57357,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbs021yuruoyu6paknp",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-13T11:34:58.089Z",
+        "price": 2113.891944,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbs021zuruotu0kv52l",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-13T12:35:19.646Z",
+        "price": 2127.636932,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbs0220uruocfg0srdg",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-13T13:35:41.203Z",
+        "price": 2121.722576,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbs0221uruorqi3raq9",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-13T14:36:02.759Z",
+        "price": 2147.414009,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbs0222uruodvxbic5v",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-13T15:36:24.316Z",
+        "price": 2188.529984,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbs0223uruoeygjl9l2",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-13T16:36:45.873Z",
+        "price": 2149.18392,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt0224uruoxmv8vycm",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-13T17:37:07.430Z",
+        "price": 2127.915387,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt0225uruo1gpib8y3",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-13T18:37:28.987Z",
+        "price": 2136.314421,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt0226uruoox0ybalp",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-13T19:37:50.544Z",
+        "price": 2100.126975,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt0227uruo5nx00psb",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-13T20:38:12.101Z",
+        "price": 2101.414136,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt0228uruojtw5gv3e",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-13T21:38:33.658Z",
+        "price": 2102.70509,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt0229uruohpzm0j02",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-13T22:38:55.214Z",
+        "price": 2111.429288,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt022auruojmriphc5",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-13T23:39:16.771Z",
+        "price": 2104.667998,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt022buruof589j4ts",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-14T00:39:38.328Z",
+        "price": 2089.383529,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt022curuomorxzey1",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-14T01:39:59.885Z",
+        "price": 2093.00634,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt022duruok1qk4td5",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-14T02:40:21.442Z",
+        "price": 2086.531734,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt022euruo7h13m8jp",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-14T03:40:42.999Z",
+        "price": 2093.541688,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt022furuojmq3pxcr",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-14T04:41:04.556Z",
+        "price": 2093.716802,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt022guruoecenrv87",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-14T05:41:26.113Z",
+        "price": 2101.060052,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt022huruo8ibk9yx6",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-14T06:41:47.670Z",
+        "price": 2090.532142,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt022iuruonlop8ldh",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-14T07:42:09.226Z",
+        "price": 2092.313759,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt022juruoo49ufxra",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-14T08:42:30.783Z",
+        "price": 2078.654139,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt022kuruou2dmqnrx",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-14T09:42:52.340Z",
+        "price": 2077.956119,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt022luruok96djk4x",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-14T10:43:13.897Z",
+        "price": 2074.295806,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt022muruo8ar5b6xn",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-14T11:43:35.454Z",
+        "price": 2067.741744,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt022nuruoi8tueydo",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-14T12:43:57.011Z",
+        "price": 2066.500552,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt022ouruoowutze0d",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-14T13:44:18.568Z",
+        "price": 2073.41939,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt022puruoqtxpe6m4",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-14T14:44:40.125Z",
+        "price": 2074.805608,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt022quruon0becyu1",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-14T15:45:01.682Z",
+        "price": 2078.919213,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt022ruruoifda7lef",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-14T16:45:23.238Z",
+        "price": 2072.675556,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt022suruo3ewm9yz7",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-14T17:45:44.795Z",
+        "price": 2074.820617,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt022turuo5y5vuuv7",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-14T18:46:06.352Z",
+        "price": 2077.756667,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt022uuruob84kwq06",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-14T19:46:27.909Z",
+        "price": 2075.069757,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt022vuruodjwzkoae",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-14T20:46:49.466Z",
+        "price": 2077.460251,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt022wuruo65n0qlqw",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-14T21:47:11.023Z",
+        "price": 2077.413885,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt022xuruo4pgu8ffl",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-14T22:47:32.580Z",
+        "price": 2086.783851,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt022yuruo8s963cb1",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-14T23:47:54.137Z",
+        "price": 2087.745146,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt022zuruoq57soe8x",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-15T00:48:15.694Z",
+        "price": 2083.960659,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt0230uruo7uypg4zt",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-15T01:48:37.250Z",
+        "price": 2094.205222,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt0231uruorya6y0cu",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-15T02:48:58.807Z",
+        "price": 2088.865057,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt0232uruoztgjagh4",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-15T03:49:20.364Z",
+        "price": 2092.731319,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt0233uruoof8gq2xa",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-15T04:49:41.921Z",
+        "price": 2102.590003,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt0234uruoad31rwy2",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-15T05:50:03.478Z",
+        "price": 2098.892911,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt0235uruofwxp570i",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-15T06:50:25.035Z",
+        "price": 2103.822502,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt0236uruo0he0ih83",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-15T07:50:46.592Z",
+        "price": 2110.462342,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt0237uruo8k5jpzb0",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-15T08:51:08.149Z",
+        "price": 2109.342116,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt0238uruo63ct9r56",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-15T09:51:29.706Z",
+        "price": 2105.490215,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt0239uruoyj7npu22",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-15T10:51:51.262Z",
+        "price": 2111.459203,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt023auruoc0icgtba",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-15T11:52:12.819Z",
+        "price": 2117.825193,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt023buruoprepf3tf",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-15T12:52:34.376Z",
+        "price": 2119.776141,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt023curuo91i7z0yv",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-15T13:52:55.933Z",
+        "price": 2119.87161,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt023duruow00uvbdv",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-15T14:53:17.490Z",
+        "price": 2109.406954,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt023euruocl92mbe6",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-15T15:53:39.047Z",
+        "price": 2095.381821,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt023furuoc5sra2cy",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-15T16:54:00.604Z",
+        "price": 2096.621033,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt023guruocefgibyc",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-15T17:54:22.161Z",
+        "price": 2094.216757,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt023huruogg45gcfn",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-15T18:54:43.717Z",
+        "price": 2092.138008,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt023iuruom40w98p7",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-15T19:55:05.274Z",
+        "price": 2110.299178,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt023juruo75m8yvym",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-15T20:55:26.831Z",
+        "price": 2099.208475,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt023kuruogbxkx4hh",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-15T21:55:48.388Z",
+        "price": 2113.450919,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt023luruonz7iidct",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-15T22:56:09.945Z",
+        "price": 2129.721196,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt023muruo8jifjcn2",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-15T23:56:31.502Z",
+        "price": 2138.004508,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt023nuruoon874jcw",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-16T00:56:53.059Z",
+        "price": 2184.567994,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt023ouruoitw44zyu",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-16T01:57:14.616Z",
+        "price": 2177.721023,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt023puruo6j3obvo4",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-16T02:57:36.173Z",
+        "price": 2171.948603,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt023quruo3lxns8jc",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-16T03:57:57.729Z",
+        "price": 2185.945886,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt023ruruo3s7z1ruv",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-16T04:58:19.286Z",
+        "price": 2182.05212,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt023suruokv3mgm1t",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-16T05:58:40.843Z",
+        "price": 2237.700196,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt023turuoq5f9ga0u",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-16T06:59:02.400Z",
+        "price": 2263.522919,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt023uuruoa0w2xyyh",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-16T07:59:23.957Z",
+        "price": 2283.798648,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt023vuruox9qy5ox3",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-16T08:59:45.514Z",
+        "price": 2262.235196,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt023wuruod5dfwnc6",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-16T10:00:07.071Z",
+        "price": 2249.471351,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt023xuruon2i0gdmx",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-16T11:00:28.628Z",
+        "price": 2243.899,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt023yuruojo9pmktl",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-16T12:00:50.185Z",
+        "price": 2260.257707,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt023zuruokmacxcjw",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-16T13:01:11.741Z",
+        "price": 2277.103409,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt0240uruop589kvam",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-16T14:01:33.298Z",
+        "price": 2270.52743,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt0241uruojgnl2jor",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-16T15:01:54.855Z",
+        "price": 2279.495254,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt0242uruoxu8twclj",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-16T16:02:16.412Z",
+        "price": 2284.265016,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt0243uruo62pfx50u",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-16T17:02:37.969Z",
+        "price": 2282.643859,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt0244uruoo60wl7j6",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-16T18:02:59.526Z",
+        "price": 2273.037851,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt0245uruo082er5l9",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-16T19:03:21.083Z",
+        "price": 2297.661151,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt0246uruomfy3qhtl",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-16T20:03:42.640Z",
+        "price": 2315.044913,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt0247uruoq9rxc5qn",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-16T21:04:04.197Z",
+        "price": 2323.968954,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt0248uruoqbwfp9k9",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-16T22:04:25.753Z",
+        "price": 2332.022068,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt0249uruo5r4z1y1p",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-16T23:04:47.310Z",
+        "price": 2345.783058,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt024auruo4t866brv",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-17T00:05:08.867Z",
+        "price": 2361.508324,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt024buruos2et5qmx",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-17T01:05:30.424Z",
+        "price": 2357.561738,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbt024curuo9rolzqgs",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-17T02:05:51.981Z",
+        "price": 2351.17293,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbu024duruo52gszx52",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-17T03:06:13.538Z",
+        "price": 2354.320529,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbu024euruopm6b66qi",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-17T04:06:35.095Z",
+        "price": 2360.757764,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbu024furuocwfnzxel",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-17T05:06:56.652Z",
+        "price": 2352.749753,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbu024guruotsqpulhn",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-17T06:07:18.209Z",
+        "price": 2319.329843,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbu024huruo36cz1o48",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-17T07:07:39.765Z",
+        "price": 2311.704042,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbu024iuruo704i8erj",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-17T08:08:01.322Z",
+        "price": 2306.34016,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbu024juruoegtc0mxa",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-17T09:08:22.879Z",
+        "price": 2314.986769,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbu024kuruo78aznfoq",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-17T10:08:44.436Z",
+        "price": 2326.563445,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbu024luruo38onn8ok",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-17T11:09:05.993Z",
+        "price": 2319.979622,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbu024muruoo57y92pw",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-17T12:09:27.550Z",
+        "price": 2315.183782,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbu024nuruomi0h0wvl",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-17T13:09:49.107Z",
+        "price": 2312.60361,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbu024ouruocphanaty",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-17T14:10:10.664Z",
+        "price": 2327.573227,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbu024puruolnxsxfb9",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-17T15:10:32.220Z",
+        "price": 2315.858487,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbu024quruo98l6gt0b",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-17T16:10:53.777Z",
+        "price": 2330.004053,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbu024ruruo13b9zq9u",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-17T17:11:15.334Z",
+        "price": 2344.015447,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbu024suruolkwh7rzp",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-17T18:11:36.891Z",
+        "price": 2315.92641,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbu024turuogxb7vyk5",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-17T19:11:58.448Z",
+        "price": 2326.029159,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbu024uuruo7l39ewre",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-17T20:12:20.005Z",
+        "price": 2340.236147,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbu024vuruoay3hmg64",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-17T21:12:41.562Z",
+        "price": 2332.136742,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbu024wuruoypdgk17o",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-17T22:13:03.119Z",
+        "price": 2320.999676,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbu024xuruoxg8wm3vf",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-17T23:13:24.676Z",
+        "price": 2328.610212,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbu024yuruo2h1xqom5",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-18T00:13:46.232Z",
+        "price": 2338.832574,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbu024zuruoyltj70fl",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-18T01:14:07.789Z",
+        "price": 2329.484866,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbu0250uruozq6kf27i",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-18T02:14:29.346Z",
+        "price": 2318.119603,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbu0251uruoqh33z9l3",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-18T03:14:50.903Z",
+        "price": 2324.000809,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbu0252uruo01afussm",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-18T04:15:12.460Z",
+        "price": 2325.776395,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbu0253uruoel2k1u5d",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-18T05:15:34.017Z",
+        "price": 2332.149808,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbu0254uruor1glcjnh",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-18T06:15:55.574Z",
+        "price": 2340.993298,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbu0255uruo0op3euoj",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-18T07:16:17.131Z",
+        "price": 2328.018288,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbu0256uruosyfb2fq3",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-18T08:16:38.688Z",
+        "price": 2318.453138,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbu0257uruo8sk8qi16",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-18T09:17:00.244Z",
+        "price": 2323.799865,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbu0258uruo6f2fhynz",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-18T10:17:21.801Z",
+        "price": 2318.167419,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbu0259uruot7zx30uk",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-18T11:17:43.358Z",
+        "price": 2322.440163,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbu025auruob9idf8o0",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-18T12:18:04.915Z",
+        "price": 2328.847424,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbu025buruocwj9cpzc",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-18T13:18:26.472Z",
+        "price": 2312.529454,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbu025curuoguvophvn",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-18T14:18:48.029Z",
+        "price": 2269.394786,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbu025duruou03rrd7x",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-18T15:19:09.586Z",
+        "price": 2238.656311,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbu025euruo4qh8zbqr",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-18T16:19:31.143Z",
+        "price": 2233.608576,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbu025furuovo0slg4s",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-18T17:19:52.700Z",
+        "price": 2191.074314,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbu025guruoq2zlqezo",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-18T18:20:14.256Z",
+        "price": 2188.712018,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbu025huruo1aflf9fo",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-18T19:20:35.813Z",
+        "price": 2181.960459,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbu025iuruoqw89pq0u",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-18T20:20:57.370Z",
+        "price": 2203.576187,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbu025juruongsw4gzf",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-18T21:21:18.927Z",
+        "price": 2178.890261,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbu025kuruon54cktr1",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-18T22:21:40.484Z",
+        "price": 2185.000229,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbu025luruoiwq2y7tf",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-18T23:22:02.041Z",
+        "price": 2188.384185,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbu025muruohbymamfz",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-19T00:22:23.598Z",
+        "price": 2204.386214,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbu025nuruoldjm82d3",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-19T01:22:45.155Z",
+        "price": 2193.698182,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      },
+      {
+        "id": "cmmwujbbu025ouruoitfstjbr",
+        "opportunityId": "cmmwueqxz004ruruon71uxym4",
+        "pointAt": "2026-03-19T02:23:06.712Z",
+        "price": 2203.380058,
+        "volume": 25385635790,
+        "metadata": "{\"source\":\"sparkline_7d\"}"
+      }
+    ]
+  }
+}
