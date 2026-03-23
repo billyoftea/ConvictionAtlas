@@ -19,6 +19,38 @@ export interface PricingPlan {
   updatedAt: string;
 }
 
+export type ManagerServiceKind =
+  | 'memo_unlock'
+  | 'signal_subscription'
+  | 'custom_research'
+  | 'compare_report';
+
+export interface ManagerServiceOffer {
+  kind: ManagerServiceKind;
+  label: string;
+  amountUsd: number;
+  cadence: string;
+  description: string;
+  delivery: string;
+  protocol: string;
+  network: string;
+  asset: string;
+  featured?: boolean;
+}
+
+export interface ManagerMarketplaceProfile {
+  tagline: string;
+  chainFocus: string[];
+  paymentRail: string;
+  settlementAsset: string;
+  settlementNetwork: string;
+  identityProvider: string;
+  identityStatus: string;
+  marketplaceStatus: string;
+  serviceModes: string[];
+  serviceCatalog: ManagerServiceOffer[];
+}
+
 export interface Review {
   id: string;
   managerId: string;
@@ -179,12 +211,82 @@ export interface Memo {
   accessTier: string;
   generatedBy: string;
   createdAt: string;
+  previewContent?: string | null;
+  hasLockedContent?: boolean;
   opportunity?: OpportunitySummary | null;
 }
 
 export interface MemoUnlockResult {
   success: boolean;
   message: string;
+  memoTitle: string;
+  managerName: string;
+  content: string;
+  unlock: {
+    id: string;
+    status: string;
+    customerRef: string;
+    createdAt: string;
+  };
+  paymentRequest: {
+    protocol: string;
+    network: string;
+    asset: string;
+    amountUsd: number;
+    label: string;
+    identityProvider: string;
+    status: string;
+  };
+  settlement?: {
+    payer?: string;
+    transaction?: string;
+    network?: string;
+  };
+}
+
+export interface ResearchOrder {
+  id: string;
+  managerId: string;
+  requesterRef: string;
+  topic: string;
+  brief: string;
+  status: string;
+  paymentStatus: string;
+  paymentId: string | null;
+  paymentScheme: string | null;
+  paymentNetwork: string | null;
+  paymentAsset: string | null;
+  priceUsd: number;
+  payer: string | null;
+  transactionHash: string | null;
+  deliveryTitle: string | null;
+  deliverySummary: string | null;
+  deliveryContent: string | null;
+  paidAt: string | null;
+  fulfilledAt: string | null;
+  createdAt: string;
+  updatedAt: string;
+  metadata: Record<string, unknown>;
+}
+
+export interface ResearchOrderPaymentResult {
+  success: boolean;
+  message: string;
+  order: ResearchOrder;
+  paymentRequest: {
+    protocol: string;
+    network: string;
+    asset: string;
+    amountUsd: number;
+    label: string;
+    identityProvider: string;
+    status: string;
+  };
+  settlement?: {
+    payer?: string;
+    transaction?: string;
+    network?: string;
+  };
 }
 
 export interface ManagerSummary {
@@ -218,6 +320,7 @@ export interface ManagerSummary {
   performanceSeries: PerformanceSeriesPoint[];
   signalMix: SignalMixItem[];
   pricingPlans: PricingPlan[];
+  marketplace: ManagerMarketplaceProfile;
 }
 
 export interface ManagerDetail {
@@ -268,6 +371,7 @@ export interface ManagerDetail {
       currentPrice: number | null;
     };
   }>;
+  marketplace: ManagerMarketplaceProfile;
 }
 
 export interface ManagerRebalance {

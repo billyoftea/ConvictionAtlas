@@ -7,7 +7,9 @@ import { LeaderboardController } from './controllers/leaderboard.controller';
 import { ManagersController } from './controllers/managers.controller';
 import { MemosController } from './controllers/memos.controller';
 import { OpportunitiesController } from './controllers/opportunities.controller';
+import { ResearchOrdersController } from './controllers/research-orders.controller';
 import { PrismaService } from './prisma/prisma.service';
+import { CommerceService } from './services/commerce.service';
 import { ManagerEngineService } from './services/manager-engine.service';
 import { MemoService } from './services/memo.service';
 import { PerformanceService } from './services/performance.service';
@@ -16,6 +18,7 @@ import { QueryService } from './services/query.service';
 import { SignalEngineService } from './services/signal-engine.service';
 import { SourceIngestionService } from './services/source-ingestion.service';
 import { LlmService } from './services/llm.service';
+import { X402Service } from './services/x402.service';
 
 @Module({
   imports: [ConfigModule.forRoot({ isGlobal: true })],
@@ -26,11 +29,13 @@ import { LlmService } from './services/llm.service';
     LeaderboardController,
     MemosController,
     InternalController,
+    ResearchOrdersController,
   ],
   providers: [
     AppService,
     PrismaService,
     QueryService,
+    CommerceService,
     SourceIngestionService,
     SignalEngineService,
     ManagerEngineService,
@@ -38,6 +43,7 @@ import { LlmService } from './services/llm.service';
     PerformanceService,
     MemoService,
     LlmService,
+    X402Service,
   ],
 })
 export class AppModule {}

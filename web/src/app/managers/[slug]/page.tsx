@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { AssetAvatar } from '../../../components/asset-avatar';
-import { MarkdownContent } from '../../../components/markdown-content';
+import { CustomResearchForm } from '../../../components/custom-research-form';
 import { MemoUnlockButton } from '../../../components/memo-unlock-button';
 import { PositionStack } from '../../../components/position-stack';
 import { ReviewForm } from '../../../components/review-form';
@@ -61,6 +61,12 @@ export default async function ManagerDetailPage({ params }: PageProps) {
   const memoRows = memos ?? [];
   const chartLabels = getChartLabels(manager.performanceSeries);
   const valueLabels = getValueLabels(manager.performanceSeries);
+  const memoUnlockOffer =
+    manager.marketplace.serviceCatalog.find((offer) => offer.kind === 'memo_unlock') ??
+    null;
+  const customResearchOffer =
+    manager.marketplace.serviceCatalog.find((offer) => offer.kind === 'custom_research') ??
+    null;
 
   return (
     <div className="page-stack">
@@ -93,16 +99,18 @@ export default async function ManagerDetailPage({ params }: PageProps) {
           <div className="tag-row">
             <span className="chip">{manager.memoStyle}</span>
             <span className="chip">{manager.universe}</span>
-            <span className="chip">{manager.pricingSummary ?? 'Pricing pending'}</span>
+            <span className="chip">{manager.marketplace.settlementAsset} on {manager.marketplace.settlementNetwork}</span>
+            <span className="chip">{manager.marketplace.marketplaceStatus}</span>
           </div>
           <div className="cta-row">
-            <Link href="/leaderboard" className="button-link primary">
-              Compare desks
-            </Link>
+            <a href="#service-rail" className="button-link primary">
+              Buy service
+            </a>
             <Link href="/opportunities" className="button-link">
               Browse opportunity tape
             </Link>
           </div>
+          <p className="muted manager-marketplace-copy">{manager.marketplace.tagline}</p>
         </div>
 
         <div className="manager-detail-hero-card">
@@ -240,31 +248,21 @@ export default async function ManagerDetailPage({ params }: PageProps) {
           <div className="panel">
             <div className="section-header">
               <h2 className="section-title">Research memos</h2>
-              <span className="muted">Generated from the current live portfolio state</span>
+              <span className="muted">
+                Premium research products generated from the current live portfolio state
+              </span>
             </div>
             {memoRows.length ? (
               <div className="card-grid">
                 {memoRows.map((memo) => (
-                  <div key={memo.id} className="panel panel-nested">
-                    <div className="tag-row">
-                      <span className="pill">{memo.generatedBy}</span>
-                      <span className="chip">{memo.accessTier}</span>
-                    </div>
-                    <h3>{memo.title}</h3>
-                    <p className="muted">{memo.summary}</p>
-                    <div className="mini-metrics">
-                      <span>{formatDateTime(memo.createdAt)}</span>
-                      {memo.opportunity ? (
-                        <Link href={`/opportunities/${memo.opportunity.slug}`}>
-                          {memo.opportunity.title}
-                        </Link>
-                      ) : (
-                        <span>No linked opportunity</span>
-                      )}
-                    </div>
-                    <MarkdownContent content={memo.content} className="rich-text" />
-                    <MemoUnlockButton memoId={memo.id} />
-                  </div>
+                  <MemoUnlockButton
+                    key={memo.id}
+                    memo={memo}
+                    managerName={manager.name}
+                    unlockOffer={memoUnlockOffer}
+                    paymentRail={manager.marketplace.paymentRail}
+                    identityProvider={manager.marketplace.identityProvider}
+                  />
                 ))}
               </div>
             ) : (
@@ -274,6 +272,61 @@ export default async function ManagerDetailPage({ params }: PageProps) {
         </div>
 
         <div className="manager-secondary-column">
+          <div className="panel service-rail-panel" id="service-rail">
+            <div className="section-header">
+              <h2 className="section-title">Service rail</h2>
+              <span className="muted">
+                Pay this manager directly for research, subscriptions, and compare output
+              </span>
+            </div>
+            <div className="tag-row">
+              {manager.marketplace.chainFocus.map((focus) => (
+                <span key={focus} className="chip">
+                  {focus}
+                </span>
+              ))}
+              <span className="pill">{manager.marketplace.identityStatus}</span>
+            </div>
+            <p className="muted manager-marketplace-copy">{manager.marketplace.tagline}</p>
+            <div className="service-rail-grid">
+              {manager.marketplace.serviceCatalog.map((service) => (
+                <div key={`${service.kind}-${service.label}`} className="service-rail-card">
+                  <div className="mini-metrics">
+                    <span className="eyebrow">{service.cadence}</span>
+                    <span className={service.featured ? 'pill' : 'chip'}>
+                      {service.protocol}
+                    </span>
+                  </div>
+                  <h3>{service.label}</h3>
+                  <div className="service-rail-price">
+                    {formatMoney(service.amountUsd)} {service.asset}
+                  </div>
+                  <p className="muted">{service.description}</p>
+                  <div className="service-rail-meta">
+                    <span>{service.network}</span>
+                    <span>{service.delivery}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="panel">
+            <div className="section-header">
+              <h2 className="section-title">Custom research request</h2>
+              <span className="muted">
+                Create an order, trigger x402 payment, and receive a manager-specific report
+              </span>
+            </div>
+            <CustomResearchForm
+              managerSlug={manager.slug}
+              managerName={manager.name}
+              offer={customResearchOffer}
+              paymentRail={manager.marketplace.paymentRail}
+              identityProvider={manager.marketplace.identityProvider}
+            />
+          </div>
+
           <div className="panel">
             <div className="section-header">
               <h2 className="section-title">Book structure</h2>

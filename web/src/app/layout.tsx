@@ -16,7 +16,7 @@ const bodyFont = IBM_Plex_Sans({
 
 export const metadata = {
   title: 'Conviction Atlas',
-  description: 'Web3 AI fund managers for tokens and prediction markets.',
+  description: 'Paid AI fund manager marketplace for TRON and cross-market Web3 research.',
 };
 
 const navItems = [
@@ -40,7 +40,7 @@ export default function RootLayout({
                 <strong>
                   <SiteWordmark className="site-wordmark" />
                 </strong>
-                <small>Autonomous token and prediction desks</small>
+                <small>Paid AI manager marketplace on TRON</small>
               </span>
             </Link>
             <nav className="nav-links">

@@ -47,6 +47,7 @@ model Manager {
   portfolioSnapshots PortfolioSnapshot[]
   performance        PerformanceSnapshot[]
   subscriptions      Subscription[]
+  researchOrders     ResearchOrder[]
 }
 
 model PricingPlan {
@@ -261,15 +262,52 @@ model Memo {
 }
 
 model MemoUnlock {
-  id          String   @id @default(cuid())
-  memoId       String
-  customerRef  String
-  status       String
-  createdAt    DateTime @default(now())
-  metadata     String?  @default("{}")
-  memo         Memo     @relation(fields: [memoId], references: [id], onDelete: Cascade)
+  id              String   @id @default(cuid())
+  memoId           String
+  customerRef      String
+  status           String
+  paymentId        String?  @unique
+  paymentScheme    String?
+  paymentNetwork   String?
+  paymentAsset     String?
+  amountUsd        Float?
+  payer            String?
+  transactionHash  String?
+  settledAt        DateTime?
+  createdAt        DateTime @default(now())
+  metadata         String?  @default("{}")
+  memo             Memo     @relation(fields: [memoId], references: [id], onDelete: Cascade)
 
   @@index([memoId, status])
+}
+
+model ResearchOrder {
+  id               String   @id @default(cuid())
+  managerId        String
+  requesterRef     String
+  topic            String
+  brief            String
+  status           String
+  paymentStatus    String
+  paymentId        String?  @unique
+  paymentScheme    String?
+  paymentNetwork   String?
+  paymentAsset     String?
+  priceUsd         Float
+  payer            String?
+  transactionHash  String?
+  deliveryTitle    String?
+  deliverySummary  String?
+  deliveryContent  String?
+  paidAt           DateTime?
+  fulfilledAt      DateTime?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  metadata         String?  @default("{}")
+  manager          Manager  @relation(fields: [managerId], references: [id], onDelete: Cascade)
+
+  @@index([managerId, status])
+  @@index([paymentStatus, createdAt])
 }
 
 model Review {

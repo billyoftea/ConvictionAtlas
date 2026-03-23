@@ -30,10 +30,13 @@ export default async function LeaderboardPage() {
             <span>Leaderboard</span>
           </div>
           <span className="hero-kicker">Ranking layer</span>
-          <h1 className="detail-headline">One place to compare manager and market ranks.</h1>
+          <h1 className="detail-headline">
+            One place to compare manager performance, reputation, and market demand.
+          </h1>
           <p className="detail-copy">
             This page surfaces the aggregate outputs from the signal engine, manager
-            scoring, portfolio engine, and review layer.
+            scoring, portfolio engine, and review layer. In the v2 direction it becomes
+            the trust layer for a paid AI manager marketplace.
           </p>
         </div>
         <div className="stat-strip">
@@ -52,7 +55,7 @@ export default async function LeaderboardPage() {
         <div className="section-header">
           <h2 className="section-title">Manager leaderboard</h2>
           <Link href="/managers" className="muted">
-            Open manager pages
+            Open service pages
           </Link>
         </div>
         {managerRows?.length ? (
@@ -95,7 +98,7 @@ export default async function LeaderboardPage() {
         <div className="section-header">
           <h2 className="section-title">Opportunity leaderboard</h2>
           <Link href="/opportunities" className="muted">
-            Open opportunity pages
+            Open research inventory
           </Link>
         </div>
         {opportunityRows?.length ? (

@@ -37,16 +37,16 @@ export default async function ManagersPage() {
           </div>
           <span className="hero-kicker">Manager layer</span>
           <h1 className="detail-headline">
-            Productized manager desks on top of live token and prediction-market flow.
+            Paid AI manager services for TRON-native research, signals, and compare work.
           </h1>
           <p className="detail-copy">
-            Each manager now carries its own curve, position map, signal bias, and
-            packaging. The card is no longer just copy. It is the current state of the
-            desk.
+            Each desk is now a priced service entity. Users are not only browsing
+            curves and positions. They are choosing who to pay for premium memos,
+            signal streams, custom research, and multi-manager compare reports.
           </p>
           <div className="cta-row">
             <Link href="/leaderboard" className="button-link primary">
-              Open leaderboard
+              Compare service desks
             </Link>
             <a href="http://localhost:3001/docs" target="_blank" rel="noreferrer" className="button-link">
               API docs
@@ -109,8 +109,10 @@ export default async function ManagersPage() {
       ) : (
         <section className="section">
           <div className="section-header">
-            <h2 className="section-title">Live manager desks</h2>
-            <span className="muted">Curve, exposure, signal mix, and subscription layer</span>
+            <h2 className="section-title">Manager marketplace</h2>
+            <span className="muted">
+              Paid service packaging on top of live curves, exposure, and signal mix
+            </span>
           </div>
           <div className="manager-grid">
             {managerRows.map((manager, index) => {
@@ -183,6 +185,14 @@ export default async function ManagersPage() {
                     </div>
                   </div>
 
+                  <div className="tag-row manager-service-tags">
+                    {manager.marketplace.serviceModes.slice(0, 3).map((service) => (
+                      <span key={service} className="chip">
+                        {service}
+                      </span>
+                    ))}
+                  </div>
+
                   <div className="manager-lead">
                     <div className="mini-metrics">
                       <span className="eyebrow">Lead position</span>
@@ -222,10 +232,13 @@ export default async function ManagersPage() {
 
                   <div className="manager-card-footer">
                     <div>
-                      <div className="eyebrow">Entry pricing</div>
+                      <div className="eyebrow">Service entry</div>
                       <strong>{manager.pricingSummary ?? 'TBD'}</strong>
+                      <div className="muted">
+                        {manager.marketplace.settlementAsset} on {manager.marketplace.settlementNetwork}
+                      </div>
                     </div>
-                    <span className="manager-card-cta">Open manager</span>
+                    <span className="manager-card-cta">Open service page</span>
                   </div>
                 </Link>
               );

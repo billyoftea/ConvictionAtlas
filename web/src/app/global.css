@@ -2468,6 +2468,120 @@ body.reference-theme {
   color: rgba(255, 255, 255, 0.94);
 }
 
+.reference-home-stack {
+  padding: 0 24px 72px;
+}
+
+.reference-home-section {
+  width: min(1480px, 100%);
+  margin: 0 auto;
+}
+
+.reference-service-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.reference-home-card {
+  min-height: 196px;
+}
+
+.reference-theme .manager-service-tags {
+  margin-top: -2px;
+}
+
+.reference-theme .manager-marketplace-copy {
+  margin-top: 14px;
+  max-width: 54ch;
+}
+
+.reference-theme .service-rail-grid {
+  display: grid;
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.reference-theme .service-rail-card {
+  padding: 18px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.03)),
+    radial-gradient(circle at top right, rgba(95, 123, 255, 0.14), transparent 32%);
+}
+
+.reference-theme .service-rail-price {
+  margin-top: 10px;
+  color: rgba(255, 255, 255, 0.98);
+  font-family: 'PP Neue Montreal', var(--font-heading), sans-serif;
+  font-size: 1.4rem;
+  letter-spacing: -0.04em;
+}
+
+.reference-theme .service-rail-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+  color: rgba(255, 255, 255, 0.58);
+  font-family: 'IBM Plex Mono Local', ui-monospace, monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.reference-theme .memo-paywall-card {
+  display: grid;
+  gap: 14px;
+}
+
+.reference-theme .custom-research-panel {
+  display: grid;
+  gap: 16px;
+}
+
+.reference-theme .memo-service-meta,
+.reference-theme .memo-opportunity-link {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.reference-theme .memo-preview-shell {
+  position: relative;
+  overflow: hidden;
+  min-height: 148px;
+  padding: 18px 18px 44px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.reference-theme .memo-preview-copy {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.7;
+}
+
+.reference-theme .memo-preview-fade {
+  position: absolute;
+  inset: auto 0 0;
+  height: 72px;
+  background: linear-gradient(180deg, rgba(18, 18, 18, 0), rgba(18, 18, 18, 0.98));
+}
+
+.reference-theme .memo-unlock-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 18px 20px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background:
+    linear-gradient(135deg, rgba(95, 123, 255, 0.14), rgba(255, 255, 255, 0.05)),
+    rgba(255, 255, 255, 0.04);
+}
+
 @media (max-width: 900px) {
   .reference-theme .site-shell {
     padding: 92px 18px 112px;
@@ -2493,6 +2607,15 @@ body.reference-theme {
     gap: 22px;
   }
 
+  .reference-home-stack {
+    padding-inline: 18px;
+    padding-bottom: 104px;
+  }
+
+  .reference-service-grid {
+    grid-template-columns: 1fr;
+  }
+
   .reference-theme .hero,
   .reference-theme .panel,
   .reference-theme .metric-card,
@@ -2503,6 +2626,11 @@ body.reference-theme {
   .reference-theme .topbar {
     padding-top: 16px;
     padding-bottom: 12px;
+  }
+
+  .reference-theme .memo-unlock-strip {
+    align-items: flex-start;
+    flex-direction: column;
   }
 }
 

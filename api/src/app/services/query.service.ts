@@ -3,7 +3,7 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { OpportunityType } from '@prisma/client';
+import { OpportunityType, PricingPlan } from '@prisma/client';
 import { getManagerBlueprint } from '../core/manager-blueprints';
 import { PrismaService } from '../prisma/prisma.service';
 import {
@@ -12,6 +12,7 @@ import {
   parseJson,
   round,
   standardDeviation,
+  truncate,
 } from '../core/helpers';
 
 type HistoryPointLike = {
@@ -49,6 +50,14 @@ type ReplayPreparedOpportunity = ReplayOpportunityLike & {
   signalMap: Record<string, number>;
 };
 
+type ManagerWithPlansLike = {
+  slug: string;
+  name: string;
+  style: string;
+  pricingPlans: PricingPlan[];
+  metadata: string | null;
+};
+
 @Injectable()
 export class QueryService {
   constructor(private readonly prisma: PrismaService) {}
@@ -66,6 +75,7 @@ export class QueryService {
         const { latestPortfolio, analytics } = await this.getLatestManagerState(
           manager,
         );
+        const marketplace = this.buildManagerMarketplace(manager);
 
         return {
           id: manager.id,
@@ -94,6 +104,7 @@ export class QueryService {
           performanceSeries: analytics.series,
           signalMix: this.buildSignalMix(manager.slug, manager.metadata),
           pricingPlans: manager.pricingPlans,
+          marketplace,
         };
       }),
     );
@@ -118,10 +129,12 @@ export class QueryService {
       }),
     ]);
     const { latestPerformance, latestPortfolio, analytics } = latestState;
+    const marketplace = this.buildManagerMarketplace(manager);
 
     return {
       ...manager,
       metadata: parseJson(manager.metadata, {}),
+      marketplace,
       latestPerformance,
       latestPortfolio,
       reviews,
@@ -233,7 +246,7 @@ export class QueryService {
 
   async getManagerMemos(slug: string) {
     const manager = await this.getManagerOrThrow(slug);
-    return this.prisma.memo.findMany({
+    const memos = await this.prisma.memo.findMany({
       where: { managerId: manager.id },
       orderBy: { createdAt: 'desc' },
       take: 20,
@@ -241,6 +254,8 @@ export class QueryService {
         opportunity: true,
       },
     });
+
+    return memos.map((memo) => this.serializeMemoPreview(memo));
   }
 
   async getManagerReviews(slug: string) {
@@ -362,41 +377,51 @@ export class QueryService {
   }
 
   async getMemo(id: string) {
-    const memo = await this.prisma.memo.findUnique({
-      where: { id },
-      include: {
-        manager: true,
-        opportunity: true,
-        unlocks: true,
-      },
-    });
-
-    if (!memo) {
-      throw new NotFoundException(`Memo "${id}" was not found.`);
-    }
+    const memo = await this.getMemoRecordOrThrow(id);
 
     return {
-      ...memo,
+      ...this.serializeMemoPreview(memo),
       unlockCount: memo.unlocks.length,
     };
   }
 
   async unlockMemo(id: string, customerRef?: string) {
-    await this.getMemo(id);
+    const memo = await this.getMemo(id);
+    const marketplace = this.buildManagerMarketplace(memo.manager);
+    const unlockOffer =
+      marketplace.serviceCatalog.find((offer) => offer.kind === 'memo_unlock') ??
+      marketplace.serviceCatalog[0];
 
     const unlock = await this.prisma.memoUnlock.create({
       data: {
         memoId: id,
         customerRef: customerRef?.trim() || 'manual-debug-user',
-        status: 'pending_manual',
+        status: 'x402_pending',
+        metadata: JSON.stringify({
+          protocol: unlockOffer.protocol,
+          network: unlockOffer.network,
+          asset: unlockOffer.asset,
+          amountUsd: unlockOffer.amountUsd,
+          identityProvider: marketplace.identityProvider,
+        }),
       },
     });
 
     return {
       success: true,
+      memoTitle: memo.title,
+      managerName: memo.manager.name,
       unlock,
-      message:
-        'Memo unlock recorded. Payment wiring is still a placeholder for this MVP.',
+      paymentRequest: {
+        protocol: unlockOffer.protocol,
+        network: unlockOffer.network,
+        asset: unlockOffer.asset,
+        amountUsd: unlockOffer.amountUsd,
+        label: unlockOffer.label,
+        identityProvider: marketplace.identityProvider,
+        status: unlock.status,
+      },
+      message: `Payment intent recorded for "${memo.title}". x402 settlement is still mocked in this MVP, but the request is now tracked as a paid manager service.`,
     };
   }
 
@@ -991,6 +1016,25 @@ export class QueryService {
     };
   }
 
+  private serializeMemoPreview(memo: any) {
+    const previewContent = memo.isPremium
+      ? truncate(
+          memo.content
+            .replace(/[#>*`\[\]\(\)_-]/g, ' ')
+            .replace(/\s+/g, ' ')
+            .trim(),
+          280,
+        )
+      : memo.content;
+
+    return {
+      ...memo,
+      content: memo.isPremium ? previewContent : memo.content,
+      previewContent,
+      hasLockedContent: memo.isPremium,
+    };
+  }
+
   private buildSignalMix(slug: string, metadata: string | null | undefined) {
     const signalWeights =
       getManagerBlueprint(slug).signalWeights ??
@@ -1004,6 +1048,185 @@ export class QueryService {
       }))
       .sort((left, right) => Math.abs(right.weight) - Math.abs(left.weight))
       .slice(0, 6);
+  }
+
+  private buildManagerMarketplace(manager: ManagerWithPlansLike) {
+    const metadata = parseJson(manager.metadata, {}) as Record<string, unknown>;
+    const defaultCatalog = this.buildDefaultServiceCatalog(manager);
+
+    const serviceCatalog = Array.isArray(metadata.serviceCatalog)
+      ? metadata.serviceCatalog.map((entry, index) =>
+          this.normalizeServiceOffer(entry, defaultCatalog[index] ?? defaultCatalog[0]),
+        )
+      : defaultCatalog;
+
+    return {
+      tagline: this.pickString(
+        metadata.tagline,
+        `${manager.name} runs a paid ${manager.style.toLowerCase()} desk for TRON and cross-market Web3 flow.`,
+      ),
+      chainFocus: this.pickStringArray(metadata.chainFocus, ['TRON', 'Cross-market Web3']),
+      paymentRail: this.pickString(metadata.paymentRail, 'x402 Payment Protocol'),
+      settlementAsset: this.pickString(metadata.settlementAsset, 'USDT'),
+      settlementNetwork: this.pickString(metadata.settlementNetwork, 'TRON'),
+      identityProvider: this.pickString(metadata.identityProvider, '8004 On-chain Identity'),
+      identityStatus: this.pickString(metadata.identityStatus, 'reputation-active'),
+      marketplaceStatus: this.pickString(metadata.marketplaceStatus, 'x402-ready'),
+      serviceModes: this.pickStringArray(metadata.serviceModes, [
+        'paid memos',
+        'signal subscriptions',
+        'custom research',
+        'compare reports',
+      ]),
+      serviceCatalog,
+    };
+  }
+
+  private buildDefaultServiceCatalog(manager: ManagerWithPlansLike) {
+    const subscriptionPlan = [...manager.pricingPlans]
+      .filter((plan) => plan.isActive)
+      .sort((left, right) => left.amountUsd - right.amountUsd)[0];
+    const matrix = this.getManagerServicePriceMatrix(manager.slug);
+
+    return [
+      {
+        kind: 'memo_unlock',
+        label: 'Premium Memo Unlock',
+        amountUsd: matrix.memoUnlock,
+        cadence: 'per unlock',
+        description:
+          'Unlock the full memo, rationale, and current portfolio framing for this manager.',
+        delivery: 'Instant unlock after payment intent',
+        protocol: 'x402',
+        network: 'TRON',
+        asset: 'USDT',
+        featured: true,
+      },
+      {
+        kind: 'signal_subscription',
+        label: subscriptionPlan?.name ?? 'Signal Subscription',
+        amountUsd: subscriptionPlan?.amountUsd ?? matrix.subscription,
+        cadence: subscriptionPlan?.cadence ?? 'monthly',
+        description:
+          subscriptionPlan?.description ??
+          'Subscribe to the manager signal stream, watchlist, and rebalance commentary.',
+        delivery: 'Recurring manager feed',
+        protocol: 'x402',
+        network: 'TRON',
+        asset: 'USDT',
+        featured: true,
+      },
+      {
+        kind: 'custom_research',
+        label: 'Custom Research Request',
+        amountUsd: matrix.customResearch,
+        cadence: 'per request',
+        description:
+          'Send a token, event, or ecosystem topic and receive a manager-specific research output.',
+        delivery: '24h turnaround target',
+        protocol: 'x402',
+        network: 'TRON',
+        asset: 'USDT',
+      },
+      {
+        kind: 'compare_report',
+        label: 'Multi-manager Compare Memo',
+        amountUsd: matrix.compareReport,
+        cadence: 'per report',
+        description:
+          'Buy a compare memo that summarizes where multiple managers agree and disagree.',
+        delivery: 'Generated on demand',
+        protocol: 'x402',
+        network: 'TRON',
+        asset: 'USDT',
+      },
+    ];
+  }
+
+  private getManagerServicePriceMatrix(slug: string) {
+    switch (slug) {
+      case 'event-driven-manager':
+        return {
+          memoUnlock: 3,
+          subscription: 39,
+          customResearch: 95,
+          compareReport: 18,
+        };
+      case 'quant-manager':
+        return {
+          memoUnlock: 2,
+          subscription: 19,
+          customResearch: 49,
+          compareReport: 12,
+        };
+      case 'hybrid-manager':
+        return {
+          memoUnlock: 4,
+          subscription: 49,
+          customResearch: 109,
+          compareReport: 24,
+        };
+      default:
+        return {
+          memoUnlock: 2,
+          subscription: 29,
+          customResearch: 79,
+          compareReport: 16,
+        };
+    }
+  }
+
+  private normalizeServiceOffer(
+    entry: unknown,
+    fallback: {
+      kind: string;
+      label: string;
+      amountUsd: number;
+      cadence: string;
+      description: string;
+      delivery: string;
+      protocol: string;
+      network: string;
+      asset: string;
+      featured?: boolean;
+    },
+  ) {
+    const record =
+      entry && typeof entry === 'object' ? (entry as Record<string, unknown>) : {};
+
+    return {
+      kind: this.pickString(record.kind, fallback.kind),
+      label: this.pickString(record.label, fallback.label),
+      amountUsd: this.pickNumber(record.amountUsd, fallback.amountUsd),
+      cadence: this.pickString(record.cadence, fallback.cadence),
+      description: this.pickString(record.description, fallback.description),
+      delivery: this.pickString(record.delivery, fallback.delivery),
+      protocol: this.pickString(record.protocol, fallback.protocol),
+      network: this.pickString(record.network, fallback.network),
+      asset: this.pickString(record.asset, fallback.asset),
+      featured:
+        typeof record.featured === 'boolean' ? record.featured : fallback.featured,
+    };
+  }
+
+  private pickString(value: unknown, fallback: string) {
+    return typeof value === 'string' && value.trim() ? value.trim() : fallback;
+  }
+
+  private pickNumber(value: unknown, fallback: number) {
+    return typeof value === 'number' && Number.isFinite(value) ? value : fallback;
+  }
+
+  private pickStringArray(value: unknown, fallback: string[]) {
+    if (!Array.isArray(value)) {
+      return fallback;
+    }
+
+    const items = value
+      .filter((entry): entry is string => typeof entry === 'string' && !!entry.trim())
+      .map((entry) => entry.trim());
+
+    return items.length ? items : fallback;
   }
 
   private downsampleTimestamps(timestamps: number[], limit: number) {
@@ -1611,6 +1834,27 @@ export class QueryService {
     }
 
     return selectedPoint;
+  }
+
+  private async getMemoRecordOrThrow(id: string) {
+    const memo = await this.prisma.memo.findUnique({
+      where: { id },
+      include: {
+        manager: {
+          include: {
+            pricingPlans: true,
+          },
+        },
+        opportunity: true,
+        unlocks: true,
+      },
+    });
+
+    if (!memo) {
+      throw new NotFoundException(`Memo "${id}" was not found.`);
+    }
+
+    return memo;
   }
 
   private async getManagerOrThrow(slug: string) {

@@ -37,11 +37,13 @@ export default async function OpportunitiesPage() {
           </div>
           <span className="hero-kicker">Opportunity tape</span>
           <h1 className="detail-headline">
-            Tokens and prediction markets flowing through one signal engine.
+            Research inventory feeding paid AI managers across TRON and Web3.
           </h1>
           <p className="detail-copy">
             This is the normalized inventory produced from CoinGecko and Polymarket
             ingestion, with signal overlays, manager interpretations, and source links.
+            These rows are not just market data. They are the raw material for premium
+            memos, subscriptions, and custom research requests.
           </p>
         </div>
         <div className="stat-strip">
@@ -68,7 +70,9 @@ export default async function OpportunitiesPage() {
         <section className="section">
           <div className="section-header">
             <h2 className="section-title">Live inventory</h2>
-            <span className="muted">Real sources only, no mock opportunity rows</span>
+            <span className="muted">
+              Real sources only, powering live paid manager outputs
+            </span>
           </div>
           <div className="card-grid">
             {rows.map((opportunity) => (
@@ -133,7 +137,7 @@ export default async function OpportunitiesPage() {
           <div className="section-header">
             <h2 className="section-title">Conviction leaderboard</h2>
             <Link href="/leaderboard" className="muted">
-              Compare all ranks
+              Compare service demand proxies
             </Link>
           </div>
           <div className="table-card">
