@@ -1852,15 +1852,17 @@ img {
 
 .reference-logo-slot {
   left: var(--reference-page-padding-lr);
+  z-index: 2;
 }
 
 .reference-nav-links {
   display: none;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .reference-contact-slot {
   right: var(--reference-page-padding-lr);
-  margin-right: calc(var(--reference-pill-padding) * -1);
   display: none;
 }
 
@@ -1872,9 +1874,7 @@ img {
 .reference-nav-links-inner {
   display: flex;
   gap: 12px;
-  position: absolute;
-  left: calc(50% + 5px);
-  transform: translateX(-50%);
+  position: static;
 }
 
 .reference-pill-button {
@@ -1928,6 +1928,37 @@ img {
   position: relative;
   width: 100%;
   min-height: 100svh;
+  background:
+    radial-gradient(circle at 16% 20%, rgba(121, 87, 255, 0.34), transparent 24%),
+    radial-gradient(circle at 76% 28%, rgba(196, 228, 255, 0.14), transparent 18%),
+    radial-gradient(circle at 82% 72%, rgba(92, 123, 255, 0.28), transparent 24%),
+    linear-gradient(118deg, #080513 0%, #17104b 28%, #2635a8 60%, #4260ea 80%, #6d93ff 100%);
+}
+
+.reference-hero-wrapper::before,
+.reference-hero-wrapper::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.reference-hero-wrapper::before {
+  background:
+    linear-gradient(90deg, rgba(7, 5, 17, 0.04) 0%, rgba(7, 5, 17, 0) 42%, rgba(219, 236, 255, 0.04) 100%),
+    repeating-linear-gradient(
+      115deg,
+      rgba(255, 255, 255, 0.05) 0 1px,
+      transparent 1px 118px
+    );
+  opacity: 0.22;
+  mix-blend-mode: screen;
+}
+
+.reference-hero-wrapper::after {
+  background:
+    radial-gradient(circle at 72% 42%, rgba(215, 234, 255, 0.22), transparent 15%),
+    radial-gradient(circle at 84% 60%, rgba(123, 175, 255, 0.18), transparent 22%);
 }
 
 .reference-hero-copy {
@@ -1938,9 +1969,9 @@ img {
   display: grid;
   grid-template-rows: 1fr min-content;
   height: calc(100% - var(--reference-page-padding-top) - var(--reference-page-padding-bottom));
-  max-width: 680px;
-  padding: 0 var(--reference-page-padding-lr);
-  pointer-events: none;
+  max-width: min(680px, 46vw);
+  padding: 0 max(var(--reference-page-padding-lr), 24px);
+  pointer-events: auto;
 }
 
 .reference-hero-headline {
@@ -1949,6 +1980,7 @@ img {
   line-height: 1;
   font-weight: 300;
   letter-spacing: -0.03em;
+  text-wrap: balance;
 }
 
 .reference-hero-footnote {
@@ -1976,10 +2008,36 @@ img {
 
 .reference-hero-scene-shell {
   position: absolute;
-  inset: 0;
-  transform: scale(1.15) translateY(0);
-  transform-origin: center center;
-  background: rgb(0, 0, 0);
+  inset: 0 0 0 38%;
+  z-index: 1;
+  pointer-events: auto;
+}
+
+.reference-hero-scene-shell::before,
+.reference-hero-scene-shell::after {
+  content: '';
+  position: absolute;
+  pointer-events: none;
+}
+
+.reference-hero-scene-shell::before {
+  inset: 10% 4% 8% 10%;
+  border-radius: 42px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.015)),
+    radial-gradient(circle at 26% 24%, rgba(133, 154, 255, 0.18), transparent 34%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 48px 120px rgba(2, 7, 33, 0.28);
+  backdrop-filter: blur(30px);
+}
+
+.reference-hero-scene-shell::after {
+  inset: 16% 10% 18% 18%;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(220, 235, 255, 0.26), rgba(127, 159, 255, 0.08) 42%, transparent 68%);
+  filter: blur(60px);
 }
 
 .reference-hero-scene-mount,
@@ -1988,13 +2046,15 @@ img {
   height: 100%;
 }
 
-.reference-hero-canvas {
-  display: block;
-  cursor: grab;
+.reference-hero-scene-mount {
+  position: relative;
+  z-index: 2;
+  pointer-events: auto;
 }
 
-.reference-hero-canvas:active {
-  cursor: grabbing;
+.reference-hero-canvas {
+  display: block;
+  cursor: default;
 }
 
 @media (min-width: 768px) {
@@ -2021,12 +2081,12 @@ img {
 
   .reference-hero-copy {
     top: auto;
-    bottom: 75px;
+    bottom: 82px;
     height: auto;
   }
 
   .reference-hero-footnote {
-    width: 85%;
+    width: min(85%, 40rem);
   }
 }
 
@@ -2042,7 +2102,6 @@ img {
   }
 
   .reference-nav-links-inner {
-    left: 50%;
     gap: 30px;
   }
 }
@@ -2460,6 +2519,7 @@ body.reference-theme {
   flex-wrap: wrap;
   gap: 12px;
   margin-top: 26px;
+  pointer-events: auto;
 }
 
 .reference-pill-button-hero {
@@ -2603,6 +2663,24 @@ body.reference-theme {
 }
 
 @media (max-width: 640px) {
+  .reference-hero-copy {
+    max-width: none;
+    width: 100%;
+  }
+
+  .reference-hero-scene-shell {
+    inset: 12% 0 0;
+  }
+
+  .reference-hero-scene-shell::before {
+    inset: 18% 6% 12%;
+    border-radius: 32px;
+  }
+
+  .reference-hero-scene-shell::after {
+    inset: 24% 10% 20%;
+  }
+
   .reference-theme .page-stack {
     gap: 22px;
   }

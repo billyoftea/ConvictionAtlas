@@ -2,292 +2,106 @@
 
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
-const TEXTURE_PATHS = [
-  '/textures/_eclipse_new13.jpg',
-  '/textures/_texture_3_8.jpg',
-  '/textures/_texture_5.jpg',
-  '/textures/4_4_ethereal.jpg',
-];
+function createEnvironmentTexture() {
+  const canvas = document.createElement('canvas');
+  canvas.width = 1024;
+  canvas.height = 512;
 
-const HERO_TIMELINE = {
-  n: [{ t: 0, value: 2 }],
-  posClip: [{ t: 0, value: 1 }],
-  negClip: [{ t: 0, value: 1 }],
-  stereo: [{ t: 0.5, value: 1 }],
-  rotation: [
-    { t: -3, value: 0 },
-    { t: 0, value: 0 },
-    { t: 5.5, value: 0 },
-    { t: 9, value: 0 },
-  ],
-  translation: [
-    { t: 0, value: 0 },
-    { t: 0.5, value: 1.2 },
-    { t: 2, value: 1.2 },
-    { t: 4, value: 1.2 },
-    { t: 5.5, value: 1.2 },
-    { t: 6, value: 0 },
-  ],
-  scale: [
-    { t: 0, value: 1.5 / Math.sqrt(2 / 3) },
-    { t: 0.9, value: 0.55 },
-    { t: 1.7, value: 0.65 },
-    { t: 4.3, value: 0.65 },
-    { t: 5.1, value: 0.6 },
-    { t: 6, value: 1.5 / Math.sqrt(2 / 3) },
-  ],
-  t: [
-    { t: 0, value: 1 / (2 / 3) },
-    { t: 2, value: 1 / (2 / 3) },
-    { t: 4, value: -1 / (2 / 3) },
-    { t: 6, value: -1 / (2 / 3) },
-  ],
-  alpha: [
-    { t: 0, value: 0.00001 },
-    { t: 1, value: 1 },
-    { t: 5, value: 1 },
-    { t: 6, value: 0.00001 },
-  ],
-  beta: [
-    { t: 0, value: 1 },
-    { t: 1, value: 1 / 20 },
-    { t: 5, value: 1 / 20 },
-    { t: 6, value: 1 },
-  ],
-  xi: [
-    { t: 0, value: 0 },
-    { t: 2, value: 1 },
-    { t: 4, value: 1 },
-    { t: 5, value: 0 },
-    { t: 6, value: 0 },
-  ],
-  lambda: [
-    { t: 0, value: 0 },
-    { t: 2, value: 1 },
-    { t: 4, value: 1 },
-    { t: 6, value: 0 },
-  ],
-  q: [{ t: 0, value: 2 / 3 }],
-  eta: [{ t: 0, value: 1 }],
-  omega: [{ t: 0, value: 2 }],
-  Qinv: [{ t: 0, value: 1 / (2 / 3) }],
-} as const;
+  const context = canvas.getContext('2d');
 
-const MAIN_VERTEX_SHADER = `precision highp float;
-attribute vec2 uv;
-uniform mat4 modelViewMatrix;
-uniform mat4 projectionMatrix;
-varying vec3 vPosition, vNormal;
-varying vec2 vUV;
-varying vec2 ovUV;
-uniform float t, q, xi, eta, alpha, lambda, beta, n, omega, scale, translation;
-uniform float stereo, rotation, Qinv, posClip, negClip;
-#define PI 3.141592653589
-
-float safepow(float x, float n) {
-   return pow(abs(x), n);
-}
-float sqr(float x) {
-   return x * x;
-}
-
-float intpow(float x, float n) {
-   return pow(abs(x), n) * (mod(n, 2.0) == 0.0 ? 1.0 : sign(x));
-}
-
-vec3 f(vec2 uv) {
-   uv.x = min(PI * 0.5 - 1e-5, uv.x);
-   uv.x = max(-PI * 0.5 + 1e-5, uv.x);
-   float theta = uv.x;
-   float phi = uv.y;
-   float cphi = cos(phi);
-   float sphi = sin(phi);
-   float sth = sin(theta);
-   float cosnth = intpow(cos(theta), n);
-   float h = omega * sth / cosnth;
-
-   float p = 1.0 - abs(q * t);
-   float kappa = mix(0.0, 0.5 * (n - 1.0) / n, stereo);
-
-   float x, y, z;
-   bool eq4 = abs(t) < Qinv - 1e-5;
-   if (eq4) {
-      x = t * cphi + p * sin((n - 1.0) * phi) - h * sphi;
-      y = t * sphi + p * cos((n - 1.0) * phi) + h * cphi;
-      z = h * sin(n * phi) - (t / n) * cos(n * phi) - q * t * h;
-   } else {
-      x = (t * (1.0 - lambda + lambda * cosnth) * cphi - lambda * omega * sth * sphi) / cosnth;
-      y = (t * (1.0 - lambda + lambda * cosnth) * sphi + lambda * omega * sth * cphi) / cosnth;
-      z = lambda * (omega * sth * (sin(n * phi) - q * t) / cosnth - (t / n) * cos(n * phi)) - (1.0 - lambda) * pow(eta, 1.0 + kappa) * t * pow(abs(t), 2.0 * kappa) * sth / sqr(cosnth);
-   }
-
-   float xiex2y2 = xi + eta * (x * x + y * y);
-   float xp = x / safepow(xiex2y2, kappa);
-   float yp = y / safepow(xiex2y2, kappa);
-   float zp = z / mix(1.0, xiex2y2, stereo);
-
-   float gamma = mix(1.0, 2.0 * sqrt(alpha * beta), stereo);
-   float bxpyp = beta * (xp * xp + yp * yp);
-   float egz = exp(gamma * zp);
-   float xpp = xp * mix(1.0, egz / (alpha + bxpyp), stereo);
-   float ypp = yp * mix(1.0, egz / (alpha + bxpyp), stereo);
-   float zpp = mix(zp, (alpha - bxpyp) / (alpha + bxpyp) * egz / gamma - (alpha - beta) / (alpha + beta) / gamma, stereo);
-
-   vec3 pos = vec3(xpp, ypp, zpp).xzy * vec3(1.0, 1.0, -1.0) * scale + vec3(0.0, translation, 0.0);
-
-   float cr = cos(rotation);
-   float sr = sin(rotation);
-   mat2 R = mat2(cr, sr, -sr, cr);
-   pos.xz = R * pos.xz;
-   return pos;
-}
-
-void main () {
-   vec2 cuv = vec2(mix(-PI * .5, PI * .5, uv.y), mix(-PI, PI, uv.x));
-   vUV = cuv * vec2(cuv.x > 0.0 ? posClip : negClip, 1.0);
-   ovUV = uv;
-   vPosition = f(vUV);
-   float dx = 2e-2;
-   vec3 pu = f(vUV + vec2(dx, 0.0));
-   vec3 pv = f(vUV + vec2(0.0, dx));
-   vec3 dpdu = pu - vPosition;
-   vec3 dpdv = pv - vPosition;
-   vNormal = normalize(cross(dpdu, dpdv));
-
-   gl_Position = projectionMatrix * modelViewMatrix * vec4(vPosition, 1.0);
-}`;
-
-const MAIN_FRAGMENT_SHADER = `precision highp float;
-varying vec2 ovUV;
-uniform sampler2D texture;
-uniform sampler2D texture2;
-
-void main () {
-   vec4 front = texture2D(texture, ovUV);
-   vec4 back = texture2D(texture2, ovUV);
-   gl_FragColor = gl_FrontFacing ? front : back;
-}`;
-
-const BACKGROUND_VERTEX_SHADER = `precision highp float;
-uniform mat4 modelViewMatrix;
-uniform mat4 projectionMatrix;
-attribute vec3 position;
-attribute vec2 uv;
-varying vec2 vUv;
-
-void main() {
-   vUv = uv;
-   vec4 modelViewPosition = modelViewMatrix * vec4(position, 1.0);
-   gl_Position = projectionMatrix * modelViewPosition;
-}`;
-
-const BACKGROUND_FRAGMENT_SHADER = `precision highp float;
-varying vec2 vUv;
-uniform sampler2D texture;
-uniform sampler2D texture2;
-uniform float textureTransitionAmount;
-
-void main() {
-   vec4 tex = texture2D(texture, vUv);
-   vec4 tex2 = texture2D(texture2, vec2(1.0 - vUv.x, 1.0 - vUv.y));
-   gl_FragColor = mix(tex, tex2, textureTransitionAmount);
-}`;
-
-type TimelineValue = number;
-type TimelineStep = {
-  t: number;
-  value: TimelineValue;
-  ease?: (progress: number) => number;
-};
-
-function cubicEaseInOut(progress: number) {
-  return progress < 0.5
-    ? 4 * progress * progress * progress
-    : 0.5 * Math.pow(2 * progress - 2, 3) + 1;
-}
-
-function power1InOut(progress: number) {
-  return progress < 0.5
-    ? 2 * progress * progress
-    : 1 - Math.pow(-2 * progress + 2, 2) / 2;
-}
-
-function interpolateValue(from: TimelineValue, to: TimelineValue, progress: number) {
-  return from + (to - from) * progress;
-}
-
-function sampleTrack(track: readonly TimelineStep[], position: number) {
-  let previous = track[0];
-
-  for (let index = 0; index < track.length; index += 1) {
-    const next = track[index];
-
-    if (position < next.t) {
-      const span = next.t - previous.t;
-      const rawProgress = span === 0 ? 1 : (position - previous.t) / span;
-      const easedProgress = (next.ease ?? cubicEaseInOut)(THREE.MathUtils.clamp(rawProgress, 0, 1));
-      return interpolateValue(previous.value, next.value, easedProgress);
-    }
-
-    previous = next;
+  if (!context) {
+    const fallback = new THREE.DataTexture(new Uint8Array([18, 18, 18, 255]), 1, 1);
+    fallback.colorSpace = THREE.SRGBColorSpace;
+    fallback.mapping = THREE.EquirectangularReflectionMapping;
+    fallback.needsUpdate = true;
+    return fallback;
   }
 
-  return previous.value;
-}
+  const baseGradient = context.createLinearGradient(0, 0, canvas.width, canvas.height);
+  baseGradient.addColorStop(0, '#080513');
+  baseGradient.addColorStop(0.24, '#181152');
+  baseGradient.addColorStop(0.52, '#3142bf');
+  baseGradient.addColorStop(0.78, '#4f71ff');
+  baseGradient.addColorStop(1, '#87deff');
+  context.fillStyle = baseGradient;
+  context.fillRect(0, 0, canvas.width, canvas.height);
 
-function sampleHeroState(position: number) {
-  return Object.fromEntries(
-    Object.entries(HERO_TIMELINE).map(([key, track]) => [key, sampleTrack(track, position)]),
-  ) as Record<keyof typeof HERO_TIMELINE, number>;
-}
+  const warmBloom = context.createRadialGradient(220, 108, 0, 220, 108, 210);
+  warmBloom.addColorStop(0, 'rgba(255, 163, 118, 0.88)');
+  warmBloom.addColorStop(0.45, 'rgba(255, 163, 118, 0.18)');
+  warmBloom.addColorStop(1, 'rgba(255, 163, 118, 0)');
+  context.fillStyle = warmBloom;
+  context.fillRect(0, 0, canvas.width, canvas.height);
 
-function createPlaceholderTexture() {
-  const texture = new THREE.DataTexture(new Uint8Array([0, 0, 0, 255]), 1, 1);
+  const coolBloom = context.createRadialGradient(792, 196, 0, 792, 196, 240);
+  coolBloom.addColorStop(0, 'rgba(212, 240, 255, 0.86)');
+  coolBloom.addColorStop(0.38, 'rgba(134, 196, 255, 0.2)');
+  coolBloom.addColorStop(1, 'rgba(134, 196, 255, 0)');
+  context.fillStyle = coolBloom;
+  context.fillRect(0, 0, canvas.width, canvas.height);
+
+  const floorGlow = context.createRadialGradient(682, 420, 0, 682, 420, 270);
+  floorGlow.addColorStop(0, 'rgba(80, 126, 255, 0.72)');
+  floorGlow.addColorStop(0.42, 'rgba(80, 126, 255, 0.16)');
+  floorGlow.addColorStop(1, 'rgba(80, 126, 255, 0)');
+  context.fillStyle = floorGlow;
+  context.fillRect(0, 0, canvas.width, canvas.height);
+
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  texture.mapping = THREE.EquirectangularReflectionMapping;
   texture.needsUpdate = true;
   return texture;
 }
 
-function configureTexture(texture: THREE.Texture) {
-  texture.minFilter = THREE.LinearFilter;
-  texture.magFilter = THREE.LinearFilter;
-  texture.wrapS = THREE.ClampToEdgeWrapping;
-  texture.wrapT = THREE.ClampToEdgeWrapping;
+function createGlowTexture() {
+  const canvas = document.createElement('canvas');
+  canvas.width = 512;
+  canvas.height = 512;
+
+  const context = canvas.getContext('2d');
+
+  if (!context) {
+    const fallback = new THREE.DataTexture(new Uint8Array([255, 255, 255, 255]), 1, 1);
+    fallback.colorSpace = THREE.SRGBColorSpace;
+    fallback.needsUpdate = true;
+    return fallback;
+  }
+
+  const gradient = context.createRadialGradient(256, 256, 0, 256, 256, 256);
+  gradient.addColorStop(0, 'rgba(255, 255, 255, 0.96)');
+  gradient.addColorStop(0.24, 'rgba(200, 224, 255, 0.72)');
+  gradient.addColorStop(0.55, 'rgba(111, 157, 255, 0.22)');
+  gradient.addColorStop(1, 'rgba(111, 157, 255, 0)');
+  context.fillStyle = gradient;
+  context.fillRect(0, 0, canvas.width, canvas.height);
+
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.colorSpace = THREE.SRGBColorSpace;
   texture.needsUpdate = true;
   return texture;
 }
 
-function applyTexturePair(
-  sequenceIndex: number,
-  textures: THREE.Texture[],
-  mainMaterial: THREE.RawShaderMaterial,
-  backgroundMaterial: THREE.RawShaderMaterial,
-) {
-  if (textures.length === 0) {
-    return;
+function sculptGeometry(geometry: THREE.BufferGeometry) {
+  const position = geometry.getAttribute('position');
+  const vertex = new THREE.Vector3();
+
+  for (let index = 0; index < position.count; index += 1) {
+    vertex.fromBufferAttribute(position, index);
+    const normal = vertex.clone().normalize();
+    const displacement =
+      1 +
+      0.16 * Math.sin(normal.x * 5.2) * Math.cos(normal.y * 4.4) +
+      0.11 * Math.sin(normal.z * 6.6) +
+      0.04 * Math.cos((normal.x + normal.z) * 9.8);
+
+    vertex.multiplyScalar(displacement);
+    position.setXYZ(index, vertex.x, vertex.y, vertex.z);
   }
 
-  const currentIndex = sequenceIndex % textures.length;
-  const nextIndex = (sequenceIndex + 1) % textures.length;
-  const current = textures[currentIndex];
-  const next = textures[nextIndex];
-
-  if (sequenceIndex === 0) {
-    mainMaterial.uniforms.texture.value = current;
-    mainMaterial.uniforms.texture2.value = next;
-    backgroundMaterial.uniforms.texture.value = current;
-    backgroundMaterial.uniforms.texture2.value = next;
-    return;
-  }
-
-  if (currentIndex % 2 === 0) {
-    mainMaterial.uniforms.texture2.value = next;
-    backgroundMaterial.uniforms.texture2.value = next;
-  } else {
-    mainMaterial.uniforms.texture.value = next;
-    backgroundMaterial.uniforms.texture.value = next;
-  }
+  position.needsUpdate = true;
+  geometry.computeVertexNormals();
 }
 
 export default function ReferenceHeroScene() {
@@ -300,162 +114,248 @@ export default function ReferenceHeroScene() {
       return;
     }
 
-    const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x121212);
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    const camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 1, 50);
-    const renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(30, 1, 0.1, 100);
+    const renderer = new THREE.WebGLRenderer({
+      alpha: true,
+      antialias: true,
+      powerPreference: 'high-performance',
+    });
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.08;
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.75));
     renderer.domElement.className = 'reference-hero-canvas';
     mountNode.appendChild(renderer.domElement);
 
-    const controls = new OrbitControls(camera, renderer.domElement);
-    controls.minPolarAngle = 0.7;
-    controls.maxPolarAngle = 1.75;
-    controls.enableDamping = true;
-    controls.enableZoom = false;
-    controls.enablePan = false;
-    controls.autoRotate = true;
-    controls.rotateSpeed = 1.5;
+    const environmentTexture = createEnvironmentTexture();
+    const glowTexture = createGlowTexture();
+    scene.environment = environmentTexture;
 
-    const placeholderTexture = createPlaceholderTexture();
+    const mainGroup = new THREE.Group();
+    scene.add(mainGroup);
 
-    const mainMaterial = new THREE.RawShaderMaterial({
-      uniforms: {
-        t: { value: 0 },
-        q: { value: 2 / 3 },
-        xi: { value: 0 },
-        eta: { value: 1 },
-        alpha: { value: 0.00001 },
-        lambda: { value: 0 },
-        beta: { value: 1 },
-        n: { value: 2 },
-        omega: { value: 2 },
-        scale: { value: 1.5 / Math.sqrt(2 / 3) },
-        translation: { value: 0 },
-        stereo: { value: 0 },
-        rotation: { value: 0 },
-        Qinv: { value: 1 / (2 / 3) },
-        posClip: { value: 1 },
-        negClip: { value: 1 },
-        texture: { value: placeholderTexture },
-        texture2: { value: placeholderTexture },
-      },
-      vertexShader: MAIN_VERTEX_SHADER,
-      fragmentShader: MAIN_FRAGMENT_SHADER,
-      side: THREE.DoubleSide,
+    const solidGeometry = new THREE.IcosahedronGeometry(1.34, 4);
+    sculptGeometry(solidGeometry);
+
+    const shellGeometry = solidGeometry.clone();
+    const edgeGeometry = new THREE.EdgesGeometry(solidGeometry, 18);
+
+    const solidMaterial = new THREE.MeshPhysicalMaterial({
+      color: new THREE.Color('#f4f8ff'),
+      emissive: new THREE.Color('#3659d8'),
+      emissiveIntensity: 0.16,
+      metalness: 0.22,
+      roughness: 0.08,
+      clearcoat: 1,
+      clearcoatRoughness: 0.1,
+      envMapIntensity: 1.95,
+      transmission: 0.12,
+      thickness: 1.8,
+      ior: 1.22,
+      attenuationColor: new THREE.Color('#5e8eff'),
+      attenuationDistance: 2.4,
     });
 
-    const backgroundMaterial = new THREE.RawShaderMaterial({
-      uniforms: {
-        texture: { value: placeholderTexture },
-        texture2: { value: placeholderTexture },
-        textureTransitionAmount: { value: 0 },
-      },
-      vertexShader: BACKGROUND_VERTEX_SHADER,
-      fragmentShader: BACKGROUND_FRAGMENT_SHADER,
-      side: THREE.FrontSide,
+    const shellMaterial = new THREE.MeshPhysicalMaterial({
+      color: new THREE.Color('#b2caff'),
+      transparent: true,
+      opacity: 0.12,
+      metalness: 0.6,
+      roughness: 0.18,
+      clearcoat: 1,
+      clearcoatRoughness: 0.2,
+      envMapIntensity: 2.5,
+      side: THREE.BackSide,
+      depthWrite: false,
     });
 
-    const segments = window.innerWidth < 768 ? 200 : 400;
-    const mainGeometry = new THREE.PlaneGeometry(1, 1, segments, segments);
-    const backgroundGeometry = new THREE.SphereGeometry(5, 50, 50);
+    const edgeMaterial = new THREE.LineBasicMaterial({
+      color: new THREE.Color('#eef5ff'),
+      transparent: true,
+      opacity: 0.16,
+    });
 
-    const mainMesh = new THREE.Mesh(mainGeometry, mainMaterial);
-    const backgroundMesh = new THREE.Mesh(backgroundGeometry, backgroundMaterial);
-    scene.add(mainMesh);
-    scene.add(backgroundMesh);
+    const solidMesh = new THREE.Mesh(solidGeometry, solidMaterial);
+    const shellMesh = new THREE.Mesh(shellGeometry, shellMaterial);
+    shellMesh.scale.setScalar(1.085);
+    const edgeLines = new THREE.LineSegments(edgeGeometry, edgeMaterial);
+    edgeLines.scale.setScalar(1.02);
 
-    function applyCameraLayout() {
-      camera.position.set(0, 3, window.innerWidth > 768 ? 7 : 11);
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-      controls.update();
+    const outerRing = new THREE.Mesh(
+      new THREE.TorusGeometry(2.3, 0.022, 18, 220),
+      new THREE.MeshBasicMaterial({
+        color: new THREE.Color('#9db7ff'),
+        transparent: true,
+        opacity: 0.22,
+      }),
+    );
+    outerRing.rotation.set(Math.PI * 0.22, 0, Math.PI * 0.16);
+
+    const innerRing = new THREE.Mesh(
+      new THREE.TorusGeometry(1.88, 0.014, 16, 180),
+      new THREE.MeshBasicMaterial({
+        color: new THREE.Color('#dfeeff'),
+        transparent: true,
+        opacity: 0.18,
+      }),
+    );
+    innerRing.rotation.set(Math.PI * 0.7, Math.PI * 0.25, 0);
+
+    const glow = new THREE.Sprite(
+      new THREE.SpriteMaterial({
+        map: glowTexture,
+        color: new THREE.Color('#87b7ff'),
+        transparent: true,
+        opacity: 0.6,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false,
+      }),
+    );
+    glow.scale.set(6.6, 6.6, 1);
+    glow.position.set(0.08, 0.06, -0.8);
+
+    mainGroup.add(glow, outerRing, innerRing, shellMesh, edgeLines, solidMesh);
+
+    const particleCount = 180;
+    const particlePositions = new Float32Array(particleCount * 3);
+
+    for (let index = 0; index < particleCount; index += 1) {
+      const radius = THREE.MathUtils.randFloat(3.1, 5.2);
+      const theta = THREE.MathUtils.randFloat(0, Math.PI * 2);
+      const phi = THREE.MathUtils.randFloat(0.4, Math.PI - 0.42);
+
+      particlePositions[index * 3] = radius * Math.sin(phi) * Math.cos(theta);
+      particlePositions[index * 3 + 1] = radius * Math.cos(phi) * 0.7;
+      particlePositions[index * 3 + 2] = radius * Math.sin(phi) * Math.sin(theta);
     }
 
-    applyCameraLayout();
+    const particleGeometry = new THREE.BufferGeometry();
+    particleGeometry.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
+    const particleMaterial = new THREE.PointsMaterial({
+      color: new THREE.Color('#d9e7ff'),
+      transparent: true,
+      opacity: 0.66,
+      size: 0.034,
+      sizeAttenuation: true,
+      depthWrite: false,
+    });
+    const particles = new THREE.Points(particleGeometry, particleMaterial);
+    scene.add(particles);
 
-    const loader = new THREE.TextureLoader();
-    const loadedTextures: THREE.Texture[] = [];
-    let textureSequenceIndex = -1;
-    let lastRepeatIndex = -1;
+    scene.add(new THREE.AmbientLight('#f5f8ff', 0.7));
+
+    const keyLight = new THREE.DirectionalLight('#ffffff', 1.9);
+    keyLight.position.set(4.2, 2.8, 5.8);
+    scene.add(keyLight);
+
+    const rimLight = new THREE.PointLight('#5a7cff', 34, 18, 2.1);
+    rimLight.position.set(2.9, 1.3, 4.8);
+    scene.add(rimLight);
+
+    const coolLight = new THREE.PointLight('#8be0ff', 22, 16, 1.7);
+    coolLight.position.set(-3.4, 2.6, 2.4);
+    scene.add(coolLight);
+
+    const warmLight = new THREE.PointLight('#ff946d', 14, 16, 1.6);
+    warmLight.position.set(-2.6, -2.1, 2.2);
+    scene.add(warmLight);
+
+    let baseGroupY = 0;
+    const pointerTarget = { x: 0, y: 0 };
+    const pointerCurrent = { x: 0, y: 0 };
+    const clock = new THREE.Clock();
     let frameId = 0;
-    let disposed = false;
-    const startTime = performance.now();
 
-    void Promise.all(TEXTURE_PATHS.map(async (path) => configureTexture(await loader.loadAsync(path))))
-      .then((textures) => {
-        if (disposed) {
-          textures.forEach((texture) => texture.dispose());
-          return;
-        }
+    const updateSize = () => {
+      const width = Math.max(mountNode.clientWidth, 1);
+      const height = Math.max(mountNode.clientHeight, 1);
+      const isDesktop = width >= 960;
+      const isTablet = width >= 640;
 
-        loadedTextures.push(...textures);
+      renderer.setSize(width, height, false);
+      camera.aspect = width / height;
+      camera.fov = isDesktop ? 29 : isTablet ? 34 : 40;
+      camera.position.set(isDesktop ? 0.2 : 0, isDesktop ? 0.12 : 0.24, isDesktop ? 7.1 : 6.4);
+      camera.updateProjectionMatrix();
 
-        if (textureSequenceIndex < 0) {
-          textureSequenceIndex = 0;
-        }
+      mainGroup.position.x = isDesktop ? 1.18 : isTablet ? 0.72 : 0;
+      mainGroup.position.z = 0;
+      baseGroupY = isDesktop ? 0.18 : isTablet ? 0.34 : 0.7;
+      mainGroup.position.y = baseGroupY;
+      mainGroup.scale.setScalar(isDesktop ? 1.12 : isTablet ? 0.96 : 0.8);
+    };
 
-        applyTexturePair(textureSequenceIndex, loadedTextures, mainMaterial, backgroundMaterial);
-      })
-      .catch(() => {
-        // Keep the placeholder texture if one of the mirrored assets fails to load.
-      });
+    const resizeObserver = new ResizeObserver(updateSize);
+    resizeObserver.observe(mountNode);
+    updateSize();
 
-    function animate() {
-      if (disposed) {
-        return;
-      }
+    const handlePointerMove = (event: PointerEvent) => {
+      const bounds = mountNode.getBoundingClientRect();
+      const normalizedX = ((event.clientX - bounds.left) / bounds.width) * 2 - 1;
+      const normalizedY = ((event.clientY - bounds.top) / bounds.height) * 2 - 1;
+      pointerTarget.x = THREE.MathUtils.clamp(normalizedX, -1, 1);
+      pointerTarget.y = THREE.MathUtils.clamp(normalizedY, -1, 1);
+    };
 
+    const handlePointerLeave = () => {
+      pointerTarget.x = 0;
+      pointerTarget.y = 0;
+    };
+
+    mountNode.addEventListener('pointermove', handlePointerMove);
+    mountNode.addEventListener('pointerleave', handlePointerLeave);
+
+    const animate = () => {
       frameId = window.requestAnimationFrame(animate);
 
-      const elapsedSeconds = (performance.now() - startTime) / 1000;
-      const repeatIndex = Math.floor(elapsedSeconds / 12);
+      const elapsed = clock.getElapsedTime();
+      pointerCurrent.x = THREE.MathUtils.lerp(pointerCurrent.x, pointerTarget.x, 0.05);
+      pointerCurrent.y = THREE.MathUtils.lerp(pointerCurrent.y, pointerTarget.y, 0.05);
 
-      if (repeatIndex !== lastRepeatIndex) {
-        lastRepeatIndex = repeatIndex;
-        textureSequenceIndex += 1;
-        applyTexturePair(textureSequenceIndex, loadedTextures, mainMaterial, backgroundMaterial);
-      }
+      mainGroup.rotation.y =
+        (reduceMotion ? 0.18 : elapsed * 0.22) + pointerCurrent.x * 0.28 - 0.32;
+      mainGroup.rotation.x = 0.2 + pointerCurrent.y * -0.18 + Math.sin(elapsed * 0.8) * 0.04;
+      mainGroup.position.y = baseGroupY + (reduceMotion ? 0 : Math.sin(elapsed * 0.9) * 0.12);
 
-      const cycleProgress = (elapsedSeconds % 12) / 12;
-      const yoyoProgress = repeatIndex % 2 === 0 ? cycleProgress : 1 - cycleProgress;
-      const position = power1InOut(yoyoProgress) * 6;
-      const state = sampleHeroState(position);
+      solidMesh.rotation.z += reduceMotion ? 0.0003 : 0.0018;
+      shellMesh.rotation.z -= reduceMotion ? 0.0004 : 0.0026;
+      edgeLines.rotation.z -= reduceMotion ? 0.0002 : 0.0011;
+      outerRing.rotation.y += reduceMotion ? 0.0004 : 0.0024;
+      outerRing.rotation.z += reduceMotion ? 0.0003 : 0.0016;
+      innerRing.rotation.x -= reduceMotion ? 0.0004 : 0.002;
+      particles.rotation.y = elapsed * 0.04;
+      particles.rotation.x = Math.sin(elapsed * 0.2) * 0.05;
+      glow.material.opacity = 0.54 + Math.sin(elapsed * 1.4) * 0.08;
 
-      for (const [key, value] of Object.entries(state)) {
-        if (key in mainMaterial.uniforms) {
-          mainMaterial.uniforms[key].value = value;
-        }
-      }
-
-      backgroundMaterial.uniforms.textureTransitionAmount.value = THREE.MathUtils.clamp(
-        (position - 1.75) / 1.75,
-        0,
-        1,
-      );
-
-      controls.update();
       renderer.render(scene, camera);
-    }
+    };
 
     animate();
 
-    window.addEventListener('resize', applyCameraLayout);
-
     return () => {
-      disposed = true;
       window.cancelAnimationFrame(frameId);
-      window.removeEventListener('resize', applyCameraLayout);
-      controls.dispose();
-      mainGeometry.dispose();
-      backgroundGeometry.dispose();
-      mainMaterial.dispose();
-      backgroundMaterial.dispose();
-      placeholderTexture.dispose();
-      loadedTextures.forEach((texture) => texture.dispose());
+      resizeObserver.disconnect();
+      mountNode.removeEventListener('pointermove', handlePointerMove);
+      mountNode.removeEventListener('pointerleave', handlePointerLeave);
+
+      solidGeometry.dispose();
+      shellGeometry.dispose();
+      edgeGeometry.dispose();
+      particleGeometry.dispose();
+      solidMaterial.dispose();
+      shellMaterial.dispose();
+      edgeMaterial.dispose();
+      particleMaterial.dispose();
+      outerRing.geometry.dispose();
+      innerRing.geometry.dispose();
+      (outerRing.material as THREE.Material).dispose();
+      (innerRing.material as THREE.Material).dispose();
+      (glow.material as THREE.Material).dispose();
+      environmentTexture.dispose();
+      glowTexture.dispose();
       renderer.dispose();
       renderer.forceContextLoss();
 
