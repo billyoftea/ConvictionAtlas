@@ -1,9 +1,13 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { QueryService } from '../services/query.service';
+import { ManagerSharesService } from '../services/manager-shares.service';
 
 @Controller('managers')
 export class ManagersController {
-  constructor(private readonly queryService: QueryService) {}
+  constructor(
+    private readonly queryService: QueryService,
+    private readonly managerSharesService: ManagerSharesService,
+  ) {}
 
   @Get()
   getManagers() {
@@ -40,11 +44,33 @@ export class ManagersController {
     return this.queryService.getManagerReviews(slug);
   }
 
+  @Get(':slug/share-orders')
+  getManagerShareOrders(@Param('slug') slug: string) {
+    return this.managerSharesService.listShareOrders(slug);
+  }
+
   @Post(':slug/reviews')
   createManagerReview(
     @Param('slug') slug: string,
     @Body() payload: { authorName?: string; rating?: number; comment?: string },
   ) {
     return this.queryService.createReview(slug, payload);
+  }
+
+  @Post(':slug/share-orders')
+  createManagerShareOrder(
+    @Param('slug') slug: string,
+    @Body() payload?: { shares?: number; buyerAddress?: string },
+  ) {
+    return this.managerSharesService.createShareOrder(slug, payload);
+  }
+
+  @Post(':slug/share-orders/:id/confirm')
+  confirmManagerShareOrder(
+    @Param('slug') slug: string,
+    @Param('id') id: string,
+    @Body() payload?: { buyerAddress?: string; transactionHash?: string },
+  ) {
+    return this.managerSharesService.confirmShareOrder(slug, id, payload);
   }
 }

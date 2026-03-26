@@ -72,9 +72,8 @@ export class QueryService {
 
     return Promise.all(
       managers.map(async (manager) => {
-        const { latestPortfolio, analytics } = await this.getLatestManagerState(
-          manager,
-        );
+        const { latestPortfolio, analytics } =
+          await this.getLatestManagerState(manager);
         const marketplace = this.buildManagerMarketplace(manager);
 
         return {
@@ -314,7 +313,11 @@ export class QueryService {
           },
         },
       },
-      orderBy: [{ volume24h: 'desc' }, { marketCap: 'desc' }, { updatedAt: 'desc' }],
+      orderBy: [
+        { volume24h: 'desc' },
+        { marketCap: 'desc' },
+        { updatedAt: 'desc' },
+      ],
     });
 
     return opportunities.map((opportunity) => ({
@@ -389,8 +392,9 @@ export class QueryService {
     const memo = await this.getMemo(id);
     const marketplace = this.buildManagerMarketplace(memo.manager);
     const unlockOffer =
-      marketplace.serviceCatalog.find((offer) => offer.kind === 'memo_unlock') ??
-      marketplace.serviceCatalog[0];
+      marketplace.serviceCatalog.find(
+        (offer) => offer.kind === 'memo_unlock',
+      ) ?? marketplace.serviceCatalog[0];
 
     const unlock = await this.prisma.memoUnlock.create({
       data: {
@@ -434,9 +438,8 @@ export class QueryService {
 
     const rows = await Promise.all(
       managers.map(async (manager) => {
-        const { analytics, latestPortfolio } = await this.getLatestManagerState(
-          manager,
-        );
+        const { analytics, latestPortfolio } =
+          await this.getLatestManagerState(manager);
         return {
           slug: manager.slug,
           name: manager.name,
@@ -468,7 +471,9 @@ export class QueryService {
     return opportunities
       .map((opportunity) => {
         const convictionAverage = opportunity.decisions.length
-          ? average(opportunity.decisions.map((decision) => decision.convictionScore))
+          ? average(
+              opportunity.decisions.map((decision) => decision.convictionScore),
+            )
           : 0;
         const signalStrength = opportunity.signals.length
           ? average(opportunity.signals.map((signal) => Math.abs(signal.value)))
@@ -498,49 +503,54 @@ export class QueryService {
     slug: string;
     metadata?: string | null;
   }) {
-    const [latestPerformance, latestPortfolio, replayUniverse] = await Promise.all([
-      this.prisma.performanceSnapshot.findFirst({
-        where: { managerId: manager.id },
-        orderBy: { computedAt: 'desc' },
-      }),
-      this.prisma.portfolioSnapshot.findFirst({
-        where: { managerId: manager.id },
-        orderBy: { computedAt: 'desc' },
-        include: {
-          positions: {
-            orderBy: { weight: 'desc' },
-            include: {
-              opportunity: {
-                include: {
-                  historyPoints: {
-                    orderBy: { pointAt: 'asc' },
-                    take: 720,
+    const [latestPerformance, latestPortfolio, replayUniverse] =
+      await Promise.all([
+        this.prisma.performanceSnapshot.findFirst({
+          where: { managerId: manager.id },
+          orderBy: { computedAt: 'desc' },
+        }),
+        this.prisma.portfolioSnapshot.findFirst({
+          where: { managerId: manager.id },
+          orderBy: { computedAt: 'desc' },
+          include: {
+            positions: {
+              orderBy: { weight: 'desc' },
+              include: {
+                opportunity: {
+                  include: {
+                    historyPoints: {
+                      orderBy: { pointAt: 'asc' },
+                      take: 720,
+                    },
                   },
                 },
               },
             },
           },
-        },
-      }),
-      this.prisma.opportunity.findMany({
-        include: {
-          historyPoints: {
-            orderBy: { pointAt: 'asc' },
-            take: 720,
+        }),
+        this.prisma.opportunity.findMany({
+          include: {
+            historyPoints: {
+              orderBy: { pointAt: 'asc' },
+              take: 720,
+            },
+            newsItems: {
+              orderBy: { publishedAt: 'asc' },
+              take: 20,
+            },
+            signals: true,
           },
-          newsItems: {
-            orderBy: { publishedAt: 'asc' },
-            take: 20,
-          },
-          signals: true,
-        },
-      }),
-    ]);
+        }),
+      ]);
 
-    const analytics = this.buildManagerAnalytics(latestPortfolio, latestPerformance, {
-      managerSlug: manager.slug,
-      replayUniverse,
-    });
+    const analytics = this.buildManagerAnalytics(
+      latestPortfolio,
+      latestPerformance,
+      {
+        managerSlug: manager.slug,
+        replayUniverse,
+      },
+    );
 
     return { latestPerformance, latestPortfolio, analytics };
   }
@@ -579,7 +589,10 @@ export class QueryService {
 
     if (!series.length) {
       return {
-        latestNav: round(latestPerformance?.nav ?? latestPortfolio?.nav ?? 100, 4),
+        latestNav: round(
+          latestPerformance?.nav ?? latestPortfolio?.nav ?? 100,
+          4,
+        ),
         dailyReturn: round(latestPerformance?.dailyReturn ?? 0, 4),
         cumulativeReturn: round(latestPerformance?.cumulativeReturn ?? 0, 4),
         drawdown: round(latestPerformance?.drawdown ?? 0, 4),
@@ -589,8 +602,14 @@ export class QueryService {
         series: [
           {
             pointAt: new Date().toISOString(),
-            nav: round(latestPerformance?.nav ?? latestPortfolio?.nav ?? 100, 4),
-            cumulativeReturn: round(latestPerformance?.cumulativeReturn ?? 0, 4),
+            nav: round(
+              latestPerformance?.nav ?? latestPortfolio?.nav ?? 100,
+              4,
+            ),
+            cumulativeReturn: round(
+              latestPerformance?.cumulativeReturn ?? 0,
+              4,
+            ),
           },
         ],
       };
@@ -633,18 +652,21 @@ export class QueryService {
           4,
         )
       : latestPortfolio?.positions?.length
-      ? round(
-          latestPortfolio.positions.filter((position: any) => {
-            const historyPoints = position.opportunity?.historyPoints ?? [];
-            if (historyPoints.length < 2) {
-              return (position.opportunity?.priceChange24h ?? 0) > 0;
-            }
+        ? round(
+            latestPortfolio.positions.filter((position: any) => {
+              const historyPoints = position.opportunity?.historyPoints ?? [];
+              if (historyPoints.length < 2) {
+                return (position.opportunity?.priceChange24h ?? 0) > 0;
+              }
 
-            return historyPoints[historyPoints.length - 1].price > historyPoints[0].price;
-          }).length / latestPortfolio.positions.length,
-          4,
-        )
-      : 0;
+              return (
+                historyPoints[historyPoints.length - 1].price >
+                historyPoints[0].price
+              );
+            }).length / latestPortfolio.positions.length,
+            4,
+          )
+        : 0;
     const lookbackDays =
       series.length > 1
         ? round(
@@ -675,9 +697,9 @@ export class QueryService {
 
     const timeSeries = positions
       .map((position: any) => {
-        const historyPoints = (position.opportunity?.historyPoints ?? []).filter(
-          (point: HistoryPointLike) => Number.isFinite(point.price),
-        );
+        const historyPoints = (
+          position.opportunity?.historyPoints ?? []
+        ).filter((point: HistoryPointLike) => Number.isFinite(point.price));
         if (!historyPoints.length && position.opportunity?.currentPrice) {
           const currentTimestamp = latestPortfolio?.computedAt ?? new Date();
           return {
@@ -693,13 +715,15 @@ export class QueryService {
         }
 
         const latestTimestamp =
-          historyPoints[historyPoints.length - 1]?.pointAt?.getTime() ?? Date.now();
+          historyPoints[historyPoints.length - 1]?.pointAt?.getTime() ??
+          Date.now();
         const cutoff = latestTimestamp - 90 * 24 * 60 * 60 * 1000;
         const trailing = historyPoints.filter(
           (point: HistoryPointLike) => point.pointAt.getTime() >= cutoff,
         );
         const normalizedPoints = trailing.length ? trailing : historyPoints;
-        const basePrice = normalizedPoints[0]?.price ?? position.entryPrice ?? 1;
+        const basePrice =
+          normalizedPoints[0]?.price ?? position.entryPrice ?? 1;
 
         return {
           weight: position.weight,
@@ -721,8 +745,8 @@ export class QueryService {
     const allTimestamps = Array.from<number>(
       new Set(
         timeSeries.flatMap((entry) =>
-          entry.points.map(
-            (point: HistoryPointLike) => Number(point.pointAt.getTime()),
+          entry.points.map((point: HistoryPointLike) =>
+            Number(point.pointAt.getTime()),
           ),
         ),
       ),
@@ -779,7 +803,8 @@ export class QueryService {
     }
 
     const latestTimestamp = universe.reduce((max, opportunity) => {
-      const lastPoint = opportunity.historyPoints[opportunity.historyPoints.length - 1];
+      const lastPoint =
+        opportunity.historyPoints[opportunity.historyPoints.length - 1];
       return Math.max(max, lastPoint?.pointAt?.getTime() ?? 0);
     }, 0);
 
@@ -805,7 +830,10 @@ export class QueryService {
         cumulativeReturn: 0,
       },
     ];
-    const threshold = this.getReplayThreshold(managerSlug, blueprint.bullishThreshold);
+    const threshold = this.getReplayThreshold(
+      managerSlug,
+      blueprint.bullishThreshold,
+    );
     const confidenceBounds = this.getReplayConfidenceBounds(managerSlug);
     const edgeAlpha = this.getReplayEdgeAlpha(managerSlug);
 
@@ -844,8 +872,10 @@ export class QueryService {
         ? (1 - blueprint.cashFloor) * confidenceScale
         : 0;
       const scoreTotal =
-        candidates.reduce((sum, candidate) => sum + Math.max(candidate.score, threshold), 0) ||
-        1;
+        candidates.reduce(
+          (sum, candidate) => sum + Math.max(candidate.score, threshold),
+          0,
+        ) || 1;
 
       const grossStrategyReturn = candidates.reduce((sum, candidate) => {
         const startPoint = this.getPointAtOrBefore(
@@ -860,7 +890,9 @@ export class QueryService {
           return sum;
         }
 
-        const weight = (Math.max(candidate.score, threshold) / scoreTotal) * investableCapital;
+        const weight =
+          (Math.max(candidate.score, threshold) / scoreTotal) *
+          investableCapital;
         return (
           sum +
           weight *
@@ -874,7 +906,8 @@ export class QueryService {
       }, 0);
 
       const intervalReturn =
-        grossStrategyReturn + (candidates.length ? investableCapital * edgeAlpha : 0);
+        grossStrategyReturn +
+        (candidates.length ? investableCapital * edgeAlpha : 0);
 
       nav = round(nav * (1 + intervalReturn), 4);
       series.push({
@@ -899,7 +932,8 @@ export class QueryService {
     }
 
     const latestTimestamp = universe.reduce((max, opportunity) => {
-      const lastPoint = opportunity.historyPoints[opportunity.historyPoints.length - 1];
+      const lastPoint =
+        opportunity.historyPoints[opportunity.historyPoints.length - 1];
       return Math.max(max, lastPoint?.pointAt?.getTime() ?? 0);
     }, 0);
 
@@ -1053,10 +1087,14 @@ export class QueryService {
   private buildManagerMarketplace(manager: ManagerWithPlansLike) {
     const metadata = parseJson(manager.metadata, {}) as Record<string, unknown>;
     const defaultCatalog = this.buildDefaultServiceCatalog(manager);
+    const defaultShareOffering = this.buildDefaultShareOffering(manager);
 
     const serviceCatalog = Array.isArray(metadata.serviceCatalog)
       ? metadata.serviceCatalog.map((entry, index) =>
-          this.normalizeServiceOffer(entry, defaultCatalog[index] ?? defaultCatalog[0]),
+          this.normalizeServiceOffer(
+            entry,
+            defaultCatalog[index] ?? defaultCatalog[0],
+          ),
         )
       : defaultCatalog;
 
@@ -1065,20 +1103,40 @@ export class QueryService {
         metadata.tagline,
         `${manager.name} runs a paid ${manager.style.toLowerCase()} desk for TRON and cross-market Web3 flow.`,
       ),
-      chainFocus: this.pickStringArray(metadata.chainFocus, ['TRON', 'Cross-market Web3']),
-      paymentRail: this.pickString(metadata.paymentRail, 'x402 Payment Protocol'),
+      chainFocus: this.pickStringArray(metadata.chainFocus, [
+        'TRON',
+        'Cross-market Web3',
+      ]),
+      paymentRail: this.pickString(
+        metadata.paymentRail,
+        'x402 Payment Protocol',
+      ),
       settlementAsset: this.pickString(metadata.settlementAsset, 'USDT'),
       settlementNetwork: this.pickString(metadata.settlementNetwork, 'TRON'),
-      identityProvider: this.pickString(metadata.identityProvider, '8004 On-chain Identity'),
-      identityStatus: this.pickString(metadata.identityStatus, 'reputation-active'),
-      marketplaceStatus: this.pickString(metadata.marketplaceStatus, 'x402-ready'),
+      identityProvider: this.pickString(
+        metadata.identityProvider,
+        '8004 On-chain Identity',
+      ),
+      identityStatus: this.pickString(
+        metadata.identityStatus,
+        'reputation-active',
+      ),
+      marketplaceStatus: this.pickString(
+        metadata.marketplaceStatus,
+        'x402-ready',
+      ),
       serviceModes: this.pickStringArray(metadata.serviceModes, [
         'paid memos',
         'signal subscriptions',
         'custom research',
         'compare reports',
+        'desk shares',
       ]),
       serviceCatalog,
+      shareOffering: this.normalizeShareOffering(
+        metadata.shareOffering,
+        defaultShareOffering,
+      ),
     };
   }
 
@@ -1176,6 +1234,91 @@ export class QueryService {
     }
   }
 
+  private buildDefaultShareOffering(manager: ManagerWithPlansLike) {
+    const matrix = this.getManagerShareMatrix(manager.slug);
+
+    return {
+      enabled: true,
+      shareLabel: `${manager.name} Desk Share`,
+      shareSymbol: matrix.shareSymbol,
+      priceUsd: matrix.priceUsd,
+      minShares: 1,
+      maxShares: matrix.maxShares,
+      availableShares: matrix.availableShares,
+      issuedShares: matrix.issuedShares,
+      purchaseRail: 'Direct Nile TRC20 transfer',
+      network: 'tron:nile',
+      asset: 'USDT',
+      tokenAddress: 'TXYZopYRdj2D9XRtbG411XZZ3kM5VkAeBf',
+      tokenDecimals: 6,
+      treasuryAddress: matrix.treasuryAddress,
+      explorerBaseUrl: 'https://nile.tronscan.org/#/transaction/',
+      note: 'Testnet only. Buying a desk share records a demo allocation inside Conviction Atlas.',
+      perks: matrix.perks,
+    };
+  }
+
+  private getManagerShareMatrix(slug: string) {
+    switch (slug) {
+      case 'event-driven-manager':
+        return {
+          shareSymbol: 'EVNT',
+          priceUsd: 32,
+          maxShares: 24,
+          availableShares: 240,
+          issuedShares: 64,
+          treasuryAddress: 'TBvJUBXorwBPzqvV38vjDgegj5Eh6g2Tsq',
+          perks: [
+            'Catalyst calendar access for the next cycle',
+            'Priority event risk notes after major deadline shifts',
+            'Desk-level scenario map for paid holders',
+          ],
+        };
+      case 'quant-manager':
+        return {
+          shareSymbol: 'QNTM',
+          priceUsd: 18,
+          maxShares: 40,
+          availableShares: 420,
+          issuedShares: 140,
+          treasuryAddress: 'TJRabPrwbZy45sbavfcjinPJC18kjpRTv8',
+          perks: [
+            'Systematic ranking snapshots',
+            'Priority access to rebalance explanations',
+            'Lower-cost follow-up requests for holders',
+          ],
+        };
+      case 'hybrid-manager':
+        return {
+          shareSymbol: 'HYBR',
+          priceUsd: 40,
+          maxShares: 20,
+          availableShares: 180,
+          issuedShares: 96,
+          treasuryAddress: 'TLfuw4tRywtxCusvTudbjf7PbcXjfe7qrw',
+          perks: [
+            'Flagship desk letter and allocation notes',
+            'Priority compare memos against the full manager set',
+            'Holder-only portfolio review snapshots',
+          ],
+        };
+      default:
+        return {
+          shareSymbol: 'NARR',
+          priceUsd: 24,
+          maxShares: 30,
+          availableShares: 320,
+          issuedShares: 88,
+          treasuryAddress: 'TCLBgkbfVkJroVBJVqBEsxtPNQEQMTQCLQ',
+          perks: [
+            'Priority access to thematic desk letters',
+            'Early watchlist drops before the public tape',
+            'Quarterly narrative positioning recap',
+          ],
+        };
+    }
+  }
+
   private normalizeServiceOffer(
     entry: unknown,
     fallback: {
@@ -1192,7 +1335,9 @@ export class QueryService {
     },
   ) {
     const record =
-      entry && typeof entry === 'object' ? (entry as Record<string, unknown>) : {};
+      entry && typeof entry === 'object'
+        ? (entry as Record<string, unknown>)
+        : {};
 
     return {
       kind: this.pickString(record.kind, fallback.kind),
@@ -1205,7 +1350,80 @@ export class QueryService {
       network: this.pickString(record.network, fallback.network),
       asset: this.pickString(record.asset, fallback.asset),
       featured:
-        typeof record.featured === 'boolean' ? record.featured : fallback.featured,
+        typeof record.featured === 'boolean'
+          ? record.featured
+          : fallback.featured,
+    };
+  }
+
+  private normalizeShareOffering(
+    entry: unknown,
+    fallback: {
+      enabled: boolean;
+      shareLabel: string;
+      shareSymbol: string;
+      priceUsd: number;
+      minShares: number;
+      maxShares: number;
+      availableShares: number;
+      issuedShares: number;
+      purchaseRail: string;
+      network: string;
+      asset: string;
+      tokenAddress: string;
+      tokenDecimals: number;
+      treasuryAddress: string;
+      explorerBaseUrl: string;
+      note: string;
+      perks: string[];
+    },
+  ) {
+    const record =
+      entry && typeof entry === 'object'
+        ? (entry as Record<string, unknown>)
+        : {};
+    const minShares = Math.max(
+      1,
+      this.pickInteger(record.minShares, fallback.minShares),
+    );
+    const maxShares = Math.max(
+      minShares,
+      this.pickInteger(record.maxShares, fallback.maxShares),
+    );
+
+    return {
+      enabled: this.pickBoolean(record.enabled, fallback.enabled),
+      shareLabel: this.pickString(record.shareLabel, fallback.shareLabel),
+      shareSymbol: this.pickString(record.shareSymbol, fallback.shareSymbol),
+      priceUsd: this.pickNumber(record.priceUsd, fallback.priceUsd),
+      minShares,
+      maxShares,
+      availableShares: this.pickInteger(
+        record.availableShares,
+        fallback.availableShares,
+      ),
+      issuedShares: this.pickInteger(
+        record.issuedShares,
+        fallback.issuedShares,
+      ),
+      purchaseRail: this.pickString(record.purchaseRail, fallback.purchaseRail),
+      network: this.pickString(record.network, fallback.network),
+      asset: this.pickString(record.asset, fallback.asset),
+      tokenAddress: this.pickString(record.tokenAddress, fallback.tokenAddress),
+      tokenDecimals: this.pickInteger(
+        record.tokenDecimals,
+        fallback.tokenDecimals,
+      ),
+      treasuryAddress: this.pickString(
+        record.treasuryAddress,
+        fallback.treasuryAddress,
+      ),
+      explorerBaseUrl: this.pickString(
+        record.explorerBaseUrl,
+        fallback.explorerBaseUrl,
+      ),
+      note: this.pickString(record.note, fallback.note),
+      perks: this.pickStringArray(record.perks, fallback.perks),
     };
   }
 
@@ -1213,8 +1431,20 @@ export class QueryService {
     return typeof value === 'string' && value.trim() ? value.trim() : fallback;
   }
 
+  private pickBoolean(value: unknown, fallback: boolean) {
+    return typeof value === 'boolean' ? value : fallback;
+  }
+
   private pickNumber(value: unknown, fallback: number) {
-    return typeof value === 'number' && Number.isFinite(value) ? value : fallback;
+    return typeof value === 'number' && Number.isFinite(value)
+      ? value
+      : fallback;
+  }
+
+  private pickInteger(value: unknown, fallback: number) {
+    return typeof value === 'number' && Number.isFinite(value)
+      ? Math.max(0, Math.round(value))
+      : fallback;
   }
 
   private pickStringArray(value: unknown, fallback: string[]) {
@@ -1223,7 +1453,9 @@ export class QueryService {
     }
 
     const items = value
-      .filter((entry): entry is string => typeof entry === 'string' && !!entry.trim())
+      .filter(
+        (entry): entry is string => typeof entry === 'string' && !!entry.trim(),
+      )
       .map((entry) => entry.trim());
 
     return items.length ? items : fallback;
@@ -1267,7 +1499,8 @@ export class QueryService {
 
     return Array.from({ length: limit }, (_, index) =>
       Math.round(
-        startTimestamp + ((endTimestamp - startTimestamp) * index) / (limit - 1),
+        startTimestamp +
+          ((endTimestamp - startTimestamp) * index) / (limit - 1),
       ),
     );
   }
@@ -1373,7 +1606,10 @@ export class QueryService {
       return series;
     }
 
-    const targetNav = round(100 * (1 + this.getReplayFloorTarget(managerSlug)), 4);
+    const targetNav = round(
+      100 * (1 + this.getReplayFloorTarget(managerSlug)),
+      4,
+    );
     const finalNav = series[series.length - 1]?.nav ?? 100;
     if (finalNav >= targetNav || finalNav <= 0) {
       return series;
@@ -1381,7 +1617,8 @@ export class QueryService {
 
     const startNav = series[0]?.nav ?? 100;
     const centeredValues = series.map((point) => point.nav - startNav);
-    const volatilityScale = managerSlug === 'event-driven-manager' ? 0.34 : 0.42;
+    const volatilityScale =
+      managerSlug === 'event-driven-manager' ? 0.34 : 0.42;
     const scaledFinalNav =
       startNav + centeredValues[centeredValues.length - 1] * volatilityScale;
     const uplift = targetNav - scaledFinalNav;
@@ -1389,9 +1626,7 @@ export class QueryService {
     return series.map((point, index) => {
       const progress = index / (series.length - 1);
       const adjustedNav = round(
-        startNav +
-          centeredValues[index] * volatilityScale +
-          uplift * progress,
+        startNav + centeredValues[index] * volatilityScale + uplift * progress,
         4,
       );
 
@@ -1417,8 +1652,12 @@ export class QueryService {
     opportunity: ReplayPreparedOpportunity,
     timestamp: number,
   ) {
-    const firstPointTimestamp = opportunity.historyPoints[0]?.pointAt?.getTime();
-    if (!firstPointTimestamp || firstPointTimestamp > timestamp - 24 * 60 * 60 * 1000) {
+    const firstPointTimestamp =
+      opportunity.historyPoints[0]?.pointAt?.getTime();
+    if (
+      !firstPointTimestamp ||
+      firstPointTimestamp > timestamp - 24 * 60 * 60 * 1000
+    ) {
       return null;
     }
 
@@ -1426,7 +1665,10 @@ export class QueryService {
       return null;
     }
 
-    const currentPoint = this.getPointAtOrBefore(opportunity.historyPoints, timestamp);
+    const currentPoint = this.getPointAtOrBefore(
+      opportunity.historyPoints,
+      timestamp,
+    );
     if (!currentPoint) {
       return null;
     }
@@ -1461,24 +1703,36 @@ export class QueryService {
     );
     const volumeScore = this.buildReplayVolumeScore(opportunity);
     const breakoutScore = clamp(
-      Math.max(change3d, 0) / 12 * 0.45 + Math.max(change7d, 0) / 18 * 0.55,
+      (Math.max(change3d, 0) / 12) * 0.45 + (Math.max(change7d, 0) / 18) * 0.55,
       0,
       1,
     );
     const trendScore =
       opportunity.type === OpportunityType.TOKEN
-        ? clamp(Math.max(change7d, 0) / 14 * 0.55 + Math.max(change30d, 0) / 24 * 0.45, 0, 1)
-        : clamp(Math.max(change7d, 0) / 24 * 0.55 + Math.max(change30d, 0) / 45 * 0.45, 0, 1);
-    const dislocationScore =
-      opportunity.type === OpportunityType.TOKEN
         ? clamp(
-            Math.max(Number(opportunity.signalMap.price_dislocation ?? 0), 0) * 0.5 +
-              Math.max(-change30d, 0) / 35 * 0.5,
+            (Math.max(change7d, 0) / 14) * 0.55 +
+              (Math.max(change30d, 0) / 24) * 0.45,
             0,
             1,
           )
         : clamp(
-            Math.max(Number(opportunity.signalMap.price_dislocation ?? 0), 0) * 0.4 +
+            (Math.max(change7d, 0) / 24) * 0.55 +
+              (Math.max(change30d, 0) / 45) * 0.45,
+            0,
+            1,
+          );
+    const dislocationScore =
+      opportunity.type === OpportunityType.TOKEN
+        ? clamp(
+            Math.max(Number(opportunity.signalMap.price_dislocation ?? 0), 0) *
+              0.5 +
+              (Math.max(-change30d, 0) / 35) * 0.5,
+            0,
+            1,
+          )
+        : clamp(
+            Math.max(Number(opportunity.signalMap.price_dislocation ?? 0), 0) *
+              0.4 +
               Math.abs(currentPoint.price - 0.5) * 1.2,
             0,
             1,
@@ -1524,7 +1778,11 @@ export class QueryService {
               1,
             );
     const shockPenalty = clamp(
-      Math.max(Math.abs(change3d) - (opportunity.type === OpportunityType.TOKEN ? 9 : 14), 0) / 22,
+      Math.max(
+        Math.abs(change3d) -
+          (opportunity.type === OpportunityType.TOKEN ? 9 : 14),
+        0,
+      ) / 22,
       0,
       0.22,
     );
@@ -1538,7 +1796,9 @@ export class QueryService {
               volumeScore * 0.1 +
               Math.max(structuralSignal, 0) * 0.18 +
               dislocationScore * 0.08 +
-              (opportunity.type === OpportunityType.PREDICTION_MARKET ? 0.05 : 0.02) -
+              (opportunity.type === OpportunityType.PREDICTION_MARKET
+                ? 0.05
+                : 0.02) -
               stablePenalty * 0.85 -
               (change30d <= 0 ? 0.1 : 0) -
               shockPenalty,
@@ -1586,8 +1846,12 @@ export class QueryService {
     opportunity: ReplayPreparedOpportunity,
     timestamp: number,
   ) {
-    const firstPointTimestamp = opportunity.historyPoints[0]?.pointAt?.getTime();
-    if (!firstPointTimestamp || firstPointTimestamp > timestamp - 24 * 60 * 60 * 1000) {
+    const firstPointTimestamp =
+      opportunity.historyPoints[0]?.pointAt?.getTime();
+    if (
+      !firstPointTimestamp ||
+      firstPointTimestamp > timestamp - 24 * 60 * 60 * 1000
+    ) {
       return null;
     }
 
@@ -1595,7 +1859,10 @@ export class QueryService {
       return null;
     }
 
-    const currentPoint = this.getPointAtOrBefore(opportunity.historyPoints, timestamp);
+    const currentPoint = this.getPointAtOrBefore(
+      opportunity.historyPoints,
+      timestamp,
+    );
     if (!currentPoint) {
       return null;
     }
@@ -1630,19 +1897,19 @@ export class QueryService {
     );
     const trendScore =
       opportunity.type === OpportunityType.TOKEN
-        ? clamp(change7d / 18 * 0.6 + change30d / 40 * 0.4, -1, 1)
-        : clamp(change7d / 22 * 0.6 + change30d / 28 * 0.4, -1, 1);
+        ? clamp((change7d / 18) * 0.6 + (change30d / 40) * 0.4, -1, 1)
+        : clamp((change7d / 22) * 0.6 + (change30d / 28) * 0.4, -1, 1);
     const priceDislocation =
       opportunity.type === OpportunityType.TOKEN
         ? clamp(
-            Math.max(-change30d, 0) / 32 * 0.62 +
-              Math.max(change7d, 0) / 18 * 0.38,
+            (Math.max(-change30d, 0) / 32) * 0.62 +
+              (Math.max(change7d, 0) / 18) * 0.38,
             0,
             1,
           )
         : clamp(
             Math.abs(currentPoint.price - 0.5) * 1.6 +
-              Math.max(change7d, 0) / 20 * 0.25,
+              (Math.max(change7d, 0) / 20) * 0.25,
             0,
             1,
           );

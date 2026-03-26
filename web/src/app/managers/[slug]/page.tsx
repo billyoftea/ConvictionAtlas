@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { AssetAvatar } from '../../../components/asset-avatar';
 import { CustomResearchForm } from '../../../components/custom-research-form';
+import { ManagerSharePurchase } from '../../../components/manager-share-purchase';
 import { MemoUnlockButton } from '../../../components/memo-unlock-button';
 import { PositionStack } from '../../../components/position-stack';
 import { ReviewForm } from '../../../components/review-form';
@@ -18,6 +19,7 @@ import {
 import type {
   ManagerDetail,
   ManagerRebalance,
+  ManagerShareOrdersResponse,
   ManagerReviewsResponse,
   Memo,
   PortfolioSnapshot,
@@ -31,20 +33,24 @@ export const dynamic = 'force-dynamic';
 
 export default async function ManagerDetailPage({ params }: PageProps) {
   const { slug } = await params;
-  const [manager, portfolio, rebalances, memos, reviews] = await Promise.all([
-    safeFetchApi<ManagerDetail>(`/managers/${slug}`),
-    safeFetchApi<PortfolioSnapshot>(`/managers/${slug}/portfolio`),
-    safeFetchApi<ManagerRebalance[]>(`/managers/${slug}/rebalances`),
-    safeFetchApi<Memo[]>(`/managers/${slug}/memos`),
-    safeFetchApi<ManagerReviewsResponse>(`/managers/${slug}/reviews`),
-  ]);
+  const [manager, portfolio, rebalances, memos, reviews, shareOrdersFeed] =
+    await Promise.all([
+      safeFetchApi<ManagerDetail>(`/managers/${slug}`),
+      safeFetchApi<PortfolioSnapshot>(`/managers/${slug}/portfolio`),
+      safeFetchApi<ManagerRebalance[]>(`/managers/${slug}/rebalances`),
+      safeFetchApi<Memo[]>(`/managers/${slug}/memos`),
+      safeFetchApi<ManagerReviewsResponse>(`/managers/${slug}/reviews`),
+      safeFetchApi<ManagerShareOrdersResponse>(
+        `/managers/${slug}/share-orders`,
+      ),
+    ]);
 
   if (!manager) {
     return (
       <section className="atlas-shell">
         <div className="error-card">
-          Manager detail is not available. Confirm the API is running and the pipeline
-          has produced manager snapshots.
+          Manager detail is not available. Confirm the API is running and the
+          pipeline has produced manager snapshots.
         </div>
       </section>
     );
@@ -62,11 +68,14 @@ export default async function ManagerDetailPage({ params }: PageProps) {
   const chartLabels = getChartLabels(manager.performanceSeries);
   const valueLabels = getValueLabels(manager.performanceSeries);
   const memoUnlockOffer =
-    manager.marketplace.serviceCatalog.find((offer) => offer.kind === 'memo_unlock') ??
-    null;
+    manager.marketplace.serviceCatalog.find(
+      (offer) => offer.kind === 'memo_unlock',
+    ) ?? null;
   const customResearchOffer =
-    manager.marketplace.serviceCatalog.find((offer) => offer.kind === 'custom_research') ??
-    null;
+    manager.marketplace.serviceCatalog.find(
+      (offer) => offer.kind === 'custom_research',
+    ) ?? null;
+  const shareOffering = manager.marketplace.shareOffering;
 
   return (
     <div className="atlas-page">
@@ -101,7 +110,9 @@ export default async function ManagerDetailPage({ params }: PageProps) {
           </div>
 
           <p className="atlas-page-copy">{manager.description}</p>
-          <p className="muted atlas-page-subcopy">{manager.marketplace.tagline}</p>
+          <p className="muted atlas-page-subcopy">
+            {manager.marketplace.tagline}
+          </p>
 
           <div className="tag-row">
             {manager.marketplace.chainFocus.map((focus) => (
@@ -110,17 +121,26 @@ export default async function ManagerDetailPage({ params }: PageProps) {
               </span>
             ))}
             <span className="chip">{manager.marketplace.identityStatus}</span>
-            <span className="chip">{manager.marketplace.marketplaceStatus}</span>
             <span className="chip">
-              {manager.marketplace.settlementAsset} on {manager.marketplace.settlementNetwork}
+              {manager.marketplace.marketplaceStatus}
+            </span>
+            <span className="chip">
+              {manager.marketplace.settlementAsset} on{' '}
+              {manager.marketplace.settlementNetwork}
             </span>
           </div>
 
           <div className="atlas-actions">
-            <a href="#service-catalog" className="button-link primary">
+            <a href="#share-purchase" className="button-link primary">
+              Buy desk shares
+            </a>
+            <a href="#service-catalog" className="button-link">
               Buy service
             </a>
-            <Link href="/opportunities" className="button-link">
+            <Link
+              href="/opportunities"
+              className="button-link button-link-ghost"
+            >
               Inspect opportunity tape
             </Link>
           </div>
@@ -128,7 +148,9 @@ export default async function ManagerDetailPage({ params }: PageProps) {
           <div className="atlas-stat-band">
             <div className="atlas-stat-tile">
               <span className="atlas-stat-label">Desk NAV</span>
-              <strong className="atlas-stat-value">{formatMoney(derivedPerformance.nav)}</strong>
+              <strong className="atlas-stat-value">
+                {formatMoney(derivedPerformance.nav)}
+              </strong>
             </div>
             <div className="atlas-stat-tile">
               <span className="atlas-stat-label">Cumulative</span>
@@ -138,7 +160,9 @@ export default async function ManagerDetailPage({ params }: PageProps) {
             </div>
             <div className="atlas-stat-tile">
               <span className="atlas-stat-label">Sharpe</span>
-              <strong className="atlas-stat-value">{derivedPerformance.sharpe.toFixed(2)}</strong>
+              <strong className="atlas-stat-value">
+                {derivedPerformance.sharpe.toFixed(2)}
+              </strong>
             </div>
             <div className="atlas-stat-tile">
               <span className="atlas-stat-label">Rating</span>
@@ -157,7 +181,9 @@ export default async function ManagerDetailPage({ params }: PageProps) {
                   ? `${derivedPerformance.lookbackDays.toFixed(0)}d replay`
                   : 'Live replay'}
               </span>
-              <span className={getSignedClass(derivedPerformance.cumulativeReturn)}>
+              <span
+                className={getSignedClass(derivedPerformance.cumulativeReturn)}
+              >
                 {formatReturn(derivedPerformance.cumulativeReturn)}
               </span>
             </div>
@@ -181,7 +207,9 @@ export default async function ManagerDetailPage({ params }: PageProps) {
               <span className={getSignedClass(derivedPerformance.dailyReturn)}>
                 {formatReturn(derivedPerformance.dailyReturn)} daily
               </span>
-              <span>{formatPercent(derivedPerformance.hitRate * 100)} hit rate</span>
+              <span>
+                {formatPercent(derivedPerformance.hitRate * 100)} hit rate
+              </span>
               <span>{formatReturn(derivedPerformance.drawdown)} drawdown</span>
             </div>
           </div>
@@ -189,7 +217,9 @@ export default async function ManagerDetailPage({ params }: PageProps) {
           <div className="panel atlas-trust-panel">
             <div className="atlas-inline-row">
               <span className="atlas-inline-label">Trust surface</span>
-              <span className="pill">{manager.marketplace.identityProvider}</span>
+              <span className="pill">
+                {manager.marketplace.identityProvider}
+              </span>
             </div>
             <div className="atlas-metric-pair">
               <span>Payment rail</span>
@@ -198,7 +228,8 @@ export default async function ManagerDetailPage({ params }: PageProps) {
             <div className="atlas-metric-pair">
               <span>Settlement</span>
               <strong>
-                {manager.marketplace.settlementAsset} on {manager.marketplace.settlementNetwork}
+                {manager.marketplace.settlementAsset} on{' '}
+                {manager.marketplace.settlementNetwork}
               </strong>
             </div>
             <div className="atlas-metric-pair">
@@ -218,7 +249,10 @@ export default async function ManagerDetailPage({ params }: PageProps) {
           <div className="panel">
             <div className="atlas-section-heading">
               <span className="atlas-kicker">Performance replay</span>
-              <h2 className="atlas-section-title">The curve remains central, but it no longer crowds out everything else.</h2>
+              <h2 className="atlas-section-title">
+                The curve remains central, but it no longer crowds out
+                everything else.
+              </h2>
             </div>
             <Sparkline
               className="atlas-detail-sparkline"
@@ -238,8 +272,12 @@ export default async function ManagerDetailPage({ params }: PageProps) {
             />
             <div className="atlas-inline-stats atlas-inline-stats-wrap">
               <span>{formatMoney(derivedPerformance.nav)} NAV</span>
-              <span>{formatPercent((livePortfolio?.grossExposure ?? 0) * 100)} gross</span>
-              <span>{formatPercent((livePortfolio?.cashWeight ?? 0) * 100)} cash</span>
+              <span>
+                {formatPercent((livePortfolio?.grossExposure ?? 0) * 100)} gross
+              </span>
+              <span>
+                {formatPercent((livePortfolio?.cashWeight ?? 0) * 100)} cash
+              </span>
               <span>{formatDateTime(manager.updatedAt)} updated</span>
             </div>
           </div>
@@ -247,7 +285,9 @@ export default async function ManagerDetailPage({ params }: PageProps) {
           <div className="panel">
             <div className="atlas-section-heading">
               <span className="atlas-kicker">Active views</span>
-              <h2 className="atlas-section-title">What the desk is expressing right now.</h2>
+              <h2 className="atlas-section-title">
+                What the desk is expressing right now.
+              </h2>
             </div>
             {manager.latestDecisions.length ? (
               <div className="atlas-card-grid atlas-card-grid-two">
@@ -267,7 +307,9 @@ export default async function ManagerDetailPage({ params }: PageProps) {
                         sourceKind={decision.opportunity.sourceKind}
                       />
                       <div>
-                        <Link href={`/opportunities/${decision.opportunity.slug}`}>
+                        <Link
+                          href={`/opportunities/${decision.opportunity.slug}`}
+                        >
                           <strong>{decision.opportunity.title}</strong>
                         </Link>
                         <div className="muted">
@@ -276,8 +318,14 @@ export default async function ManagerDetailPage({ params }: PageProps) {
                       </div>
                     </div>
                     <div className="atlas-inline-stats">
-                      <span>{formatMoney(decision.opportunity.currentPrice)}</span>
-                      <span className={getSignedClass(decision.opportunity.priceChange24h)}>
+                      <span>
+                        {formatMoney(decision.opportunity.currentPrice)}
+                      </span>
+                      <span
+                        className={getSignedClass(
+                          decision.opportunity.priceChange24h,
+                        )}
+                      >
                         {formatPercent(decision.opportunity.priceChange24h)}
                       </span>
                     </div>
@@ -294,7 +342,10 @@ export default async function ManagerDetailPage({ params }: PageProps) {
             <div className="atlas-section-heading atlas-heading-row">
               <div>
                 <span className="atlas-kicker">Research products</span>
-                <h2 className="atlas-section-title">Memo unlocks now sit inside the desk context instead of feeling bolted on.</h2>
+                <h2 className="atlas-section-title">
+                  Memo unlocks now sit inside the desk context instead of
+                  feeling bolted on.
+                </h2>
               </div>
               <span className="chip">{memoRows.length} memo(s)</span>
             </div>
@@ -312,14 +363,19 @@ export default async function ManagerDetailPage({ params }: PageProps) {
                 ))}
               </div>
             ) : (
-              <div className="muted">No memo has been generated for this manager yet.</div>
+              <div className="muted">
+                No memo has been generated for this manager yet.
+              </div>
             )}
           </div>
 
           <div className="panel">
             <div className="atlas-section-heading">
               <span className="atlas-kicker">Member reviews</span>
-              <h2 className="atlas-section-title">Reputation is visible alongside performance instead of buried below it.</h2>
+              <h2 className="atlas-section-title">
+                Reputation is visible alongside performance instead of buried
+                below it.
+              </h2>
             </div>
             {reviewState.reviews.length ? (
               <div className="atlas-review-list">
@@ -343,16 +399,41 @@ export default async function ManagerDetailPage({ params }: PageProps) {
         </div>
 
         <div className="atlas-detail-secondary">
+          {shareOffering.enabled ? (
+            <div className="panel" id="share-purchase">
+              <div className="atlas-section-heading">
+                <span className="atlas-kicker">Manager ownership rail</span>
+                <h2 className="atlas-section-title">
+                  The core desk action is now a direct Nile testnet share
+                  purchase.
+                </h2>
+              </div>
+              <ManagerSharePurchase
+                managerSlug={manager.slug}
+                managerName={manager.name}
+                offer={shareOffering}
+                initialFeed={shareOrdersFeed}
+              />
+            </div>
+          ) : null}
+
           <div className="panel" id="service-catalog">
             <div className="atlas-section-heading">
               <span className="atlas-kicker">Service catalog</span>
-              <h2 className="atlas-section-title">What this desk can sell right now.</h2>
+              <h2 className="atlas-section-title">
+                What this desk can sell right now.
+              </h2>
             </div>
             <div className="atlas-service-grid">
               {manager.marketplace.serviceCatalog.map((service) => (
-                <div key={`${service.kind}-${service.label}`} className="atlas-service-panel">
+                <div
+                  key={`${service.kind}-${service.label}`}
+                  className="atlas-service-panel"
+                >
                   <div className="atlas-inline-row">
-                    <span className="atlas-inline-label">{service.cadence}</span>
+                    <span className="atlas-inline-label">
+                      {service.cadence}
+                    </span>
                     <span className={service.featured ? 'pill' : 'chip'}>
                       {service.protocol}
                     </span>
@@ -374,7 +455,10 @@ export default async function ManagerDetailPage({ params }: PageProps) {
           <div className="panel">
             <div className="atlas-section-heading">
               <span className="atlas-kicker">Custom research</span>
-              <h2 className="atlas-section-title">Create, pay, and receive custom work without leaving the profile.</h2>
+              <h2 className="atlas-section-title">
+                Create, pay, and receive custom work without leaving the
+                profile.
+              </h2>
             </div>
             <CustomResearchForm
               managerSlug={manager.slug}
@@ -388,7 +472,9 @@ export default async function ManagerDetailPage({ params }: PageProps) {
           <div className="panel">
             <div className="atlas-section-heading">
               <span className="atlas-kicker">Book structure</span>
-              <h2 className="atlas-section-title">Portfolio shape, sizing, and current exposures.</h2>
+              <h2 className="atlas-section-title">
+                Portfolio shape, sizing, and current exposures.
+              </h2>
             </div>
             <div className="atlas-stat-band atlas-stat-band-compact">
               <div className="atlas-stat-tile">
@@ -440,7 +526,9 @@ export default async function ManagerDetailPage({ params }: PageProps) {
                         sourceKind={position.opportunity.sourceKind}
                       />
                       <div>
-                        <Link href={`/opportunities/${position.opportunity.slug}`}>
+                        <Link
+                          href={`/opportunities/${position.opportunity.slug}`}
+                        >
                           <strong>{position.opportunity.title}</strong>
                         </Link>
                         <div className="muted">
@@ -450,7 +538,11 @@ export default async function ManagerDetailPage({ params }: PageProps) {
                     </div>
                     <div className="atlas-inline-stats atlas-inline-stats-wrap">
                       <span>{formatPercent(position.weight * 100)} weight</span>
-                      <span className={getSignedClass(position.opportunity.priceChange24h)}>
+                      <span
+                        className={getSignedClass(
+                          position.opportunity.priceChange24h,
+                        )}
+                      >
                         {formatPercent(position.opportunity.priceChange24h)}
                       </span>
                     </div>
@@ -458,8 +550,8 @@ export default async function ManagerDetailPage({ params }: PageProps) {
                 ))
               ) : (
                 <div className="muted">
-                  No bullish opportunity cleared this manager&apos;s threshold on the latest
-                  rebalance.
+                  No bullish opportunity cleared this manager&apos;s threshold
+                  on the latest rebalance.
                 </div>
               )}
             </div>
@@ -468,7 +560,9 @@ export default async function ManagerDetailPage({ params }: PageProps) {
           <div className="panel">
             <div className="atlas-section-heading">
               <span className="atlas-kicker">Signal architecture</span>
-              <h2 className="atlas-section-title">The bias map behind the desk.</h2>
+              <h2 className="atlas-section-title">
+                The bias map behind the desk.
+              </h2>
             </div>
             <SignalBars items={manager.signalMix} />
           </div>
@@ -476,7 +570,9 @@ export default async function ManagerDetailPage({ params }: PageProps) {
           <div className="panel">
             <div className="atlas-section-heading">
               <span className="atlas-kicker">Rebalance tape</span>
-              <h2 className="atlas-section-title">How the book changed versus the previous snapshot.</h2>
+              <h2 className="atlas-section-title">
+                How the book changed versus the previous snapshot.
+              </h2>
             </div>
             {actionRows.length ? (
               <div className="atlas-list">
@@ -491,7 +587,9 @@ export default async function ManagerDetailPage({ params }: PageProps) {
                       />
                       <div>
                         {rebalance.opportunitySlug ? (
-                          <Link href={`/opportunities/${rebalance.opportunitySlug}`}>
+                          <Link
+                            href={`/opportunities/${rebalance.opportunitySlug}`}
+                          >
                             <strong>{rebalance.opportunityTitle}</strong>
                           </Link>
                         ) : (
@@ -507,24 +605,32 @@ export default async function ManagerDetailPage({ params }: PageProps) {
                       </div>
                     </div>
                     <div className="atlas-inline-stats atlas-inline-stats-wrap">
-                      <span>{formatPercent(rebalance.previousWeight * 100)}</span>
+                      <span>
+                        {formatPercent(rebalance.previousWeight * 100)}
+                      </span>
                       <span className={getSignedClass(rebalance.delta)}>
                         {formatPercent(rebalance.delta * 100)}
                       </span>
-                      <span>{formatPercent(rebalance.currentWeight * 100)}</span>
+                      <span>
+                        {formatPercent(rebalance.currentWeight * 100)}
+                      </span>
                     </div>
                   </div>
                 ))}
               </div>
             ) : (
-              <div className="muted">Only one portfolio snapshot exists so far.</div>
+              <div className="muted">
+                Only one portfolio snapshot exists so far.
+              </div>
             )}
           </div>
 
           <div className="panel">
             <div className="atlas-section-heading">
               <span className="atlas-kicker">Write a review</span>
-              <h2 className="atlas-section-title">Feedback remains wired into the live API flow.</h2>
+              <h2 className="atlas-section-title">
+                Feedback remains wired into the live API flow.
+              </h2>
             </div>
             <ReviewForm managerSlug={manager.slug} />
           </div>
@@ -534,7 +640,9 @@ export default async function ManagerDetailPage({ params }: PageProps) {
   );
 }
 
-function getChartLabels(series: ManagerDetail['performanceSeries']): [string, string] {
+function getChartLabels(
+  series: ManagerDetail['performanceSeries'],
+): [string, string] {
   if (!series.length) {
     return ['Start', 'Now'];
   }
@@ -545,13 +653,18 @@ function getChartLabels(series: ManagerDetail['performanceSeries']): [string, st
   ];
 }
 
-function getValueLabels(series: ManagerDetail['performanceSeries']): [string, string] {
+function getValueLabels(
+  series: ManagerDetail['performanceSeries'],
+): [string, string] {
   if (!series.length) {
     return ['--', '--'];
   }
 
   const navValues = series.map((point) => point.nav);
-  return [formatMoney(Math.max(...navValues)), formatMoney(Math.min(...navValues))];
+  return [
+    formatMoney(Math.max(...navValues)),
+    formatMoney(Math.min(...navValues)),
+  ];
 }
 
 function formatShortDate(value: string) {

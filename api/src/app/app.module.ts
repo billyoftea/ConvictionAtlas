@@ -11,6 +11,7 @@ import { OpportunitiesController } from './controllers/opportunities.controller'
 import { ResearchOrdersController } from './controllers/research-orders.controller';
 import { PrismaService } from './prisma/prisma.service';
 import { CommerceService } from './services/commerce.service';
+import { ManagerSharesService } from './services/manager-shares.service';
 import { ManagerEngineService } from './services/manager-engine.service';
 import { MemoService } from './services/memo.service';
 import { PerformanceService } from './services/performance.service';
@@ -23,10 +24,7 @@ import { X402Service } from './services/x402.service';
 import { DataPipelineService } from './services/data-pipeline.service';
 
 @Module({
-  imports: [
-    ConfigModule.forRoot({ isGlobal: true }),
-    ScheduleModule.forRoot(),
-  ],
+  imports: [ConfigModule.forRoot({ isGlobal: true }), ScheduleModule.forRoot()],
   controllers: [
     AppController,
     ManagersController,
@@ -41,6 +39,7 @@ import { DataPipelineService } from './services/data-pipeline.service';
     PrismaService,
     QueryService,
     CommerceService,
+    ManagerSharesService,
     SourceIngestionService,
     SignalEngineService,
     ManagerEngineService,

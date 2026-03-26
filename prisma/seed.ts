@@ -1,6 +1,52 @@
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
+const NILE_USDT = {
+  network: 'tron:nile',
+  asset: 'USDT',
+  tokenAddress: 'TXYZopYRdj2D9XRtbG411XZZ3kM5VkAeBf',
+  tokenDecimals: 6,
+  explorerBaseUrl: 'https://nile.tronscan.org/#/transaction/',
+};
+
+const SHARE_TREASURIES = {
+  narrative: 'TCLBgkbfVkJroVBJVqBEsxtPNQEQMTQCLQ',
+  event: 'TBvJUBXorwBPzqvV38vjDgegj5Eh6g2Tsq',
+  quant: 'TJRabPrwbZy45sbavfcjinPJC18kjpRTv8',
+  hybrid: 'TLfuw4tRywtxCusvTudbjf7PbcXjfe7qrw',
+};
+
+function buildShareOffering(config: {
+  managerName: string;
+  shareSymbol: string;
+  priceUsd: number;
+  availableShares: number;
+  issuedShares: number;
+  maxShares: number;
+  treasuryAddress: string;
+  perks: string[];
+  note: string;
+}) {
+  return {
+    enabled: true,
+    shareLabel: `${config.managerName} Desk Share`,
+    shareSymbol: config.shareSymbol,
+    priceUsd: config.priceUsd,
+    minShares: 1,
+    maxShares: config.maxShares,
+    availableShares: config.availableShares,
+    issuedShares: config.issuedShares,
+    purchaseRail: 'Direct Nile TRC20 transfer',
+    network: NILE_USDT.network,
+    asset: NILE_USDT.asset,
+    tokenAddress: NILE_USDT.tokenAddress,
+    tokenDecimals: NILE_USDT.tokenDecimals,
+    treasuryAddress: config.treasuryAddress,
+    explorerBaseUrl: NILE_USDT.explorerBaseUrl,
+    note: config.note,
+    perks: config.perks,
+  };
+}
 
 const managers = [
   {
@@ -29,14 +75,31 @@ const managers = [
         'signal subscriptions',
         'custom research',
         'compare reports',
+        'desk shares',
       ],
+      shareOffering: buildShareOffering({
+        managerName: 'Narrative Manager',
+        shareSymbol: 'NARR',
+        priceUsd: 24,
+        availableShares: 320,
+        issuedShares: 88,
+        maxShares: 30,
+        treasuryAddress: SHARE_TREASURIES.narrative,
+        perks: [
+          'Priority access to thematic desk letters',
+          'Early watchlist drops before the public tape',
+          'Quarterly narrative positioning recap',
+        ],
+        note: 'Testnet only. Buying a desk share records a demo allocation inside Conviction Atlas and does not mint a separate token.',
+      }),
       serviceCatalog: [
         {
           kind: 'memo_unlock',
           label: 'Premium Memo Unlock',
           amountUsd: 2,
           cadence: 'per unlock',
-          description: 'Unlock the full thematic memo and current position framing.',
+          description:
+            'Unlock the full thematic memo and current position framing.',
           delivery: 'Instant unlock after payment intent',
           protocol: 'x402',
           network: 'TRON',
@@ -48,7 +111,8 @@ const managers = [
           label: 'Narrative Pro',
           amountUsd: 29,
           cadence: 'monthly',
-          description: 'Unlock thematic memos and daily TRON-aware opportunity watchlist.',
+          description:
+            'Unlock thematic memos and daily TRON-aware opportunity watchlist.',
           delivery: 'Recurring manager feed',
           protocol: 'x402',
           network: 'TRON',
@@ -60,7 +124,8 @@ const managers = [
           label: 'TRON Narrative Research',
           amountUsd: 79,
           cadence: 'per request',
-          description: 'Commission a thematic report on a token, event, or ecosystem trend.',
+          description:
+            'Commission a thematic report on a token, event, or ecosystem trend.',
           delivery: '24h turnaround target',
           protocol: 'x402',
           network: 'TRON',
@@ -129,7 +194,23 @@ const managers = [
         'signal subscriptions',
         'custom research',
         'compare reports',
+        'desk shares',
       ],
+      shareOffering: buildShareOffering({
+        managerName: 'Event-driven Manager',
+        shareSymbol: 'EVNT',
+        priceUsd: 32,
+        availableShares: 240,
+        issuedShares: 64,
+        maxShares: 24,
+        treasuryAddress: SHARE_TREASURIES.event,
+        perks: [
+          'Catalyst calendar access for the next cycle',
+          'Priority event risk notes after major deadline shifts',
+          'Desk-level scenario map for paid holders',
+        ],
+        note: 'Designed for Nile testnet demos. Share purchases are tracked as manager allocations inside the marketplace.',
+      }),
       serviceCatalog: [
         {
           kind: 'memo_unlock',
@@ -148,7 +229,8 @@ const managers = [
           label: 'Catalyst Desk',
           amountUsd: 39,
           cadence: 'monthly',
-          description: 'Access event memos, alert feed, and rebalance commentary.',
+          description:
+            'Access event memos, alert feed, and rebalance commentary.',
           delivery: 'Recurring manager feed',
           protocol: 'x402',
           network: 'TRON',
@@ -160,7 +242,8 @@ const managers = [
           label: 'Event Research Request',
           amountUsd: 95,
           cadence: 'per request',
-          description: 'Request a manager take on an event, vote, or deadline-driven setup.',
+          description:
+            'Request a manager take on an event, vote, or deadline-driven setup.',
           delivery: '24h turnaround target',
           protocol: 'x402',
           network: 'TRON',
@@ -204,7 +287,8 @@ const managers = [
         name: 'Catalyst Desk',
         cadence: 'monthly',
         amountUsd: 39,
-        description: 'Access event memos, alert feed, and rebalance commentary.',
+        description:
+          'Access event memos, alert feed, and rebalance commentary.',
       },
     ],
   },
@@ -234,14 +318,31 @@ const managers = [
         'signal subscriptions',
         'custom research',
         'compare reports',
+        'desk shares',
       ],
+      shareOffering: buildShareOffering({
+        managerName: 'Quant Manager',
+        shareSymbol: 'QNTM',
+        priceUsd: 18,
+        availableShares: 420,
+        issuedShares: 140,
+        maxShares: 40,
+        treasuryAddress: SHARE_TREASURIES.quant,
+        perks: [
+          'Systematic ranking snapshots',
+          'Priority access to rebalance explanations',
+          'Lower-cost follow-up requests for holders',
+        ],
+        note: 'Quant desk shares are quoted in Nile USDT for local demo trading and recorded off-chain in the product database.',
+      }),
       serviceCatalog: [
         {
           kind: 'memo_unlock',
           label: 'Systematic Memo Unlock',
           amountUsd: 2,
           cadence: 'per unlock',
-          description: 'Unlock the full rule-based memo and current model state.',
+          description:
+            'Unlock the full rule-based memo and current model state.',
           delivery: 'Instant unlock after payment intent',
           protocol: 'x402',
           network: 'TRON',
@@ -276,7 +377,8 @@ const managers = [
           label: 'Systematic Compare Memo',
           amountUsd: 12,
           cadence: 'per report',
-          description: 'Buy a quantitative compare memo across multiple managers.',
+          description:
+            'Buy a quantitative compare memo across multiple managers.',
           delivery: 'Generated on demand',
           protocol: 'x402',
           network: 'TRON',
@@ -333,14 +435,31 @@ const managers = [
         'signal subscriptions',
         'custom research',
         'compare reports',
+        'desk shares',
       ],
+      shareOffering: buildShareOffering({
+        managerName: 'Hybrid Manager',
+        shareSymbol: 'HYBR',
+        priceUsd: 40,
+        availableShares: 180,
+        issuedShares: 96,
+        maxShares: 20,
+        treasuryAddress: SHARE_TREASURIES.hybrid,
+        perks: [
+          'Flagship desk letter and allocation notes',
+          'Priority compare memos against the full manager set',
+          'Holder-only portfolio review snapshots',
+        ],
+        note: 'This is a flagship demo allocation flow on Nile. It records a purchase relationship with the manager, not a regulated fund share.',
+      }),
       serviceCatalog: [
         {
           kind: 'memo_unlock',
           label: 'Flagship Memo Unlock',
           amountUsd: 4,
           cadence: 'per unlock',
-          description: 'Unlock the full flagship memo, rationale, and allocation framing.',
+          description:
+            'Unlock the full flagship memo, rationale, and allocation framing.',
           delivery: 'Instant unlock after payment intent',
           protocol: 'x402',
           network: 'TRON',
@@ -352,7 +471,8 @@ const managers = [
           label: 'Flagship Atlas',
           amountUsd: 49,
           cadence: 'monthly',
-          description: 'Full memo access, portfolio visibility, and premium unlocks.',
+          description:
+            'Full memo access, portfolio visibility, and premium unlocks.',
           delivery: 'Recurring manager feed',
           protocol: 'x402',
           network: 'TRON',
@@ -364,7 +484,8 @@ const managers = [
           label: 'Flagship Research Request',
           amountUsd: 109,
           cadence: 'per request',
-          description: 'Commission high-conviction custom research from the flagship desk.',
+          description:
+            'Commission high-conviction custom research from the flagship desk.',
           delivery: '24h turnaround target',
           protocol: 'x402',
           network: 'TRON',
@@ -375,7 +496,8 @@ const managers = [
           label: 'Flagship Compare Memo',
           amountUsd: 24,
           cadence: 'per report',
-          description: 'Compare the flagship desk against the rest of the manager layer.',
+          description:
+            'Compare the flagship desk against the rest of the manager layer.',
           delivery: 'Generated on demand',
           protocol: 'x402',
           network: 'TRON',
@@ -404,7 +526,8 @@ const managers = [
         name: 'Flagship Atlas',
         cadence: 'monthly',
         amountUsd: 49,
-        description: 'Full memo access, portfolio visibility, and premium unlocks.',
+        description:
+          'Full memo access, portfolio visibility, and premium unlocks.',
       },
     ],
   },

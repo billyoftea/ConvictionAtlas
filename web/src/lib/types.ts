@@ -38,6 +38,26 @@ export interface ManagerServiceOffer {
   featured?: boolean;
 }
 
+export interface ManagerShareOffering {
+  enabled: boolean;
+  shareLabel: string;
+  shareSymbol: string;
+  priceUsd: number;
+  minShares: number;
+  maxShares: number;
+  availableShares: number;
+  issuedShares: number;
+  purchaseRail: string;
+  network: string;
+  asset: string;
+  tokenAddress: string;
+  tokenDecimals: number;
+  treasuryAddress: string;
+  explorerBaseUrl: string;
+  note: string;
+  perks: string[];
+}
+
 export interface ManagerMarketplaceProfile {
   tagline: string;
   chainFocus: string[];
@@ -49,6 +69,7 @@ export interface ManagerMarketplaceProfile {
   marketplaceStatus: string;
   serviceModes: string[];
   serviceCatalog: ManagerServiceOffer[];
+  shareOffering: ManagerShareOffering;
 }
 
 export interface Review {
@@ -287,6 +308,43 @@ export interface ResearchOrderPaymentResult {
     transaction?: string;
     network?: string;
   };
+}
+
+export interface ManagerShareOrder {
+  id: string;
+  managerId: string;
+  buyerAddress: string | null;
+  shares: number;
+  shareLabel: string;
+  shareSymbol: string;
+  priceUsdPerShare: number;
+  amountUsd: number;
+  paymentScheme: string | null;
+  paymentNetwork: string;
+  paymentAsset: string;
+  tokenAddress: string;
+  tokenDecimals: number;
+  amountAtomic: string;
+  treasuryAddress: string;
+  status: string;
+  transactionHash: string | null;
+  createdAt: string;
+  updatedAt: string;
+  settledAt: string | null;
+  explorerUrl: string | null;
+  metadata: Record<string, unknown>;
+}
+
+export interface ManagerShareOrdersResponse {
+  shareOffering: ManagerShareOffering;
+  stats: {
+    totalOrders: number;
+    recordedTransfers: number;
+    totalShares: number;
+    volumeUsd: number;
+    lastOrderAt: string | null;
+  };
+  orders: ManagerShareOrder[];
 }
 
 export interface ManagerSummary {

@@ -10,10 +10,7 @@ import {
   getSignedClass,
   safeFetchApi,
 } from '../../lib/api';
-import type {
-  ManagerLeaderboardEntry,
-  ManagerSummary,
-} from '../../lib/types';
+import type { ManagerLeaderboardEntry, ManagerSummary } from '../../lib/types';
 
 export const dynamic = 'force-dynamic';
 
@@ -26,7 +23,9 @@ export default async function ManagersPage() {
   const managerRows = managers ?? [];
   const leaderboardRows = leaderboard ?? [];
   const leadManager = managerRows[0] ?? null;
-  const averageReturn = average(managerRows.map((manager) => manager.cumulativeReturn));
+  const averageReturn = average(
+    managerRows.map((manager) => manager.cumulativeReturn),
+  );
   const averageRating = average(
     managerRows
       .map((manager) => manager.averageRating)
@@ -35,6 +34,9 @@ export default async function ManagersPage() {
   const serviceModes = Array.from(
     new Set(managerRows.flatMap((manager) => manager.marketplace.serviceModes)),
   );
+  const shareDeskCount = managerRows.filter(
+    (manager) => manager.marketplace.shareOffering.enabled,
+  ).length;
 
   return (
     <div className="atlas-page">
@@ -50,9 +52,10 @@ export default async function ManagersPage() {
             Pick a desk by performance, reputation, and what work it can sell.
           </h1>
           <p className="atlas-page-copy">
-            Managers are no longer presented like static personas. Each entry now reads
-            as an operating desk with priced services, settlement rails, position bias,
-            and a trust surface users can inspect before paying.
+            Managers are no longer presented like static personas. Each entry
+            now reads as an operating desk with priced services, settlement
+            rails, position bias, and a trust surface users can inspect before
+            paying.
           </p>
           <div className="atlas-actions">
             <Link href="/leaderboard" className="button-link primary">
@@ -65,7 +68,9 @@ export default async function ManagersPage() {
           <div className="atlas-stat-band">
             <div className="atlas-stat-tile">
               <span className="atlas-stat-label">Managers live</span>
-              <strong className="atlas-stat-value">{managerRows.length || '--'}</strong>
+              <strong className="atlas-stat-value">
+                {managerRows.length || '--'}
+              </strong>
             </div>
             <div className="atlas-stat-tile">
               <span className="atlas-stat-label">Avg cumulative</span>
@@ -80,8 +85,10 @@ export default async function ManagersPage() {
               </strong>
             </div>
             <div className="atlas-stat-tile">
-              <span className="atlas-stat-label">Service modes</span>
-              <strong className="atlas-stat-value">{serviceModes.length || '--'}</strong>
+              <span className="atlas-stat-label">Share desks</span>
+              <strong className="atlas-stat-value">
+                {shareDeskCount || '--'}
+              </strong>
             </div>
           </div>
         </div>
@@ -90,7 +97,9 @@ export default async function ManagersPage() {
           <div className="panel atlas-spotlight-panel">
             <div className="atlas-inline-row">
               <span className="atlas-inline-label">Lead desk</span>
-              <span className="chip">{leadManager?.riskProfile ?? 'pending'}</span>
+              <span className="chip">
+                {leadManager?.riskProfile ?? 'pending'}
+              </span>
             </div>
             <h2>{leadManager?.name ?? 'No live manager feed yet'}</h2>
             <p className="muted">
@@ -101,7 +110,9 @@ export default async function ManagersPage() {
               <>
                 <Sparkline
                   className="atlas-card-sparkline"
-                  points={leadManager.performanceSeries.map((point) => point.nav)}
+                  points={leadManager.performanceSeries.map(
+                    (point) => point.nav,
+                  )}
                   height={122}
                   area={false}
                   tone={
@@ -114,10 +125,14 @@ export default async function ManagersPage() {
                 />
                 <div className="atlas-inline-stats atlas-inline-stats-wrap">
                   <span>{formatMoney(leadManager.latestNav)} NAV</span>
-                  <span className={getSignedClass(leadManager.cumulativeReturn)}>
+                  <span
+                    className={getSignedClass(leadManager.cumulativeReturn)}
+                  >
                     {formatReturn(leadManager.cumulativeReturn)}
                   </span>
-                  <span>{formatPercent(leadManager.hitRate * 100)} hit rate</span>
+                  <span>
+                    {formatPercent(leadManager.hitRate * 100)} hit rate
+                  </span>
                 </div>
               </>
             ) : null}
@@ -142,7 +157,9 @@ export default async function ManagersPage() {
                       <span className="atlas-rank-index">0{index + 1}</span>
                       <div>
                         <strong>{entry.name}</strong>
-                        <div className="muted">Sharpe {entry.sharpe.toFixed(2)}</div>
+                        <div className="muted">
+                          Sharpe {entry.sharpe.toFixed(2)}
+                        </div>
                       </div>
                     </div>
                     <span className={getSignedClass(entry.cumulativeReturn)}>
@@ -164,7 +181,8 @@ export default async function ManagersPage() {
             <div>
               <span className="atlas-kicker">Marketplace desks</span>
               <h2 className="atlas-section-title">
-                Live manager cards now emphasize what each desk can actually deliver.
+                Live manager cards now emphasize what each desk can actually
+                deliver.
               </h2>
             </div>
             <div className="tag-row">
@@ -179,9 +197,12 @@ export default async function ManagersPage() {
           <div className="atlas-card-grid atlas-card-grid-three">
             {managerRows.map((manager, index) => {
               const featuredOffer =
-                manager.marketplace.serviceCatalog.find((offer) => offer.featured) ??
+                manager.marketplace.serviceCatalog.find(
+                  (offer) => offer.featured,
+                ) ??
                 manager.marketplace.serviceCatalog[0] ??
                 null;
+              const shareOffering = manager.marketplace.shareOffering;
 
               return (
                 <Link
@@ -235,18 +256,25 @@ export default async function ManagersPage() {
                       <div className="atlas-inline-row">
                         <span className="atlas-inline-label">Service rail</span>
                         <span className="pill">
-                          {featuredOffer?.asset ?? manager.marketplace.settlementAsset}
+                          {featuredOffer?.asset ??
+                            manager.marketplace.settlementAsset}
                         </span>
                       </div>
-                      {manager.marketplace.serviceCatalog.slice(0, 3).map((service) => (
-                        <div
-                          key={`${manager.slug}-${service.kind}`}
-                          className="atlas-offer-row"
-                        >
-                          <span>{service.label}</span>
-                          <strong>{formatMoney(service.amountUsd)}</strong>
-                        </div>
-                      ))}
+                      <div className="atlas-offer-row">
+                        <span>{shareOffering.shareLabel}</span>
+                        <strong>{formatMoney(shareOffering.priceUsd)}</strong>
+                      </div>
+                      {manager.marketplace.serviceCatalog
+                        .slice(0, 3)
+                        .map((service) => (
+                          <div
+                            key={`${manager.slug}-${service.kind}`}
+                            className="atlas-offer-row"
+                          >
+                            <span>{service.label}</span>
+                            <strong>{formatMoney(service.amountUsd)}</strong>
+                          </div>
+                        ))}
                     </div>
 
                     <div className="atlas-subpanel">
@@ -261,16 +289,18 @@ export default async function ManagersPage() {
                   <div className="atlas-subpanel">
                     <div className="atlas-inline-row">
                       <span className="atlas-inline-label">Top exposures</span>
-                      <span className="chip">{manager.topPositions.length} positions</span>
+                      <span className="chip">
+                        {manager.topPositions.length} positions
+                      </span>
                     </div>
-                    <PositionStack positions={manager.topPositions.slice(0, 4)} />
+                    <PositionStack
+                      positions={manager.topPositions.slice(0, 4)}
+                    />
                   </div>
 
                   <div className="atlas-card-footer-row">
-                    <span>
-                      {manager.marketplace.paymentRail} on {manager.marketplace.settlementNetwork}
-                    </span>
-                    <strong>Open desk</strong>
+                    <span>{shareOffering.network} share rail</span>
+                    <strong>Open desk and buy</strong>
                   </div>
                 </Link>
               );
@@ -280,8 +310,8 @@ export default async function ManagersPage() {
       ) : (
         <div className="atlas-shell">
           <div className="error-card">
-            Manager data is not available yet. Start the API, run `npm run pipeline`, and
-            refresh this page.
+            Manager data is not available yet. Start the API, run `npm run
+            pipeline`, and refresh this page.
           </div>
         </div>
       )}
