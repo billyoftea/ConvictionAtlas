@@ -157,6 +157,47 @@ const managers = [
     ],
   },
   {
+    slug: 'onchain-fundamentals-manager',
+    name: 'On-chain Fundamentals',
+    description:
+      'Ignores price charts and news cycles entirely. Reads raw on-chain signals — DeFiLlama TVL flows, protocol fee revenue, smart money wallet netflow, and whale accumulation patterns. Only takes conviction when the blockchain itself is speaking.',
+    style: 'On-chain',
+    riskProfile: 'Conservative',
+    rebalanceCadence: 'Every 12h',
+    memoStyle: 'Protocol fundamentals deep-dive with TVL and smart money data',
+    universe: 'DeFi protocols with measurable TVL, fee revenue, and on-chain activity (ETH, SOL, TRON, Base ecosystems)',
+    pricingSummary: '$45/month fundamentals desk',
+    metadata: JSON.stringify({
+      signalWeights: {
+        opportunity_quality: 0.28,
+        volume_spike: 0.22,
+        trend_regime: 0.16,
+        price_dislocation: 0.18,
+        probability_edge: 0.06,
+        event_proximity: 0.06,
+        narrative_strength: 0.04,
+        risk_flag: -0.24,
+      },
+      thresholds: {
+        bullish: 0.14,
+        bearish: -0.10,
+      },
+      opportunityTypeBias: {
+        TOKEN: 0.08,
+        PREDICTION_MARKET: -0.08,
+      },
+      dataSources: ['defillama-api', 'whale-watch', 'crypto-whale-monitor', 'mobula', 'nansen-smart-money-tracker'],
+    }),
+    pricingPlans: [
+      {
+        name: 'Fundamentals Desk',
+        cadence: 'monthly',
+        amountUsd: 45,
+        description: 'TVL flow reports, smart money netflow alerts, protocol upgrade watchlist, and whale accumulation signals.',
+      },
+    ],
+  },
+  {
     slug: 'polymarket-specialist-manager',
     name: 'Polymarket Specialist',
     description:

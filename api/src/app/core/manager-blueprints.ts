@@ -94,6 +94,32 @@ export const MANAGER_BLUEPRINTS: ManagerBlueprint[] = [
     maxPositions: 6,
   },
   {
+    // On-chain Fundamentals: ignores price action and news entirely.
+    // Signal comes from DeFiLlama TVL flows, whale wallet accumulation,
+    // smart money netflow (Nansen/Mobula), and protocol fee revenue.
+    // High cash floor — only acts on strong on-chain conviction.
+    slug: 'onchain-fundamentals-manager',
+    label: 'On-chain Fundamentals',
+    signalWeights: {
+      opportunity_quality: 0.28,    // Protocol TVL + revenue quality
+      volume_spike: 0.22,           // On-chain volume is truth
+      trend_regime: 0.16,           // Chain-level TVL trend direction
+      price_dislocation: 0.18,      // Price lagging on-chain fundamentals = edge
+      probability_edge: 0.06,       // Minor: prediction market confirmation
+      event_proximity: 0.06,        // Protocol upgrades/launches
+      narrative_strength: 0.04,     // Very low weight — we distrust narrative
+      risk_flag: -0.24,             // Hard exit on TVL drain or smart money exit
+    },
+    bullishThreshold: 0.14,         // High bar — only strong on-chain signal
+    bearishThreshold: -0.10,
+    opportunityTypeBias: {
+      TOKEN: 0.08,                  // Slight token bias — on-chain = real assets
+      PREDICTION_MARKET: -0.08,     // Prediction markets have no TVL signal
+    },
+    cashFloor: 0.30,                // Conservative — on-chain conviction takes time
+    maxPositions: 5,                // Concentrated: only highest-conviction protocols
+  },
+  {
     // Polymarket Specialist: focuses exclusively on prediction markets.
     // Buys YES positions when probability edge is mispriced vs. news sentiment.
     // Only holds PREDICTION_MARKET opportunities; ignores pure token plays.
