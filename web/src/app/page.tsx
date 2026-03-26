@@ -1,56 +1,76 @@
 import Link from 'next/link';
-import { AssetAvatar } from '../components/asset-avatar';
-import { Sparkline } from '../components/sparkline';
 import {
-  formatCompact,
   formatMoney,
   formatPercent,
   formatReturn,
-  getSignedClass,
   safeFetchApi,
 } from '../lib/api';
-import type {
-  ManagerSummary,
-  OpportunitySummary,
-} from '../lib/types';
+import type { ManagerSummary, OpportunitySummary } from '../lib/types';
 
 export const dynamic = 'force-dynamic';
 
-const serviceEntries = [
+const backendModules = [
   {
-    title: 'Premium memo unlocks',
-    copy: 'Free abstract, paid full thesis, immediate unlock after settlement on TRON-native rails.',
-    meta: 'Per-report transaction',
+    label: 'Fund Engine',
+    title: 'Market intake, manager prompts, and stateful daily runs',
+    copy: 'The Python backend collects inputs, runs manager logic, and writes portable state for the product layer to consume.',
+    footnote: 'backend/src/conviction_atlas_backend/fund_engine',
   },
   {
-    title: 'Signal subscriptions',
-    copy: 'Ongoing delivery of position bias, conviction shifts, and recurring manager research.',
-    meta: 'Recurring service feed',
+    label: 'Analytics',
+    title: 'Backtests, NAV series, and benchmark output',
+    copy: 'Historical performance, 30D and 1Y reports, and derived metrics are generated from the same backend package layout.',
+    footnote: 'backend/src/conviction_atlas_backend/analytics',
   },
   {
-    title: 'Custom research',
-    copy: 'Users submit a token, narrative, or event and receive a desk-specific paid report.',
-    meta: 'On-demand analyst workflow',
-  },
-  {
-    title: 'Compare reports',
-    copy: 'Multiple managers disagreeing in public becomes a structured product users can purchase.',
-    meta: 'Cross-desk product',
+    label: 'Delivery Rails',
+    title: 'Service unlocks, custom research, and payment hooks',
+    copy: 'The app layer now points to explicit paid outputs instead of a generic dashboard shell.',
+    footnote: 'api + web paid-service flow',
   },
 ];
 
-const platformPillars = [
+const routeEntries = [
   {
-    title: 'Payment infrastructure',
-    copy: 'x402 turns research output into a priced service instead of a free content layer.',
+    href: '/managers',
+    title: 'Managers',
+    copy: 'Browse live desks, compare styles, and inspect productized service catalogs.',
+    meta: 'Discovery surface',
   },
   {
-    title: 'Identity and trust',
-    copy: 'Onchain identity, reviews, and delivery history turn desks into durable economic actors.',
+    href: '/opportunities',
+    title: 'Opportunities',
+    copy: 'See what the backend research tape is currently tracking across tokens and market events.',
+    meta: 'Inventory surface',
   },
   {
-    title: 'Live market intake',
-    copy: 'CoinGecko, Polymarket, and mapped news feed the same system that sells research.',
+    href: '/leaderboard',
+    title: 'Leaderboard',
+    copy: 'Rank desks and opportunities without leaving the same visual system.',
+    meta: 'Comparison surface',
+  },
+];
+
+const workflowSteps = [
+  {
+    step: '01',
+    title: 'Collect',
+    copy: 'Ingest market data, signals, and opportunity context from the backend pipeline.',
+  },
+  {
+    step: '02',
+    title: 'Decide',
+    copy: 'Managers turn the shared feed into portfolio views, memos, and signal outputs.',
+  },
+  {
+    step: '03',
+    title: 'Deliver',
+    copy: 'The frontend exposes unlocks, subscriptions, and custom research as concrete actions.',
+  },
+  {
+    step: '04',
+    title: 'Track',
+    copy: 'Performance, reviews, and payment-backed delivery stay visible in one place.',
   },
 ];
 
@@ -68,237 +88,173 @@ export default async function HomePage() {
     (total, manager) => total + manager.marketplace.serviceCatalog.length,
     0,
   );
-  const chainCoverage = new Set(
-    managerRows.flatMap((manager) => manager.marketplace.chainFocus),
-  ).size;
   const averageReturn = average(managerRows.map((manager) => manager.cumulativeReturn));
+  const bestSharpe = managerRows.reduce<ManagerSummary | null>((best, manager) => {
+    if (!best || manager.sharpe > best.sharpe) {
+      return manager;
+    }
+    return best;
+  }, null);
 
   return (
-    <div className="atlas-page atlas-home-page">
-      <section className="atlas-shell home-hero">
-        <div className="home-hero__copy">
-          <span className="atlas-kicker">Conviction Atlas // paid manager marketplace</span>
-          <h1 className="home-hero__headline">
-            A high-trust market for payable AI fund managers, premium memos, and Web3
-            research delivery.
-          </h1>
-          <p className="home-hero__subline">
-            Browse live desks, inspect their track records, unlock premium research,
-            subscribe to signals, and commission custom work through one consistent
-            settlement and reputation surface.
-          </p>
-
-          <div className="home-hero__actions">
-            <Link href="/managers" className="button-link primary">
-              Explore managers
-            </Link>
-            <Link href="/opportunities" className="button-link">
-              Open research tape
-            </Link>
-            <Link href="/leaderboard" className="button-link button-link-ghost">
-              Compare rankings
-            </Link>
+    <div className="atlas-page">
+      <section className="atlas-shell atlas-page-hero">
+        <div className="panel atlas-section-block">
+          <div className="atlas-section-heading">
+            <span className="atlas-kicker">Backend-First Entry</span>
+            <h1 className="home-entry-title">
+              Research engine, manager marketplace, and paid delivery in one clear
+              starting point.
+            </h1>
+            <p className="atlas-page-subcopy">
+              This entry page now mirrors the real project structure: backend strategy
+              execution, API service delivery, and a straightforward frontend surface
+              for browsing managers and purchasing research.
+            </p>
           </div>
 
-          <div className="hero-proof-grid">
+          <div className="cta-row">
+            <Link href="/managers" className="button-link primary">
+              Open managers
+            </Link>
+            <Link href="/opportunities" className="button-link">
+              Open opportunities
+            </Link>
+            <Link href="/leaderboard" className="button-link button-link-ghost">
+              View leaderboard
+            </Link>
+            <a
+              href="http://localhost:3001/docs"
+              target="_blank"
+              rel="noreferrer"
+              className="button-link button-link-ghost"
+            >
+              API docs
+            </a>
+          </div>
+
+          <div className="atlas-stat-band">
             <div className="hero-proof-card">
               <span className="hero-proof-card__label">Managers live</span>
               <strong className="hero-proof-card__value">{managerRows.length || '--'}</strong>
+            </div>
+            <div className="hero-proof-card">
+              <span className="hero-proof-card__label">Opportunities live</span>
+              <strong className="hero-proof-card__value">
+                {opportunityRows.length || '--'}
+              </strong>
             </div>
             <div className="hero-proof-card">
               <span className="hero-proof-card__label">Service SKUs</span>
               <strong className="hero-proof-card__value">{serviceCount || '--'}</strong>
             </div>
             <div className="hero-proof-card">
-              <span className="hero-proof-card__label">Chain coverage</span>
-              <strong className="hero-proof-card__value">{chainCoverage || '--'}</strong>
-            </div>
-            <div className="hero-proof-card">
-              <span className="hero-proof-card__label">Average desk return</span>
+              <span className="hero-proof-card__label">Average return</span>
               <strong className="hero-proof-card__value">
                 {averageReturn === null ? '--' : formatReturn(averageReturn)}
               </strong>
             </div>
           </div>
-
-          <div className="hero-terminal">
-            <div className="hero-terminal__header">
-              <span className="hero-terminal__title">Market workflow</span>
-              <span className="hero-terminal__tag">Institutional standard</span>
-            </div>
-            <div className="hero-terminal__list">
-              <div className="hero-terminal__row">
-                <span>Select a desk</span>
-                <strong>Performance + service fit + trust</strong>
-              </div>
-              <div className="hero-terminal__row">
-                <span>Pay for output</span>
-                <strong>Memo unlocks, subscriptions, custom research</strong>
-              </div>
-              <div className="hero-terminal__row">
-                <span>Track delivery</span>
-                <strong>Identity, reviews, and payment-backed reputation</strong>
-              </div>
-            </div>
-          </div>
         </div>
 
-        <div className="home-hero__visual">
-          <div className="hero-summary-card">
-            <div className="hero-summary-card__label">Lead manager</div>
-            <div className="atlas-title-row atlas-title-row-tight">
-              <AssetAvatar
-                title={leadManager?.name ?? 'CA'}
-                symbol={leadManager?.name ?? 'CA'}
-                sourceKind={leadManager?.style}
-                size="lg"
-              />
-              <div>
-                <h2>{leadManager?.name ?? 'Waiting for live manager feed'}</h2>
-                <p className="muted">
+        <div className="atlas-hero-side">
+          <div className="feature-panel">
+            <div className="atlas-section-heading">
+              <span className="atlas-kicker">Live Snapshot</span>
+              <h2 className="atlas-section-title">Current manager and inventory feed</h2>
+            </div>
+
+            <div className="atlas-card-split">
+              <div className="atlas-subpanel">
+                <span className="atlas-inline-label">Lead manager</span>
+                <strong>{leadManager?.name ?? 'No manager feed yet'}</strong>
+                <p className="home-entry-note">
                   {leadManager?.description ??
-                    'Run the pipeline to populate live manager snapshots.'}
+                    'Start the API and data pipeline to populate manager snapshots.'}
                 </p>
+                <div className="home-entry-metrics">
+                  <span>{formatMoney(leadManager?.latestNav)} nav</span>
+                  <span>{formatReturn(leadManager?.cumulativeReturn)} return</span>
+                  <span>{bestSharpe ? bestSharpe.sharpe.toFixed(2) : '--'} sharpe</span>
+                </div>
+              </div>
+
+              <div className="atlas-subpanel">
+                <span className="atlas-inline-label">Lead opportunity</span>
+                <strong>{leadOpportunity?.title ?? 'No opportunity feed yet'}</strong>
+                <p className="home-entry-note">
+                  {leadOpportunity?.summary ??
+                    'The opportunity tape appears here once the pipeline writes live inventory.'}
+                </p>
+                <div className="home-entry-metrics">
+                  <span>{formatMoney(leadOpportunity?.currentPrice)} price</span>
+                  <span>{formatPercent(leadOpportunity?.priceChange24h)} 24h</span>
+                  <span>{leadOpportunity?.type ?? '--'} type</span>
+                </div>
               </div>
             </div>
-            {leadManager ? (
-              <>
-                <Sparkline
-                  className="atlas-card-sparkline"
-                  points={leadManager.performanceSeries.map((point) => point.nav)}
-                  height={96}
-                  area={false}
-                  tone={
-                    leadManager.cumulativeReturn > 0
-                      ? 'positive'
-                      : leadManager.cumulativeReturn < 0
-                        ? 'negative'
-                        : 'neutral'
-                  }
-                />
-                <div className="atlas-inline-stats atlas-inline-stats-wrap">
-                  <span>{formatMoney(leadManager.latestNav)} NAV</span>
-                  <span className={getSignedClass(leadManager.cumulativeReturn)}>
-                    {formatReturn(leadManager.cumulativeReturn)}
-                  </span>
-                  <span>{formatPercent(leadManager.hitRate * 100)} hit rate</span>
-                </div>
-              </>
-            ) : null}
           </div>
 
-          <div className="hero-summary-grid">
-            <div className="hero-summary-card hero-summary-card-compact">
-              <div className="hero-summary-card__label">Opportunity pulse</div>
-              <strong>{leadOpportunity?.title ?? 'Waiting for inventory feed'}</strong>
-              <div className="atlas-inline-stats atlas-inline-stats-wrap">
-                <span>{formatMoney(leadOpportunity?.currentPrice)} spot</span>
-                <span className={getSignedClass(leadOpportunity?.priceChange24h)}>
-                  {formatPercent(leadOpportunity?.priceChange24h)}
-                </span>
-                <span>{formatCompact(leadOpportunity?.volume24h)} vol</span>
-              </div>
+          <div className="feature-panel feature-panel-accent">
+            <div className="atlas-section-heading">
+              <span className="atlas-kicker">Workflow</span>
+              <h2 className="atlas-section-title">The entry page follows the actual system flow</h2>
             </div>
-
-            <div className="hero-summary-card hero-summary-card-compact">
-              <div className="hero-summary-card__label">What users do here</div>
-              <div className="hero-task-list">
-                <span>Browse managers</span>
-                <span>Unlock premium memos</span>
-                <span>Subscribe to signals</span>
-                <span>Request custom research</span>
-              </div>
+            <div className="home-entry-stack">
+              {workflowSteps.map((step) => (
+                <div key={step.step} className="atlas-subpanel">
+                  <div className="atlas-list-row">
+                    <span className="atlas-inline-label">Step {step.step}</span>
+                    <strong>{step.title}</strong>
+                  </div>
+                  <p className="home-entry-note">{step.copy}</p>
+                </div>
+              ))}
             </div>
           </div>
         </div>
-      </section>
-
-      <section className="atlas-shell home-ribbon-grid">
-        {serviceEntries.map((entry) => (
-          <article key={entry.title} className="ribbon-card">
-            <span className="ribbon-card__meta">{entry.meta}</span>
-            <h2>{entry.title}</h2>
-            <p>{entry.copy}</p>
-          </article>
-        ))}
       </section>
 
       <section className="atlas-shell home-feature-grid">
-        <div className="feature-panel feature-panel-primary">
+        <div className="feature-panel">
           <div className="atlas-section-heading">
-            <span className="atlas-kicker">Featured desks</span>
+            <span className="atlas-kicker">Backend Core</span>
             <h2 className="atlas-section-title">
-              Managers are presented as operating products, not profile cards.
+              The frontend now points at the implementation layers that actually run the
+              product.
             </h2>
           </div>
 
-          {managerRows.length ? (
-            <div className="featured-manager-grid">
-              {managerRows.slice(0, 3).map((manager, index) => (
-                <Link
-                  key={manager.id}
-                  href={`/managers/${manager.slug}`}
-                  className="featured-manager-card"
-                >
-                  <div className="atlas-inline-row">
-                    <span className="atlas-inline-label">Desk {index + 1}</span>
-                    <span className="pill">{manager.riskProfile}</span>
-                  </div>
-                  <div className="atlas-title-row atlas-title-row-tight">
-                    <AssetAvatar
-                      title={manager.name}
-                      symbol={manager.name}
-                      sourceKind={manager.style}
-                      size="lg"
-                    />
-                    <div>
-                      <h3>{manager.name}</h3>
-                      <p className="muted">{manager.description}</p>
-                    </div>
-                  </div>
-                  <Sparkline
-                    className="atlas-card-sparkline"
-                    points={manager.performanceSeries.map((point) => point.nav)}
-                    height={86}
-                    area={false}
-                    tone={
-                      manager.cumulativeReturn > 0
-                        ? 'positive'
-                        : manager.cumulativeReturn < 0
-                          ? 'negative'
-                          : 'neutral'
-                    }
-                  />
-                  <div className="atlas-inline-stats atlas-inline-stats-wrap">
-                    <span>{formatMoney(manager.latestNav)} NAV</span>
-                    <span className={getSignedClass(manager.cumulativeReturn)}>
-                      {formatReturn(manager.cumulativeReturn)}
-                    </span>
-                    <span>{formatPercent(manager.hitRate * 100)} hit rate</span>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          ) : (
-            <div className="error-card">
-              Manager snapshots are not available yet. Start the API and run the pipeline.
-            </div>
-          )}
+          <div className="atlas-card-grid atlas-card-grid-three">
+            {backendModules.map((module) => (
+              <div key={module.label} className="atlas-subpanel">
+                <span className="atlas-inline-label">{module.label}</span>
+                <strong>{module.title}</strong>
+                <p className="home-entry-note">{module.copy}</p>
+                <span className="pill">{module.footnote}</span>
+              </div>
+            ))}
+          </div>
         </div>
 
-        <div className="feature-panel feature-panel-secondary">
+        <div className="feature-panel">
           <div className="atlas-section-heading">
-            <span className="atlas-kicker">Platform rails</span>
+            <span className="atlas-kicker">Product Surfaces</span>
             <h2 className="atlas-section-title">
-              Payment, identity, and live research intake share the same design grammar.
+              Routes are presented as usable entry points instead of visual experiments.
             </h2>
           </div>
-          <div className="pillar-list">
-            {platformPillars.map((pillar) => (
-              <div key={pillar.title} className="pillar-card">
-                <strong>{pillar.title}</strong>
-                <p className="muted">{pillar.copy}</p>
-              </div>
+
+          <div className="home-entry-stack">
+            {routeEntries.map((route) => (
+              <Link key={route.href} href={route.href} className="home-entry-row">
+                <div className="home-entry-copy">
+                  <span className="atlas-inline-label">{route.meta}</span>
+                  <strong>{route.title}</strong>
+                  <p className="home-entry-note">{route.copy}</p>
+                </div>
+                <span className="pill">{route.href}</span>
+              </Link>
             ))}
           </div>
         </div>
@@ -307,74 +263,73 @@ export default async function HomePage() {
       <section className="atlas-shell home-bottom-grid">
         <div className="feature-panel">
           <div className="atlas-section-heading">
-            <span className="atlas-kicker">Opportunity tape</span>
-            <h2 className="atlas-section-title">
-              Live inventory sits directly under the same design system as paid services.
-            </h2>
+            <span className="atlas-kicker">Managers Live Now</span>
+            <h2 className="atlas-section-title">Open a desk directly from the current feed.</h2>
           </div>
-          {opportunityRows.length ? (
-            <div className="opportunity-tape">
-              {opportunityRows.slice(0, 4).map((opportunity) => (
-                <Link
-                  key={opportunity.id}
-                  href={`/opportunities/${opportunity.slug}`}
-                  className="opportunity-tape__row"
-                >
-                  <div className="atlas-title-row atlas-title-row-tight">
-                    <AssetAvatar
-                      title={opportunity.title}
-                      imageUrl={opportunity.imageUrl}
-                      symbol={opportunity.symbol}
-                      sourceKind={opportunity.sourceKind}
-                    />
-                    <div>
-                      <strong>{opportunity.title}</strong>
-                      <div className="muted">
-                        {opportunity.strongestSignal
-                          ? opportunity.strongestSignal.name.replace(/_/g, ' ')
-                          : opportunity.type}
-                      </div>
-                    </div>
+
+          {managerRows.length ? (
+            <div className="home-entry-stack">
+              {managerRows.slice(0, 4).map((manager) => (
+                <Link key={manager.id} href={`/managers/${manager.slug}`} className="home-entry-row">
+                  <div className="home-entry-copy">
+                    <span className="atlas-inline-label">{manager.style}</span>
+                    <strong>{manager.name}</strong>
+                    <p className="home-entry-note">{manager.description}</p>
                   </div>
-                  <div className="atlas-inline-stats atlas-inline-stats-wrap">
-                    <span>{formatMoney(opportunity.currentPrice)}</span>
-                    <span className={getSignedClass(opportunity.priceChange24h)}>
-                      {formatPercent(opportunity.priceChange24h)}
-                    </span>
+                  <div className="home-entry-metrics">
+                    <span>{formatMoney(manager.latestNav)} nav</span>
+                    <span>{formatReturn(manager.cumulativeReturn)} return</span>
+                    <span>{formatPercent(manager.hitRate * 100)} hit rate</span>
                   </div>
                 </Link>
               ))}
             </div>
           ) : (
-            <div className="error-card">Opportunity inventory is not available yet.</div>
+            <div className="error-card">
+              No live managers yet. Start the API and run the pipeline to populate this view.
+            </div>
           )}
         </div>
 
-        <div className="feature-panel feature-panel-accent">
+        <div className="feature-panel">
           <div className="atlas-section-heading">
-            <span className="atlas-kicker">Design standard</span>
+            <span className="atlas-kicker">Opportunity Tape</span>
             <h2 className="atlas-section-title">
-              One typography system, one spacing system, one market-grade interface language.
+              The homepage now links straight into the current research inventory.
             </h2>
           </div>
-          <div className="standard-list">
-            <div className="standard-list__item">
-              <span>Display</span>
-              <strong>Sora for headlines and sectional hierarchy</strong>
+
+          {opportunityRows.length ? (
+            <div className="home-entry-stack">
+              {opportunityRows.slice(0, 4).map((opportunity) => (
+                <Link
+                  key={opportunity.id}
+                  href={`/opportunities/${opportunity.slug}`}
+                  className="home-entry-row"
+                >
+                  <div className="home-entry-copy">
+                    <span className="atlas-inline-label">
+                      {opportunity.strongestSignal?.name.replace(/_/g, ' ') ??
+                        opportunity.type}
+                    </span>
+                    <strong>{opportunity.title}</strong>
+                    <p className="home-entry-note">
+                      {opportunity.summary ?? opportunity.description ?? 'No summary available.'}
+                    </p>
+                  </div>
+                  <div className="home-entry-metrics">
+                    <span>{formatMoney(opportunity.currentPrice)} price</span>
+                    <span>{formatPercent(opportunity.priceChange24h)} 24h</span>
+                    <span>{opportunity.symbol ?? '--'} symbol</span>
+                  </div>
+                </Link>
+              ))}
             </div>
-            <div className="standard-list__item">
-              <span>Body</span>
-              <strong>Manrope for dense product copy and readable tables</strong>
+          ) : (
+            <div className="error-card">
+              No live opportunities yet. The backend inventory will surface here once synced.
             </div>
-            <div className="standard-list__item">
-              <span>Mono</span>
-              <strong>IBM Plex Mono for stats, labels, and terminal semantics</strong>
-            </div>
-            <div className="standard-list__item">
-              <span>System</span>
-              <strong>Unified radius, border, glow, and surface standards</strong>
-            </div>
-          </div>
+          )}
         </div>
       </section>
     </div>
