@@ -110,6 +110,11 @@ export class SignalEngineService {
         change30d / momentumScales.month * 0.42 +
         (Math.sign(change7d) === Math.sign(change30d) && Math.abs(change7d) > 1
           ? 0.12 * Math.sign(change7d)
+          : 0) +
+        // On-chain: blend in DefiLlama chain TVL 5-day momentum (if available)
+        // Gives the onchain-fundamentals-manager a real on-chain signal component
+        (Number.isFinite(Number(metadata.chain_tvl_pct5d))
+          ? clamp(Number(metadata.chain_tvl_pct5d) / 10, -0.25, 0.25)
           : 0),
       -1,
       1,
@@ -190,7 +195,9 @@ export class SignalEngineService {
             0.32 +
               Math.min(volatility7d * 16, 0.3) +
               Math.max(trendRegime, 0) * 0.18 -
-              stablePenalty * 1.55,
+              stablePenalty * 1.55 +
+              // On-chain: boost quality if protocol has real fee revenue (DefiLlama)
+              Number(metadata.fee_score_24h ?? 0) * 0.18,
             -1,
             1,
           )

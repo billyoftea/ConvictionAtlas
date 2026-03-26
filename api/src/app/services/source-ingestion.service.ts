@@ -118,8 +118,100 @@ export class SourceIngestionService {
     const polymarket = await this.ingestPolymarket();
     const normalized = await this.normalizeOpportunities();
     const news = await this.ingestNews();
+    // Enrich opportunities with live DefiLlama on-chain TVL signals
+    // Used by the onchain-fundamentals-manager blueprint
+    const onchain = await this.enrichOnchainFundamentals().catch(() => ({ enriched: 0 }));
 
-    return { coinGecko, polymarket, normalized, news };
+    return { coinGecko, polymarket, normalized, news, onchain };
+  }
+
+  /**
+   * Enriches TOKEN opportunities with live DefiLlama TVL trend data.
+   * Writes chain TVL 5-day momentum into opportunity metadata so the
+   * on-chain-fundamentals-manager can weight trend_regime and opportunity_quality
+   * using real blockchain data rather than price-derived proxies.
+   *
+   * No API key required — uses public DefiLlama endpoints.
+   */
+  async enrichOnchainFundamentals(): Promise<{ enriched: number }> {
+    const DEFILLAMA_BASE = 'https://api.llama.fi';
+
+    // Fetch 5-day TVL history for chains we care about
+    const chains = ['Ethereum', 'Tron', 'Solana', 'Base'];
+    const chainTvl: Record<string, { pct5d: number; latestTvl: number }> = {};
+
+    await Promise.allSettled(
+      chains.map(async (chain) => {
+        const url = `${DEFILLAMA_BASE}/v2/historicalChainTvl/${chain}`;
+        const data = await this.fetchJson<Array<{ date: number; tvl: number }>>(url);
+        if (!Array.isArray(data) || data.length < 5) return;
+        const latest = data[data.length - 1];
+        const anchor = data[data.length - 5];
+        chainTvl[chain.toLowerCase()] = {
+          pct5d: ((latest.tvl - anchor.tvl) / anchor.tvl) * 100,
+          latestTvl: latest.tvl,
+        };
+      }),
+    );
+
+    // Fetch 24h protocol fees to enrich opportunity_quality for known protocols
+    const feesData = await this.fetchJson<{
+      protocols: Array<{ name: string; total24h: number | null }>;
+    }>(
+      `${DEFILLAMA_BASE}/overview/fees?excludeTotalDataChart=true&excludeTotalDataChartBreakdown=true&dataType=dailyFees`,
+    ).catch(() => ({ protocols: [] }));
+
+    const feeMap: Record<string, number> = {};
+    for (const p of feesData.protocols ?? []) {
+      if (p.total24h) {
+        feeMap[p.name.toLowerCase()] = p.total24h;
+      }
+    }
+
+    // Map CoinGecko token ids to their primary chain
+    const tokenChainMap: Record<string, string> = {
+      ethereum: 'ethereum',
+      bitcoin: 'ethereum',   // BTC TVL proxy via ETH chain
+      solana: 'solana',
+      tron: 'tron',
+    };
+
+    // Find top 24h fee earner for scoring (normalise against it)
+    const maxFee = Math.max(...Object.values(feeMap), 1);
+
+    const tokens = await this.prisma.opportunity.findMany({
+      where: { type: 'TOKEN' },
+      select: { id: true, symbol: true, metadata: true },
+    });
+
+    let enriched = 0;
+    for (const token of tokens) {
+      const sym = (token.symbol ?? '').toLowerCase();
+      const chain = tokenChainMap[sym] ?? 'ethereum';
+      const tvlSignal = chainTvl[chain];
+      if (!tvlSignal) continue;
+
+      // chain_tvl_pct5d: 5-day TVL momentum for this token's primary chain
+      // fee_score: normalised 24h fee revenue (0–1); 0 if unknown
+      const feeScore = (feeMap[sym] ?? 0) / maxFee;
+      const existing = parseJson<Record<string, unknown>>(token.metadata, {});
+
+      await this.prisma.opportunity.update({
+        where: { id: token.id },
+        data: {
+          metadata: serializeJson({
+            ...existing,
+            chain_tvl_pct5d: Math.round(tvlSignal.pct5d * 100) / 100,
+            chain_tvl_latest_usd: Math.round(tvlSignal.latestTvl),
+            fee_score_24h: Math.round(feeScore * 1000) / 1000,
+            onchain_enriched_at: new Date().toISOString(),
+          }),
+        },
+      });
+      enriched++;
+    }
+
+    return { enriched };
   }
 
   async ingestCoinGecko(limit?: number) {
