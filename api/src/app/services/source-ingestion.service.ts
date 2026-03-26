@@ -135,8 +135,10 @@ export class SourceIngestionService {
    */
   async enrichOnchainFundamentals(): Promise<{ enriched: number }> {
     const DEFILLAMA_BASE = 'https://api.llama.fi';
+    const MOBULA_BASE = 'https://api.mobula.io/api/1';
+    const mobiKey = this.configService.get<string>('MOBULA_API_KEY');
 
-    // Fetch 5-day TVL history for chains we care about
+    // ── 1. DefiLlama: 5-day chain TVL momentum ────────────────────────────
     const chains = ['Ethereum', 'Tron', 'Solana', 'Base'];
     const chainTvl: Record<string, { pct5d: number; latestTvl: number }> = {};
 
@@ -154,7 +156,7 @@ export class SourceIngestionService {
       }),
     );
 
-    // Fetch 24h protocol fees to enrich opportunity_quality for known protocols
+    // ── 2. DefiLlama: protocol 24h fee revenue ────────────────────────────
     const feesData = await this.fetchJson<{
       protocols: Array<{ name: string; total24h: number | null }>;
     }>(
@@ -168,15 +170,39 @@ export class SourceIngestionService {
       }
     }
 
-    // Map CoinGecko token ids to their primary chain
+    // ── 3. Mobula: smart-money whale wallet netflow ───────────────────────
+    // Track well-known smart-money addresses; compute net 24h change
+    // as a proxy for accumulation (positive) vs. distribution (negative).
+    const WHALE_WALLETS = [
+      '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045', // Vitalik
+      '0x47ac0Fb4F2D84898e4D9E7b4DaB3C24507a6D503', // Binance cold wallet
+    ];
+    const whaleNetflow: Record<string, number> = {};  // symbol -> net pct change
+    if (mobiKey) {
+      await Promise.allSettled(
+        WHALE_WALLETS.map(async (wallet) => {
+          const url = `${MOBULA_BASE}/wallet/portfolio?wallet=${wallet}`;
+          const data = await this.fetchJson<{
+            data?: { assets?: Array<{ asset: { symbol: string }; realized_pnl_24h?: number; estimated_balance?: number }> };
+          }>(url, { Authorization: mobiKey }).catch(() => null);
+          for (const asset of data?.data?.assets ?? []) {
+            const sym = (asset.asset?.symbol ?? '').toLowerCase();
+            const pnl24h = Number(asset.realized_pnl_24h ?? 0);
+            const balance = Number(asset.estimated_balance ?? 1);
+            // Accumulation score: positive pnl / balance => smart money in profit & holding
+            whaleNetflow[sym] = (whaleNetflow[sym] ?? 0) + pnl24h / Math.max(balance, 1);
+          }
+        }),
+      );
+    }
+
+    // ── 4. Apply enrichment to TOKEN opportunities ────────────────────────
     const tokenChainMap: Record<string, string> = {
       ethereum: 'ethereum',
-      bitcoin: 'ethereum',   // BTC TVL proxy via ETH chain
+      bitcoin: 'ethereum',
       solana: 'solana',
       tron: 'tron',
     };
-
-    // Find top 24h fee earner for scoring (normalise against it)
     const maxFee = Math.max(...Object.values(feeMap), 1);
 
     const tokens = await this.prisma.opportunity.findMany({
@@ -191,9 +217,8 @@ export class SourceIngestionService {
       const tvlSignal = chainTvl[chain];
       if (!tvlSignal) continue;
 
-      // chain_tvl_pct5d: 5-day TVL momentum for this token's primary chain
-      // fee_score: normalised 24h fee revenue (0–1); 0 if unknown
       const feeScore = (feeMap[sym] ?? 0) / maxFee;
+      const whaleScore = Math.max(-1, Math.min(1, whaleNetflow[sym] ?? 0));
       const existing = parseJson<Record<string, unknown>>(token.metadata, {});
 
       await this.prisma.opportunity.update({
@@ -204,6 +229,7 @@ export class SourceIngestionService {
             chain_tvl_pct5d: Math.round(tvlSignal.pct5d * 100) / 100,
             chain_tvl_latest_usd: Math.round(tvlSignal.latestTvl),
             fee_score_24h: Math.round(feeScore * 1000) / 1000,
+            whale_netflow_score: Math.round(whaleScore * 1000) / 1000,
             onchain_enriched_at: new Date().toISOString(),
           }),
         },
@@ -1110,10 +1136,10 @@ export class SourceIngestionService {
     return ((current - previous) / previous) * 100;
   }
 
-  private async fetchJson<T>(url: string): Promise<T> {
+  private async fetchJson<T>(url: string, extraHeaders?: Record<string, string>): Promise<T> {
     try {
       const response = await axios.get<T>(url, {
-        headers: { Accept: 'application/json' },
+        headers: { Accept: 'application/json', ...extraHeaders },
         timeout: 20_000,
       });
 
