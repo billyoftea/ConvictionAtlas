@@ -1,4 +1,5 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
+import { DataPipelineService } from '../services/data-pipeline.service';
 import { ManagerEngineService } from '../services/manager-engine.service';
 import { MemoService } from '../services/memo.service';
 import { PerformanceService } from '../services/performance.service';
@@ -9,6 +10,7 @@ import { SourceIngestionService } from '../services/source-ingestion.service';
 @Controller('internal')
 export class InternalController {
   constructor(
+    private readonly dataPipelineService: DataPipelineService,
     private readonly sourceIngestionService: SourceIngestionService,
     private readonly signalEngineService: SignalEngineService,
     private readonly managerEngineService: ManagerEngineService,
@@ -19,17 +21,16 @@ export class InternalController {
 
   @Post('bootstrap')
   async bootstrap(@Body() payload?: { managerSlug?: string; withMemos?: boolean }) {
-    const sources = await this.sourceIngestionService.runBootstrap();
-    const signals = await this.signalEngineService.recomputeSignals();
-    const managers = await this.managerEngineService.runManagers();
-    const portfolios = await this.portfolioService.rebalancePortfolios();
-    const performance = await this.performanceService.snapshotPerformance();
-    const memos =
-      payload?.withMemos === false
-        ? { skipped: true }
-        : await this.memoService.generateMemos(payload?.managerSlug);
+    return this.dataPipelineService.runPipeline({
+      managerSlug: payload?.managerSlug,
+      withMemos: payload?.withMemos,
+      trigger: 'manual',
+    });
+  }
 
-    return { sources, signals, managers, portfolios, performance, memos };
+  @Get('sync/status')
+  getSyncStatus() {
+    return this.dataPipelineService.getStatus();
   }
 
   @Post('ingest/coingecko')

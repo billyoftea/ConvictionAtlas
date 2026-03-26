@@ -24,306 +24,275 @@ export default async function ManagersPage() {
   ]);
 
   const managerRows = managers ?? [];
+  const leaderboardRows = leaderboard ?? [];
   const leadManager = managerRows[0] ?? null;
+  const averageReturn = average(managerRows.map((manager) => manager.cumulativeReturn));
+  const averageRating = average(
+    managerRows
+      .map((manager) => manager.averageRating)
+      .filter((value): value is number => typeof value === 'number'),
+  );
+  const serviceModes = Array.from(
+    new Set(managerRows.flatMap((manager) => manager.marketplace.serviceModes)),
+  );
 
   return (
-    <div className="page-stack">
-      <section className="hero hero-compact manager-hero">
-        <div>
+    <div className="atlas-page">
+      <section className="atlas-shell atlas-page-hero">
+        <div className="panel atlas-hero-panel">
           <div className="breadcrumbs">
             <Link href="/">Home</Link>
             <span>/</span>
             <span>Managers</span>
           </div>
-          <span className="hero-kicker">Manager layer</span>
-          <h1 className="detail-headline">
-            Paid AI manager services for TRON-native research, signals, and compare work.
+          <span className="atlas-kicker">Service desk directory</span>
+          <h1 className="atlas-page-title">
+            Pick a desk by performance, reputation, and what work it can sell.
           </h1>
-          <p className="detail-copy">
-            Each desk is now a priced service entity. Users are not only browsing
-            curves and positions. They are choosing who to pay for premium memos,
-            signal streams, custom research, and multi-manager compare reports.
+          <p className="atlas-page-copy">
+            Managers are no longer presented like static personas. Each entry now reads
+            as an operating desk with priced services, settlement rails, position bias,
+            and a trust surface users can inspect before paying.
           </p>
-          <div className="cta-row">
+          <div className="atlas-actions">
             <Link href="/leaderboard" className="button-link primary">
-              Compare service desks
+              Compare desks
             </Link>
-            <a href="http://localhost:3001/docs" target="_blank" rel="noreferrer" className="button-link">
-              API docs
-            </a>
+            <Link href="/opportunities" className="button-link">
+              Open research tape
+            </Link>
+          </div>
+          <div className="atlas-stat-band">
+            <div className="atlas-stat-tile">
+              <span className="atlas-stat-label">Managers live</span>
+              <strong className="atlas-stat-value">{managerRows.length || '--'}</strong>
+            </div>
+            <div className="atlas-stat-tile">
+              <span className="atlas-stat-label">Avg cumulative</span>
+              <strong className="atlas-stat-value">
+                {averageReturn === null ? '--' : formatReturn(averageReturn)}
+              </strong>
+            </div>
+            <div className="atlas-stat-tile">
+              <span className="atlas-stat-label">Avg rating</span>
+              <strong className="atlas-stat-value">
+                {averageRating === null ? '--' : averageRating.toFixed(2)}
+              </strong>
+            </div>
+            <div className="atlas-stat-tile">
+              <span className="atlas-stat-label">Service modes</span>
+              <strong className="atlas-stat-value">{serviceModes.length || '--'}</strong>
+            </div>
           </div>
         </div>
 
-        <div className="hero-side-stack">
-          <div className="hero-spotlight">
-            <div className="mini-metrics">
-              <span className="eyebrow">Desk snapshot</span>
-              <span className="chip">3m window</span>
+        <div className="atlas-hero-side">
+          <div className="panel atlas-spotlight-panel">
+            <div className="atlas-inline-row">
+              <span className="atlas-inline-label">Lead desk</span>
+              <span className="chip">{leadManager?.riskProfile ?? 'pending'}</span>
             </div>
-            <div className="hero-spotlight-value">
-              {leadManager ? formatMoney(leadManager.latestNav) : '--'}
+            <h2>{leadManager?.name ?? 'No live manager feed yet'}</h2>
+            <p className="muted">
+              {leadManager?.description ??
+                'Start the API and rerun the pipeline to populate manager snapshots.'}
+            </p>
+            {leadManager ? (
+              <>
+                <Sparkline
+                  className="atlas-card-sparkline"
+                  points={leadManager.performanceSeries.map((point) => point.nav)}
+                  height={122}
+                  area={false}
+                  tone={
+                    leadManager.cumulativeReturn > 0
+                      ? 'positive'
+                      : leadManager.cumulativeReturn < 0
+                        ? 'negative'
+                        : 'neutral'
+                  }
+                />
+                <div className="atlas-inline-stats atlas-inline-stats-wrap">
+                  <span>{formatMoney(leadManager.latestNav)} NAV</span>
+                  <span className={getSignedClass(leadManager.cumulativeReturn)}>
+                    {formatReturn(leadManager.cumulativeReturn)}
+                  </span>
+                  <span>{formatPercent(leadManager.hitRate * 100)} hit rate</span>
+                </div>
+              </>
+            ) : null}
+          </div>
+
+          <div className="panel atlas-ranking-panel">
+            <div className="atlas-inline-row">
+              <span className="atlas-inline-label">Top ranks</span>
+              <Link href="/leaderboard" className="atlas-inline-link">
+                Full leaderboard
+              </Link>
             </div>
-            <div className="mini-metrics">
-              <span>Lead desk NAV</span>
-              <strong className={getSignedClass(leadManager?.cumulativeReturn)}>
-                {leadManager ? formatReturn(leadManager.cumulativeReturn) : '--'}
-              </strong>
-            </div>
-            <Sparkline
-              className="hero-curve"
-              points={leadManager?.performanceSeries.map((point) => point.nav) ?? []}
-              height={96}
-              tone={
-                (leadManager?.cumulativeReturn ?? 0) > 0
-                  ? 'positive'
-                  : (leadManager?.cumulativeReturn ?? 0) < 0
-                    ? 'negative'
-                    : 'neutral'
-              }
-            />
-            <div className="hero-spotlight-grid">
-              <div>
-                <div className="eyebrow">Managers</div>
-                <strong>{managerRows.length}</strong>
+            {leaderboardRows.length ? (
+              <div className="atlas-rank-list">
+                {leaderboardRows.slice(0, 3).map((entry, index) => (
+                  <Link
+                    key={entry.slug}
+                    href={`/managers/${entry.slug}`}
+                    className="atlas-rank-row"
+                  >
+                    <div className="atlas-rank-main">
+                      <span className="atlas-rank-index">0{index + 1}</span>
+                      <div>
+                        <strong>{entry.name}</strong>
+                        <div className="muted">Sharpe {entry.sharpe.toFixed(2)}</div>
+                      </div>
+                    </div>
+                    <span className={getSignedClass(entry.cumulativeReturn)}>
+                      {formatReturn(entry.cumulativeReturn)}
+                    </span>
+                  </Link>
+                ))}
               </div>
-              <div>
-                <div className="eyebrow">Gross exposure</div>
-                <strong>
-                  {leadManager ? formatPercent(leadManager.grossExposure * 100) : '--'}
-                </strong>
-              </div>
-              <div>
-                <div className="eyebrow">Hit rate</div>
-                <strong>{leadManager ? formatPercent(leadManager.hitRate * 100) : '--'}</strong>
-              </div>
-            </div>
+            ) : (
+              <div className="muted">Ranking data is not available yet.</div>
+            )}
           </div>
         </div>
       </section>
 
-      {!managerRows.length ? (
-        <div className="error-card">
-          Manager data is not available yet. Start the API, run `npm run pipeline`, and
-          refresh this page.
-        </div>
-      ) : (
-        <section className="section">
-          <div className="section-header">
-            <h2 className="section-title">Manager marketplace</h2>
-            <span className="muted">
-              Paid service packaging on top of live curves, exposure, and signal mix
-            </span>
+      {managerRows.length ? (
+        <section className="atlas-shell atlas-section-block">
+          <div className="atlas-section-heading atlas-heading-row">
+            <div>
+              <span className="atlas-kicker">Marketplace desks</span>
+              <h2 className="atlas-section-title">
+                Live manager cards now emphasize what each desk can actually deliver.
+              </h2>
+            </div>
+            <div className="tag-row">
+              {serviceModes.slice(0, 4).map((service) => (
+                <span key={service} className="chip">
+                  {service}
+                </span>
+              ))}
+            </div>
           </div>
-          <div className="manager-grid">
+
+          <div className="atlas-card-grid atlas-card-grid-three">
             {managerRows.map((manager, index) => {
-              const leadPosition = manager.topPositions[0];
-              const chartLabels = getChartLabels(manager.performanceSeries);
-              const valueLabels = getValueLabels(manager.performanceSeries);
+              const featuredOffer =
+                manager.marketplace.serviceCatalog.find((offer) => offer.featured) ??
+                manager.marketplace.serviceCatalog[0] ??
+                null;
+
               return (
                 <Link
                   key={manager.slug}
                   href={`/managers/${manager.slug}`}
-                  className="manager-card"
+                  className="panel atlas-manager-card-v2"
                 >
-                  <div className="manager-card-top">
-                    <div className="manager-card-title">
-                      <AssetAvatar
-                        title={manager.name}
-                        symbol={manager.name}
-                        sourceKind={manager.style}
-                        size="lg"
-                      />
-                      <div>
-                        <div className="mini-metrics manager-rank-row">
-                          <span className="eyebrow">Desk {index + 1}</span>
-                          <span className="chip">{manager.riskProfile}</span>
-                        </div>
-                        <h3>{manager.name}</h3>
-                        <p className="muted">{manager.description}</p>
-                      </div>
-                    </div>
-                    <div className={`manager-return ${getSignedClass(manager.cumulativeReturn)}`}>
-                      {formatReturn(manager.cumulativeReturn)}
-                    </div>
+                  <div className="atlas-inline-row">
+                    <span className="atlas-inline-label">Desk {index + 1}</span>
+                    <span className="chip">{manager.style}</span>
                   </div>
 
-                  <div className="manager-chart-shell">
-                    <Sparkline
-                      className="manager-card-sparkline"
-                      points={manager.performanceSeries.map((point) => point.nav)}
-                      height={132}
-                      area={false}
-                      showAxes
-                      xLabels={chartLabels}
-                      yLabels={valueLabels}
-                      tone={
-                        manager.cumulativeReturn > 0
-                          ? 'positive'
-                          : manager.cumulativeReturn < 0
-                            ? 'negative'
-                            : 'neutral'
-                      }
+                  <div className="atlas-title-row">
+                    <AssetAvatar
+                      title={manager.name}
+                      symbol={manager.name}
+                      sourceKind={manager.style}
+                      size="lg"
                     />
-                  </div>
-
-                  <div className="manager-metric-grid">
-                    <div className="manager-metric-tile">
-                      <span className="eyebrow">NAV</span>
-                      <strong>{formatMoney(manager.latestNav)}</strong>
-                    </div>
-                    <div className="manager-metric-tile">
-                      <span className="eyebrow">Gross</span>
-                      <strong>{formatPercent(manager.grossExposure * 100)}</strong>
-                    </div>
-                    <div className="manager-metric-tile">
-                      <span className="eyebrow">Cash</span>
-                      <strong>{formatPercent(manager.cashWeight * 100)}</strong>
-                    </div>
-                    <div className="manager-metric-tile">
-                      <span className="eyebrow">Hit rate</span>
-                      <strong>{formatPercent(manager.hitRate * 100)}</strong>
-                    </div>
-                  </div>
-
-                  <div className="tag-row manager-service-tags">
-                    {manager.marketplace.serviceModes.slice(0, 3).map((service) => (
-                      <span key={service} className="chip">
-                        {service}
-                      </span>
-                    ))}
-                  </div>
-
-                  <div className="manager-lead">
-                    <div className="mini-metrics">
-                      <span className="eyebrow">Lead position</span>
-                      <span className={getSignedClass(leadPosition?.priceChange24h)}>
-                        {formatPercent(leadPosition?.priceChange24h)}
-                      </span>
-                    </div>
-                    {leadPosition ? (
-                      <div className="manager-lead-row">
-                        <AssetAvatar
-                          title={leadPosition.title}
-                          imageUrl={leadPosition.imageUrl}
-                          symbol={leadPosition.symbol}
-                          sourceKind={leadPosition.sourceKind}
-                        />
-                        <div>
-                          <div className="manager-lead-title">{leadPosition.title}</div>
-                          <div className="muted">
-                            {(leadPosition.weight * 100).toFixed(1)}% book weight
-                          </div>
-                        </div>
-                      </div>
-                    ) : (
-                      <div className="muted">No active long yet.</div>
-                    )}
-                  </div>
-
-                  <PositionStack positions={manager.topPositions.slice(0, 4)} />
-
-                  <div className="manager-signal-block">
-                    <div className="mini-metrics">
-                      <span className="eyebrow">Signal mix</span>
-                      <span className="muted">Model bias</span>
-                    </div>
-                    <SignalBars items={manager.signalMix.slice(0, 4)} />
-                  </div>
-
-                  <div className="manager-card-footer">
                     <div>
-                      <div className="eyebrow">Service entry</div>
-                      <strong>{manager.pricingSummary ?? 'TBD'}</strong>
-                      <div className="muted">
-                        {manager.marketplace.settlementAsset} on {manager.marketplace.settlementNetwork}
-                      </div>
+                      <h3>{manager.name}</h3>
+                      <p className="muted">{manager.description}</p>
                     </div>
-                    <span className="manager-card-cta">Open service page</span>
+                  </div>
+
+                  <div className="atlas-inline-stats atlas-inline-stats-wrap">
+                    <span>{formatMoney(manager.latestNav)} NAV</span>
+                    <span className={getSignedClass(manager.cumulativeReturn)}>
+                      {formatReturn(manager.cumulativeReturn)}
+                    </span>
+                    <span>{formatPercent(manager.cashWeight * 100)} cash</span>
+                    <span>{formatPercent(manager.hitRate * 100)} hit rate</span>
+                  </div>
+
+                  <Sparkline
+                    className="atlas-card-sparkline"
+                    points={manager.performanceSeries.map((point) => point.nav)}
+                    height={128}
+                    area={false}
+                    tone={
+                      manager.cumulativeReturn > 0
+                        ? 'positive'
+                        : manager.cumulativeReturn < 0
+                          ? 'negative'
+                          : 'neutral'
+                    }
+                  />
+
+                  <div className="atlas-card-split">
+                    <div className="atlas-subpanel">
+                      <div className="atlas-inline-row">
+                        <span className="atlas-inline-label">Service rail</span>
+                        <span className="pill">
+                          {featuredOffer?.asset ?? manager.marketplace.settlementAsset}
+                        </span>
+                      </div>
+                      {manager.marketplace.serviceCatalog.slice(0, 3).map((service) => (
+                        <div
+                          key={`${manager.slug}-${service.kind}`}
+                          className="atlas-offer-row"
+                        >
+                          <span>{service.label}</span>
+                          <strong>{formatMoney(service.amountUsd)}</strong>
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className="atlas-subpanel">
+                      <div className="atlas-inline-row">
+                        <span className="atlas-inline-label">Signal bias</span>
+                        <span className="chip">{manager.riskProfile}</span>
+                      </div>
+                      <SignalBars items={manager.signalMix.slice(0, 4)} />
+                    </div>
+                  </div>
+
+                  <div className="atlas-subpanel">
+                    <div className="atlas-inline-row">
+                      <span className="atlas-inline-label">Top exposures</span>
+                      <span className="chip">{manager.topPositions.length} positions</span>
+                    </div>
+                    <PositionStack positions={manager.topPositions.slice(0, 4)} />
+                  </div>
+
+                  <div className="atlas-card-footer-row">
+                    <span>
+                      {manager.marketplace.paymentRail} on {manager.marketplace.settlementNetwork}
+                    </span>
+                    <strong>Open desk</strong>
                   </div>
                 </Link>
               );
             })}
           </div>
         </section>
+      ) : (
+        <div className="atlas-shell">
+          <div className="error-card">
+            Manager data is not available yet. Start the API, run `npm run pipeline`, and
+            refresh this page.
+          </div>
+        </div>
       )}
-
-      {leaderboard?.length ? (
-        <section className="section">
-          <div className="section-header">
-            <h2 className="section-title">Leaderboard snapshot</h2>
-            <Link href="/leaderboard" className="muted">
-              Full leaderboard
-            </Link>
-          </div>
-          <div className="table-card table-card-rich">
-            <div className="leaderboard-grid leaderboard-head">
-              <span>Manager</span>
-              <span>Curve</span>
-              <span>NAV</span>
-              <span>3m</span>
-              <span>Gross</span>
-              <span>Sharpe</span>
-              <span>Hit rate</span>
-            </div>
-            {leaderboard.map((entry) => (
-              <Link key={entry.slug} href={`/managers/${entry.slug}`} className="leaderboard-grid">
-                <strong>{entry.name}</strong>
-                <Sparkline
-                  className="leaderboard-sparkline"
-                  points={entry.performanceSeries.map((point) => point.nav)}
-                  height={48}
-                  area={false}
-                  tone={
-                    entry.cumulativeReturn > 0
-                      ? 'positive'
-                      : entry.cumulativeReturn < 0
-                        ? 'negative'
-                        : 'neutral'
-                  }
-                />
-                <span>{formatMoney(entry.nav)}</span>
-                <span className={getSignedClass(entry.cumulativeReturn)}>
-                  {formatReturn(entry.cumulativeReturn)}
-                </span>
-                <span>{formatPercent(entry.grossExposure * 100)}</span>
-                <span>{entry.sharpe.toFixed(2)}</span>
-                <span>{formatPercent(entry.hitRate * 100)}</span>
-              </Link>
-            ))}
-          </div>
-        </section>
-      ) : null}
     </div>
   );
 }
 
-function getChartLabels(
-  series: ManagerSummary['performanceSeries'],
-): [string, string] {
-  if (!series.length) {
-    return ['Start', 'Now'];
+function average(values: number[]) {
+  if (!values.length) {
+    return null;
   }
 
-  return [
-    formatShortDate(series[0].pointAt),
-    formatShortDate(series[series.length - 1].pointAt),
-  ];
-}
-
-function getValueLabels(
-  series: ManagerSummary['performanceSeries'],
-): [string, string] {
-  if (!series.length) {
-    return ['--', '--'];
-  }
-
-  const navValues = series.map((point) => point.nav);
-  return [formatMoney(Math.max(...navValues)), formatMoney(Math.min(...navValues))];
-}
-
-function formatShortDate(value: string) {
-  return new Intl.DateTimeFormat('en-US', {
-    month: 'short',
-    day: 'numeric',
-  }).format(new Date(value));
+  return values.reduce((total, value) => total + value, 0) / values.length;
 }

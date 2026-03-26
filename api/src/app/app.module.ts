@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { ScheduleModule } from '@nestjs/schedule';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { InternalController } from './controllers/internal.controller';
@@ -19,9 +20,13 @@ import { SignalEngineService } from './services/signal-engine.service';
 import { SourceIngestionService } from './services/source-ingestion.service';
 import { LlmService } from './services/llm.service';
 import { X402Service } from './services/x402.service';
+import { DataPipelineService } from './services/data-pipeline.service';
 
 @Module({
-  imports: [ConfigModule.forRoot({ isGlobal: true })],
+  imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
+    ScheduleModule.forRoot(),
+  ],
   controllers: [
     AppController,
     ManagersController,
@@ -44,6 +49,7 @@ import { X402Service } from './services/x402.service';
     MemoService,
     LlmService,
     X402Service,
+    DataPipelineService,
   ],
 })
 export class AppModule {}

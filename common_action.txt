@@ -1,0 +1,55 @@
+# Conviction Atlas 常用一行命令（PowerShell）
+
+# 安装依赖
+npm install
+
+# 同时启动前后端
+npm run dev
+
+# 只启动前端（Next.js）
+npm run dev:web
+
+# 清空前端缓存产物（web/.next）
+npm run clean:web
+
+# 清缓存后启动前端
+npm run dev:web:reset
+
+# 只启动后端（Nest API）
+npm run dev:api
+
+# 重启前端（默认端口 3000）
+Get-NetTCPConnection -LocalPort 3000 -ErrorAction SilentlyContinue | Select-Object -ExpandProperty OwningProcess -Unique | ForEach-Object { Stop-Process -Id $_ -Force }; npm run dev:web
+
+# 重启后端（默认端口 3001）
+Get-NetTCPConnection -LocalPort 3001 -ErrorAction SilentlyContinue | Select-Object -ExpandProperty OwningProcess -Unique | ForEach-Object { Stop-Process -Id $_ -Force }; npm run dev:api
+
+# 重启前后端（3000 + 3001）
+@(3000,3001) | ForEach-Object { Get-NetTCPConnection -LocalPort $_ -ErrorAction SilentlyContinue | Select-Object -ExpandProperty OwningProcess -Unique | ForEach-Object { Stop-Process -Id $_ -Force } }; npm run dev
+
+# Prisma generate
+npm run db:generate
+
+# 推送数据库 schema
+npm run db:push
+
+# 初始化数据库（generate + push + seed）
+npm run setup
+
+# 跑完整数据管线
+npm run pipeline
+
+# 跑快速数据管线（跳过 memos）
+npm run pipeline:fast
+
+# 导出本地数据
+npm run data:export
+
+# 构建前后端
+npm run build
+
+# 单独构建前端
+npx next build ./web
+
+# 查看 3000 / 3001 端口占用
+Get-NetTCPConnection -LocalPort 3000,3001 -ErrorAction SilentlyContinue | Select-Object LocalPort,State,OwningProcess

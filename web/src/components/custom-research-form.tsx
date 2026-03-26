@@ -90,7 +90,7 @@ export function CustomResearchForm({
   }
 
   return (
-    <div className="panel panel-nested custom-research-panel">
+    <div className="panel panel-nested custom-research-panel atlas-content-card">
       {!order ? (
         <form className="inline-form" onSubmit={handleSubmit}>
           <div className="tag-row">
@@ -102,6 +102,16 @@ export function CustomResearchForm({
             ) : null}
             <span className="chip">{paymentRail}</span>
           </div>
+
+          {offer ? (
+            <div className="atlas-inline-copy">
+              <p className="muted">{offer.description}</p>
+              <div className="atlas-inline-stats atlas-inline-stats-wrap">
+                <span>{offer.delivery}</span>
+                <span>{offer.network}</span>
+              </div>
+            </div>
+          ) : null}
 
           <div className="form-row">
             <input

@@ -1,24 +1,36 @@
-下面是我帮你重构后的 **README v2**。
-这一版把项目从“AI 基金经理展示平台”彻底改成了：
-
-**一个由多个 AI 基金经理组成、可被付费调用、可链上结算、可积累信誉的 Web3 研究与投资服务市场。**
-
-我也把你要求的几个重点整合进去了：
-
-* 产品重心改成 **付费调用服务**
-* 叙事更贴近 **Agent Payment / Agent Economy**
-* 技术栈更偏向 **TRON 生态**
-* 明确接入 **x402 / 8004 / MCP Server / Skills**
-* 把 **ClawHub Multi Search Engine** 作为研究能力层的一部分写进去
-
-你可以直接把下面内容作为仓库根目录 `README.md` 使用。
-
----
-
 # Conviction Atlas
 
 > **A Payable AI Fund Manager Marketplace for Web3**
 > 一个由多个 AI 基金经理组成的、可被付费调用的 Web3 研究与投资服务市场。
+
+---
+
+## Repository Layout
+
+- `backend/`: Python 研究引擎、经理决策、回测、报表、TRON 支付诊断
+- `api/`: NestJS 接口层和数据编排层
+- `web/`: Next.js 前端产品层
+- `prisma/`: 数据模型和 seed
+- `scripts/`: Node 侧工程脚本
+
+如果你现在要动“策略、经理、回测、支付接入”，优先看 [`backend/README.md`](/c:/Users/Lenovo/Desktop/Conviction_Atlas/backend/README.md)。
+
+## Current Implementation
+
+当前这套实现已经明确分成三层：
+
+- `backend/` 作为后端实现核心，产出经理决策、回测结果和 dashboard 资产
+- `api/` 对这些结果做服务化封装，负责给前端稳定接口
+- `web/` 只消费产品接口，不直接绑定散乱脚本
+
+常用命令：
+
+```powershell
+npm run dev
+npm run backend:daily:dry
+npm run backend:backtest:1y
+npm run backend:dashboard
+```
 
 ---
 

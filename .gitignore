@@ -18,3 +18,9 @@ prisma/*.db
 prisma/*.db-journal
 
 /generated/prisma
+
+backend/runtime/
+backend/storage/
+backend/archive/*.zip
+backend/**/__pycache__/
+backend/**/*.pyc

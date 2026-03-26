@@ -107,11 +107,24 @@ type NormalizedHistoryPoint = {
 @Injectable()
 export class SourceIngestionService {
   private readonly execFileAsync = promisify(execFile);
+  private readonly preferredTransport: 'auto' | 'axios' | 'powershell';
 
   constructor(
     private readonly prisma: PrismaService,
     private readonly configService: ConfigService,
-  ) {}
+  ) {
+    const configuredTransport = this.configService
+      .get<string>('SOURCE_HTTP_TRANSPORT')
+      ?.trim()
+      .toLowerCase();
+
+    this.preferredTransport =
+      configuredTransport === 'axios' || configuredTransport === 'powershell'
+        ? configuredTransport
+        : process.platform === 'win32'
+          ? 'powershell'
+          : 'auto';
+  }
 
   async runBootstrap() {
     const coinGecko = await this.ingestCoinGecko();
@@ -157,7 +170,7 @@ export class SourceIngestionService {
         ? await this.fetchCoinGeckoHistory(market.id)
         : [];
       const normalizedHistory = historyPoints.length
-        ? historyPoints
+        ? this.dedupeNormalizedHistoryPoints(historyPoints)
         : this.mapCoinGeckoSparkline(market);
       const historyMetrics = this.summarizeCoinGeckoHistory(
         market,
@@ -382,6 +395,7 @@ export class SourceIngestionService {
         clobTokenIds[0],
         market.updatedAt,
       );
+      const dedupedHistoryPoints = this.dedupePolymarketHistory(historyPoints);
       const fallbackHistory = [
         {
           opportunityId: opportunity.id,
@@ -404,8 +418,8 @@ export class SourceIngestionService {
       ];
 
       await this.prisma.opportunityHistory.createMany({
-        data: historyPoints.length
-          ? historyPoints.map((point) => ({
+        data: dedupedHistoryPoints.length
+          ? dedupedHistoryPoints.map((point) => ({
               opportunityId: opportunity.id,
               pointAt: new Date(point.t * 1000),
               price: round(point.p, 6),
@@ -987,6 +1001,50 @@ export class SourceIngestionService {
     return closestPoint.price;
   }
 
+  private dedupeNormalizedHistoryPoints(points: NormalizedHistoryPoint[]) {
+    const byTimestamp = new Map<number, NormalizedHistoryPoint>();
+
+    for (const point of points) {
+      const timestamp = point.pointAt.getTime();
+      if (!Number.isFinite(timestamp) || !Number.isFinite(point.price)) {
+        continue;
+      }
+
+      byTimestamp.set(timestamp, {
+        ...point,
+        pointAt: new Date(timestamp),
+      });
+    }
+
+    return [...byTimestamp.entries()]
+      .sort((left, right) => left[0] - right[0])
+      .map(([, point]) => point);
+  }
+
+  private dedupePolymarketHistory(
+    points: Array<{
+      t: number;
+      p: number;
+    }>,
+  ) {
+    const byTimestamp = new Map<number, { t: number; p: number }>();
+
+    for (const point of points) {
+      if (!Number.isFinite(point.t) || !Number.isFinite(point.p)) {
+        continue;
+      }
+
+      byTimestamp.set(point.t, {
+        t: point.t,
+        p: point.p,
+      });
+    }
+
+    return [...byTimestamp.entries()]
+      .sort((left, right) => left[0] - right[0])
+      .map(([, point]) => point);
+  }
+
   private computePercentChange(current: number, previous: number) {
     if (!Number.isFinite(current) || !Number.isFinite(previous) || previous === 0) {
       return 0;
@@ -996,38 +1054,50 @@ export class SourceIngestionService {
   }
 
   private async fetchJson<T>(url: string): Promise<T> {
-    try {
-      const response = await axios.get<T>(url, {
-        headers: { Accept: 'application/json' },
-        timeout: 20_000,
-      });
-
-      return response.data;
-    } catch (error) {
-      if (axios.isAxiosError(error) && error.response) {
-        throw error;
-      }
-
-      if (process.platform !== 'win32') {
-        throw error;
-      }
-
-      const psScript = [
-        "[Console]::OutputEncoding = [System.Text.Encoding]::UTF8",
-        "$ProgressPreference = 'SilentlyContinue'",
-        `(Invoke-RestMethod -Uri '${url.replace(/'/g, "''")}') | ConvertTo-Json -Depth 100`,
-      ].join('; ');
-
-      const { stdout } = await this.execFileAsync(
-        'powershell.exe',
-        ['-NoProfile', '-Command', psScript],
-        {
-          maxBuffer: 20 * 1024 * 1024,
-        },
-      );
-
-      return JSON.parse(stdout) as T;
+    if (this.preferredTransport === 'powershell') {
+      return this.fetchJsonWithPowerShell<T>(url);
     }
+
+    try {
+      return await this.fetchJsonWithAxios<T>(url);
+    } catch (error) {
+      if (
+        this.preferredTransport === 'axios' ||
+        process.platform !== 'win32' ||
+        (axios.isAxiosError(error) && error.response)
+      ) {
+        throw error;
+      }
+
+      return this.fetchJsonWithPowerShell<T>(url);
+    }
+  }
+
+  private async fetchJsonWithAxios<T>(url: string) {
+    const response = await axios.get<T>(url, {
+      headers: { Accept: 'application/json' },
+      timeout: 20_000,
+    });
+
+    return response.data;
+  }
+
+  private async fetchJsonWithPowerShell<T>(url: string) {
+    const psScript = [
+      "[Console]::OutputEncoding = [System.Text.Encoding]::UTF8",
+      "$ProgressPreference = 'SilentlyContinue'",
+      `(Invoke-RestMethod -Uri '${url.replace(/'/g, "''")}' -Headers @{ Accept = 'application/json' } -TimeoutSec 30) | ConvertTo-Json -Depth 100`,
+    ].join('; ');
+
+    const { stdout } = await this.execFileAsync(
+      'powershell.exe',
+      ['-NoProfile', '-Command', psScript],
+      {
+        maxBuffer: 20 * 1024 * 1024,
+      },
+    );
+
+    return JSON.parse(stdout) as T;
   }
 
   private buildOpportunityNewsQuery(opportunity: NewsTargetOpportunity) {

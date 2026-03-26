@@ -5,7 +5,6 @@ import {
   formatDate,
   formatMoney,
   formatPercent,
-  formatSignalName,
   getSignedClass,
   safeFetchApi,
 } from '../../lib/api';
@@ -23,65 +22,148 @@ export default async function OpportunitiesPage() {
   ]);
 
   const rows = opportunities ?? [];
+  const leaderboardRows = leaderboard ?? [];
   const tokenCount = rows.filter((row) => row.type === 'TOKEN').length;
   const marketCount = rows.filter((row) => row.type === 'PREDICTION_MARKET').length;
+  const leadOpportunity = rows[0] ?? null;
+  const averageConviction = average(
+    leaderboardRows.map((row) => row.convictionAverage),
+  );
 
   return (
-    <div className="page-stack">
-      <section className="hero hero-compact">
-        <div>
+    <div className="atlas-page">
+      <section className="atlas-shell atlas-page-hero">
+        <div className="panel atlas-hero-panel">
           <div className="breadcrumbs">
             <Link href="/">Home</Link>
             <span>/</span>
             <span>Opportunities</span>
           </div>
-          <span className="hero-kicker">Opportunity tape</span>
-          <h1 className="detail-headline">
-            Research inventory feeding paid AI managers across TRON and Web3.
+          <span className="atlas-kicker">Research inventory</span>
+          <h1 className="atlas-page-title">
+            The intake layer that feeds premium memos, signal desks, and custom work.
           </h1>
-          <p className="detail-copy">
-            This is the normalized inventory produced from CoinGecko and Polymarket
-            ingestion, with signal overlays, manager interpretations, and source links.
-            These rows are not just market data. They are the raw material for premium
-            memos, subscriptions, and custom research requests.
+          <p className="atlas-page-copy">
+            Opportunities are no longer displayed as flat cards. Each row now reads like
+            a tradeable research object with source lineage, manager consensus, and signal
+            context that can lead directly into paid output.
           </p>
+          <div className="atlas-actions">
+            <Link href="/leaderboard" className="button-link primary">
+              Compare conviction
+            </Link>
+            <Link href="/managers" className="button-link">
+              Browse desks
+            </Link>
+          </div>
+          <div className="atlas-stat-band">
+            <div className="atlas-stat-tile">
+              <span className="atlas-stat-label">Total rows</span>
+              <strong className="atlas-stat-value">{rows.length || '--'}</strong>
+            </div>
+            <div className="atlas-stat-tile">
+              <span className="atlas-stat-label">Tokens</span>
+              <strong className="atlas-stat-value">{tokenCount || '--'}</strong>
+            </div>
+            <div className="atlas-stat-tile">
+              <span className="atlas-stat-label">Prediction markets</span>
+              <strong className="atlas-stat-value">{marketCount || '--'}</strong>
+            </div>
+            <div className="atlas-stat-tile">
+              <span className="atlas-stat-label">Avg conviction</span>
+              <strong className="atlas-stat-value">
+                {averageConviction === null ? '--' : averageConviction.toFixed(3)}
+              </strong>
+            </div>
+          </div>
         </div>
-        <div className="stat-strip">
-          <div className="stat-box">
-            <div className="stat-label">Total</div>
-            <div className="stat-value">{rows.length}</div>
+
+        <div className="atlas-hero-side">
+          <div className="panel atlas-spotlight-panel">
+            <div className="atlas-inline-row">
+              <span className="atlas-inline-label">Lead row</span>
+              <span className="chip">{leadOpportunity?.sourceKind ?? 'pending'}</span>
+            </div>
+            <h2>{leadOpportunity?.title ?? 'No live research feed yet'}</h2>
+            <p className="muted">
+              {leadOpportunity?.summary ??
+                'Opportunity data will appear here after ingestion populates the live inventory.'}
+            </p>
+            {leadOpportunity ? (
+              <div className="atlas-inline-stats atlas-inline-stats-wrap">
+                <span>{formatMoney(leadOpportunity.currentPrice)} spot</span>
+                <span className={getSignedClass(leadOpportunity.priceChange24h)}>
+                  {formatPercent(leadOpportunity.priceChange24h)}
+                </span>
+                <span>{formatCompact(leadOpportunity.volume24h)} vol</span>
+              </div>
+            ) : null}
           </div>
-          <div className="stat-box">
-            <div className="stat-label">Tokens</div>
-            <div className="stat-value">{tokenCount}</div>
-          </div>
-          <div className="stat-box">
-            <div className="stat-label">Prediction markets</div>
-            <div className="stat-value">{marketCount}</div>
+
+          <div className="panel atlas-ranking-panel">
+            <div className="atlas-inline-row">
+              <span className="atlas-inline-label">Highest conviction</span>
+              <Link href="/leaderboard" className="atlas-inline-link">
+                Open ranking layer
+              </Link>
+            </div>
+            {leaderboardRows.length ? (
+              <div className="atlas-rank-list">
+                {leaderboardRows.slice(0, 3).map((entry, index) => (
+                  <Link
+                    key={entry.id}
+                    href={`/opportunities/${entry.slug}`}
+                    className="atlas-rank-row"
+                  >
+                    <div className="atlas-rank-main">
+                      <span className="atlas-rank-index">0{index + 1}</span>
+                      <div>
+                        <strong>{entry.title}</strong>
+                        <div className="muted">{entry.signalStrength.toFixed(3)} signal</div>
+                      </div>
+                    </div>
+                    <span>{entry.convictionAverage.toFixed(3)}</span>
+                  </Link>
+                ))}
+              </div>
+            ) : (
+              <div className="muted">Conviction ranking data is not available yet.</div>
+            )}
           </div>
         </div>
       </section>
 
-      {!rows.length ? (
-        <div className="error-card">
-          Opportunity data is not available yet. Run the backend and pipeline first.
-        </div>
-      ) : (
-        <section className="section">
-          <div className="section-header">
-            <h2 className="section-title">Live inventory</h2>
-            <span className="muted">
-              Real sources only, powering live paid manager outputs
-            </span>
+      {rows.length ? (
+        <section className="atlas-shell atlas-section-block">
+          <div className="atlas-section-heading atlas-heading-row">
+            <div>
+              <span className="atlas-kicker">Live inventory</span>
+              <h2 className="atlas-section-title">
+                Opportunity cards now surface signal, consensus, and source quality at a glance.
+              </h2>
+            </div>
+            <div className="tag-row">
+              <span className="chip">{tokenCount} token rows</span>
+              <span className="chip">{marketCount} prediction rows</span>
+            </div>
           </div>
-          <div className="card-grid">
+
+          <div className="atlas-card-grid atlas-card-grid-three">
             {rows.map((opportunity) => (
               <Link
                 key={opportunity.id}
                 href={`/opportunities/${opportunity.slug}`}
-                className="panel"
+                className="panel atlas-opportunity-card-v2"
               >
-                <div className="action-card-row">
+                <div className="atlas-inline-row">
+                  <span className="atlas-inline-label">Source</span>
+                  <div className="tag-row">
+                    <span className="pill">{opportunity.sourceKind}</span>
+                    <span className="chip">{opportunity.type}</span>
+                  </div>
+                </div>
+
+                <div className="atlas-title-row">
                   <AssetAvatar
                     title={opportunity.title}
                     imageUrl={opportunity.imageUrl}
@@ -90,86 +172,85 @@ export default async function OpportunitiesPage() {
                     size="lg"
                   />
                   <div>
-                    <div className="tag-row">
-                      <span className="pill">{opportunity.sourceKind}</span>
-                      <span className="chip">{opportunity.type}</span>
-                    </div>
                     <h3>{opportunity.title}</h3>
+                    <p className="muted">{opportunity.summary ?? opportunity.description}</p>
                   </div>
                 </div>
-                <p className="muted">{opportunity.summary}</p>
-                <div className="list">
-                  <div className="list-row">
-                    <span>Price</span>
-                    <strong>{formatMoney(opportunity.currentPrice)}</strong>
-                  </div>
-                  <div className="list-row">
-                    <span>24h move</span>
-                    <strong className={getSignedClass(opportunity.priceChange24h)}>
-                      {formatPercent(opportunity.priceChange24h)}
-                    </strong>
-                  </div>
-                  <div className="list-row">
-                    <span>Volume</span>
-                    <strong>{formatCompact(opportunity.volume24h)}</strong>
-                  </div>
-                  <div className="list-row">
-                    <span>Strongest signal</span>
-                    <strong>
-                      {opportunity.strongestSignal
-                        ? formatSignalName(opportunity.strongestSignal.name)
-                        : '--'}
-                    </strong>
-                  </div>
-                  <div className="list-row">
-                    <span>Event</span>
-                    <strong>{formatDate(opportunity.eventDate)}</strong>
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </section>
-      )}
 
-      {leaderboard?.length ? (
-        <section className="section">
-          <div className="section-header">
-            <h2 className="section-title">Conviction leaderboard</h2>
-            <Link href="/leaderboard" className="muted">
-              Compare service demand proxies
-            </Link>
-          </div>
-          <div className="table-card">
-            <div
-              className="data-table-row data-table-head"
-              style={{ gridTemplateColumns: '1.4fr .8fr .8fr .8fr .8fr' }}
-            >
-              <span>Opportunity</span>
-              <span>Price</span>
-              <span>24h move</span>
-              <span>Conviction</span>
-              <span>Signal</span>
-            </div>
-            {leaderboard.slice(0, 10).map((entry) => (
-              <Link
-                key={entry.id}
-                href={`/opportunities/${entry.slug}`}
-                className="data-table-row"
-                style={{ gridTemplateColumns: '1.4fr .8fr .8fr .8fr .8fr' }}
-              >
-                <strong>{entry.title}</strong>
-                <span>{formatMoney(entry.currentPrice)}</span>
-                <span className={getSignedClass(entry.priceChange24h)}>
-                  {formatPercent(entry.priceChange24h)}
-                </span>
-                <span>{entry.convictionAverage.toFixed(4)}</span>
-                <span>{entry.signalStrength.toFixed(4)}</span>
+                <div className="atlas-inline-stats atlas-inline-stats-wrap">
+                  <span>{formatMoney(opportunity.currentPrice)} price</span>
+                  <span className={getSignedClass(opportunity.priceChange24h)}>
+                    {formatPercent(opportunity.priceChange24h)}
+                  </span>
+                  <span>{formatCompact(opportunity.volume24h)} volume</span>
+                </div>
+
+                <div className="atlas-card-split">
+                  <div className="atlas-subpanel">
+                    <div className="atlas-inline-row">
+                      <span className="atlas-inline-label">Signal lead</span>
+                      <span className="chip">
+                        {opportunity.strongestSignal
+                          ? opportunity.strongestSignal.direction.toLowerCase()
+                          : 'pending'}
+                      </span>
+                    </div>
+                    <div className="atlas-metric-pair">
+                      <span>
+                        {opportunity.strongestSignal
+                          ? opportunity.strongestSignal.name.replace(/_/g, ' ')
+                          : 'No computed signal'}
+                      </span>
+                      <strong>
+                        {opportunity.strongestSignal
+                          ? opportunity.strongestSignal.value.toFixed(3)
+                          : '--'}
+                      </strong>
+                    </div>
+                    <div className="atlas-metric-pair">
+                      <span>Event date</span>
+                      <strong>{formatDate(opportunity.eventDate)}</strong>
+                    </div>
+                  </div>
+
+                  <div className="atlas-subpanel">
+                    <div className="atlas-inline-row">
+                      <span className="atlas-inline-label">Desk consensus</span>
+                      <span className="chip">{opportunity.managers.length} desks</span>
+                    </div>
+                    <div className="tag-row">
+                      {opportunity.managers.slice(0, 3).map((manager) => (
+                        <span key={manager.slug} className="chip">
+                          {manager.manager}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="atlas-card-footer-row">
+                  <span>{opportunity.category ?? 'Uncategorized'}</span>
+                  <strong>Open research row</strong>
+                </div>
               </Link>
             ))}
           </div>
         </section>
-      ) : null}
+      ) : (
+        <div className="atlas-shell">
+          <div className="error-card">
+            Opportunity data is not available yet. Run the backend and pipeline first.
+          </div>
+        </div>
+      )}
     </div>
   );
+}
+
+function average(values: number[]) {
+  if (!values.length) {
+    return null;
+  }
+
+  return values.reduce((total, value) => total + value, 0) / values.length;
 }

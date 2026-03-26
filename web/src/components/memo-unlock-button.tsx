@@ -45,7 +45,7 @@ export function MemoUnlockButton({
     }
 
     return `${clean.slice(0, 280).trim()}${clean.length > 280 ? '...' : ''}`;
-  }, [memo.content, memo.summary]);
+  }, [memo.content, memo.previewContent, memo.summary]);
 
   async function handleUnlock() {
     setIsSubmitting(true);
@@ -72,7 +72,7 @@ export function MemoUnlockButton({
   }
 
   return (
-    <div className="panel panel-nested memo-paywall-card">
+    <div className="panel panel-nested memo-paywall-card atlas-content-card">
       <div className="tag-row">
         <span className="pill">{memo.generatedBy}</span>
         <span className="chip">{memo.accessTier}</span>
