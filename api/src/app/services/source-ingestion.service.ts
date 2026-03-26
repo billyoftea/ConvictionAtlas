@@ -263,6 +263,11 @@ export class SourceIngestionService {
     url.searchParams.set('limit', String(marketLimit));
     url.searchParams.set('closed', 'false');
     url.searchParams.set('archived', 'false');
+    // Sort by 24h volume descending for highest-quality, most liquid markets
+    url.searchParams.set('order', 'volume24hrClob');
+    url.searchParams.set('ascending', 'false');
+    // Only crypto/web3 related prediction markets — skip sports/politics noise
+    url.searchParams.set('tag_slug', 'crypto');
 
     const marketsResponse = await this.fetchJson<
       PolymarketMarket[] | PolymarketMarket
@@ -382,26 +387,44 @@ export class SourceIngestionService {
         clobTokenIds[0],
         market.updatedAt,
       );
+      // Build a richer fallback using available price change fields
+      // so we get at least a 30-day curve instead of just 2 points
+      const vol = Number(
+        market.volume24hr ?? market.volume24hrClob ?? market.volumeNum ?? 0,
+      );
+      const priceWeek = currentPrice - Number(market.oneWeekPriceChange ?? 0);
+      const priceMonth = currentPrice - Number(market.oneMonthPriceChange ?? 0);
+      const now = market.updatedAt ? new Date(market.updatedAt) : new Date();
       const fallbackHistory = [
         {
           opportunityId: opportunity.id,
-          pointAt: new Date(Date.now() - 24 * 60 * 60 * 1000),
-          price: round(previousPrice, 6),
-          volume: Number(
-            market.volume24hr ?? market.volume24hrClob ?? market.volumeNum ?? 0,
-          ),
+          pointAt: new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000),
+          price: round(Math.max(0, Math.min(1, priceMonth)), 6),
+          volume: vol,
+          metadata: serializeJson({ source: 'implied_30d_ago' }),
+        },
+        {
+          opportunityId: opportunity.id,
+          pointAt: new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000),
+          price: round(Math.max(0, Math.min(1, priceWeek)), 6),
+          volume: vol,
+          metadata: serializeJson({ source: 'implied_7d_ago' }),
+        },
+        {
+          opportunityId: opportunity.id,
+          pointAt: new Date(now.getTime() - 24 * 60 * 60 * 1000),
+          price: round(Math.max(0, Math.min(1, previousPrice)), 6),
+          volume: vol,
           metadata: serializeJson({ source: 'implied_24h_ago' }),
         },
         {
           opportunityId: opportunity.id,
-          pointAt: market.updatedAt ? new Date(market.updatedAt) : new Date(),
-          price: round(currentPrice, 6),
-          volume: Number(
-            market.volume24hr ?? market.volume24hrClob ?? market.volumeNum ?? 0,
-          ),
+          pointAt: now,
+          price: round(Math.max(0, Math.min(1, currentPrice)), 6),
+          volume: vol,
           metadata: serializeJson({ source: 'current_market' }),
         },
-      ];
+      ].filter((point) => Number.isFinite(point.price) && point.price > 0);
 
       await this.prisma.opportunityHistory.createMany({
         data: historyPoints.length
