@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import OpenAI from 'openai';
+import axios from 'axios';
 
 type ChatMessage = {
   role: 'system' | 'user' | 'assistant';
@@ -12,65 +12,115 @@ type GenerateTextParams = {
   temperature?: number;
 };
 
+/**
+ * LlmService — Gongfeng AI (OpenAI-compatible, non-streaming axios call).
+ *
+ * Required headers for the Gongfeng gateway:
+ *   Authorization: Bearer <GF_IDE_OAUTH_TOKEN>
+ *   X-Username: <GF_IDE_USERNAME>
+ *   OAUTH-TOKEN: <GF_IDE_OAUTH_TOKEN>
+ *   DEVICE-ID: <CHE_WORKSPACE_ID>
+ *   X-Model-Name: <model>
+ */
 @Injectable()
 export class LlmService {
-  private client: OpenAI | null = null;
-
   constructor(private readonly configService: ConfigService) {}
 
   isConfigured() {
-    return Boolean(this.getApiKey() && this.getBaseUrl());
+    return Boolean(this.resolveToken() && this.resolveBaseUrl());
   }
 
   getProviderName() {
-    return 'deepseek';
+    return 'gongfeng-ai';
   }
 
   getModel() {
-    return this.configService.get<string>('DEEPSEEK_MODEL') ?? 'deepseek-chat';
+    return (
+      this.configService.get<string>('GONGFENG_MODEL') ??
+      this.configService.get<string>('LLM_MODEL') ??
+      'claude-sonnet-4-6'
+    );
   }
 
-  async generateText({ messages, temperature = 0.2 }: GenerateTextParams) {
+  async generateText({ messages, temperature = 0.2 }: GenerateTextParams): Promise<string | null> {
     if (!this.isConfigured()) {
       return null;
     }
 
-    try {
-      const response = await this.getClient().chat.completions.create({
-        model: this.getModel(),
-        temperature,
-        messages,
-      });
+    const token = this.resolveToken();
+    const model = this.getModel();
 
-      return response.choices[0]?.message?.content?.trim() ?? null;
-    } catch (error) {
-      console.error('LLM generation failed:', error);
+    try {
+      const response = await axios.post(
+        `${this.resolveBaseUrl()}/chat/completions`,
+        {
+          model,
+          messages,
+          temperature,
+          max_tokens: 1200,
+          stream: false,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+            Authorization: `Bearer ${token}`,
+            'X-Username': this.resolveUsername(),
+            'OAUTH-TOKEN': token,
+            'DEVICE-ID': this.resolveDeviceId(),
+            'X-Model-Name': model,
+          },
+          timeout: 45_000,
+        },
+      );
+
+      return response.data?.choices?.[0]?.message?.content?.trim() ?? null;
+    } catch (error: any) {
+      console.error('LLM generation failed:', error?.response?.data ?? error?.message);
       return null;
     }
   }
 
-  async generateMarkdown(params: GenerateTextParams) {
+  async generateMarkdown(params: GenerateTextParams): Promise<string | null> {
     const content = await this.generateText(params);
-
-    return content?.replace(/^```(?:markdown|md)?\s*/i, '').replace(/\s*```$/, '').trim() ?? null;
+    return (
+      content
+        ?.replace(/^```(?:markdown|md)?\s*/i, '')
+        .replace(/\s*```$/, '')
+        .trim() ?? null
+    );
   }
 
-  private getClient() {
-    if (!this.client) {
-      this.client = new OpenAI({
-        apiKey: this.getApiKey(),
-        baseURL: this.getBaseUrl(),
-      });
-    }
-
-    return this.client;
+  private resolveToken() {
+    return (
+      this.configService.get<string>('GONGFENG_API_KEY') ??
+      this.configService.get<string>('LLM_API_KEY') ??
+      process.env['GF_IDE_OAUTH_TOKEN'] ??
+      ''
+    );
   }
 
-  private getApiKey() {
-    return this.configService.get<string>('DEEPSEEK_API_KEY') ?? '';
+  private resolveBaseUrl() {
+    return (
+      this.configService.get<string>('GONGFENG_BASE_URL') ??
+      this.configService.get<string>('LLM_BASE_URL') ??
+      'https://copilot.code.woa.com/server/openclaw/copilot-gateway/v1'
+    );
   }
 
-  private getBaseUrl() {
-    return this.configService.get<string>('DEEPSEEK_BASE_URL') ?? '';
+  private resolveUsername() {
+    return (
+      this.configService.get<string>('GONGFENG_USERNAME') ??
+      process.env['GF_IDE_USERNAME'] ??
+      'angeloxu'
+    );
+  }
+
+  private resolveDeviceId() {
+    return (
+      this.configService.get<string>('GONGFENG_DEVICE_ID') ??
+      process.env['CHE_WORKSPACE_ID'] ??
+      'workspace0zgb8p429cbhvbbzg4'
+    );
   }
 }

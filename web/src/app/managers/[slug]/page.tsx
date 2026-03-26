@@ -228,7 +228,7 @@ export default async function ManagerDetailPage({ params }: PageProps) {
                       </span>
                       <span>{formatMoney(decision.opportunity.currentPrice)}</span>
                     </div>
-                    <div className="muted">{decision.rationale}</div>
+                    <div className="action-card-rationale muted">{decision.rationale}</div>
                   </div>
                 ))
               ) : (

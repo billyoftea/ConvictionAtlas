@@ -918,8 +918,9 @@ img {
 }
 
 .rich-text {
-  margin-top: 16px;
-  line-height: 1.7;
+  margin-top: 20px;
+  line-height: 1.85;
+  font-size: 0.98rem;
   color: var(--text);
 }
 
@@ -930,33 +931,37 @@ img {
 .rich-text h2,
 .rich-text h3,
 .rich-text h4 {
-  margin: 1.1rem 0 0.5rem;
+  margin: 1.5rem 0 0.6rem;
   font-family: var(--font-heading), sans-serif;
   letter-spacing: -0.03em;
 }
 
 .rich-text h2 {
-  font-size: 1.15rem;
+  font-size: 1.2rem;
 }
 
 .rich-text h3 {
-  font-size: 1rem;
+  font-size: 1.05rem;
 }
 
 .rich-text p,
 .rich-text ul,
 .rich-text ol,
 .rich-text blockquote {
-  margin: 0.65rem 0;
+  margin: 0.85rem 0;
 }
 
 .rich-text ul,
 .rich-text ol {
-  padding-left: 1.2rem;
+  padding-left: 1.4rem;
+}
+
+.rich-text li {
+  line-height: 1.75;
 }
 
 .rich-text li + li {
-  margin-top: 0.3rem;
+  margin-top: 0.55rem;
 }
 
 .rich-text a {
@@ -1546,7 +1551,7 @@ img {
 
 .action-card,
 .panel-nested {
-  padding: 18px;
+  padding: 20px;
   border-radius: 22px;
   background: rgba(255, 255, 255, 0.7);
   border: 1px solid rgba(66, 47, 25, 0.08);
@@ -1554,18 +1559,18 @@ img {
 
 .action-card {
   display: grid;
-  gap: 12px;
+  gap: 14px;
 }
 
 .portfolio-list,
 .action-tape {
   display: grid;
-  gap: 12px;
+  gap: 14px;
 }
 
 .portfolio-row,
 .tape-row {
-  padding: 14px 0 0;
+  padding: 16px 0 0;
   border-top: 1px solid rgba(79, 59, 36, 0.1);
 }
 
@@ -2504,5 +2509,228 @@ body.reference-theme {
     padding-top: 16px;
     padding-bottom: 12px;
   }
+}
+
+
+/* =============================================
+   SPACING IMPROVEMENTS — breathing room fix
+   ============================================= */
+
+/* Panels need more padding */
+.panel,
+.metric-card {
+  padding: 28px;
+}
+
+/* Section headers need more bottom margin */
+.section-header {
+  margin-bottom: 20px;
+}
+
+/* Stack gap between sections */
+.page-stack {
+  gap: 32px;
+}
+
+/* Panel-to-panel gap */
+.panel-stack {
+  gap: 20px;
+}
+
+/* Detail copy text — better line height */
+.detail-copy,
+.detail-copy p {
+  line-height: 1.85;
+  font-size: 1.02rem;
+}
+
+/* Signal bar rows — more vertical breathing */
+.signal-bars {
+  gap: 14px;
+}
+
+.signal-bar-row {
+  gap: 14px;
+  padding: 4px 0;
+}
+
+.signal-bar-label {
+  font-size: 0.86rem;
+  line-height: 1.4;
+}
+
+/* Action cards in rebalance tape */
+.action-card-row {
+  gap: 16px;
+  padding: 14px 0;
+}
+
+/* list-row more breathing */
+.list-row {
+  padding-top: 16px;
+  gap: 20px;
+}
+
+.signal-item,
+.data-table-row {
+  padding-top: 16px;
+}
+
+/* Memo / research content prose */
+.prose,
+.markdown-content,
+.memo-content {
+  line-height: 1.9;
+  font-size: 1.0rem;
+}
+
+.prose p,
+.markdown-content p,
+.memo-content p {
+  margin: 0 0 1.2em;
+}
+
+.prose h2,
+.markdown-content h2,
+.memo-content h2 {
+  margin: 1.6em 0 0.6em;
+  font-size: 1.3rem;
+  letter-spacing: -0.02em;
+}
+
+.prose h3,
+.markdown-content h3,
+.memo-content h3 {
+  margin: 1.4em 0 0.5em;
+  font-size: 1.1rem;
+}
+
+.prose ul,
+.markdown-content ul,
+.memo-content ul {
+  padding-left: 1.4em;
+  margin: 0.5em 0 1em;
+}
+
+.prose li,
+.markdown-content li,
+.memo-content li {
+  margin-bottom: 0.55em;
+  line-height: 1.75;
+}
+
+/* Position stack legend */
+.position-stack-item {
+  gap: 10px;
+  padding: 4px 0;
+}
+
+/* Manager lead card */
+.manager-lead {
+  padding: 20px;
+}
+
+/* Book structure items */
+.manager-book-metric {
+  padding: 18px;
+}
+
+/* Stat boxes */
+.stat-box,
+.signal-card {
+  padding: 20px;
+}
+
+/* Stack-tight minimum gap */
+.stack-tight {
+  gap: 12px;
+}
+
+/* Review form inputs */
+.inline-form input,
+.inline-form textarea,
+.inline-form select {
+  padding: 12px 16px;
+  line-height: 1.6;
+}
+
+/* Table rows */
+.leaderboard-grid {
+  padding: 16px 0;
+  gap: 16px;
+}
+
+/* Signal architecture section */
+.manager-signal-block {
+  gap: 16px;
+}
+
+/* Mini-metrics row */
+.mini-metrics {
+  gap: 16px;
+  margin-top: 14px;
+  font-size: 0.94rem;
+}
+
+
+/* =============================================
+   ACTION CARD & TAPE — final pass
+   ============================================= */
+
+/* Rationale text inside action-card */
+.action-card > .muted {
+  line-height: 1.65;
+  font-size: 0.9rem;
+  padding-top: 4px;
+}
+
+/* action-card-row text */
+.action-card-row > div > .muted {
+  margin-top: 3px;
+  font-size: 0.88rem;
+}
+
+/* action grid gap */
+.action-grid {
+  gap: 14px;
+}
+
+/* tape-row text */
+.tape-row > *,
+.tape-row p {
+  line-height: 1.6;
+}
+
+/* Nested panel (research memo) extra top room */
+.panel.panel-nested {
+  margin-top: 0;
+  padding: 24px;
+}
+
+
+/* =============================================
+   ACTION CARD RATIONALE — tidy long text
+   ============================================= */
+.action-card-rationale {
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--muted);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  padding-top: 4px;
+  border-top: 1px solid rgba(79,59,36,0.07);
+  margin-top: 4px;
+}
+
+/* Tape row: more vertical padding */
+.tape-row {
+  padding-top: 18px !important;
+}
+
+/* Research memo section extra spacing */
+.section:has(.panel-nested) {
+  gap: 16px;
 }
 
