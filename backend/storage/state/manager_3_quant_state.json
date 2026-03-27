@@ -1,0 +1,29 @@
+{
+  "nav": 1.0,
+  "capital_usdt": 10000.0,
+  "allocations": {
+    "BTCUSDT": 0.3,
+    "ETHUSDT": 0.2,
+    "SOLUSDT": 0.15,
+    "TRXUSDT": 0.05,
+    "CASH": 0.3
+  },
+  "last_run": "2026-03-26T03:11:03.019706Z",
+  "nav_history": [
+    {
+      "date": "2026-03-26",
+      "nav": 1.0,
+      "value_usdt": 10000.0,
+      "reasoning": "TRX RSI at 74.0 triggers a REDUCE signal per strategy rules, limiting exposure to 5% despite neutral funding. SOL carries a slight negative funding rate (-0.0064%/8h), offering a mild carry advantage,",
+      "confidence": 0.62,
+      "allocations": {
+        "BTCUSDT": 0.3,
+        "ETHUSDT": 0.2,
+        "SOLUSDT": 0.15,
+        "TRXUSDT": 0.05,
+        "CASH": 0.3
+      }
+    }
+  ],
+  "cash_daily_yield": 0.0001232876712328767
+}

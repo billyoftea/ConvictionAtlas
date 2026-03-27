@@ -1,0 +1,43 @@
+{
+  "nav": 1.0000493150684933,
+  "capital_usdt": 10000.493150684932,
+  "allocations": {
+    "BTCUSDT": 0,
+    "ETHUSDT": 0.35,
+    "SOLUSDT": 0.15,
+    "TRXUSDT": 0.1,
+    "CASH": 0.4
+  },
+  "last_run": "2026-03-26T03:19:24.264419Z",
+  "nav_history": [
+    {
+      "date": "2026-03-26",
+      "nav": 1.0,
+      "value_usdt": 10000.0,
+      "reasoning": "TRON TVL data is unavailable ($0.00B reported), which eliminates the primary signal for TRX conviction \u2014 capping TRX exposure at a minimal 10% given its strong RSI (74) and positive 7d momentum but la",
+      "confidence": 0.42,
+      "allocations": {
+        "BTCUSDT": 0,
+        "ETHUSDT": 0.35,
+        "SOLUSDT": 0.15,
+        "TRXUSDT": 0.1,
+        "CASH": 0.4
+      }
+    },
+    {
+      "date": "2026-03-26",
+      "nav": 1.000049,
+      "value_usdt": 10000.49,
+      "reasoning": "TRON TVL data is unavailable ($0.00B reported), which eliminates the primary signal for TRX conviction \u2014 capping TRX exposure at a minimal 10% given its strong RSI (74.3, overbought) and positive fund",
+      "confidence": 0.42,
+      "allocations": {
+        "BTCUSDT": 0,
+        "ETHUSDT": 0.35,
+        "SOLUSDT": 0.15,
+        "TRXUSDT": 0.1,
+        "CASH": 0.4
+      }
+    }
+  ],
+  "cash_daily_yield": 0.0001232876712328767
+}

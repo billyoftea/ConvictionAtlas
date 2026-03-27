@@ -17,3 +17,15 @@ prisma/*.db
 prisma/*.db-journal
 
 /generated/prisma
+
+*.log
+*.tsbuildinfo
+__pycache__/
+*.pyc
+backend/archive/
+backend/runtime/openclaw/credentials/
+backend/runtime/openclaw/secrets/
+backend/runtime/openclaw/workspace/dashboard.html
+backend/runtime/openclaw/workspace/dash_final.png
+backend/runtime/openclaw/workspace/holdings_history.csv
+backend/runtime/openclaw/workspace/nav_results.json

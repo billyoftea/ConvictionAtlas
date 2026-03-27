@@ -1,0 +1,29 @@
+{
+  "nav": 1.0,
+  "capital_usdt": 10000.0,
+  "allocations": {
+    "BTCUSDT": 0,
+    "ETHUSDT": 0,
+    "SOLUSDT": 0,
+    "TRXUSDT": 0.28,
+    "CASH": 0.72
+  },
+  "last_run": "2026-03-26T03:11:09.360291Z",
+  "nav_history": [
+    {
+      "date": "2026-03-26",
+      "nav": 1.0,
+      "value_usdt": 10000.0,
+      "reasoning": "TRX RSI at 74.0 signals overbought conditions after a +1.26% weekly gain, warranting caution despite positive trend alignment with both SMAs. TRON TVL data is unavailable ($0.00B reported), removing a",
+      "confidence": 0.62,
+      "allocations": {
+        "BTCUSDT": 0,
+        "ETHUSDT": 0,
+        "SOLUSDT": 0,
+        "TRXUSDT": 0.28,
+        "CASH": 0.72
+      }
+    }
+  ],
+  "cash_daily_yield": 0.0001315068493150685
+}

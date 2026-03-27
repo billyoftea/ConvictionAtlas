@@ -1,0 +1,43 @@
+{
+  "nav": 1.000018493150685,
+  "capital_usdt": 10000.18493150685,
+  "allocations": {
+    "BTCUSDT": 0.45,
+    "ETHUSDT": 0.2,
+    "SOLUSDT": 0.15,
+    "TRXUSDT": 0.05,
+    "CASH": 0.15
+  },
+  "last_run": "2026-03-26T03:19:17.108663Z",
+  "nav_history": [
+    {
+      "date": "2026-03-26",
+      "nav": 1.0,
+      "value_usdt": 10000.0,
+      "reasoning": "All four assets are trading above both SMA7 and SMA25, confirming a bullish trend structure. RSI readings for BTC (50.9), ETH (55.2), and SOL (56.9) are squarely in the momentum zone (45-70), supporti",
+      "confidence": 0.65,
+      "allocations": {
+        "BTCUSDT": 0.45,
+        "ETHUSDT": 0.2,
+        "SOLUSDT": 0.15,
+        "TRXUSDT": 0.05,
+        "CASH": 0.15
+      }
+    },
+    {
+      "date": "2026-03-26",
+      "nav": 1.000018,
+      "value_usdt": 10000.18,
+      "reasoning": "All four assets are trading above both SMA7 and SMA25, confirming a bullish trend structure. BTC and ETH RSIs are in the momentum zone (45-70), supporting meaningful exposure; SOL at 57.1 is also cons",
+      "confidence": 0.65,
+      "allocations": {
+        "BTCUSDT": 0.45,
+        "ETHUSDT": 0.2,
+        "SOLUSDT": 0.15,
+        "TRXUSDT": 0.05,
+        "CASH": 0.15
+      }
+    }
+  ],
+  "cash_daily_yield": 0.0001232876712328767
+}
