@@ -3,21 +3,29 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { composePlugins, withNx } = require('@nx/next');
 
+const isProd = process.env.NODE_ENV === 'production' && process.env.GITHUB_PAGES === 'true';
 
 /**
  * @type {import('@nx/next/plugins/with-nx').WithNxOptions}
  **/
 const nextConfig = {
-  // Use this to set Nx-specific options
-  // See: https://nx.dev/recipes/next/next-config-setup
   nx: {},
   experimental: {
     devtoolSegmentExplorer: false,
   },
+  // GitHub Pages 静态导出配置
+  ...(isProd && {
+    output: 'export',
+    basePath: '/ConvictionAtlas',
+    assetPrefix: '/ConvictionAtlas/',
+    trailingSlash: true,
+    images: {
+      unoptimized: true,
+    },
+  }),
 };
 
 const plugins = [
-  // Add more Next.js plugins to this list if needed.
   withNx,
 ];
 
