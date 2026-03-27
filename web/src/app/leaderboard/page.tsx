@@ -1,3 +1,5 @@
+'use client';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import {
   formatCompact,
@@ -5,20 +7,33 @@ import {
   formatPercent,
   formatReturn,
   getSignedClass,
-  safeFetchApi,
 } from '../../lib/api';
 import type {
   ManagerLeaderboardEntry,
   OpportunityLeaderboardEntry,
 } from '../../lib/types';
 
-export const dynamic = 'force-dynamic';
+const API = process.env.NEXT_PUBLIC_API_BASE_URL ?? 'http://47.90.182.192/api';
 
-export default async function LeaderboardPage() {
-  const [managerRows, opportunityRows] = await Promise.all([
-    safeFetchApi<ManagerLeaderboardEntry[]>('/leaderboard/managers'),
-    safeFetchApi<OpportunityLeaderboardEntry[]>('/leaderboard/opportunities'),
-  ]);
+export default function LeaderboardPage() {
+  const [managerRows, setManagerRows] = useState<ManagerLeaderboardEntry[]>([]);
+  const [opportunityRows, setOpportunityRows] = useState<OpportunityLeaderboardEntry[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    Promise.all([
+      fetch(`${API}/leaderboard/managers`).then(r => r.json()),
+      fetch(`${API}/leaderboard/opportunities`).then(r => r.json()),
+    ])
+      .then(([managers, opportunities]) => {
+        setManagerRows(managers ?? []);
+        setOpportunityRows(opportunities ?? []);
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
+  }, []);
+
+  if (loading) return <div className="loading">Loading...</div>;
 
   return (
     <div className="page-stack">

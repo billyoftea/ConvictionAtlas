@@ -1,3 +1,5 @@
+'use client';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { AssetAvatar } from '../../components/asset-avatar';
 import {
@@ -7,20 +9,33 @@ import {
   formatPercent,
   formatSignalName,
   getSignedClass,
-  safeFetchApi,
 } from '../../lib/api';
 import type {
   OpportunityLeaderboardEntry,
   OpportunitySummary,
 } from '../../lib/types';
 
-export const dynamic = 'force-dynamic';
+const API = process.env.NEXT_PUBLIC_API_BASE_URL ?? 'http://47.90.182.192/api';
 
-export default async function OpportunitiesPage() {
-  const [opportunities, leaderboard] = await Promise.all([
-    safeFetchApi<OpportunitySummary[]>('/opportunities'),
-    safeFetchApi<OpportunityLeaderboardEntry[]>('/leaderboard/opportunities'),
-  ]);
+export default function OpportunitiesPage() {
+  const [opportunities, setOpportunities] = useState<OpportunitySummary[]>([]);
+  const [leaderboard, setLeaderboard] = useState<OpportunityLeaderboardEntry[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    Promise.all([
+      fetch(`${API}/opportunities`).then(r => r.json()),
+      fetch(`${API}/leaderboard/opportunities`).then(r => r.json()),
+    ])
+      .then(([opportunitiesData, leaderboardData]) => {
+        setOpportunities(opportunitiesData ?? []);
+        setLeaderboard(leaderboardData ?? []);
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
+  }, []);
+
+  if (loading) return <div className="loading">Loading...</div>;
 
   const rows = opportunities ?? [];
   const tokenCount = rows.filter((row) => row.type === 'TOKEN').length;

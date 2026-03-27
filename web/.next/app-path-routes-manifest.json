@@ -1,9 +1,0 @@
-{
-  "/_not-found/page": "/_not-found",
-  "/page": "/",
-  "/leaderboard/page": "/leaderboard",
-  "/opportunities/page": "/opportunities",
-  "/managers/page": "/managers",
-  "/opportunities/[id]/page": "/opportunities/[id]",
-  "/managers/[slug]/page": "/managers/[slug]"
-}

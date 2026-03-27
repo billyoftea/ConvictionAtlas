@@ -1,3 +1,6 @@
+'use client';
+import { useEffect, useState } from 'react';
+import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { AssetAvatar } from '../../../components/asset-avatar';
 import { MarkdownContent } from '../../../components/markdown-content';
@@ -13,7 +16,6 @@ import {
   formatReturn,
   getDirectionClass,
   getSignedClass,
-  safeFetchApi,
 } from '../../../lib/api';
 import type {
   ManagerDetail,
@@ -23,21 +25,40 @@ import type {
   PortfolioSnapshot,
 } from '../../../lib/types';
 
-type PageProps = {
-  params: Promise<{ slug: string }>;
-};
+const API = process.env.NEXT_PUBLIC_API_BASE_URL ?? 'http://47.90.182.192/api';
 
-export const dynamic = 'force-dynamic';
+export default function ManagerDetailPage() {
+  const params = useParams();
+  const slug = params?.slug as string;
 
-export default async function ManagerDetailPage({ params }: PageProps) {
-  const { slug } = await params;
-  const [manager, portfolio, rebalances, memos, reviews] = await Promise.all([
-    safeFetchApi<ManagerDetail>(`/managers/${slug}`),
-    safeFetchApi<PortfolioSnapshot>(`/managers/${slug}/portfolio`),
-    safeFetchApi<ManagerRebalance[]>(`/managers/${slug}/rebalances`),
-    safeFetchApi<Memo[]>(`/managers/${slug}/memos`),
-    safeFetchApi<ManagerReviewsResponse>(`/managers/${slug}/reviews`),
-  ]);
+  const [manager, setManager] = useState<ManagerDetail | null>(null);
+  const [portfolio, setPortfolio] = useState<PortfolioSnapshot | null>(null);
+  const [rebalances, setRebalances] = useState<ManagerRebalance[]>([]);
+  const [memos, setMemos] = useState<Memo[]>([]);
+  const [reviews, setReviews] = useState<ManagerReviewsResponse | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (!slug) return;
+    Promise.all([
+      fetch(`${API}/managers/${slug}`).then(r => r.json()),
+      fetch(`${API}/managers/${slug}/portfolio`).then(r => r.json()),
+      fetch(`${API}/managers/${slug}/rebalances`).then(r => r.json()),
+      fetch(`${API}/managers/${slug}/memos`).then(r => r.json()),
+      fetch(`${API}/managers/${slug}/reviews`).then(r => r.json()),
+    ])
+      .then(([managerData, portfolioData, rebalancesData, memosData, reviewsData]) => {
+        setManager(managerData ?? null);
+        setPortfolio(portfolioData ?? null);
+        setRebalances(rebalancesData ?? []);
+        setMemos(memosData ?? []);
+        setReviews(reviewsData ?? null);
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
+  }, [slug]);
+
+  if (loading) return <div className="loading">Loading...</div>;
 
   if (!manager) {
     return (

@@ -1,3 +1,6 @@
+'use client';
+import { useEffect, useState } from 'react';
+import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { AssetAvatar } from '../../../components/asset-avatar';
 import {
@@ -9,7 +12,6 @@ import {
   formatSignalName,
   getDirectionClass,
   getSignedClass,
-  safeFetchApi,
 } from '../../../lib/api';
 import type {
   ManagerDecision,
@@ -19,21 +21,40 @@ import type {
   Signal,
 } from '../../../lib/types';
 
-type PageProps = {
-  params: Promise<{ id: string }>;
-};
+const API = process.env.NEXT_PUBLIC_API_BASE_URL ?? 'http://47.90.182.192/api';
 
-export const dynamic = 'force-dynamic';
+export default function OpportunityDetailPage() {
+  const params = useParams();
+  const id = params?.id as string;
 
-export default async function OpportunityDetailPage({ params }: PageProps) {
-  const { id } = await params;
-  const [opportunity, managers, signals, news, history] = await Promise.all([
-    safeFetchApi<OpportunityDetail>(`/opportunities/${id}`),
-    safeFetchApi<ManagerDecision[]>(`/opportunities/${id}/managers`),
-    safeFetchApi<Signal[]>(`/opportunities/${id}/signals`),
-    safeFetchApi<NewsItem[]>(`/opportunities/${id}/news`),
-    safeFetchApi<OpportunityHistoryPoint[]>(`/opportunities/${id}/history`),
-  ]);
+  const [opportunity, setOpportunity] = useState<OpportunityDetail | null>(null);
+  const [managers, setManagers] = useState<ManagerDecision[]>([]);
+  const [signals, setSignals] = useState<Signal[]>([]);
+  const [news, setNews] = useState<NewsItem[]>([]);
+  const [history, setHistory] = useState<OpportunityHistoryPoint[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (!id) return;
+    Promise.all([
+      fetch(`${API}/opportunities/${id}`).then(r => r.json()),
+      fetch(`${API}/opportunities/${id}/managers`).then(r => r.json()),
+      fetch(`${API}/opportunities/${id}/signals`).then(r => r.json()),
+      fetch(`${API}/opportunities/${id}/news`).then(r => r.json()),
+      fetch(`${API}/opportunities/${id}/history`).then(r => r.json()),
+    ])
+      .then(([opportunityData, managersData, signalsData, newsData, historyData]) => {
+        setOpportunity(opportunityData ?? null);
+        setManagers(managersData ?? []);
+        setSignals(signalsData ?? []);
+        setNews(newsData ?? []);
+        setHistory(historyData ?? []);
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
+  }, [id]);
+
+  if (loading) return <div className="loading">Loading...</div>;
 
   if (!opportunity) {
     return (

@@ -1,3 +1,5 @@
+'use client';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { AssetAvatar } from '../../components/asset-avatar';
 import { PositionStack } from '../../components/position-stack';
@@ -8,20 +10,33 @@ import {
   formatPercent,
   formatReturn,
   getSignedClass,
-  safeFetchApi,
 } from '../../lib/api';
 import type {
   ManagerLeaderboardEntry,
   ManagerSummary,
 } from '../../lib/types';
 
-export const dynamic = 'force-dynamic';
+const API = process.env.NEXT_PUBLIC_API_BASE_URL ?? 'http://47.90.182.192/api';
 
-export default async function ManagersPage() {
-  const [managers, leaderboard] = await Promise.all([
-    safeFetchApi<ManagerSummary[]>('/managers'),
-    safeFetchApi<ManagerLeaderboardEntry[]>('/leaderboard/managers'),
-  ]);
+export default function ManagersPage() {
+  const [managers, setManagers] = useState<ManagerSummary[]>([]);
+  const [leaderboard, setLeaderboard] = useState<ManagerLeaderboardEntry[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    Promise.all([
+      fetch(`${API}/managers`).then(r => r.json()),
+      fetch(`${API}/leaderboard/managers`).then(r => r.json()),
+    ])
+      .then(([managersData, leaderboardData]) => {
+        setManagers(managersData ?? []);
+        setLeaderboard(leaderboardData ?? []);
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
+  }, []);
+
+  if (loading) return <div className="loading">Loading...</div>;
 
   const managerRows = managers ?? [];
   const leadManager = managerRows[0] ?? null;
