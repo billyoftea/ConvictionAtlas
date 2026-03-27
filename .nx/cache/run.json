@@ -1,0 +1,21 @@
+{
+  "run": {
+    "command": "nx build api --skip-nx-cache",
+    "startTime": "2026-03-26T16:51:28.962Z",
+    "endTime": "2026-03-26T16:51:31.751Z",
+    "inner": false
+  },
+  "tasks": [
+    {
+      "taskId": "api:build",
+      "target": "build",
+      "projectName": "api",
+      "hash": "5285426355862616790",
+      "startTime": "2026-03-26T16:51:28.970Z",
+      "endTime": "2026-03-26T16:51:31.750Z",
+      "params": "",
+      "cacheStatus": "cache-miss",
+      "status": 0
+    }
+  ]
+}

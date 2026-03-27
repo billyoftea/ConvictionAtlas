@@ -1,0 +1,912 @@
+{
+  "version": "6.0",
+  "nxVersion": "22.6.0",
+  "pathMappings": {},
+  "nxJsonPlugins": [
+    {
+      "name": "@nx/next/plugin",
+      "options": {
+        "startTargetName": "start",
+        "buildTargetName": "build",
+        "devTargetName": "dev",
+        "serveStaticTargetName": "serve-static",
+        "buildDepsTargetName": "build-deps",
+        "watchDepsTargetName": "watch-deps"
+      }
+    },
+    {
+      "name": "@nx/webpack/plugin",
+      "options": {
+        "buildTargetName": "build",
+        "serveTargetName": "serve",
+        "previewTargetName": "preview",
+        "buildDepsTargetName": "build-deps",
+        "watchDepsTargetName": "watch-deps",
+        "serveStaticTargetName": "serve-static"
+      }
+    }
+  ],
+  "fileMap": {
+    "projectFileMap": {
+      "web": [
+        {
+          "file": "web/.swcrc",
+          "hash": "17241768775822013643"
+        },
+        {
+          "file": "web/index.d.ts",
+          "hash": "17978550148300837039"
+        },
+        {
+          "file": "web/next-env.d.ts",
+          "hash": "2517811901510882550"
+        },
+        {
+          "file": "web/next.config.js",
+          "hash": "5620663100188973508",
+          "deps": [
+            "npm:@nx/next"
+          ]
+        },
+        {
+          "file": "web/project.json",
+          "hash": "6062523964513266732"
+        },
+        {
+          "file": "web/public/.gitkeep",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "web/public/favicon.ico",
+          "hash": "9303420814833116677"
+        },
+        {
+          "file": "web/public/icons/linkedin-icon.svg",
+          "hash": "14132013847209587139"
+        },
+        {
+          "file": "web/public/icons/twitter-icon.svg",
+          "hash": "8811115525938434633"
+        },
+        {
+          "file": "web/public/reference-hero/_app/immutable/assets/0.B1bBUiLG.css",
+          "hash": "4398302241054945491"
+        },
+        {
+          "file": "web/public/reference-hero/_app/immutable/assets/4.CSVx8bpe.css",
+          "hash": "16589321137364811021"
+        },
+        {
+          "file": "web/public/reference-hero/_app/immutable/assets/5.CFvycLni.css",
+          "hash": "1578222982600215720"
+        },
+        {
+          "file": "web/public/reference-hero/_app/immutable/assets/6.H1kcBGqe.css",
+          "hash": "3517674336182080918"
+        },
+        {
+          "file": "web/public/reference-hero/_app/immutable/assets/7.H-FqgRm7.css",
+          "hash": "14884189072217194632"
+        },
+        {
+          "file": "web/public/reference-hero/_app/immutable/assets/9.wHOnlJwh.css",
+          "hash": "3918583057061204731"
+        },
+        {
+          "file": "web/public/reference-hero/_app/immutable/assets/button-scroller.Dvqg3jDr.css",
+          "hash": "11463856307964901949"
+        },
+        {
+          "file": "web/public/reference-hero/_app/immutable/assets/footer.CdO4GNE6.css",
+          "hash": "16303172164361516306"
+        },
+        {
+          "file": "web/public/reference-hero/_app/immutable/assets/rich-text.BZltvq7R.css",
+          "hash": "5498084252279014243"
+        },
+        {
+          "file": "web/public/reference-hero/_app/immutable/chunks/6dllJcUx.js",
+          "hash": "15171466042274201728"
+        },
+        {
+          "file": "web/public/reference-hero/_app/immutable/chunks/B5Gx6E9-.js",
+          "hash": "11222694516785866984"
+        },
+        {
+          "file": "web/public/reference-hero/_app/immutable/chunks/BClvnzpD.js",
+          "hash": "13226961702739531"
+        },
+        {
+          "file": "web/public/reference-hero/_app/immutable/chunks/BKni97QN.js",
+          "hash": "13760066356417332366"
+        },
+        {
+          "file": "web/public/reference-hero/_app/immutable/chunks/BNLkyfeJ.js",
+          "hash": "8599688919756741449"
+        },
+        {
+          "file": "web/public/reference-hero/_app/immutable/chunks/BRL-An01.js",
+          "hash": "16981442022416973427"
+        },
+        {
+          "file": "web/public/reference-hero/_app/immutable/chunks/BYAFX8LQ.js",
+          "hash": "13683537968988254286"
+        },
+        {
+          "file": "web/public/reference-hero/_app/immutable/chunks/Be1jPpTy.js",
+          "hash": "4451333582129365024"
+        },
+        {
+          "file": "web/public/reference-hero/_app/immutable/chunks/BiFeLOOx.js",
+          "hash": "13687526317995765689"
+        },
+        {
+          "file": "web/public/reference-hero/_app/immutable/chunks/BzuKMfWL.js",
+          "hash": "17161726181738355767"
+        },
+        {
+          "file": "web/public/reference-hero/_app/immutable/chunks/CAFn5JMJ.js",
+          "hash": "13840112247879496788"
+        },
+        {
+          "file": "web/public/reference-hero/_app/immutable/chunks/CCM15zyz.js",
+          "hash": "2369199920741053353"
+        },
+        {
+          "file": "web/public/reference-hero/_app/immutable/chunks/CS1iRX9v.js",
+          "hash": "786344034746401487"
+        },
+        {
+          "file": "web/public/reference-hero/_app/immutable/chunks/CpG_LisR.js",
+          "hash": "7724275151647872964"
+        },
+        {
+          "file": "web/public/reference-hero/_app/immutable/chunks/Cpj98o6Y.js",
+          "hash": "15667788221477947772"
+        },
+        {
+          "file": "web/public/reference-hero/_app/immutable/chunks/Cvc6p45_.js",
+          "hash": "4053724218882580731"
+        },
+        {
+          "file": "web/public/reference-hero/_app/immutable/chunks/CvxDqm5-.js",
+          "hash": "8953057750683329825"
+        },
+        {
+          "file": "web/public/reference-hero/_app/immutable/chunks/D0iwhpLH.js",
+          "hash": "12178182146584946347"
+        },
+        {
+          "file": "web/public/reference-hero/_app/immutable/chunks/DD8QeZgg.js",
+          "hash": "3738441203716919484"
+        },
+        {
+          "file": "web/public/reference-hero/_app/immutable/chunks/DZlGAjYS.js",
+          "hash": "4648906060242685761"
+        },
+        {
+          "file": "web/public/reference-hero/_app/immutable/chunks/Do6236G8.js",
+          "hash": "6342657340627891343"
+        },
+        {
+          "file": "web/public/reference-hero/_app/immutable/chunks/DsnmJJEf.js",
+          "hash": "5224273187705000683"
+        },
+        {
+          "file": "web/public/reference-hero/_app/immutable/chunks/DugE_QV5.js",
+          "hash": "4880138939550792288"
+        },
+        {
+          "file": "web/public/reference-hero/_app/immutable/chunks/PPVm8Dsz.js",
+          "hash": "15644145146174568627"
+        },
+        {
+          "file": "web/public/reference-hero/_app/immutable/chunks/RZh2bH-2.js",
+          "hash": "3825023460153240032"
+        },
+        {
+          "file": "web/public/reference-hero/_app/immutable/chunks/qdrOppoQ.js",
+          "hash": "11349800234733865160"
+        },
+        {
+          "file": "web/public/reference-hero/_app/immutable/entry/app.Cc8rSUFj.js",
+          "hash": "4460603043035464075"
+        },
+        {
+          "file": "web/public/reference-hero/_app/immutable/entry/start.Dv38VUd0.js",
+          "hash": "13732907223560854856"
+        },
+        {
+          "file": "web/public/reference-hero/_app/immutable/nodes/0.DZzUtLkT.js",
+          "hash": "18223370467534447405"
+        },
+        {
+          "file": "web/public/reference-hero/_app/immutable/nodes/1.CnXpF5jC.js",
+          "hash": "1974090751662727798"
+        },
+        {
+          "file": "web/public/reference-hero/_app/immutable/nodes/10.mm6wTrG4.js",
+          "hash": "17858126583114139932"
+        },
+        {
+          "file": "web/public/reference-hero/_app/immutable/nodes/2.BTjgxNty.js",
+          "hash": "15803571463773833180"
+        },
+        {
+          "file": "web/public/reference-hero/_app/immutable/nodes/3.Dx68DoKX.js",
+          "hash": "16959798977635219973"
+        },
+        {
+          "file": "web/public/reference-hero/_app/immutable/nodes/4.DrcS8S4m.js",
+          "hash": "16480936722097069494"
+        },
+        {
+          "file": "web/public/reference-hero/_app/immutable/nodes/5.11mGNiSv.js",
+          "hash": "17298541296646221849"
+        },
+        {
+          "file": "web/public/reference-hero/_app/immutable/nodes/6.B3-drGFb.js",
+          "hash": "15849224832613976802"
+        },
+        {
+          "file": "web/public/reference-hero/_app/immutable/nodes/7.BVGV2TVj.js",
+          "hash": "9325864578677513066"
+        },
+        {
+          "file": "web/public/reference-hero/_app/immutable/nodes/8.DnMDkdtb.js",
+          "hash": "1713739649422376076"
+        },
+        {
+          "file": "web/public/reference-hero/_app/immutable/nodes/9.Ive1gRuz.js",
+          "hash": "18228665024120437705"
+        },
+        {
+          "file": "web/public/reference-hero/fonts/IBMPlexMono-Regular.woff",
+          "hash": "5011097084176312244"
+        },
+        {
+          "file": "web/public/reference-hero/fonts/IBMPlexMono-Regular.woff2",
+          "hash": "1814871618415200963"
+        },
+        {
+          "file": "web/public/reference-hero/fonts/PPNeueMontreal-Book.woff",
+          "hash": "13320490090743645173"
+        },
+        {
+          "file": "web/public/reference-hero/fonts/PPNeueMontreal-Book.woff2",
+          "hash": "9183574081747198743"
+        },
+        {
+          "file": "web/public/reference-hero/fonts/PPNeueMontreal-Medium.woff",
+          "hash": "859417678884290240"
+        },
+        {
+          "file": "web/public/reference-hero/fonts/PPNeueMontreal-Medium.woff2",
+          "hash": "13255158666029693592"
+        },
+        {
+          "file": "web/public/reference-hero/index.html",
+          "hash": "1409747553158390524"
+        },
+        {
+          "file": "web/public/textures/4_4_ethereal.jpg",
+          "hash": "88724227937269603"
+        },
+        {
+          "file": "web/public/textures/_eclipse_new13.jpg",
+          "hash": "5790988308611384645"
+        },
+        {
+          "file": "web/public/textures/_texture_3_8.jpg",
+          "hash": "3103655210055128576"
+        },
+        {
+          "file": "web/public/textures/_texture_5.jpg",
+          "hash": "6542281490631820525"
+        },
+        {
+          "file": "web/src/app/global.css",
+          "hash": "17948707573117490063"
+        },
+        {
+          "file": "web/src/app/layout.tsx",
+          "hash": "9833112706264183281",
+          "deps": [
+            "npm:next"
+          ]
+        },
+        {
+          "file": "web/src/app/leaderboard/page.tsx",
+          "hash": "3805504027510293031",
+          "deps": [
+            "npm:next"
+          ]
+        },
+        {
+          "file": "web/src/app/managers/[slug]/page.tsx",
+          "hash": "2103374177186513307",
+          "deps": [
+            "npm:next"
+          ]
+        },
+        {
+          "file": "web/src/app/managers/page.tsx",
+          "hash": "13937390282241661519",
+          "deps": [
+            "npm:next"
+          ]
+        },
+        {
+          "file": "web/src/app/opportunities/[id]/page.tsx",
+          "hash": "1794203895048630955",
+          "deps": [
+            "npm:next"
+          ]
+        },
+        {
+          "file": "web/src/app/opportunities/page.tsx",
+          "hash": "5925866690077604687",
+          "deps": [
+            "npm:next"
+          ]
+        },
+        {
+          "file": "web/src/app/page.tsx",
+          "hash": "11606017432515128219",
+          "deps": [
+            "npm:next"
+          ]
+        },
+        {
+          "file": "web/src/components/asset-avatar.tsx",
+          "hash": "15250583081325163085"
+        },
+        {
+          "file": "web/src/components/home-hero-scene.tsx",
+          "hash": "17250013988285503661",
+          "deps": [
+            "npm:react",
+            "npm:@react-three/fiber",
+            "npm:@react-three/drei",
+            "npm:three"
+          ]
+        },
+        {
+          "file": "web/src/components/markdown-content.tsx",
+          "hash": "2079560404201272001",
+          "deps": [
+            "npm:react-markdown",
+            "npm:remark-gfm"
+          ]
+        },
+        {
+          "file": "web/src/components/memo-unlock-button.tsx",
+          "hash": "16732568810125445099",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "web/src/components/position-stack.tsx",
+          "hash": "8760602839486506628"
+        },
+        {
+          "file": "web/src/components/reference-hero-scene.tsx",
+          "hash": "8961877236395394140",
+          "deps": [
+            "npm:react",
+            "npm:three"
+          ]
+        },
+        {
+          "file": "web/src/components/review-form.tsx",
+          "hash": "3534260496577362095",
+          "deps": [
+            "npm:react",
+            "npm:next"
+          ]
+        },
+        {
+          "file": "web/src/components/signal-bars.tsx",
+          "hash": "15192630227843294374"
+        },
+        {
+          "file": "web/src/components/site-wordmark.tsx",
+          "hash": "15873426254378413951"
+        },
+        {
+          "file": "web/src/components/sparkline.tsx",
+          "hash": "7077461518852531951",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "web/src/lib/api.ts",
+          "hash": "5480775776855642557"
+        },
+        {
+          "file": "web/src/lib/types.ts",
+          "hash": "7489668663491423008"
+        },
+        {
+          "file": "web/tsconfig.json",
+          "hash": "2556711511323098973"
+        }
+      ],
+      "conviction-atlas": [
+        {
+          "file": ".env.example",
+          "hash": "16355321622098369874"
+        },
+        {
+          "file": ".gitignore",
+          "hash": "1335270593380004489"
+        },
+        {
+          "file": ".prettierignore",
+          "hash": "14688272390704683536"
+        },
+        {
+          "file": ".prettierrc",
+          "hash": "16267754514737964994"
+        },
+        {
+          "file": "data/downloads/2026-03-19T02-29-13-691Z/api/leaderboard-managers.csv",
+          "hash": "7086009359497217471"
+        },
+        {
+          "file": "data/downloads/2026-03-19T02-29-13-691Z/api/leaderboard-managers.json",
+          "hash": "12951578754542101939"
+        },
+        {
+          "file": "data/downloads/2026-03-19T02-29-13-691Z/api/leaderboard-opportunities.csv",
+          "hash": "12034317548321344985"
+        },
+        {
+          "file": "data/downloads/2026-03-19T02-29-13-691Z/api/leaderboard-opportunities.json",
+          "hash": "10151516719947096287"
+        },
+        {
+          "file": "data/downloads/2026-03-19T02-29-13-691Z/api/managers.json",
+          "hash": "2592189726526330105"
+        },
+        {
+          "file": "data/downloads/2026-03-19T02-29-13-691Z/api/opportunities-summary.csv",
+          "hash": "13427071882979607781"
+        },
+        {
+          "file": "data/downloads/2026-03-19T02-29-13-691Z/api/opportunities.json",
+          "hash": "12173704051058393187"
+        },
+        {
+          "file": "data/downloads/2026-03-19T02-29-13-691Z/api/status.json",
+          "hash": "2358380316563282493"
+        },
+        {
+          "file": "data/downloads/2026-03-19T02-29-13-691Z/api/tokens/bitcoin-btc.json",
+          "hash": "16187524628698642645"
+        },
+        {
+          "file": "data/downloads/2026-03-19T02-29-13-691Z/api/tokens/ethereum-eth.json",
+          "hash": "5654024415200376888"
+        },
+        {
+          "file": "data/downloads/2026-03-19T02-29-13-691Z/api/tokens/tether-usdt.json",
+          "hash": "3256830884480706404"
+        },
+        {
+          "file": "data/downloads/2026-03-19T02-29-13-691Z/db/counts.json",
+          "hash": "11441867592791072080"
+        },
+        {
+          "file": "data/downloads/2026-03-19T02-29-13-691Z/db/manager-decisions.json",
+          "hash": "17342398779325783247"
+        },
+        {
+          "file": "data/downloads/2026-03-19T02-29-13-691Z/db/managers.json",
+          "hash": "13735192226000779241"
+        },
+        {
+          "file": "data/downloads/2026-03-19T02-29-13-691Z/db/memos.json",
+          "hash": "3113352571342685678"
+        },
+        {
+          "file": "data/downloads/2026-03-19T02-29-13-691Z/db/news-items.json",
+          "hash": "10148725041540657428"
+        },
+        {
+          "file": "data/downloads/2026-03-19T02-29-13-691Z/db/news-summary.csv",
+          "hash": "1983975670984548161"
+        },
+        {
+          "file": "data/downloads/2026-03-19T02-29-13-691Z/db/opportunities-summary.csv",
+          "hash": "7802525831495888003"
+        },
+        {
+          "file": "data/downloads/2026-03-19T02-29-13-691Z/db/opportunities.json",
+          "hash": "2611409409837698764"
+        },
+        {
+          "file": "data/downloads/2026-03-19T02-29-13-691Z/db/performance-snapshots.json",
+          "hash": "4228553753300396832"
+        },
+        {
+          "file": "data/downloads/2026-03-19T02-29-13-691Z/db/portfolio-snapshots.json",
+          "hash": "8197339027035636642"
+        },
+        {
+          "file": "data/downloads/2026-03-19T02-29-13-691Z/db/raw-ingestions.json",
+          "hash": "15285433761556512376"
+        },
+        {
+          "file": "data/downloads/2026-03-19T02-29-13-691Z/db/signals.json",
+          "hash": "6919869913333292473"
+        },
+        {
+          "file": "data/downloads/2026-03-19T02-29-13-691Z/manifest.json",
+          "hash": "277534425898940602"
+        },
+        {
+          "file": "data/downloads/latest/api/leaderboard-managers.csv",
+          "hash": "7086009359497217471"
+        },
+        {
+          "file": "data/downloads/latest/api/leaderboard-managers.json",
+          "hash": "12951578754542101939"
+        },
+        {
+          "file": "data/downloads/latest/api/leaderboard-opportunities.csv",
+          "hash": "12034317548321344985"
+        },
+        {
+          "file": "data/downloads/latest/api/leaderboard-opportunities.json",
+          "hash": "10151516719947096287"
+        },
+        {
+          "file": "data/downloads/latest/api/managers.json",
+          "hash": "2592189726526330105"
+        },
+        {
+          "file": "data/downloads/latest/api/opportunities-summary.csv",
+          "hash": "13427071882979607781"
+        },
+        {
+          "file": "data/downloads/latest/api/opportunities.json",
+          "hash": "12173704051058393187"
+        },
+        {
+          "file": "data/downloads/latest/api/status.json",
+          "hash": "2358380316563282493"
+        },
+        {
+          "file": "data/downloads/latest/api/tokens/bitcoin-btc.json",
+          "hash": "16187524628698642645"
+        },
+        {
+          "file": "data/downloads/latest/api/tokens/ethereum-eth.json",
+          "hash": "5654024415200376888"
+        },
+        {
+          "file": "data/downloads/latest/api/tokens/tether-usdt.json",
+          "hash": "3256830884480706404"
+        },
+        {
+          "file": "data/downloads/latest/db/counts.json",
+          "hash": "11441867592791072080"
+        },
+        {
+          "file": "data/downloads/latest/db/manager-decisions.json",
+          "hash": "17342398779325783247"
+        },
+        {
+          "file": "data/downloads/latest/db/managers.json",
+          "hash": "13735192226000779241"
+        },
+        {
+          "file": "data/downloads/latest/db/memos.json",
+          "hash": "3113352571342685678"
+        },
+        {
+          "file": "data/downloads/latest/db/news-items.json",
+          "hash": "10148725041540657428"
+        },
+        {
+          "file": "data/downloads/latest/db/news-summary.csv",
+          "hash": "1983975670984548161"
+        },
+        {
+          "file": "data/downloads/latest/db/opportunities-summary.csv",
+          "hash": "7802525831495888003"
+        },
+        {
+          "file": "data/downloads/latest/db/opportunities.json",
+          "hash": "2611409409837698764"
+        },
+        {
+          "file": "data/downloads/latest/db/performance-snapshots.json",
+          "hash": "4228553753300396832"
+        },
+        {
+          "file": "data/downloads/latest/db/portfolio-snapshots.json",
+          "hash": "8197339027035636642"
+        },
+        {
+          "file": "data/downloads/latest/db/raw-ingestions.json",
+          "hash": "15285433761556512376"
+        },
+        {
+          "file": "data/downloads/latest/db/signals.json",
+          "hash": "6919869913333292473"
+        },
+        {
+          "file": "data/downloads/latest/manifest.json",
+          "hash": "277534425898940602"
+        },
+        {
+          "file": "hackathon_require.md",
+          "hash": "2859890472187064264"
+        },
+        {
+          "file": "nx.json",
+          "hash": "11150559286147778944"
+        },
+        {
+          "file": "package-lock.json",
+          "hash": "9872729849649528298"
+        },
+        {
+          "file": "package.json",
+          "hash": "18027997089586531221"
+        },
+        {
+          "file": "prisma/schema.prisma",
+          "hash": "10331106872147743645"
+        },
+        {
+          "file": "prisma/seed.ts",
+          "hash": "991105897791305351",
+          "deps": [
+            "npm:@prisma/client"
+          ]
+        },
+        {
+          "file": "readme_v1.md",
+          "hash": "1563903712360335993"
+        },
+        {
+          "file": "readme_v2.md",
+          "hash": "15204405114393338741"
+        },
+        {
+          "file": "scripts/db-push.ts",
+          "hash": "6283247043326049666",
+          "deps": [
+            "npm:dotenv",
+            "npm:better-sqlite3"
+          ]
+        },
+        {
+          "file": "scripts/export-local-data.ts",
+          "hash": "60855432372560126",
+          "deps": [
+            "npm:@prisma/client"
+          ]
+        },
+        {
+          "file": "scripts/gen-memos.ts",
+          "hash": "6873806237287041610",
+          "deps": [
+            "npm:@prisma/client",
+            "npm:axios"
+          ]
+        },
+        {
+          "file": "scripts/run-pipeline.ts",
+          "hash": "16216249325731839413"
+        },
+        {
+          "file": "scripts/seed-polymarket-demo.ts",
+          "hash": "9744810825064821592",
+          "deps": [
+            "npm:@prisma/client"
+          ]
+        },
+        {
+          "file": "tsconfig.base.json",
+          "hash": "13038139458062512339"
+        },
+        {
+          "file": "前端_example",
+          "hash": "3432563518333224223"
+        }
+      ],
+      "api": [
+        {
+          "file": "api/project.json",
+          "hash": "16408935989629927072"
+        },
+        {
+          "file": "api/src/app/app.controller.ts",
+          "hash": "12427857703307551944",
+          "deps": [
+            "npm:@nestjs/common"
+          ]
+        },
+        {
+          "file": "api/src/app/app.module.ts",
+          "hash": "3798553724486335736",
+          "deps": [
+            "npm:@nestjs/common",
+            "npm:@nestjs/config"
+          ]
+        },
+        {
+          "file": "api/src/app/app.service.ts",
+          "hash": "6951206166469692039",
+          "deps": [
+            "npm:@nestjs/common"
+          ]
+        },
+        {
+          "file": "api/src/app/controllers/internal.controller.ts",
+          "hash": "2041897051875241398",
+          "deps": [
+            "npm:@nestjs/common"
+          ]
+        },
+        {
+          "file": "api/src/app/controllers/leaderboard.controller.ts",
+          "hash": "8902902909722591589",
+          "deps": [
+            "npm:@nestjs/common"
+          ]
+        },
+        {
+          "file": "api/src/app/controllers/managers.controller.ts",
+          "hash": "4673187805141271548",
+          "deps": [
+            "npm:@nestjs/common"
+          ]
+        },
+        {
+          "file": "api/src/app/controllers/memos.controller.ts",
+          "hash": "18187401059584794494",
+          "deps": [
+            "npm:@nestjs/common"
+          ]
+        },
+        {
+          "file": "api/src/app/controllers/opportunities.controller.ts",
+          "hash": "1735992873407459055",
+          "deps": [
+            "npm:@nestjs/common"
+          ]
+        },
+        {
+          "file": "api/src/app/core/helpers.ts",
+          "hash": "11987649407053321254"
+        },
+        {
+          "file": "api/src/app/core/manager-blueprints.ts",
+          "hash": "11532494500830859475",
+          "deps": [
+            "npm:@prisma/client"
+          ]
+        },
+        {
+          "file": "api/src/app/prisma/prisma.service.ts",
+          "hash": "1722435067500517337",
+          "deps": [
+            "npm:@nestjs/common",
+            "npm:@prisma/client"
+          ]
+        },
+        {
+          "file": "api/src/app/services/llm.service.ts",
+          "hash": "8298616680251017463",
+          "deps": [
+            "npm:@nestjs/common",
+            "npm:@nestjs/config",
+            "npm:axios"
+          ]
+        },
+        {
+          "file": "api/src/app/services/manager-engine.service.ts",
+          "hash": "4333021828005737021",
+          "deps": [
+            "npm:@prisma/client",
+            "npm:@nestjs/common"
+          ]
+        },
+        {
+          "file": "api/src/app/services/memo.service.ts",
+          "hash": "4770025434266654601",
+          "deps": [
+            "npm:@nestjs/common"
+          ]
+        },
+        {
+          "file": "api/src/app/services/performance.service.ts",
+          "hash": "13484502735110463965",
+          "deps": [
+            "npm:@nestjs/common"
+          ]
+        },
+        {
+          "file": "api/src/app/services/portfolio.service.ts",
+          "hash": "15699027015202548975",
+          "deps": [
+            "npm:@prisma/client",
+            "npm:@nestjs/common"
+          ]
+        },
+        {
+          "file": "api/src/app/services/query.service.ts",
+          "hash": "10325407101917788760",
+          "deps": [
+            "npm:@nestjs/common",
+            "npm:@prisma/client"
+          ]
+        },
+        {
+          "file": "api/src/app/services/signal-engine.service.ts",
+          "hash": "2943177108535574452",
+          "deps": [
+            "npm:@prisma/client",
+            "npm:@nestjs/common"
+          ]
+        },
+        {
+          "file": "api/src/app/services/source-ingestion.service.ts",
+          "hash": "13634932296771256317",
+          "deps": [
+            "npm:axios",
+            "npm:@nestjs/common",
+            "npm:@nestjs/config",
+            "npm:@prisma/client"
+          ]
+        },
+        {
+          "file": "api/src/app/services/tron-payment.service.ts",
+          "hash": "8170954572298408009",
+          "deps": [
+            "npm:@nestjs/common",
+            "npm:@nestjs/config",
+            "npm:axios"
+          ]
+        },
+        {
+          "file": "api/src/assets/.gitkeep",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "api/src/main.ts",
+          "hash": "4689420165911069765",
+          "deps": [
+            "npm:@nestjs/common",
+            "npm:@nestjs/core",
+            "npm:@nestjs/swagger"
+          ]
+        },
+        {
+          "file": "api/tsconfig.app.json",
+          "hash": "2083841899727192147"
+        },
+        {
+          "file": "api/tsconfig.json",
+          "hash": "4276712839166217253"
+        },
+        {
+          "file": "api/webpack.config.js",
+          "hash": "6809973803337539335",
+          "deps": [
+            "npm:@nx/webpack"
+          ]
+        }
+      ]
+    },
+    "nonProjectFiles": []
+  },
+  "externalNodesHash": "16973593924286739458"
+}
