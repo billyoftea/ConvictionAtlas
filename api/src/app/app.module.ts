@@ -16,6 +16,7 @@ import { QueryService } from './services/query.service';
 import { SignalEngineService } from './services/signal-engine.service';
 import { SourceIngestionService } from './services/source-ingestion.service';
 import { LlmService } from './services/llm.service';
+import { TronPaymentService } from './services/tron-payment.service';
 
 @Module({
   imports: [ConfigModule.forRoot({ isGlobal: true })],
@@ -38,6 +39,7 @@ import { LlmService } from './services/llm.service';
     PerformanceService,
     MemoService,
     LlmService,
+    TronPaymentService,
   ],
 })
 export class AppModule {}

@@ -13,6 +13,7 @@ import {
   round,
   standardDeviation,
 } from '../core/helpers';
+import { TronPaymentService } from './tron-payment.service';
 
 type HistoryPointLike = {
   pointAt: Date;
@@ -51,7 +52,10 @@ type ReplayPreparedOpportunity = ReplayOpportunityLike & {
 
 @Injectable()
 export class QueryService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly tronPayment: TronPaymentService,
+  ) {}
 
   async getManagers() {
     const managers = await this.prisma.manager.findMany({
@@ -381,22 +385,90 @@ export class QueryService {
     };
   }
 
-  async unlockMemo(id: string, customerRef?: string) {
-    await this.getMemo(id);
+  async unlockMemo(id: string, customerRef?: string, txHash?: string) {
+    const memo = await this.getMemo(id);
 
+    // If txHash provided, verify the TRON payment
+    if (txHash) {
+      // Idempotency: check if this tx was already used
+      const existing = await this.prisma.memoUnlock.findFirst({
+        where: { metadata: { contains: txHash } },
+      });
+      if (existing) {
+        return {
+          success: false,
+          message: 'This transaction has already been used to unlock a memo.',
+          alreadyUsed: true,
+        };
+      }
+
+      const result = await this.tronPayment.verifyPayment(txHash);
+
+      if (!result.verified) {
+        // TypeScript discriminated union narrowing
+        const reason = (result as { verified: false; reason: string }).reason;
+        const unlock = await this.prisma.memoUnlock.create({
+          data: {
+            memoId: id,
+            customerRef: customerRef?.trim() || reason,
+            status: 'payment_failed',
+            metadata: JSON.stringify({ txHash, reason }),
+          },
+        });
+        return {
+          success: false,
+          unlock,
+          message: `Payment verification failed: ${reason}`,
+        };
+      }
+
+      const { txHash: verifiedTx, amount, from, timestamp } = result as {
+        verified: true; txHash: string; amount: number; from: string; timestamp: number;
+      };
+      const unlock = await this.prisma.memoUnlock.create({
+        data: {
+          memoId: id,
+          customerRef: customerRef?.trim() || from || 'tron-user',
+          status: 'paid',
+          metadata: JSON.stringify({
+            txHash: verifiedTx,
+            amount,
+            from,
+            timestamp,
+            network: 'tron-nile-testnet',
+          }),
+        },
+      });
+
+      return {
+        success: true,
+        unlock,
+        payment: {
+          txHash: verifiedTx,
+          amount: `${amount} USDT`,
+          from,
+          network: 'TRON Nile Testnet',
+        },
+        message: `✅ Payment verified! ${amount} USDT received. Memo unlocked.`,
+      };
+    }
+
+    // No txHash — return payment instructions
+    const paymentInfo = this.tronPayment.getPaymentInfo(id);
     const unlock = await this.prisma.memoUnlock.create({
       data: {
         memoId: id,
-        customerRef: customerRef?.trim() || 'manual-debug-user',
-        status: 'pending_manual',
+        customerRef: customerRef?.trim() || 'pending-payment',
+        status: 'awaiting_payment',
+        metadata: JSON.stringify({ paymentInfo }),
       },
     });
 
     return {
       success: true,
       unlock,
-      message:
-        'Memo unlock recorded. Payment wiring is still a placeholder for this MVP.',
+      paymentInfo,
+      message: `Send ${paymentInfo.minAmount} USDT (TRC-20) on TRON Nile Testnet to unlock this memo. Then submit your transaction hash.`,
     };
   }
 
