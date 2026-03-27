@@ -1,32 +1,15 @@
-//@ts-check
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
+// @ts-check
 const { composePlugins, withNx } = require('@nx/next');
 
-const isProd = process.env.NODE_ENV === 'production' && process.env.GITHUB_PAGES === 'true';
-
-/**
- * @type {import('@nx/next/plugins/with-nx').WithNxOptions}
- **/
+/** @type {any} */
 const nextConfig = {
   nx: {},
-  experimental: {
-    devtoolSegmentExplorer: false,
-  },
-  // GitHub Pages 静态导出配置
-  ...(isProd && {
-    output: 'export',
-    basePath: '/ConvictionAtlas',
-    assetPrefix: '/ConvictionAtlas/',
-    trailingSlash: true,
-    images: {
-      unoptimized: true,
-    },
-  }),
+  output: 'export',
+  basePath: '/ConvictionAtlas',
+  assetPrefix: '/ConvictionAtlas/',
+  trailingSlash: true,
+  images: { unoptimized: true },
+  experimental: { devtoolSegmentExplorer: false },
 };
 
-const plugins = [
-  withNx,
-];
-
-module.exports = composePlugins(...plugins)(nextConfig);
+module.exports = composePlugins(withNx)(nextConfig);
