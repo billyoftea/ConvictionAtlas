@@ -30,6 +30,196 @@
     "projectFileMap": {
       "web": [
         {
+          "file": "web/.next/app-build-manifest.json",
+          "hash": "6642808631538785885"
+        },
+        {
+          "file": "web/.next/build-manifest.json",
+          "hash": "2702609462139627143"
+        },
+        {
+          "file": "web/.next/cache/config.json",
+          "hash": "6769204628489153386"
+        },
+        {
+          "file": "web/.next/cache/next-devtools-config.json",
+          "hash": "1389868326933519382"
+        },
+        {
+          "file": "web/.next/cache/webpack/client-development/0.pack.gz",
+          "hash": "17524727742359586156"
+        },
+        {
+          "file": "web/.next/cache/webpack/client-development/1.pack.gz",
+          "hash": "15944041822676622187"
+        },
+        {
+          "file": "web/.next/cache/webpack/client-development/2.pack.gz",
+          "hash": "7829861750407363944"
+        },
+        {
+          "file": "web/.next/cache/webpack/client-development/3.pack.gz",
+          "hash": "13246963339264981191"
+        },
+        {
+          "file": "web/.next/cache/webpack/client-development/4.pack.gz",
+          "hash": "15333380172455761432"
+        },
+        {
+          "file": "web/.next/cache/webpack/client-development/5.pack.gz",
+          "hash": "8775847341520147024"
+        },
+        {
+          "file": "web/.next/cache/webpack/client-development/6.pack.gz",
+          "hash": "11756734513549645556"
+        },
+        {
+          "file": "web/.next/cache/webpack/client-development/index.pack.gz",
+          "hash": "9574452895124428927"
+        },
+        {
+          "file": "web/.next/cache/webpack/client-development/index.pack.gz.old",
+          "hash": "2063552571006375045"
+        },
+        {
+          "file": "web/.next/cache/webpack/server-development/0.pack.gz",
+          "hash": "17813478527778509702"
+        },
+        {
+          "file": "web/.next/cache/webpack/server-development/1.pack.gz",
+          "hash": "7183657031490964123"
+        },
+        {
+          "file": "web/.next/cache/webpack/server-development/2.pack.gz",
+          "hash": "14201725499007672230"
+        },
+        {
+          "file": "web/.next/cache/webpack/server-development/3.pack.gz",
+          "hash": "8789062351400149346"
+        },
+        {
+          "file": "web/.next/cache/webpack/server-development/4.pack.gz",
+          "hash": "8361434742818526566"
+        },
+        {
+          "file": "web/.next/cache/webpack/server-development/5.pack.gz",
+          "hash": "2688719652918475148"
+        },
+        {
+          "file": "web/.next/cache/webpack/server-development/6.pack.gz",
+          "hash": "1473789429802339106"
+        },
+        {
+          "file": "web/.next/cache/webpack/server-development/7.pack.gz",
+          "hash": "2766971000810610328"
+        },
+        {
+          "file": "web/.next/cache/webpack/server-development/8.pack.gz",
+          "hash": "6841181383283718632"
+        },
+        {
+          "file": "web/.next/cache/webpack/server-development/index.pack.gz",
+          "hash": "11755189846849013264"
+        },
+        {
+          "file": "web/.next/cache/webpack/server-development/index.pack.gz.old",
+          "hash": "10741825811009073127"
+        },
+        {
+          "file": "web/.next/package.json",
+          "hash": "11338307439248427064"
+        },
+        {
+          "file": "web/.next/prerender-manifest.json",
+          "hash": "2074085256057486438"
+        },
+        {
+          "file": "web/.next/react-loadable-manifest.json",
+          "hash": "1389868326933519382"
+        },
+        {
+          "file": "web/.next/routes-manifest.json",
+          "hash": "2282505038782265489"
+        },
+        {
+          "file": "web/.next/server/app-paths-manifest.json",
+          "hash": "1389868326933519382"
+        },
+        {
+          "file": "web/.next/server/interception-route-rewrite-manifest.js",
+          "hash": "10484309360224763022"
+        },
+        {
+          "file": "web/.next/server/middleware-build-manifest.js",
+          "hash": "10087042376963020870"
+        },
+        {
+          "file": "web/.next/server/middleware-manifest.json",
+          "hash": "9889576824779923310"
+        },
+        {
+          "file": "web/.next/server/middleware-react-loadable-manifest.js",
+          "hash": "9185069726031651908"
+        },
+        {
+          "file": "web/.next/server/next-font-manifest.js",
+          "hash": "16541577805185552134"
+        },
+        {
+          "file": "web/.next/server/next-font-manifest.json",
+          "hash": "11891788324563068681"
+        },
+        {
+          "file": "web/.next/server/pages-manifest.json",
+          "hash": "1389868326933519382"
+        },
+        {
+          "file": "web/.next/server/server-reference-manifest.js",
+          "hash": "13062913855343812063"
+        },
+        {
+          "file": "web/.next/server/server-reference-manifest.json",
+          "hash": "2787871451418874577"
+        },
+        {
+          "file": "web/.next/static/chunks/polyfills.js",
+          "hash": "8152964857117933876"
+        },
+        {
+          "file": "web/.next/static/development/_buildManifest.js",
+          "hash": "13063724784290855366"
+        },
+        {
+          "file": "web/.next/static/development/_ssgManifest.js",
+          "hash": "17018243955171961484"
+        },
+        {
+          "file": "web/.next/trace",
+          "hash": "7502009817019260377"
+        },
+        {
+          "file": "web/.next/types/cache-life.d.ts",
+          "hash": "4146217227981141382",
+          "deps": [
+            "npm:next"
+          ]
+        },
+        {
+          "file": "web/.next/types/package.json",
+          "hash": "6094546126370684104"
+        },
+        {
+          "file": "web/.next/types/routes.d.ts",
+          "hash": "14069033762938356282"
+        },
+        {
+          "file": "web/.next/types/validator.ts",
+          "hash": "15112878213923896472",
+          "deps": [
+            "npm:next"
+          ]
+        },
+        {
           "file": "web/.swcrc",
           "hash": "17241768775822013643"
         },
@@ -43,7 +233,7 @@
         },
         {
           "file": "web/next.config.js",
-          "hash": "5620663100188973508",
+          "hash": "1008372023327805928",
           "deps": [
             "npm:@nx/next"
           ]
@@ -434,14 +624,206 @@
           "hash": "2556711511323098973"
         }
       ],
+      "api": [
+        {
+          "file": "api/project.json",
+          "hash": "16408935989629927072"
+        },
+        {
+          "file": "api/src/app/app.controller.ts",
+          "hash": "12427857703307551944",
+          "deps": [
+            "npm:@nestjs/common"
+          ]
+        },
+        {
+          "file": "api/src/app/app.module.ts",
+          "hash": "3798553724486335736",
+          "deps": [
+            "npm:@nestjs/common",
+            "npm:@nestjs/config"
+          ]
+        },
+        {
+          "file": "api/src/app/app.service.ts",
+          "hash": "6951206166469692039",
+          "deps": [
+            "npm:@nestjs/common"
+          ]
+        },
+        {
+          "file": "api/src/app/controllers/internal.controller.ts",
+          "hash": "2041897051875241398",
+          "deps": [
+            "npm:@nestjs/common"
+          ]
+        },
+        {
+          "file": "api/src/app/controllers/leaderboard.controller.ts",
+          "hash": "8902902909722591589",
+          "deps": [
+            "npm:@nestjs/common"
+          ]
+        },
+        {
+          "file": "api/src/app/controllers/managers.controller.ts",
+          "hash": "4673187805141271548",
+          "deps": [
+            "npm:@nestjs/common"
+          ]
+        },
+        {
+          "file": "api/src/app/controllers/memos.controller.ts",
+          "hash": "18187401059584794494",
+          "deps": [
+            "npm:@nestjs/common"
+          ]
+        },
+        {
+          "file": "api/src/app/controllers/opportunities.controller.ts",
+          "hash": "1735992873407459055",
+          "deps": [
+            "npm:@nestjs/common"
+          ]
+        },
+        {
+          "file": "api/src/app/core/helpers.ts",
+          "hash": "11987649407053321254"
+        },
+        {
+          "file": "api/src/app/core/manager-blueprints.ts",
+          "hash": "11532494500830859475",
+          "deps": [
+            "npm:@prisma/client"
+          ]
+        },
+        {
+          "file": "api/src/app/prisma/prisma.service.ts",
+          "hash": "1722435067500517337",
+          "deps": [
+            "npm:@nestjs/common",
+            "npm:@prisma/client"
+          ]
+        },
+        {
+          "file": "api/src/app/services/llm.service.ts",
+          "hash": "8298616680251017463",
+          "deps": [
+            "npm:@nestjs/common",
+            "npm:@nestjs/config",
+            "npm:axios"
+          ]
+        },
+        {
+          "file": "api/src/app/services/manager-engine.service.ts",
+          "hash": "4333021828005737021",
+          "deps": [
+            "npm:@prisma/client",
+            "npm:@nestjs/common"
+          ]
+        },
+        {
+          "file": "api/src/app/services/memo.service.ts",
+          "hash": "4770025434266654601",
+          "deps": [
+            "npm:@nestjs/common"
+          ]
+        },
+        {
+          "file": "api/src/app/services/performance.service.ts",
+          "hash": "13484502735110463965",
+          "deps": [
+            "npm:@nestjs/common"
+          ]
+        },
+        {
+          "file": "api/src/app/services/portfolio.service.ts",
+          "hash": "15699027015202548975",
+          "deps": [
+            "npm:@prisma/client",
+            "npm:@nestjs/common"
+          ]
+        },
+        {
+          "file": "api/src/app/services/query.service.ts",
+          "hash": "10325407101917788760",
+          "deps": [
+            "npm:@nestjs/common",
+            "npm:@prisma/client"
+          ]
+        },
+        {
+          "file": "api/src/app/services/signal-engine.service.ts",
+          "hash": "2943177108535574452",
+          "deps": [
+            "npm:@prisma/client",
+            "npm:@nestjs/common"
+          ]
+        },
+        {
+          "file": "api/src/app/services/source-ingestion.service.ts",
+          "hash": "13634932296771256317",
+          "deps": [
+            "npm:axios",
+            "npm:@nestjs/common",
+            "npm:@nestjs/config",
+            "npm:@prisma/client"
+          ]
+        },
+        {
+          "file": "api/src/app/services/tron-payment.service.ts",
+          "hash": "8170954572298408009",
+          "deps": [
+            "npm:@nestjs/common",
+            "npm:@nestjs/config",
+            "npm:axios"
+          ]
+        },
+        {
+          "file": "api/src/assets/.gitkeep",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "api/src/main.ts",
+          "hash": "4689420165911069765",
+          "deps": [
+            "npm:@nestjs/common",
+            "npm:@nestjs/core",
+            "npm:@nestjs/swagger"
+          ]
+        },
+        {
+          "file": "api/tsconfig.app.json",
+          "hash": "2083841899727192147"
+        },
+        {
+          "file": "api/tsconfig.json",
+          "hash": "4276712839166217253"
+        },
+        {
+          "file": "api/webpack.config.js",
+          "hash": "6809973803337539335",
+          "deps": [
+            "npm:@nx/webpack"
+          ]
+        }
+      ],
       "conviction-atlas": [
+        {
+          "file": ".env",
+          "hash": "15053285765087310012"
+        },
         {
           "file": ".env.example",
           "hash": "16355321622098369874"
         },
         {
+          "file": ".github/workflows/deploy-pages.yml",
+          "hash": "11852749052735634077"
+        },
+        {
           "file": ".gitignore",
-          "hash": "1335270593380004489"
+          "hash": "7663861978715868291"
         },
         {
           "file": ".prettierignore",
@@ -450,6 +832,10 @@
         {
           "file": ".prettierrc",
           "hash": "16267754514737964994"
+        },
+        {
+          "file": "AGENTS.md",
+          "hash": "12984563140775026289"
         },
         {
           "file": "data/downloads/2026-03-19T02-29-13-691Z/api/leaderboard-managers.csv",
@@ -644,6 +1030,52 @@
           "hash": "277534425898940602"
         },
         {
+          "file": "dist/api/main.js",
+          "hash": "8272170893676251896",
+          "deps": [
+            [
+              "npm:@nestjs/common",
+              "dynamic"
+            ],
+            [
+              "npm:@nestjs/core",
+              "dynamic"
+            ],
+            [
+              "npm:@nestjs/swagger",
+              "dynamic"
+            ],
+            [
+              "npm:tslib",
+              "dynamic"
+            ],
+            [
+              "npm:@nestjs/config",
+              "dynamic"
+            ],
+            [
+              "npm:@prisma/client",
+              "dynamic"
+            ],
+            [
+              "npm:axios",
+              "dynamic"
+            ]
+          ]
+        },
+        {
+          "file": "dist/api/main.js.map",
+          "hash": "8809496083391098556"
+        },
+        {
+          "file": "dist/api/package-lock.json",
+          "hash": "9539795027105959835"
+        },
+        {
+          "file": "dist/api/package.json",
+          "hash": "14989596579520380990"
+        },
+        {
           "file": "hackathon_require.md",
           "hash": "2859890472187064264"
         },
@@ -658,6 +1090,10 @@
         {
           "file": "package.json",
           "hash": "18027997089586531221"
+        },
+        {
+          "file": "prisma/conviction-atlas.db",
+          "hash": "12196479679167162828"
         },
         {
           "file": "prisma/schema.prisma",
@@ -719,190 +1155,6 @@
         {
           "file": "前端_example",
           "hash": "3432563518333224223"
-        }
-      ],
-      "api": [
-        {
-          "file": "api/project.json",
-          "hash": "16408935989629927072"
-        },
-        {
-          "file": "api/src/app/app.controller.ts",
-          "hash": "12427857703307551944",
-          "deps": [
-            "npm:@nestjs/common"
-          ]
-        },
-        {
-          "file": "api/src/app/app.module.ts",
-          "hash": "3798553724486335736",
-          "deps": [
-            "npm:@nestjs/common",
-            "npm:@nestjs/config"
-          ]
-        },
-        {
-          "file": "api/src/app/app.service.ts",
-          "hash": "6951206166469692039",
-          "deps": [
-            "npm:@nestjs/common"
-          ]
-        },
-        {
-          "file": "api/src/app/controllers/internal.controller.ts",
-          "hash": "2041897051875241398",
-          "deps": [
-            "npm:@nestjs/common"
-          ]
-        },
-        {
-          "file": "api/src/app/controllers/leaderboard.controller.ts",
-          "hash": "8902902909722591589",
-          "deps": [
-            "npm:@nestjs/common"
-          ]
-        },
-        {
-          "file": "api/src/app/controllers/managers.controller.ts",
-          "hash": "4673187805141271548",
-          "deps": [
-            "npm:@nestjs/common"
-          ]
-        },
-        {
-          "file": "api/src/app/controllers/memos.controller.ts",
-          "hash": "18187401059584794494",
-          "deps": [
-            "npm:@nestjs/common"
-          ]
-        },
-        {
-          "file": "api/src/app/controllers/opportunities.controller.ts",
-          "hash": "1735992873407459055",
-          "deps": [
-            "npm:@nestjs/common"
-          ]
-        },
-        {
-          "file": "api/src/app/core/helpers.ts",
-          "hash": "11987649407053321254"
-        },
-        {
-          "file": "api/src/app/core/manager-blueprints.ts",
-          "hash": "11532494500830859475",
-          "deps": [
-            "npm:@prisma/client"
-          ]
-        },
-        {
-          "file": "api/src/app/prisma/prisma.service.ts",
-          "hash": "1722435067500517337",
-          "deps": [
-            "npm:@nestjs/common",
-            "npm:@prisma/client"
-          ]
-        },
-        {
-          "file": "api/src/app/services/llm.service.ts",
-          "hash": "8298616680251017463",
-          "deps": [
-            "npm:@nestjs/common",
-            "npm:@nestjs/config",
-            "npm:axios"
-          ]
-        },
-        {
-          "file": "api/src/app/services/manager-engine.service.ts",
-          "hash": "4333021828005737021",
-          "deps": [
-            "npm:@prisma/client",
-            "npm:@nestjs/common"
-          ]
-        },
-        {
-          "file": "api/src/app/services/memo.service.ts",
-          "hash": "4770025434266654601",
-          "deps": [
-            "npm:@nestjs/common"
-          ]
-        },
-        {
-          "file": "api/src/app/services/performance.service.ts",
-          "hash": "13484502735110463965",
-          "deps": [
-            "npm:@nestjs/common"
-          ]
-        },
-        {
-          "file": "api/src/app/services/portfolio.service.ts",
-          "hash": "15699027015202548975",
-          "deps": [
-            "npm:@prisma/client",
-            "npm:@nestjs/common"
-          ]
-        },
-        {
-          "file": "api/src/app/services/query.service.ts",
-          "hash": "10325407101917788760",
-          "deps": [
-            "npm:@nestjs/common",
-            "npm:@prisma/client"
-          ]
-        },
-        {
-          "file": "api/src/app/services/signal-engine.service.ts",
-          "hash": "2943177108535574452",
-          "deps": [
-            "npm:@prisma/client",
-            "npm:@nestjs/common"
-          ]
-        },
-        {
-          "file": "api/src/app/services/source-ingestion.service.ts",
-          "hash": "13634932296771256317",
-          "deps": [
-            "npm:axios",
-            "npm:@nestjs/common",
-            "npm:@nestjs/config",
-            "npm:@prisma/client"
-          ]
-        },
-        {
-          "file": "api/src/app/services/tron-payment.service.ts",
-          "hash": "8170954572298408009",
-          "deps": [
-            "npm:@nestjs/common",
-            "npm:@nestjs/config",
-            "npm:axios"
-          ]
-        },
-        {
-          "file": "api/src/assets/.gitkeep",
-          "hash": "3244421341483603138"
-        },
-        {
-          "file": "api/src/main.ts",
-          "hash": "4689420165911069765",
-          "deps": [
-            "npm:@nestjs/common",
-            "npm:@nestjs/core",
-            "npm:@nestjs/swagger"
-          ]
-        },
-        {
-          "file": "api/tsconfig.app.json",
-          "hash": "2083841899727192147"
-        },
-        {
-          "file": "api/tsconfig.json",
-          "hash": "4276712839166217253"
-        },
-        {
-          "file": "api/webpack.config.js",
-          "hash": "6809973803337539335",
-          "deps": [
-            "npm:@nx/webpack"
-          ]
         }
       ]
     },

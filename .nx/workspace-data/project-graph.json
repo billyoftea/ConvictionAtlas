@@ -15566,12 +15566,12 @@
     "web": [
       {
         "source": "web",
-        "target": "npm:@nx/next",
+        "target": "npm:next",
         "type": "static"
       },
       {
         "source": "web",
-        "target": "npm:next",
+        "target": "npm:@nx/next",
         "type": "static"
       },
       {
@@ -15608,7 +15608,47 @@
     "conviction-atlas": [
       {
         "source": "conviction-atlas",
+        "target": "npm:@nestjs/common",
+        "type": "dynamic"
+      },
+      {
+        "source": "conviction-atlas",
+        "target": "npm:@nestjs/core",
+        "type": "dynamic"
+      },
+      {
+        "source": "conviction-atlas",
+        "target": "npm:@nestjs/swagger",
+        "type": "dynamic"
+      },
+      {
+        "source": "conviction-atlas",
+        "target": "npm:tslib",
+        "type": "dynamic"
+      },
+      {
+        "source": "conviction-atlas",
+        "target": "npm:@nestjs/config",
+        "type": "dynamic"
+      },
+      {
+        "source": "conviction-atlas",
         "target": "npm:@prisma/client",
+        "type": "dynamic"
+      },
+      {
+        "source": "conviction-atlas",
+        "target": "npm:@prisma/client",
+        "type": "static"
+      },
+      {
+        "source": "conviction-atlas",
+        "target": "npm:axios",
+        "type": "dynamic"
+      },
+      {
+        "source": "conviction-atlas",
+        "target": "npm:axios",
         "type": "static"
       },
       {
@@ -15619,11 +15659,6 @@
       {
         "source": "conviction-atlas",
         "target": "npm:better-sqlite3",
-        "type": "static"
-      },
-      {
-        "source": "conviction-atlas",
-        "target": "npm:axios",
         "type": "static"
       }
     ],
@@ -35435,5 +35470,5 @@
   },
   "version": "6.0",
   "errors": [],
-  "computedAt": 1774543888681
+  "computedAt": 1774619675085
 }
