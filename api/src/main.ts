@@ -10,7 +10,12 @@ async function bootstrap() {
   const webUrl = process.env.WEB_URL || 'http://localhost:3000';
 
   app.enableCors({
-    origin: [webUrl, process.env.APP_URL || `http://localhost:${port}`],
+    origin: [
+      webUrl,
+      process.env.APP_URL || `http://localhost:${port}`,
+      'https://billyoftea.github.io',
+      /\.github\.io$/,
+    ],
     credentials: true,
   });
   app.setGlobalPrefix(globalPrefix);

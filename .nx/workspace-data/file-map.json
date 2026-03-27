@@ -189,7 +189,7 @@
         },
         {
           "file": "api/src/main.ts",
-          "hash": "4689420165911069765",
+          "hash": "14905836927512793688",
           "deps": [
             "npm:@nestjs/common",
             "npm:@nestjs/core",
@@ -563,24 +563,16 @@
       ],
       "web": [
         {
-          "file": "web/.next/BUILD_ID",
-          "hash": "12311327219196967970"
-        },
-        {
           "file": "web/.next/app-build-manifest.json",
-          "hash": "13553925813736079534"
-        },
-        {
-          "file": "web/.next/app-path-routes-manifest.json",
-          "hash": "11280607098823760032"
+          "hash": "6642808631538785885"
         },
         {
           "file": "web/.next/build-manifest.json",
-          "hash": "3330316096594414733"
+          "hash": "2702609462139627143"
         },
         {
           "file": "web/.next/cache/.tsbuildinfo",
-          "hash": "13352066164502212790"
+          "hash": "3269843683925640759"
         },
         {
           "file": "web/.next/cache/config.json",
@@ -620,18 +612,22 @@
         },
         {
           "file": "web/.next/cache/webpack/client-development/index.pack.gz",
-          "hash": "9574452895124428927"
+          "hash": "14983256600370168480"
         },
         {
           "file": "web/.next/cache/webpack/client-development/index.pack.gz.old",
-          "hash": "2063552571006375045"
+          "hash": "9574452895124428927"
         },
         {
           "file": "web/.next/cache/webpack/client-production/0.pack",
-          "hash": "12755860143671669456"
+          "hash": "17801919086767793562"
         },
         {
           "file": "web/.next/cache/webpack/client-production/index.pack",
+          "hash": "8547043455957306430"
+        },
+        {
+          "file": "web/.next/cache/webpack/client-production/index.pack.old",
           "hash": "12904324404804687067"
         },
         {
@@ -640,6 +636,10 @@
         },
         {
           "file": "web/.next/cache/webpack/edge-server-production/index.pack",
+          "hash": "63388699978071842"
+        },
+        {
+          "file": "web/.next/cache/webpack/edge-server-production/index.pack.old",
           "hash": "12066163513186281037"
         },
         {
@@ -688,39 +688,15 @@
         },
         {
           "file": "web/.next/cache/webpack/server-production/0.pack",
-          "hash": "7829087657543528367"
+          "hash": "1320316272974011761"
         },
         {
           "file": "web/.next/cache/webpack/server-production/index.pack",
+          "hash": "17111307800467135639"
+        },
+        {
+          "file": "web/.next/cache/webpack/server-production/index.pack.old",
           "hash": "13187372592814817813"
-        },
-        {
-          "file": "web/.next/diagnostics/build-diagnostics.json",
-          "hash": "14616169667565587216"
-        },
-        {
-          "file": "web/.next/diagnostics/framework.json",
-          "hash": "17286661956815934050"
-        },
-        {
-          "file": "web/.next/export-detail.json",
-          "hash": "17488202976022377314"
-        },
-        {
-          "file": "web/.next/export-marker.json",
-          "hash": "15591099675650914738"
-        },
-        {
-          "file": "web/.next/images-manifest.json",
-          "hash": "17015733606374654823"
-        },
-        {
-          "file": "web/.next/next-minimal-server.js.nft.json",
-          "hash": "9878099136683804098"
-        },
-        {
-          "file": "web/.next/next-server.js.nft.json",
-          "hash": "17862037674855272959"
         },
         {
           "file": "web/.next/package.json",
@@ -728,197 +704,27 @@
         },
         {
           "file": "web/.next/prerender-manifest.json",
-          "hash": "7510320820016833620"
+          "hash": "10507229063727458355"
         },
         {
           "file": "web/.next/react-loadable-manifest.json",
           "hash": "1389868326933519382"
         },
         {
-          "file": "web/.next/required-server-files.json",
-          "hash": "17244935305070029207"
-        },
-        {
           "file": "web/.next/routes-manifest.json",
-          "hash": "6313751899016264740"
+          "hash": "7851074683847447992"
         },
         {
           "file": "web/.next/server/app-paths-manifest.json",
-          "hash": "3649202241754493099"
-        },
-        {
-          "file": "web/.next/server/app/_not-found.html",
-          "hash": "15591458973661821683"
-        },
-        {
-          "file": "web/.next/server/app/_not-found.meta",
-          "hash": "2034810263151262482"
-        },
-        {
-          "file": "web/.next/server/app/_not-found.rsc",
-          "hash": "443257839590319091"
-        },
-        {
-          "file": "web/.next/server/app/_not-found/page.js",
-          "hash": "2328958304276879534",
-          "deps": [
-            [
-              "npm:next",
-              "dynamic"
-            ]
-          ]
-        },
-        {
-          "file": "web/.next/server/app/_not-found/page.js.nft.json",
-          "hash": "5988561179049498673"
-        },
-        {
-          "file": "web/.next/server/app/_not-found/page_client-reference-manifest.js",
-          "hash": "15623243480406524548"
-        },
-        {
-          "file": "web/.next/server/app/index.html",
-          "hash": "8106931631545276275"
-        },
-        {
-          "file": "web/.next/server/app/index.meta",
-          "hash": "3414423732052082643"
-        },
-        {
-          "file": "web/.next/server/app/index.rsc",
-          "hash": "4093197896002238390"
-        },
-        {
-          "file": "web/.next/server/app/leaderboard/page.js",
-          "hash": "14393702285659819525",
-          "deps": [
-            [
-              "npm:next",
-              "dynamic"
-            ]
-          ]
-        },
-        {
-          "file": "web/.next/server/app/leaderboard/page.js.nft.json",
-          "hash": "6236533473781526759"
-        },
-        {
-          "file": "web/.next/server/app/leaderboard/page_client-reference-manifest.js",
-          "hash": "2710988850615106366"
-        },
-        {
-          "file": "web/.next/server/app/managers/[slug]/page.js",
-          "hash": "13189377182953707465",
-          "deps": [
-            [
-              "npm:next",
-              "dynamic"
-            ]
-          ]
-        },
-        {
-          "file": "web/.next/server/app/managers/[slug]/page.js.nft.json",
-          "hash": "17976538849727767157"
-        },
-        {
-          "file": "web/.next/server/app/managers/[slug]/page_client-reference-manifest.js",
-          "hash": "1130709407139906181"
-        },
-        {
-          "file": "web/.next/server/app/managers/page.js",
-          "hash": "12827329514483473509",
-          "deps": [
-            [
-              "npm:next",
-              "dynamic"
-            ]
-          ]
-        },
-        {
-          "file": "web/.next/server/app/managers/page.js.nft.json",
-          "hash": "14192022243869522311"
-        },
-        {
-          "file": "web/.next/server/app/managers/page_client-reference-manifest.js",
-          "hash": "17090218211642132165"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/[id]/page.js",
-          "hash": "8952640555237471685",
-          "deps": [
-            [
-              "npm:next",
-              "dynamic"
-            ]
-          ]
-        },
-        {
-          "file": "web/.next/server/app/opportunities/[id]/page.js.nft.json",
-          "hash": "12210309659957666460"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/[id]/page_client-reference-manifest.js",
-          "hash": "11462777252452641171"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/page.js",
-          "hash": "7741850471806795895",
-          "deps": [
-            [
-              "npm:next",
-              "dynamic"
-            ]
-          ]
-        },
-        {
-          "file": "web/.next/server/app/opportunities/page.js.nft.json",
-          "hash": "6236533473781526759"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/page_client-reference-manifest.js",
-          "hash": "17216063586846834466"
-        },
-        {
-          "file": "web/.next/server/app/page.js",
-          "hash": "80276830260057194",
-          "deps": [
-            [
-              "npm:next",
-              "dynamic"
-            ]
-          ]
-        },
-        {
-          "file": "web/.next/server/app/page.js.nft.json",
-          "hash": "10421596563790210257"
-        },
-        {
-          "file": "web/.next/server/app/page_client-reference-manifest.js",
-          "hash": "16958656595322440863"
-        },
-        {
-          "file": "web/.next/server/chunks/157.js",
-          "hash": "15304127380482853499"
-        },
-        {
-          "file": "web/.next/server/chunks/461.js",
-          "hash": "3141288895700531654"
-        },
-        {
-          "file": "web/.next/server/chunks/781.js",
-          "hash": "13431256375752244799"
-        },
-        {
-          "file": "web/.next/server/functions-config-manifest.json",
-          "hash": "18417749098027325250"
+          "hash": "1389868326933519382"
         },
         {
           "file": "web/.next/server/interception-route-rewrite-manifest.js",
-          "hash": "10135913824388381780"
+          "hash": "10484309360224763022"
         },
         {
           "file": "web/.next/server/middleware-build-manifest.js",
-          "hash": "5764870906799586092"
+          "hash": "10087042376963020870"
         },
         {
           "file": "web/.next/server/middleware-manifest.json",
@@ -926,270 +732,43 @@
         },
         {
           "file": "web/.next/server/middleware-react-loadable-manifest.js",
-          "hash": "13961083300434990301"
+          "hash": "9185069726031651908"
         },
         {
           "file": "web/.next/server/next-font-manifest.js",
-          "hash": "4428539183252886111"
+          "hash": "16541577805185552134"
         },
         {
           "file": "web/.next/server/next-font-manifest.json",
-          "hash": "9608528822373955009"
+          "hash": "11891788324563068681"
         },
         {
           "file": "web/.next/server/pages-manifest.json",
-          "hash": "12226129301237480981"
-        },
-        {
-          "file": "web/.next/server/pages/404.html",
-          "hash": "15591458973661821683"
-        },
-        {
-          "file": "web/.next/server/pages/500.html",
-          "hash": "11018219120288597067"
-        },
-        {
-          "file": "web/.next/server/pages/_app.js",
-          "hash": "2782294626237527408",
-          "deps": [
-            [
-              "npm:react",
-              "dynamic"
-            ]
-          ]
-        },
-        {
-          "file": "web/.next/server/pages/_app.js.nft.json",
-          "hash": "11583129258981197872"
-        },
-        {
-          "file": "web/.next/server/pages/_document.js",
-          "hash": "2669387363976029618",
-          "deps": [
-            [
-              "npm:next",
-              "dynamic"
-            ],
-            [
-              "npm:react",
-              "dynamic"
-            ]
-          ]
-        },
-        {
-          "file": "web/.next/server/pages/_document.js.nft.json",
-          "hash": "9632568071717833151"
-        },
-        {
-          "file": "web/.next/server/pages/_error.js",
-          "hash": "347049460519053447",
-          "deps": [
-            [
-              "npm:next",
-              "dynamic"
-            ],
-            [
-              "npm:react",
-              "dynamic"
-            ]
-          ]
-        },
-        {
-          "file": "web/.next/server/pages/_error.js.nft.json",
-          "hash": "14452525144066906299"
+          "hash": "1389868326933519382"
         },
         {
           "file": "web/.next/server/server-reference-manifest.js",
-          "hash": "17886416551195172472"
+          "hash": "13062913855343812063"
         },
         {
           "file": "web/.next/server/server-reference-manifest.json",
-          "hash": "2315675632389190171"
+          "hash": "5970613626744416700"
         },
         {
-          "file": "web/.next/server/webpack-runtime.js",
-          "hash": "10505851258907960980"
-        },
-        {
-          "file": "web/.next/static/Mb7SNfsNTcneQKFQnRDtC/_buildManifest.js",
-          "hash": "12292452064906717114"
-        },
-        {
-          "file": "web/.next/static/Mb7SNfsNTcneQKFQnRDtC/_ssgManifest.js",
-          "hash": "2285259522902979167"
-        },
-        {
-          "file": "web/.next/static/chunks/131-44941cf6a71b57e9.js",
-          "hash": "15020369365529609641"
-        },
-        {
-          "file": "web/.next/static/chunks/197-58ecb5baa48e25dd.js",
-          "hash": "14334421287832650047"
-        },
-        {
-          "file": "web/.next/static/chunks/83607670-b63d9b78e5cee50f.js",
-          "hash": "949966366492151843"
-        },
-        {
-          "file": "web/.next/static/chunks/app/_not-found/page-934bac47493305f7.js",
-          "hash": "14255510858219902231"
-        },
-        {
-          "file": "web/.next/static/chunks/app/layout-60fd210edf824fa8.js",
-          "hash": "11491290793200283672"
-        },
-        {
-          "file": "web/.next/static/chunks/app/leaderboard/page-cd589a7860b5f6ea.js",
-          "hash": "8789543993354135927"
-        },
-        {
-          "file": "web/.next/static/chunks/app/managers/[slug]/page-a3da5b6f43441c0b.js",
-          "hash": "9958638266333760682"
-        },
-        {
-          "file": "web/.next/static/chunks/app/managers/page-cd589a7860b5f6ea.js",
-          "hash": "8789543993354135927"
-        },
-        {
-          "file": "web/.next/static/chunks/app/opportunities/[id]/page-cd589a7860b5f6ea.js",
-          "hash": "8789543993354135927"
-        },
-        {
-          "file": "web/.next/static/chunks/app/opportunities/page-cd589a7860b5f6ea.js",
-          "hash": "8789543993354135927"
-        },
-        {
-          "file": "web/.next/static/chunks/app/page-e3a876b53d3f2556.js",
-          "hash": "2654159231223913087"
-        },
-        {
-          "file": "web/.next/static/chunks/c3f2cda1-6175e650bb09d94f.js",
-          "hash": "13602056059519300040"
-        },
-        {
-          "file": "web/.next/static/chunks/c7879cf7-b5ab1053c1d9a2e7.js",
-          "hash": "6711629933949069619"
-        },
-        {
-          "file": "web/.next/static/chunks/framework-9ad035430eed8b2b.js",
-          "hash": "4697397957752955547"
-        },
-        {
-          "file": "web/.next/static/chunks/main-app-64418d95a0c05899.js",
-          "hash": "17090365284393996116"
-        },
-        {
-          "file": "web/.next/static/chunks/main-b6a92d4ce7bf187c.js",
-          "hash": "13576573971767178991"
-        },
-        {
-          "file": "web/.next/static/chunks/pages/_app-930c2e1cfe9b86bc.js",
-          "hash": "3085304791870828638"
-        },
-        {
-          "file": "web/.next/static/chunks/pages/_error-2a950c2742f550d2.js",
-          "hash": "18258752118752822082"
-        },
-        {
-          "file": "web/.next/static/chunks/polyfills-42372ed130431b0a.js",
+          "file": "web/.next/static/chunks/polyfills.js",
           "hash": "8152964857117933876"
         },
         {
-          "file": "web/.next/static/chunks/webpack-4304d9270ffa014e.js",
-          "hash": "13439892879082572056"
+          "file": "web/.next/static/development/_buildManifest.js",
+          "hash": "2595516313715272730"
         },
         {
-          "file": "web/.next/static/css/daa7b57137f4b763.css",
-          "hash": "5019491608233284094"
-        },
-        {
-          "file": "web/.next/static/media/26d4368bf94c0ec4-s.p.woff2",
-          "hash": "4619255680175106883"
-        },
-        {
-          "file": "web/.next/static/media/2801417b65625cf5-s.woff2",
-          "hash": "4599240760732176394"
-        },
-        {
-          "file": "web/.next/static/media/28793f5c5e3d822d-s.woff2",
-          "hash": "9137604034507838119"
-        },
-        {
-          "file": "web/.next/static/media/36966cca54120369-s.p.woff2",
-          "hash": "5975822321256779727"
-        },
-        {
-          "file": "web/.next/static/media/7b19b489dc6743ba-s.woff2",
-          "hash": "17487016941971723159"
-        },
-        {
-          "file": "web/.next/static/media/b3bf17a9041d9433-s.woff2",
-          "hash": "17981364108458375213"
-        },
-        {
-          "file": "web/.next/static/media/b7387a63dd068245-s.woff2",
-          "hash": "8152163975264871472"
-        },
-        {
-          "file": "web/.next/static/media/c9c3823090ec8b55-s.woff2",
-          "hash": "8764688631380558766"
-        },
-        {
-          "file": "web/.next/static/media/e1aab0933260df4d-s.woff2",
-          "hash": "2419557368995813171"
+          "file": "web/.next/static/development/_ssgManifest.js",
+          "hash": "17018243955171961484"
         },
         {
           "file": "web/.next/trace",
-          "hash": "5811274906950314219"
-        },
-        {
-          "file": "web/.next/types/app/layout.ts",
-          "hash": "18189944647110032074",
-          "deps": [
-            "npm:next"
-          ]
-        },
-        {
-          "file": "web/.next/types/app/leaderboard/page.ts",
-          "hash": "10554905767316567292",
-          "deps": [
-            "npm:next"
-          ]
-        },
-        {
-          "file": "web/.next/types/app/managers/[slug]/page.ts",
-          "hash": "5286396371919139278",
-          "deps": [
-            "npm:next"
-          ]
-        },
-        {
-          "file": "web/.next/types/app/managers/page.ts",
-          "hash": "9860572151671544356",
-          "deps": [
-            "npm:next"
-          ]
-        },
-        {
-          "file": "web/.next/types/app/opportunities/[id]/page.ts",
-          "hash": "15351117123637506303",
-          "deps": [
-            "npm:next"
-          ]
-        },
-        {
-          "file": "web/.next/types/app/opportunities/page.ts",
-          "hash": "12044380595549158897",
-          "deps": [
-            "npm:next"
-          ]
-        },
-        {
-          "file": "web/.next/types/app/page.ts",
-          "hash": "13860007235982144508",
-          "deps": [
-            "npm:next"
-          ]
+          "hash": "1899170542302939753"
         },
         {
           "file": "web/.next/types/cache-life.d.ts",
@@ -1227,7 +806,7 @@
         },
         {
           "file": "web/next.config.js",
-          "hash": "1008372023327805928",
+          "hash": "2126509825945616615",
           "deps": [
             "npm:@nx/next"
           ]
@@ -1888,12 +1467,16 @@
           ]
         },
         {
-          "file": "web/src/app/managers/[slug]/page.tsx",
+          "file": "web/src/app/managers/[slug]/client.tsx",
           "hash": "10292621763046014701",
           "deps": [
             "npm:react",
             "npm:next"
           ]
+        },
+        {
+          "file": "web/src/app/managers/[slug]/page.tsx",
+          "hash": "13640100742395004221"
         },
         {
           "file": "web/src/app/managers/page.tsx",
@@ -1904,12 +1487,16 @@
           ]
         },
         {
-          "file": "web/src/app/opportunities/[id]/page.tsx",
+          "file": "web/src/app/opportunities/[id]/client.tsx",
           "hash": "8936987372689725712",
           "deps": [
             "npm:react",
             "npm:next"
           ]
+        },
+        {
+          "file": "web/src/app/opportunities/[id]/page.tsx",
+          "hash": "5771039534833131837"
         },
         {
           "file": "web/src/app/opportunities/page.tsx",
