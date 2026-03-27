@@ -1,1 +1,115 @@
-{"version":3,"caseSensitive":false,"basePath":"/ConvictionAtlas","rewrites":{"beforeFiles":[{"source":"/ConvictionAtlas//_next/:path+","destination":"/ConvictionAtlas/_next/:path+","regex":"^\\/ConvictionAtlas\\/\\/_next(?:\\/((?:[^\\/]+?)(?:\\/(?:[^\\/]+?))*))(?:\\/)?$"}],"afterFiles":[],"fallback":[]},"redirects":[{"source":"/ConvictionAtlas","destination":"/ConvictionAtlas/","permanent":true,"basePath":false,"internal":true,"regex":"^\\/ConvictionAtlas$"},{"source":"/:file((?!\\.well-known(?:/.*)?)(?:[^/]+/)*[^/]+\\.\\w+)/","destination":"/:file","permanent":true,"internal":true,"missing":[{"type":"header","key":"x-nextjs-data"}],"regex":"^(?:\\/((?!\\.well-known(?:\\/.*)?)(?:[^/]+\\/)*[^/]+\\.\\w+))\\/$"},{"source":"/:notfile((?!\\.well-known(?:/.*)?)(?:[^/]+/)*[^/\\.]+)","destination":"/:notfile/","permanent":true,"internal":true,"regex":"^(?:\\/((?!\\.well-known(?:\\/.*)?)(?:[^/]+\\/)*[^/\\.]+))$"}],"headers":[]}
+{
+  "version": 3,
+  "pages404": true,
+  "caseSensitive": false,
+  "basePath": "/ConvictionAtlas",
+  "redirects": [
+    {
+      "source": "/ConvictionAtlas",
+      "destination": "/ConvictionAtlas/",
+      "basePath": false,
+      "internal": true,
+      "statusCode": 308,
+      "regex": "^/ConvictionAtlas$"
+    },
+    {
+      "source": "/:file((?!\\.well-known(?:/.*)?)(?:[^/]+/)*[^/]+\\.\\w+)/",
+      "destination": "/:file",
+      "internal": true,
+      "missing": [
+        {
+          "type": "header",
+          "key": "x-nextjs-data"
+        }
+      ],
+      "statusCode": 308,
+      "regex": "^(?:/((?!\\.well-known(?:/.*)?)(?:[^/]+/)*[^/]+\\.\\w+))/$"
+    },
+    {
+      "source": "/:notfile((?!\\.well-known(?:/.*)?)(?:[^/]+/)*[^/\\.]+)",
+      "destination": "/:notfile/",
+      "internal": true,
+      "statusCode": 308,
+      "regex": "^(?:/((?!\\.well-known(?:/.*)?)(?:[^/]+/)*[^/\\.]+))$"
+    }
+  ],
+  "headers": [],
+  "rewrites": {
+    "beforeFiles": [
+      {
+        "source": "/ConvictionAtlas//_next/:path+",
+        "destination": "/ConvictionAtlas/_next/:path+",
+        "regex": "^/ConvictionAtlas//_next(?:/((?:[^/]+?)(?:/(?:[^/]+?))*))(?:/)?$"
+      }
+    ],
+    "afterFiles": [],
+    "fallback": []
+  },
+  "dynamicRoutes": [
+    {
+      "page": "/managers/[slug]",
+      "regex": "^/managers/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPslug": "nxtPslug"
+      },
+      "namedRegex": "^/managers/(?<nxtPslug>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/opportunities/[id]",
+      "regex": "^/opportunities/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/opportunities/(?<nxtPid>[^/]+?)(?:/)?$"
+    }
+  ],
+  "staticRoutes": [
+    {
+      "page": "/",
+      "regex": "^/(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/(?:/)?$"
+    },
+    {
+      "page": "/_not-found",
+      "regex": "^/_not\\-found(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/_not\\-found(?:/)?$"
+    },
+    {
+      "page": "/leaderboard",
+      "regex": "^/leaderboard(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/leaderboard(?:/)?$"
+    },
+    {
+      "page": "/managers",
+      "regex": "^/managers(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/managers(?:/)?$"
+    },
+    {
+      "page": "/opportunities",
+      "regex": "^/opportunities(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/opportunities(?:/)?$"
+    }
+  ],
+  "dataRoutes": [],
+  "rsc": {
+    "header": "rsc",
+    "varyHeader": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch",
+    "prefetchHeader": "next-router-prefetch",
+    "didPostponeHeader": "x-nextjs-postponed",
+    "contentTypeHeader": "text/x-component",
+    "suffix": ".rsc",
+    "prefetchSuffix": ".prefetch.rsc",
+    "prefetchSegmentHeader": "next-router-segment-prefetch",
+    "prefetchSegmentSuffix": ".segment.rsc",
+    "prefetchSegmentDirSuffix": ".segments"
+  },
+  "rewriteHeaders": {
+    "pathHeader": "x-nextjs-rewritten-path",
+    "queryHeader": "x-nextjs-rewritten-query"
+  }
+}
