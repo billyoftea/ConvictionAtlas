@@ -15567,16 +15567,26 @@
       {
         "source": "web",
         "target": "npm:next",
-        "type": "static"
+        "type": "dynamic"
       },
       {
         "source": "web",
-        "target": "npm:@nx/next",
+        "target": "npm:next",
         "type": "static"
       },
       {
         "source": "web",
         "target": "npm:react",
+        "type": "dynamic"
+      },
+      {
+        "source": "web",
+        "target": "npm:react",
+        "type": "static"
+      },
+      {
+        "source": "web",
+        "target": "npm:@nx/next",
         "type": "static"
       },
       {
@@ -35470,5 +35480,5 @@
   },
   "version": "6.0",
   "errors": [],
-  "computedAt": 1774621547702
+  "computedAt": 1774621577994
 }
