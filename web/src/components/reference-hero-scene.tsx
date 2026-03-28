@@ -303,10 +303,22 @@ export default function ReferenceHeroScene() {
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0x121212);
 
-    const camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 1, 50);
+    const getViewportSize = () => {
+      const width = mountNode.clientWidth || window.innerWidth;
+      const height = mountNode.clientHeight || window.innerHeight;
+      return { width, height: Math.max(height, 1) };
+    };
+
+    const initialViewport = getViewportSize();
+    const camera = new THREE.PerspectiveCamera(
+      40,
+      initialViewport.width / initialViewport.height,
+      1,
+      50,
+    );
     const renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setSize(initialViewport.width, initialViewport.height, false);
     renderer.domElement.className = 'reference-hero-canvas';
     mountNode.appendChild(renderer.domElement);
 
@@ -358,7 +370,7 @@ export default function ReferenceHeroScene() {
       side: THREE.FrontSide,
     });
 
-    const segments = window.innerWidth < 768 ? 200 : 400;
+    const segments = initialViewport.width < 768 ? 200 : 400;
     const mainGeometry = new THREE.PlaneGeometry(1, 1, segments, segments);
     const backgroundGeometry = new THREE.SphereGeometry(5, 50, 50);
 
@@ -368,14 +380,13 @@ export default function ReferenceHeroScene() {
     scene.add(backgroundMesh);
 
     function applyCameraLayout() {
-      camera.position.set(0, 3, window.innerWidth > 768 ? 7 : 11);
-      camera.aspect = window.innerWidth / window.innerHeight;
+      const { width, height } = getViewportSize();
+      camera.position.set(0, 3, width > 768 ? 7 : 11);
+      camera.aspect = width / height;
       camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setSize(width, height, false);
       controls.update();
     }
-
-    applyCameraLayout();
 
     const loader = new THREE.TextureLoader();
     const loadedTextures: THREE.Texture[] = [];
@@ -384,6 +395,14 @@ export default function ReferenceHeroScene() {
     let frameId = 0;
     let disposed = false;
     const startTime = performance.now();
+    let resizeObserver: ResizeObserver | null = null;
+
+    applyCameraLayout();
+
+    if (typeof ResizeObserver !== 'undefined') {
+      resizeObserver = new ResizeObserver(() => applyCameraLayout());
+      resizeObserver.observe(mountNode);
+    }
 
     void Promise.all(TEXTURE_PATHS.map(async (path) => configureTexture(await loader.loadAsync(path))))
       .then((textures) => {
@@ -449,6 +468,7 @@ export default function ReferenceHeroScene() {
       disposed = true;
       window.cancelAnimationFrame(frameId);
       window.removeEventListener('resize', applyCameraLayout);
+      resizeObserver?.disconnect();
       controls.dispose();
       mainGeometry.dispose();
       backgroundGeometry.dispose();

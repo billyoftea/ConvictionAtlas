@@ -6,13 +6,14 @@ import type { MemoUnlockResult } from '../lib/types';
 
 type PaymentInfo = {
   network: string;
+  networkCode?: string;
   wallet: string;
   token: string;
   contract: string;
   minAmount: number;
   memo: string;
   explorerUrl: string;
-  faucetUrl: string;
+  faucetUrl?: string | null;
 };
 
 type UnlockStep = 'idle' | 'showing-payment' | 'submitting-tx' | 'done' | 'error';
@@ -84,7 +85,7 @@ export function MemoUnlockButton({ memoId }: { memoId: string }) {
       {(step === 'showing-payment' || step === 'submitting-tx' || step === 'error') && paymentInfo && (
         <div className="unlock-panel">
           <div className="unlock-header">
-            <span className="unlock-badge">TRON Nile Testnet</span>
+            <span className="unlock-badge">{paymentInfo.network}</span>
             <span className="unlock-amount">{paymentInfo.minAmount} USDT</span>
           </div>
 
@@ -115,9 +116,11 @@ export function MemoUnlockButton({ memoId }: { memoId: string }) {
             <a href={paymentInfo.explorerUrl} target="_blank" rel="noreferrer" className="unlock-link">
               View on Explorer ↗
             </a>
-            <a href={paymentInfo.faucetUrl} target="_blank" rel="noreferrer" className="unlock-link">
-              Get testnet USDT ↗
-            </a>
+            {paymentInfo.faucetUrl ? (
+              <a href={paymentInfo.faucetUrl} target="_blank" rel="noreferrer" className="unlock-link">
+                Get network funds ↗
+              </a>
+            ) : null}
           </div>
 
           <div className="unlock-divider" />

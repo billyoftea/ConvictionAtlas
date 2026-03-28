@@ -13,14 +13,7 @@ type GenerateTextParams = {
 };
 
 /**
- * LlmService — Gongfeng AI (OpenAI-compatible, non-streaming axios call).
- *
- * Required headers for the Gongfeng gateway:
- *   Authorization: Bearer <GF_IDE_OAUTH_TOKEN>
- *   X-Username: <GF_IDE_USERNAME>
- *   OAUTH-TOKEN: <GF_IDE_OAUTH_TOKEN>
- *   DEVICE-ID: <CHE_WORKSPACE_ID>
- *   X-Model-Name: <model>
+ * LlmService — DeepSeek (OpenAI-compatible, non-streaming axios call).
  */
 @Injectable()
 export class LlmService {
@@ -31,14 +24,14 @@ export class LlmService {
   }
 
   getProviderName() {
-    return 'gongfeng-ai';
+    return 'deepseek';
   }
 
   getModel() {
     return (
-      this.configService.get<string>('GONGFENG_MODEL') ??
+      this.configService.get<string>('DEEPSEEK_MODEL') ??
       this.configService.get<string>('LLM_MODEL') ??
-      'claude-sonnet-4-6'
+      'deepseek-chat'
     );
   }
 
@@ -65,10 +58,6 @@ export class LlmService {
             'Content-Type': 'application/json',
             Accept: 'application/json',
             Authorization: `Bearer ${token}`,
-            'X-Username': this.resolveUsername(),
-            'OAUTH-TOKEN': token,
-            'DEVICE-ID': this.resolveDeviceId(),
-            'X-Model-Name': model,
           },
           timeout: 45_000,
         },
@@ -93,34 +82,17 @@ export class LlmService {
 
   private resolveToken() {
     return (
-      this.configService.get<string>('GONGFENG_API_KEY') ??
+      this.configService.get<string>('DEEPSEEK_API_KEY') ??
       this.configService.get<string>('LLM_API_KEY') ??
-      process.env['GF_IDE_OAUTH_TOKEN'] ??
       ''
     );
   }
 
   private resolveBaseUrl() {
     return (
-      this.configService.get<string>('GONGFENG_BASE_URL') ??
+      this.configService.get<string>('DEEPSEEK_BASE_URL') ??
       this.configService.get<string>('LLM_BASE_URL') ??
-      'https://copilot.code.woa.com/server/openclaw/copilot-gateway/v1'
-    );
-  }
-
-  private resolveUsername() {
-    return (
-      this.configService.get<string>('GONGFENG_USERNAME') ??
-      process.env['GF_IDE_USERNAME'] ??
-      'angeloxu'
-    );
-  }
-
-  private resolveDeviceId() {
-    return (
-      this.configService.get<string>('GONGFENG_DEVICE_ID') ??
-      process.env['CHE_WORKSPACE_ID'] ??
-      'workspace0zgb8p429cbhvbbzg4'
+      'https://api.deepseek.com'
     );
   }
 }

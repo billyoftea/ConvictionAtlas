@@ -10,12 +10,11 @@ import {
   formatSignalName,
   getSignedClass,
 } from '../../lib/api';
+import { API_BASE_URL } from '../../lib/runtime-config';
 import type {
   OpportunityLeaderboardEntry,
   OpportunitySummary,
 } from '../../lib/types';
-
-const API = process.env.NEXT_PUBLIC_API_BASE_URL ?? 'http://47.90.182.192/api';
 
 export default function OpportunitiesPage() {
   const [opportunities, setOpportunities] = useState<OpportunitySummary[]>([]);
@@ -24,8 +23,8 @@ export default function OpportunitiesPage() {
 
   useEffect(() => {
     Promise.all([
-      fetch(`${API}/opportunities`).then(r => r.json()),
-      fetch(`${API}/leaderboard/opportunities`).then(r => r.json()),
+      fetch(`${API_BASE_URL}/opportunities`).then(r => r.json()),
+      fetch(`${API_BASE_URL}/leaderboard/opportunities`).then(r => r.json()),
     ])
       .then(([opportunitiesData, leaderboardData]) => {
         setOpportunities(opportunitiesData ?? []);

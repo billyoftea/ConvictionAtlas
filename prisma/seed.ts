@@ -160,11 +160,11 @@ const managers = [
     slug: 'onchain-fundamentals-manager',
     name: 'On-chain Fundamentals',
     description:
-      'Ignores price charts and news cycles entirely. Reads raw on-chain signals — DeFiLlama TVL flows, protocol fee revenue, smart money wallet netflow, and whale accumulation patterns. Only takes conviction when the blockchain itself is speaking.',
+      'Leans on real on-chain context from DefiLlama and Mobula in the live signal layer, while historical ranking and backtests are limited to the stored price, event, and news history available in the system. Treat it as an on-chain-tilted fundamentals desk rather than a full wallet-level simulator.',
     style: 'On-chain',
     riskProfile: 'Conservative',
     rebalanceCadence: 'Every 12h',
-    memoStyle: 'Protocol fundamentals deep-dive with TVL and smart money data',
+    memoStyle: 'Protocol fundamentals brief with on-chain context where available',
     universe: 'DeFi protocols with measurable TVL, fee revenue, and on-chain activity (ETH, SOL, TRON, Base ecosystems)',
     pricingSummary: '$45/month fundamentals desk',
     metadata: JSON.stringify({

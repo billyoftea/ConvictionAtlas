@@ -1,0 +1,17 @@
+[Unit]
+Description=Conviction Atlas API
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/root/workspace/ConvictionAtlas
+ExecStart=/bin/bash /root/workspace/ConvictionAtlas/scripts/start-api-prod.sh
+Restart=always
+RestartSec=5
+StandardOutput=append:/var/log/conviction-atlas-api.log
+StandardError=append:/var/log/conviction-atlas-api-error.log
+
+[Install]
+WantedBy=multi-user.target

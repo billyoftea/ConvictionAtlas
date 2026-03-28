@@ -9,22 +9,22 @@ export type TronPaymentVerifyResult =
 /**
  * TronPaymentService
  *
- * Verifies USDT (TRC-20) micro-payments on TRON Nile testnet.
- * Uses TronGrid v1 API — no API key required for public testnet.
+ * Verifies USDT (TRC-20) micro-payments on TRON.
+ * Network defaults to Nile testnet, but all network metadata is configurable.
  *
  * Flow:
  *   1. Caller provides memo id + TRON tx hash
  *   2. We fetch the tx from TronGrid
- *   3. Confirm: recipient == platform wallet, token == USDT testnet, amount >= minimum
+ *   3. Confirm: recipient == platform wallet, token == configured USDT contract, amount >= minimum
  *   4. Confirm tx is not already used (idempotency)
  *   5. Return verified result
  */
 @Injectable()
 export class TronPaymentService {
-  /** Nile testnet USDT TRC-20 contract */
+  /** Default Nile testnet USDT TRC-20 contract */
   private readonly USDT_CONTRACT = 'TXYZopYRdj2D9XRtbG411XZZ3kM5VkAeBf';
 
-  /** Platform receiving wallet (Nile testnet) */
+  /** Default platform receiving wallet */
   private readonly PLATFORM_WALLET = 'TKxJ4WDH5PBfXyRi9JDeSg6XLKhkM25xkN';
 
   /** Minimum USDT amount for a memo unlock (1 USDT = 1_000_000 sun) */
@@ -50,12 +50,40 @@ export class TronPaymentService {
     return Number(this.configService.get('TRON_MIN_UNLOCK_USDT') ?? '1');
   }
 
+  getNetworkLabel(): string {
+    return this.configService.get<string>('TRON_NETWORK_LABEL') ?? 'TRON Nile Testnet';
+  }
+
+  getNetworkCode(): string {
+    return this.configService.get<string>('TRON_NETWORK_CODE') ?? 'tron-nile-testnet';
+  }
+
+  getApiBaseUrl(): string {
+    return this.configService.get<string>('TRON_API_BASE_URL') ?? this.TRONGRID_BASE;
+  }
+
+  getExplorerBaseUrl(): string {
+    return (
+      this.configService.get<string>('TRON_EXPLORER_BASE_URL') ??
+      'https://nile.tronscan.org/#/address'
+    );
+  }
+
+  getFaucetUrl(): string | null {
+    const faucetUrl = this.configService.get<string>('TRON_FAUCET_URL');
+    if (typeof faucetUrl === 'string') {
+      return faucetUrl.trim() ? faucetUrl : null;
+    }
+
+    return 'https://nileex.io/join/getJoinPage';
+  }
+
   /**
-   * Verify a TRC-20 USDT transfer on Nile testnet.
+   * Verify a TRC-20 USDT transfer on the configured TRON network.
    */
   async verifyPayment(txHash: string): Promise<TronPaymentVerifyResult> {
     try {
-      const url = `${this.TRONGRID_BASE}/transactions/${txHash}`;
+      const url = `${this.getApiBaseUrl()}/transactions/${txHash}`;
       const resp = await axios.get(url, {
         timeout: 15_000,
         headers: { Accept: 'application/json' },
@@ -63,7 +91,10 @@ export class TronPaymentService {
 
       const tx = resp.data?.data?.[0];
       if (!tx) {
-        return { verified: false, reason: 'Transaction not found on Nile testnet.' };
+        return {
+          verified: false,
+          reason: `Transaction not found on ${this.getNetworkLabel()}.`,
+        };
       }
 
       // Check SUCCESS
@@ -88,7 +119,7 @@ export class TronPaymentService {
       if (contractAddress.toLowerCase() !== this.getUsdtContract().toLowerCase()) {
         return {
           verified: false,
-          reason: `Wrong token contract: ${contractAddress}. Expected USDT testnet.`,
+          reason: `Wrong token contract: ${contractAddress}. Expected configured USDT contract.`,
         };
       }
 
@@ -154,15 +185,18 @@ export class TronPaymentService {
    * Build the payment QR / link data for display.
    */
   getPaymentInfo(memoId: string) {
+    const faucetUrl = this.getFaucetUrl();
+
     return {
-      network: 'TRON Nile Testnet',
+      network: this.getNetworkLabel(),
+      networkCode: this.getNetworkCode(),
       wallet: this.getReceivingWallet(),
       token: 'USDT (TRC-20)',
       contract: this.getUsdtContract(),
       minAmount: this.getMinAmountUsdt(),
       memo: `memo:${memoId}`,
-      explorerUrl: `https://nile.tronscan.org/#/address/${this.getReceivingWallet()}`,
-      faucetUrl: 'https://nileex.io/join/getJoinPage',
+      explorerUrl: `${this.getExplorerBaseUrl()}/${this.getReceivingWallet()}`,
+      faucetUrl,
     };
   }
 }

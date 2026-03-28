@@ -1,16 +1,14 @@
 /**
- * Standalone memo generator — uses Gongfeng AI via axios (non-streaming)
+ * Standalone memo generator — uses DeepSeek via axios (non-streaming)
  */
 import { PrismaClient } from '@prisma/client';
 import axios from 'axios';
 
 const prisma = new PrismaClient();
 
-const BASE = process.env['GONGFENG_BASE_URL'] ?? 'https://copilot.code.woa.com/server/openclaw/copilot-gateway/v1';
-const TOKEN = process.env['GONGFENG_API_KEY'] ?? process.env['GF_IDE_OAUTH_TOKEN'] ?? '';
-const MODEL = process.env['GONGFENG_MODEL'] ?? 'claude-sonnet-4-6';
-const USERNAME = process.env['GF_IDE_USERNAME'] ?? 'angeloxu';
-const DEVICE = process.env['CHE_WORKSPACE_ID'] ?? 'workspace0zgb8p429cbhvbbzg4';
+const BASE = process.env['DEEPSEEK_BASE_URL'] ?? 'https://api.deepseek.com';
+const TOKEN = process.env['DEEPSEEK_API_KEY'] ?? process.env['LLM_API_KEY'] ?? '';
+const MODEL = process.env['DEEPSEEK_MODEL'] ?? 'deepseek-chat';
 
 function truncate(s: string, n: number) {
   return s.length <= n ? s : s.slice(0, n - 1) + '…';
@@ -35,10 +33,6 @@ async function callLLM(systemMsg: string, userMsg: string): Promise<string | nul
           'Content-Type': 'application/json',
           'Accept': 'application/json',
           'Authorization': `Bearer ${TOKEN}`,
-          'X-Username': USERNAME,
-          'OAUTH-TOKEN': TOKEN,
-          'DEVICE-ID': DEVICE,
-          'X-Model-Name': MODEL,
         },
         timeout: 40000,
       },
@@ -50,7 +44,7 @@ async function callLLM(systemMsg: string, userMsg: string): Promise<string | nul
   }
 }
 
-async function generateMemoContent(manager: any, portfolio: any): Promise<string> {
+async function generateMemoContent(manager: any, portfolio: any): Promise<string | null> {
   const topLines = portfolio.positions.map((pos: any) => {
     const topSignals = pos.opportunity.signals
       .filter((s: any) => s.name !== 'risk_flag')
@@ -86,30 +80,12 @@ async function generateMemoContent(manager: any, portfolio: any): Promise<string
   ].join('\n');
 
   const content = await callLLM(systemMsg, userMsg);
-
-  if (content) return content;
-
-  // fallback template
-  return [
-    `## ${manager.name}`,
-    ``,
-    `Holding highest-conviction positions by live signal scoring.`,
-    ``,
-    `### Portfolio Shifts`,
-    ...topLines,
-    ``,
-    `### Risk Notes`,
-    `- Exposure to rapid macro re-pricing across crypto markets.`,
-    `- Signal confidence degrades during low-volume windows.`,
-    ``,
-    `### AI Payment Layer`,
-    `Unlock the full research memo by sending 1 USDT on TRON testnet.`,
-  ].join('\n');
+  return content;
 }
 
 async function main() {
   console.log(`Model: ${MODEL}`);
-  console.log(`Auth: ${TOKEN ? TOKEN.slice(0, 8) + '...' : 'MISSING'}\n`);
+  console.log(`Auth: ${TOKEN ? 'configured' : 'missing'}\n`);
 
   const managers = await prisma.manager.findMany();
 
@@ -140,6 +116,10 @@ async function main() {
 
     process.stdout.write(`✍  ${manager.slug}... `);
     const content = await generateMemoContent(manager, portfolio);
+    if (!content) {
+      console.log('skipped (DeepSeek unavailable)');
+      continue;
+    }
     const leadPos = portfolio.positions[0];
 
     await prisma.memo.deleteMany({ where: { managerId: manager.id } });
@@ -150,12 +130,11 @@ async function main() {
         title: `${manager.name}: ${leadPos.opportunity.title}`,
         summary: truncate(content.replace(/[#>*`_\-]/g, ' ').replace(/\s+/g, ' ').trim(), 220),
         content,
-        generatedBy: content.startsWith('## Thesis') || content.includes('### Portfolio Shifts') && content.includes('Conviction') ? 'gongfeng-ai' : 'gongfeng-ai',
+        generatedBy: 'deepseek',
       },
     });
 
-    const isLLM = !content.startsWith(`## ${manager.name}`);
-    console.log(`${isLLM ? '🤖 LLM' : '📄 template'} → ${memo.id}`);
+    console.log(`🤖 DeepSeek → ${memo.id}`);
     console.log(`   ${content.slice(0, 160).replace(/\n/g, ' ')}\n`);
     await new Promise(r => setTimeout(r, 1200));
   }

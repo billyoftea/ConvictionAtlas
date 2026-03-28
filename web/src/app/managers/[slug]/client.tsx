@@ -17,6 +17,7 @@ import {
   getDirectionClass,
   getSignedClass,
 } from '../../../lib/api';
+import { API_BASE_URL } from '../../../lib/runtime-config';
 import type {
   ManagerDetail,
   ManagerRebalance,
@@ -24,8 +25,6 @@ import type {
   Memo,
   PortfolioSnapshot,
 } from '../../../lib/types';
-
-const API = process.env.NEXT_PUBLIC_API_BASE_URL ?? 'http://47.90.182.192/api';
 
 export default function ManagerDetailPage() {
   const params = useParams();
@@ -41,11 +40,11 @@ export default function ManagerDetailPage() {
   useEffect(() => {
     if (!slug) return;
     Promise.all([
-      fetch(`${API}/managers/${slug}`).then(r => r.json()),
-      fetch(`${API}/managers/${slug}/portfolio`).then(r => r.json()),
-      fetch(`${API}/managers/${slug}/rebalances`).then(r => r.json()),
-      fetch(`${API}/managers/${slug}/memos`).then(r => r.json()),
-      fetch(`${API}/managers/${slug}/reviews`).then(r => r.json()),
+      fetch(`${API_BASE_URL}/managers/${slug}`).then(r => r.json()),
+      fetch(`${API_BASE_URL}/managers/${slug}/portfolio`).then(r => r.json()),
+      fetch(`${API_BASE_URL}/managers/${slug}/rebalances`).then(r => r.json()),
+      fetch(`${API_BASE_URL}/managers/${slug}/memos`).then(r => r.json()),
+      fetch(`${API_BASE_URL}/managers/${slug}/reviews`).then(r => r.json()),
     ])
       .then(([managerData, portfolioData, rebalancesData, memosData, reviewsData]) => {
         setManager(managerData ?? null);
@@ -131,7 +130,7 @@ export default function ManagerDetailPage() {
             <span className="eyebrow">
               {derivedPerformance.lookbackDays
                 ? `${derivedPerformance.lookbackDays.toFixed(0)}d lookback`
-                : 'Live lookback'}
+                : 'Backtest lookback'}
             </span>
             <strong className={getSignedClass(derivedPerformance.cumulativeReturn)}>
               {formatReturn(derivedPerformance.cumulativeReturn)}
@@ -183,7 +182,7 @@ export default function ManagerDetailPage() {
             <div className="section-header">
               <h2 className="section-title">Performance curve</h2>
               <span className="muted">
-                Based on the live book state and the 3m stored replay window
+                90-day walk-forward backtest on stored real price and news history
               </span>
             </div>
             <Sparkline

@@ -11,12 +11,11 @@ import {
   formatReturn,
   getSignedClass,
 } from '../../lib/api';
+import { API_BASE_URL, API_DOCS_URL } from '../../lib/runtime-config';
 import type {
   ManagerLeaderboardEntry,
   ManagerSummary,
 } from '../../lib/types';
-
-const API = process.env.NEXT_PUBLIC_API_BASE_URL ?? 'http://47.90.182.192/api';
 
 export default function ManagersPage() {
   const [managers, setManagers] = useState<ManagerSummary[]>([]);
@@ -25,8 +24,8 @@ export default function ManagersPage() {
 
   useEffect(() => {
     Promise.all([
-      fetch(`${API}/managers`).then(r => r.json()),
-      fetch(`${API}/leaderboard/managers`).then(r => r.json()),
+      fetch(`${API_BASE_URL}/managers`).then(r => r.json()),
+      fetch(`${API_BASE_URL}/leaderboard/managers`).then(r => r.json()),
     ])
       .then(([managersData, leaderboardData]) => {
         setManagers(managersData ?? []);
@@ -63,7 +62,7 @@ export default function ManagersPage() {
             <Link href="/leaderboard" className="button-link primary">
               Open leaderboard
             </Link>
-            <a href="http://localhost:3001/docs" target="_blank" rel="noreferrer" className="button-link">
+            <a href={API_DOCS_URL} target="_blank" rel="noreferrer" className="button-link">
               API docs
             </a>
           </div>
@@ -73,7 +72,7 @@ export default function ManagersPage() {
           <div className="hero-spotlight">
             <div className="mini-metrics">
               <span className="eyebrow">Desk snapshot</span>
-              <span className="chip">3m window</span>
+              <span className="chip">90d backtest</span>
             </div>
             <div className="hero-spotlight-value">
               {leadManager ? formatMoney(leadManager.latestNav) : '--'}
@@ -125,7 +124,7 @@ export default function ManagersPage() {
         <section className="section">
           <div className="section-header">
             <h2 className="section-title">Live manager desks</h2>
-            <span className="muted">Curve, exposure, signal mix, and subscription layer</span>
+            <span className="muted">Real-data backtest curve, current exposure, signal mix, and subscription layer</span>
           </div>
           <div className="manager-grid">
             {managerRows.map((manager, index) => {

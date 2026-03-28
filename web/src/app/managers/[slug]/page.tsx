@@ -1,11 +1,10 @@
 import ManagerDetailClient from './client';
-
-const API = process.env.NEXT_PUBLIC_API_BASE_URL ?? 'http://47.90.182.192/api';
+import { API_BASE_URL } from '../../../lib/runtime-config';
 
 // 告诉 Next.js 静态导出时有哪些 slug
 export async function generateStaticParams() {
   try {
-    const res = await fetch(`${API}/managers`);
+    const res = await fetch(`${API_BASE_URL}/managers`);
     const managers: { slug: string }[] = await res.json();
     return managers.map((m) => ({ slug: m.slug }));
   } catch {

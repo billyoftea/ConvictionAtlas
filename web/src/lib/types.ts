@@ -5,7 +5,8 @@ export type SourceKind =
   | 'POLYMARKET'
   | 'CRYPTOPANIC'
   | 'GNEWS'
-  | 'NEWSAPI';
+  | 'NEWSAPI'
+  | 'GOOGLE_NEWS_RSS';
 
 export interface PricingPlan {
   id: string;

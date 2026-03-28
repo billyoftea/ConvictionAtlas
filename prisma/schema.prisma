@@ -18,6 +18,7 @@ enum SourceKind {
   CRYPTOPANIC
   GNEWS
   NEWSAPI
+  GOOGLE_NEWS_RSS
 }
 
 enum Direction {

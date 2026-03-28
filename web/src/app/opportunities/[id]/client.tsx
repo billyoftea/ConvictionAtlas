@@ -13,6 +13,7 @@ import {
   getDirectionClass,
   getSignedClass,
 } from '../../../lib/api';
+import { API_BASE_URL } from '../../../lib/runtime-config';
 import type {
   ManagerDecision,
   NewsItem,
@@ -20,8 +21,6 @@ import type {
   OpportunityHistoryPoint,
   Signal,
 } from '../../../lib/types';
-
-const API = process.env.NEXT_PUBLIC_API_BASE_URL ?? 'http://47.90.182.192/api';
 
 export default function OpportunityDetailPage() {
   const params = useParams();
@@ -37,11 +36,11 @@ export default function OpportunityDetailPage() {
   useEffect(() => {
     if (!id) return;
     Promise.all([
-      fetch(`${API}/opportunities/${id}`).then(r => r.json()),
-      fetch(`${API}/opportunities/${id}/managers`).then(r => r.json()),
-      fetch(`${API}/opportunities/${id}/signals`).then(r => r.json()),
-      fetch(`${API}/opportunities/${id}/news`).then(r => r.json()),
-      fetch(`${API}/opportunities/${id}/history`).then(r => r.json()),
+      fetch(`${API_BASE_URL}/opportunities/${id}`).then(r => r.json()),
+      fetch(`${API_BASE_URL}/opportunities/${id}/managers`).then(r => r.json()),
+      fetch(`${API_BASE_URL}/opportunities/${id}/signals`).then(r => r.json()),
+      fetch(`${API_BASE_URL}/opportunities/${id}/news`).then(r => r.json()),
+      fetch(`${API_BASE_URL}/opportunities/${id}/history`).then(r => r.json()),
     ])
       .then(([opportunityData, managersData, signalsData, newsData, historyData]) => {
         setOpportunity(opportunityData ?? null);

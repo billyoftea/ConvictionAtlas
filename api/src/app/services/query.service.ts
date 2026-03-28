@@ -18,6 +18,7 @@ import { TronPaymentService } from './tron-payment.service';
 type HistoryPointLike = {
   pointAt: Date;
   price: number;
+  volume?: number | null;
 };
 
 type ManagerSeriesPoint = {
@@ -166,11 +167,8 @@ export class QueryService {
 
   async getManagerPerformance(slug: string) {
     const manager = await this.getManagerOrThrow(slug);
-    return this.prisma.performanceSnapshot.findMany({
-      where: { managerId: manager.id },
-      orderBy: { computedAt: 'desc' },
-      take: 30,
-    });
+    const { analytics } = await this.getLatestManagerState(manager);
+    return analytics.series;
   }
 
   async getManagerPortfolio(slug: string) {
@@ -435,7 +433,7 @@ export class QueryService {
             amount,
             from,
             timestamp,
-            network: 'tron-nile-testnet',
+            network: this.tronPayment.getNetworkCode(),
           }),
         },
       });
@@ -447,7 +445,7 @@ export class QueryService {
           txHash: verifiedTx,
           amount: `${amount} USDT`,
           from,
-          network: 'TRON Nile Testnet',
+          network: this.tronPayment.getNetworkLabel(),
         },
         message: `✅ Payment verified! ${amount} USDT received. Memo unlocked.`,
       };
@@ -468,7 +466,7 @@ export class QueryService {
       success: true,
       unlock,
       paymentInfo,
-      message: `Send ${paymentInfo.minAmount} USDT (TRC-20) on TRON Nile Testnet to unlock this memo. Then submit your transaction hash.`,
+      message: `Send ${paymentInfo.minAmount} USDT (TRC-20) on ${paymentInfo.network} to unlock this memo. Then submit your transaction hash.`,
     };
   }
 
@@ -545,10 +543,14 @@ export class QueryService {
     slug: string;
     metadata?: string | null;
   }) {
-    const [latestPerformance, latestPortfolio, replayUniverse] = await Promise.all([
+    const [latestPerformance, performanceHistory, latestPortfolio, replayUniverse] = await Promise.all([
       this.prisma.performanceSnapshot.findFirst({
         where: { managerId: manager.id },
         orderBy: { computedAt: 'desc' },
+      }),
+      this.prisma.performanceSnapshot.findMany({
+        where: { managerId: manager.id },
+        orderBy: { computedAt: 'asc' },
       }),
       this.prisma.portfolioSnapshot.findFirst({
         where: { managerId: manager.id },
@@ -557,14 +559,7 @@ export class QueryService {
           positions: {
             orderBy: { weight: 'desc' },
             include: {
-              opportunity: {
-                include: {
-                  historyPoints: {
-                    orderBy: { pointAt: 'asc' },
-                    take: 720,
-                  },
-                },
-              },
+              opportunity: true,
             },
           },
         },
@@ -577,28 +572,30 @@ export class QueryService {
           },
           newsItems: {
             orderBy: { publishedAt: 'asc' },
-            take: 20,
+            take: 120,
           },
           signals: true,
         },
       }),
     ]);
 
-    const analytics = this.buildManagerAnalytics(latestPortfolio, latestPerformance, {
-      managerSlug: manager.slug,
+    const analytics = this.buildManagerAnalytics(
+      manager.slug,
+      latestPortfolio,
+      latestPerformance,
+      performanceHistory,
       replayUniverse,
-    });
+    );
 
     return { latestPerformance, latestPortfolio, analytics };
   }
 
   private buildManagerAnalytics(
+    managerSlug: string,
     latestPortfolio: any,
     latestPerformance: any,
-    options?: {
-      managerSlug?: string;
-      replayUniverse?: ReplayOpportunityLike[] | null;
-    },
+    performanceHistory: any[],
+    replayUniverse: ReplayOpportunityLike[] | null | undefined,
   ): {
     latestNav: number;
     dailyReturn: number;
@@ -609,89 +606,45 @@ export class QueryService {
     lookbackDays: number;
     series: ManagerSeriesPoint[];
   } {
-    const replaySeries = options?.managerSlug
-      ? this.buildReplaySeriesForManager(
-          options.managerSlug,
-          latestPortfolio,
-          options.replayUniverse,
-        )
-      : [];
-    const adjustedReplaySeries =
-      options?.managerSlug && replaySeries.length
-        ? this.applyReplayEdgeFloor(options.managerSlug, replaySeries)
-        : replaySeries;
-    const series = replaySeries.length
-      ? adjustedReplaySeries
-      : this.buildPortfolioSeries(latestPortfolio);
-
-    if (!series.length) {
-      return {
-        latestNav: round(latestPerformance?.nav ?? latestPortfolio?.nav ?? 100, 4),
-        dailyReturn: round(latestPerformance?.dailyReturn ?? 0, 4),
-        cumulativeReturn: round(latestPerformance?.cumulativeReturn ?? 0, 4),
-        drawdown: round(latestPerformance?.drawdown ?? 0, 4),
-        sharpe: round(latestPerformance?.sharpe ?? 0, 4),
-        hitRate: round(latestPerformance?.hitRate ?? 0, 4),
-        lookbackDays: 0,
-        series: [
-          {
-            pointAt: new Date().toISOString(),
-            nav: round(latestPerformance?.nav ?? latestPortfolio?.nav ?? 100, 4),
-            cumulativeReturn: round(latestPerformance?.cumulativeReturn ?? 0, 4),
-          },
-        ],
-      };
-    }
-
-    const periodReturns = series
-      .slice(1)
-      .map((point, index) => {
-        const previousNav = series[index].nav;
-        return previousNav ? point.nav / previousNav - 1 : 0;
-      })
+    const snapshotSeries = this.buildPerformanceSeries(
+      performanceHistory,
+      latestPerformance,
+      latestPortfolio,
+    );
+    const backtestSeries = this.buildWalkForwardBacktestSeries(
+      managerSlug,
+      replayUniverse,
+    );
+    const series = backtestSeries.length >= 2 ? backtestSeries : snapshotSeries;
+    const periodReturns = this.buildSeriesReturns(series)
       .filter((value) => Number.isFinite(value));
     const latestNav = series[series.length - 1].nav;
-    const peakBeforeLatest = series.reduce(
-      (max, point) => Math.max(max, point.nav),
-      100,
-    );
-    const drawdown =
-      peakBeforeLatest > 0 ? latestNav / peakBeforeLatest - 1 : 0;
+    const drawdown = this.calculateSeriesDrawdown(series);
     const sharpe = periodReturns.length
       ? round(
-          clamp(
-            standardDeviation(periodReturns) === 0
-              ? average(periodReturns)
-              : average(periodReturns) / standardDeviation(periodReturns),
-            -4,
-            4,
-          ),
+          standardDeviation(periodReturns) === 0
+            ? average(periodReturns)
+            : average(periodReturns) / standardDeviation(periodReturns),
           4,
         )
-      : 0;
-    const hitRate = replaySeries.length
-      ? round(
-          clamp(
-            periodReturns.filter((value) => value > 0).length /
-              Math.max(periodReturns.length, 1),
-            0.35,
-            0.82,
-          ),
-          4,
-        )
-      : latestPortfolio?.positions?.length
-      ? round(
-          latestPortfolio.positions.filter((position: any) => {
-            const historyPoints = position.opportunity?.historyPoints ?? [];
-            if (historyPoints.length < 2) {
-              return (position.opportunity?.priceChange24h ?? 0) > 0;
-            }
-
-            return historyPoints[historyPoints.length - 1].price > historyPoints[0].price;
-          }).length / latestPortfolio.positions.length,
-          4,
-        )
-      : 0;
+      : round(latestPerformance?.sharpe ?? 0, 4);
+    let hitRate = 0;
+    if (periodReturns.length) {
+      hitRate = round(
+        periodReturns.filter((value) => value > 0).length /
+          Math.max(periodReturns.length, 1),
+        4,
+      );
+    } else if (Number.isFinite(Number(latestPerformance?.hitRate))) {
+      hitRate = round(Number(latestPerformance.hitRate), 4);
+    } else if (latestPortfolio?.positions?.length) {
+      hitRate = round(
+        latestPortfolio.positions.filter((position: any) => {
+          return (position.opportunity?.priceChange24h ?? 0) > 0;
+        }).length / latestPortfolio.positions.length,
+        4,
+      );
+    }
     const lookbackDays =
       series.length > 1
         ? round(
@@ -704,7 +657,12 @@ export class QueryService {
 
     return {
       latestNav: round(latestNav, 4),
-      dailyReturn: round(periodReturns[periodReturns.length - 1] ?? 0, 4),
+      dailyReturn: round(
+        periodReturns[periodReturns.length - 1] ??
+          latestPerformance?.dailyReturn ??
+          0,
+        4,
+      ),
       cumulativeReturn: round(latestNav / 100 - 1, 4),
       drawdown: round(drawdown, 4),
       sharpe,
@@ -712,6 +670,494 @@ export class QueryService {
       lookbackDays,
       series,
     };
+  }
+
+  private buildPerformanceSeries(
+    performanceHistory: Array<{
+      computedAt: Date;
+      nav: number;
+      cumulativeReturn: number;
+    }>,
+    latestPerformance: any,
+    latestPortfolio: any,
+  ): ManagerSeriesPoint[] {
+    if (performanceHistory?.length) {
+      return performanceHistory.map((snapshot) => ({
+        pointAt: snapshot.computedAt.toISOString(),
+        nav: round(snapshot.nav, 4),
+        cumulativeReturn: round(snapshot.cumulativeReturn, 4),
+      }));
+    }
+
+    const pointAt = latestPerformance?.computedAt ?? latestPortfolio?.computedAt ?? new Date();
+    const nav = round(latestPerformance?.nav ?? latestPortfolio?.nav ?? 100, 4);
+    const cumulativeReturn = round(
+      latestPerformance?.cumulativeReturn ?? nav / 100 - 1,
+      4,
+    );
+
+    return [
+      {
+        pointAt: new Date(pointAt).toISOString(),
+        nav,
+        cumulativeReturn,
+      },
+    ];
+  }
+
+  private buildWalkForwardBacktestSeries(
+    managerSlug: string,
+    replayUniverse: ReplayOpportunityLike[] | null | undefined,
+  ): ManagerSeriesPoint[] {
+    const blueprint = getManagerBlueprint(managerSlug);
+    const universe = this.prepareReplayUniverse(replayUniverse);
+
+    if (!universe.length) {
+      return [];
+    }
+
+    const latestTimestamp = universe.reduce((max, opportunity) => {
+      const lastPoint = opportunity.historyPoints[opportunity.historyPoints.length - 1];
+      return Math.max(max, lastPoint?.pointAt?.getTime() ?? 0);
+    }, 0);
+
+    if (!latestTimestamp) {
+      return [];
+    }
+
+    const startTimestamp = latestTimestamp - 90 * 24 * 60 * 60 * 1000;
+    const timestamps = this.buildDailyBacktestTimestamps(
+      startTimestamp,
+      latestTimestamp,
+    );
+
+    if (timestamps.length < 2) {
+      return [];
+    }
+
+    let nav = 100;
+    const series: ManagerSeriesPoint[] = [
+      {
+        pointAt: new Date(timestamps[0]).toISOString(),
+        nav,
+        cumulativeReturn: 0,
+      },
+    ];
+
+    for (let index = 0; index < timestamps.length - 1; index += 1) {
+      const currentTimestamp = timestamps[index];
+      const nextTimestamp = timestamps[index + 1];
+      const candidates = universe
+        .map((opportunity) =>
+          this.scoreHistoricalOpportunity(
+            managerSlug,
+            opportunity,
+            currentTimestamp,
+          ),
+        )
+        .filter(
+          (
+            candidate,
+          ): candidate is {
+            score: number;
+            targetWeight: number;
+            historyPoints: HistoryPointLike[];
+          } => candidate !== null && candidate.score > blueprint.bullishThreshold,
+        )
+        .sort((left, right) => right.score - left.score)
+        .slice(0, blueprint.maxPositions);
+
+      const investableCapital = candidates.length ? 1 - blueprint.cashFloor : 0;
+      const scoreTotal =
+        candidates.reduce((sum, candidate) => sum + candidate.targetWeight, 0) || 1;
+
+      const intervalReturn = candidates.reduce((sum, candidate) => {
+        const startPoint = this.getPointAtOrBefore(
+          candidate.historyPoints,
+          currentTimestamp,
+        );
+        const endPoint = this.getPointAtOrBefore(
+          candidate.historyPoints,
+          nextTimestamp,
+        );
+        if (!startPoint || !endPoint || startPoint.price <= 0) {
+          return sum;
+        }
+
+        const weight =
+          (candidate.targetWeight / scoreTotal) * investableCapital;
+        return sum + weight * (endPoint.price / startPoint.price - 1);
+      }, 0);
+
+      nav = round(nav * (1 + intervalReturn), 4);
+      series.push({
+        pointAt: new Date(nextTimestamp).toISOString(),
+        nav,
+        cumulativeReturn: round(nav / 100 - 1, 4),
+      });
+    }
+
+    return series;
+  }
+
+  private scoreHistoricalOpportunity(
+    managerSlug: string,
+    opportunity: ReplayPreparedOpportunity,
+    timestamp: number,
+  ) {
+    const blueprint = getManagerBlueprint(managerSlug);
+    const firstPointTimestamp = opportunity.historyPoints[0]?.pointAt?.getTime();
+    if (!firstPointTimestamp || firstPointTimestamp > timestamp - 24 * 60 * 60 * 1000) {
+      return null;
+    }
+
+    if (opportunity.eventDate && opportunity.eventDate.getTime() <= timestamp) {
+      return null;
+    }
+
+    const currentPoint = this.getPointAtOrBefore(opportunity.historyPoints, timestamp);
+    if (!currentPoint || currentPoint.price <= 0) {
+      return null;
+    }
+
+    if (
+      opportunity.type === OpportunityType.PREDICTION_MARKET &&
+      (currentPoint.price <= 0.02 || currentPoint.price >= 0.98)
+    ) {
+      return null;
+    }
+
+    const signalMap = this.buildHistoricalSignalMap(opportunity, timestamp);
+    const opportunityBias = Number(
+      blueprint.opportunityTypeBias?.[opportunity.type] ?? 0,
+    );
+    const rawScore = clamp(
+      Object.entries(blueprint.signalWeights).reduce((sum, [signalName, weight]) => {
+        return sum + Number(signalMap[signalName] ?? 0) * Number(weight);
+      }, opportunityBias),
+      -1,
+      1,
+    );
+
+    return {
+      score: round(rawScore, 4),
+      targetWeight: round(clamp(rawScore, 0.03, 0.35), 4),
+      historyPoints: opportunity.historyPoints,
+    };
+  }
+
+  private buildHistoricalSignalMap(
+    opportunity: ReplayPreparedOpportunity,
+    timestamp: number,
+  ) {
+    const metadata = opportunity.metadataRecord;
+    const currentPoint = this.getPointAtOrBefore(opportunity.historyPoints, timestamp);
+    const change1d = this.calculateHistoricalChangeAt(
+      opportunity.historyPoints,
+      timestamp,
+      1,
+      opportunity.type,
+    );
+    const change7d = this.calculateHistoricalChangeAt(
+      opportunity.historyPoints,
+      timestamp,
+      7,
+      opportunity.type,
+    );
+    const change30d = this.calculateHistoricalChangeAt(
+      opportunity.historyPoints,
+      timestamp,
+      30,
+      opportunity.type,
+    );
+    const volatility7d = this.calculateHistoricalVolatilityAt(
+      opportunity.historyPoints,
+      timestamp,
+      7,
+      opportunity.type,
+    );
+    const isStablecoin = Boolean(metadata.isStablecoin);
+    const stablePenalty = isStablecoin ? 0.95 : 0;
+    const newsContext = this.buildReplayNewsContext(
+      opportunity.newsItems ?? [],
+      timestamp,
+    );
+    const daysToEvent = opportunity.eventDate
+      ? (opportunity.eventDate.getTime() - timestamp) / (1000 * 60 * 60 * 24)
+      : null;
+    const eventProximity =
+      daysToEvent === null
+        ? 0
+        : daysToEvent < 0
+          ? 0
+          : clamp(1 - daysToEvent / 120, 0, 1);
+    const momentumScales =
+      opportunity.type === OpportunityType.TOKEN
+        ? { day: 10, week: 24, month: 42 }
+        : { day: 9, week: 26, month: 38 };
+    const marketMomentum = clamp(
+      change1d / momentumScales.day * 0.42 +
+        change7d / momentumScales.week * 0.36 +
+        change30d / momentumScales.month * 0.22,
+      -1,
+      1,
+    );
+    const trendRegime = clamp(
+      change7d / momentumScales.week * 0.58 +
+        change30d / momentumScales.month * 0.42 +
+        (Math.sign(change7d) === Math.sign(change30d) && Math.abs(change7d) > 1
+          ? 0.12 * Math.sign(change7d)
+          : 0),
+      -1,
+      1,
+    );
+    const volumeSpike = this.buildHistoricalVolumeSpike(opportunity, timestamp);
+    const newsHeat = clamp(
+      newsContext.count / 4 + Math.max(newsContext.sentiment, 0) * 0.35,
+      0,
+      1,
+    );
+    const trailingPeakGap = this.calculateTrailingPeakGap(
+      opportunity.historyPoints,
+      timestamp,
+      30,
+    );
+    const priceDislocation =
+      opportunity.type === OpportunityType.TOKEN
+        ? clamp(
+            (trailingPeakGap - 0.18) * 1.3 +
+              Math.max(trendRegime, -0.2) * 0.35 -
+              stablePenalty * 1.05,
+            -1,
+            1,
+          )
+        : clamp(
+            Math.abs((currentPoint?.price ?? 0.5) - 0.5) * 1.2 +
+              trendRegime * 0.2,
+            -1,
+            1,
+          );
+    const opportunityQuality =
+      opportunity.type === OpportunityType.TOKEN
+        ? clamp(
+            0.26 +
+              Math.max(trendRegime, 0) * 0.22 +
+              volumeSpike * 0.12 -
+              Math.min(volatility7d * 6.5, 0.34) -
+              stablePenalty * 1.1,
+            -1,
+            1,
+          )
+        : clamp(
+            0.22 +
+              eventProximity * 0.22 +
+              Math.max(trendRegime, 0) * 0.16 -
+              Math.min(volatility7d * 2.4, 0.3),
+            -1,
+            1,
+          );
+    const riskFlag = clamp(
+      Math.abs(change1d) / 18 +
+        Math.abs(change7d) / 55 +
+        Math.min(volatility7d * (opportunity.type === OpportunityType.TOKEN ? 10 : 2.8), 0.32) +
+        (daysToEvent !== null && daysToEvent < 7 ? 0.12 : 0),
+      0,
+      1,
+    );
+    const narrativeStrength = clamp(
+      newsHeat * 0.34 +
+        Math.max(marketMomentum, 0) * 0.22 +
+        Math.max(trendRegime, 0) * 0.22 +
+        volumeSpike * 0.12 -
+        stablePenalty * 0.85,
+      -1,
+      1,
+    );
+    const probabilityEdge =
+      opportunity.type === OpportunityType.PREDICTION_MARKET
+        ? clamp(
+            ((currentPoint?.price ?? 0.5) - 0.5) * 1.6 +
+              trendRegime * 0.28 +
+              marketMomentum * 0.16 -
+              Math.max(riskFlag - 0.75, 0) * 0.2,
+            -1,
+            1,
+          )
+        : clamp(
+            marketMomentum * 0.55 + trendRegime * 0.25 - stablePenalty * 0.95,
+            -1,
+            1,
+          );
+    const catalystSetup =
+      opportunity.type === OpportunityType.TOKEN
+        ? clamp(
+            newsHeat * 0.22 +
+              Math.max(trendRegime, 0) * 0.18 +
+              Math.max(priceDislocation, 0) * 0.18 +
+              Math.max(opportunityQuality, 0) * 0.18 +
+              volumeSpike * 0.08 +
+              Math.max(marketMomentum, -0.1) * 0.06 -
+              Math.max(riskFlag - 0.5, 0) * 0.2 -
+              stablePenalty * 1.1,
+            -1,
+            1,
+          )
+        : clamp(
+            eventProximity * 0.34 +
+              newsHeat * 0.12 +
+              Math.max(probabilityEdge, 0) * 0.16 +
+              Math.max(priceDislocation, 0) * 0.12 +
+              Math.max(marketMomentum, -0.05) * 0.1 -
+              Math.max(riskFlag - 0.7, 0) * 0.35,
+            -1,
+            1,
+          );
+
+    return {
+      market_momentum: marketMomentum,
+      trend_regime: trendRegime,
+      volume_spike: volumeSpike,
+      news_heat: newsHeat,
+      narrative_strength: narrativeStrength,
+      catalyst_setup: catalystSetup,
+      event_proximity: eventProximity,
+      probability_edge: probabilityEdge,
+      price_dislocation: priceDislocation,
+      opportunity_quality: opportunityQuality,
+      risk_flag: riskFlag,
+    };
+  }
+
+  private buildDailyBacktestTimestamps(
+    startTimestamp: number,
+    endTimestamp: number,
+  ) {
+    if (endTimestamp <= startTimestamp) {
+      return [];
+    }
+
+    const timestamps: number[] = [];
+    for (
+      let cursor = startTimestamp;
+      cursor <= endTimestamp;
+      cursor += 24 * 60 * 60 * 1000
+    ) {
+      timestamps.push(cursor);
+    }
+
+    if (timestamps[timestamps.length - 1] !== endTimestamp) {
+      timestamps.push(endTimestamp);
+    }
+
+    return timestamps;
+  }
+
+  private buildSeriesReturns(series: ManagerSeriesPoint[]) {
+    return series.slice(1).map((point, index) => {
+      const previousNav = series[index]?.nav ?? 0;
+      if (!Number.isFinite(previousNav) || previousNav <= 0) {
+        return 0;
+      }
+
+      return point.nav / previousNav - 1;
+    });
+  }
+
+  private calculateSeriesDrawdown(series: ManagerSeriesPoint[]) {
+    let peak = 100;
+    let latestDrawdown = 0;
+
+    for (const point of series) {
+      peak = Math.max(peak, point.nav);
+      latestDrawdown = peak > 0 ? point.nav / peak - 1 : 0;
+    }
+
+    return latestDrawdown;
+  }
+
+  private calculateHistoricalVolatilityAt(
+    points: HistoryPointLike[],
+    timestamp: number,
+    lookbackDays: number,
+    type: OpportunityType,
+  ) {
+    const trailing = points.filter((point) => {
+      const pointAt = point.pointAt.getTime();
+      return (
+        pointAt <= timestamp &&
+        pointAt >= timestamp - lookbackDays * 24 * 60 * 60 * 1000
+      );
+    });
+    const returns = trailing
+      .slice(1)
+      .map((point, index) => {
+        const previous = trailing[index];
+        if (!previous?.price || previous.price === 0) {
+          return null;
+        }
+
+        return type === OpportunityType.TOKEN
+          ? (point.price - previous.price) / previous.price
+          : point.price - previous.price;
+      })
+      .filter((value): value is number => Number.isFinite(value));
+
+    return standardDeviation(returns);
+  }
+
+  private buildHistoricalVolumeSpike(
+    opportunity: ReplayPreparedOpportunity,
+    timestamp: number,
+  ) {
+    const currentPoint = this.getPointAtOrBefore(opportunity.historyPoints, timestamp);
+    const currentVolume = Number(currentPoint?.volume ?? 0);
+    if (!Number.isFinite(currentVolume) || currentVolume <= 0) {
+      return 0;
+    }
+
+    const trailingVolumes = opportunity.historyPoints
+      .filter((point) => {
+        const pointAt = point.pointAt.getTime();
+        return (
+          pointAt < timestamp &&
+          pointAt >= timestamp - 30 * 24 * 60 * 60 * 1000 &&
+          Number.isFinite(Number(point.volume)) &&
+          Number(point.volume) > 0
+        );
+      })
+      .map((point) => Number(point.volume));
+    const baseline = trailingVolumes.length ? average(trailingVolumes) : 0;
+    if (!baseline) {
+      return 0;
+    }
+
+    return clamp(Math.log10(1 + currentVolume / baseline) / 0.75, 0, 1);
+  }
+
+  private calculateTrailingPeakGap(
+    points: HistoryPointLike[],
+    timestamp: number,
+    lookbackDays: number,
+  ) {
+    const trailingPoints = points.filter((point) => {
+      const pointAt = point.pointAt.getTime();
+      return (
+        pointAt <= timestamp &&
+        pointAt >= timestamp - lookbackDays * 24 * 60 * 60 * 1000
+      );
+    });
+    const currentPoint = this.getPointAtOrBefore(points, timestamp);
+
+    if (!trailingPoints.length || !currentPoint || currentPoint.price <= 0) {
+      return 0;
+    }
+
+    const trailingHigh = Math.max(...trailingPoints.map((point) => point.price));
+    if (!Number.isFinite(trailingHigh) || trailingHigh <= 0) {
+      return 0;
+    }
+
+    return (trailingHigh - currentPoint.price) / trailingHigh;
   }
 
   private buildPortfolioSeries(latestPortfolio: any): ManagerSeriesPoint[] {

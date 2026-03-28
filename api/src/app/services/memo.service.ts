@@ -15,6 +15,7 @@ export class MemoService {
       where: managerSlug ? { slug: managerSlug } : undefined,
     });
     const created: Array<{ manager: string; memoId: string }> = [];
+    const skipped: Array<{ manager: string; reason: string }> = [];
 
     for (const manager of managers) {
       const portfolio = await this.prisma.portfolioSnapshot.findFirst({
@@ -45,6 +46,20 @@ export class MemoService {
 
       const leadPosition = portfolio.positions[0];
       const content = await this.generateMemoContent(manager, portfolio);
+      if (!content) {
+        skipped.push({
+          manager: manager.slug,
+          reason: this.llmService.isConfigured()
+            ? 'DeepSeek generation failed.'
+            : 'DeepSeek is not configured.',
+        });
+        continue;
+      }
+
+      await this.prisma.memo.deleteMany({
+        where: { managerId: manager.id },
+      });
+
       const memo = await this.prisma.memo.create({
         data: {
           managerId: manager.id,
@@ -58,16 +73,14 @@ export class MemoService {
             220,
           ),
           content,
-          generatedBy: this.llmService.isConfigured()
-            ? this.llmService.getProviderName()
-            : 'template',
+          generatedBy: this.llmService.getProviderName(),
         },
       });
 
       created.push({ manager: manager.slug, memoId: memo.id });
     }
 
-    return { created: created.length, memos: created };
+    return { created: created.length, memos: created, skipped };
   }
 
   private async generateMemoContent(manager: any, portfolio: any) {
@@ -120,17 +133,6 @@ export class MemoService {
       return content;
     }
 
-    return [
-      `## ${manager.name} memo`,
-      '',
-      `${manager.name} is currently emphasizing the opportunities with the strongest mix of recent momentum, signal confirmation, and available liquidity.`,
-      '',
-      '### Current focus',
-      ...topLines,
-      '',
-      '### Risk notes',
-      '- Portfolio remains sensitive to fast-moving crypto headlines and event repricing.',
-      '- Thin-liquidity prediction markets can widen spreads during bursts of activity.',
-    ].join('\n');
+    return null;
   }
 }

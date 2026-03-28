@@ -8,12 +8,11 @@ import {
   formatReturn,
   getSignedClass,
 } from '../../lib/api';
+import { API_BASE_URL } from '../../lib/runtime-config';
 import type {
   ManagerLeaderboardEntry,
   OpportunityLeaderboardEntry,
 } from '../../lib/types';
-
-const API = process.env.NEXT_PUBLIC_API_BASE_URL ?? 'http://47.90.182.192/api';
 
 export default function LeaderboardPage() {
   const [managerRows, setManagerRows] = useState<ManagerLeaderboardEntry[]>([]);
@@ -22,8 +21,8 @@ export default function LeaderboardPage() {
 
   useEffect(() => {
     Promise.all([
-      fetch(`${API}/leaderboard/managers`).then(r => r.json()),
-      fetch(`${API}/leaderboard/opportunities`).then(r => r.json()),
+      fetch(`${API_BASE_URL}/leaderboard/managers`).then(r => r.json()),
+      fetch(`${API_BASE_URL}/leaderboard/opportunities`).then(r => r.json()),
     ])
       .then(([managers, opportunities]) => {
         setManagerRows(managers ?? []);
@@ -48,7 +47,7 @@ export default function LeaderboardPage() {
           <h1 className="detail-headline">One place to compare manager and market ranks.</h1>
           <p className="detail-copy">
             This page surfaces the aggregate outputs from the signal engine, manager
-            scoring, portfolio engine, and review layer.
+            scoring, walk-forward backtests, portfolio engine, and review layer.
           </p>
         </div>
         <div className="stat-strip">

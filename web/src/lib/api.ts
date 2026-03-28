@@ -1,5 +1,4 @@
-export const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_BASE_URL ?? 'http://localhost:3001/api';
+import { API_BASE_URL } from './runtime-config';
 
 export async function fetchApi<T>(path: string): Promise<T> {
   const response = await fetch(`${API_BASE_URL}${path}`, {

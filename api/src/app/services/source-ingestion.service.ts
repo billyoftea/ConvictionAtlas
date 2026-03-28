@@ -74,7 +74,7 @@ type NewsTargetOpportunity = {
 
 type ProviderArticle = {
   externalId: string;
-  provider: 'CRYPTOPANIC' | 'GNEWS' | 'NEWSAPI';
+  provider: SourceKind;
   title: string;
   summary: string;
   url: string;
@@ -401,8 +401,6 @@ export class SourceIngestionService {
       const clobTokenIds = parseJson<string[]>(market.clobTokenIds, []);
       const currentPrice =
         market.lastTradePrice ?? Number(outcomePrices[0] ?? 0.5);
-      const previousPrice =
-        currentPrice - Number(market.oneDayPriceChange ?? 0);
       const event = market.events?.[0];
       const sourceUrl = `https://polymarket.com/event/${event?.slug ?? market.slug}`;
 
@@ -505,44 +503,23 @@ export class SourceIngestionService {
         clobTokenIds[0],
         market.updatedAt,
       );
-      // Build a richer fallback using available price change fields
-      // so we get at least a 30-day curve instead of just 2 points
-      const vol = Number(
-        market.volume24hr ?? market.volume24hrClob ?? market.volumeNum ?? 0,
-      );
-      const priceWeek = currentPrice - Number(market.oneWeekPriceChange ?? 0);
-      const priceMonth = currentPrice - Number(market.oneMonthPriceChange ?? 0);
-      const now = market.updatedAt ? new Date(market.updatedAt) : new Date();
-      const fallbackHistory = [
-        {
-          opportunityId: opportunity.id,
-          pointAt: new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000),
-          price: round(Math.max(0, Math.min(1, priceMonth)), 6),
-          volume: vol,
-          metadata: serializeJson({ source: 'implied_30d_ago' }),
-        },
-        {
-          opportunityId: opportunity.id,
-          pointAt: new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000),
-          price: round(Math.max(0, Math.min(1, priceWeek)), 6),
-          volume: vol,
-          metadata: serializeJson({ source: 'implied_7d_ago' }),
-        },
-        {
-          opportunityId: opportunity.id,
-          pointAt: new Date(now.getTime() - 24 * 60 * 60 * 1000),
-          price: round(Math.max(0, Math.min(1, previousPrice)), 6),
-          volume: vol,
-          metadata: serializeJson({ source: 'implied_24h_ago' }),
-        },
-        {
-          opportunityId: opportunity.id,
-          pointAt: now,
-          price: round(Math.max(0, Math.min(1, currentPrice)), 6),
-          volume: vol,
-          metadata: serializeJson({ source: 'current_market' }),
-        },
-      ].filter((point) => Number.isFinite(point.price) && point.price > 0);
+      const fallbackSnapshotTime = market.updatedAt
+        ? new Date(market.updatedAt)
+        : new Date();
+      const fallbackSnapshot =
+        Number.isFinite(currentPrice) && currentPrice > 0
+          ? [
+              {
+                opportunityId: opportunity.id,
+                pointAt: fallbackSnapshotTime,
+                price: round(Math.max(0, Math.min(1, currentPrice)), 6),
+                volume: Number(
+                  market.volume24hr ?? market.volume24hrClob ?? market.volumeNum ?? 0,
+                ),
+                metadata: serializeJson({ source: 'current_market_snapshot' }),
+              },
+            ]
+          : [];
 
       await this.prisma.opportunityHistory.createMany({
         data: historyPoints.length
@@ -550,15 +527,13 @@ export class SourceIngestionService {
               opportunityId: opportunity.id,
               pointAt: new Date(point.t * 1000),
               price: round(point.p, 6),
-              volume: Number(
-                market.volume24hr ?? market.volume24hrClob ?? market.volumeNum ?? 0,
-              ),
+              volume: null,
               metadata: serializeJson({
                 source: 'clob_prices_history',
                 tokenId: clobTokenIds[0] ?? null,
               }),
             }))
-          : fallbackHistory,
+          : fallbackSnapshot,
       });
 
       ingested += 1;
@@ -646,6 +621,27 @@ export class SourceIngestionService {
               this.fetchNewsApiArticles(query, limit, newsApiKey)
           : undefined,
       },
+      {
+        provider: SourceKind.GOOGLE_NEWS_RSS,
+        perOpportunity:
+          limitPerOpportunity ??
+          Number(this.configService.get('GOOGLE_NEWS_RSS_RESULTS_PER_QUERY') ?? '4'),
+        skipped:
+          String(
+            this.configService.get('GOOGLE_NEWS_RSS_ENABLED') ?? 'true',
+          ).toLowerCase() === 'false',
+        reason:
+          String(
+            this.configService.get('GOOGLE_NEWS_RSS_ENABLED') ?? 'true',
+          ).toLowerCase() === 'false'
+            ? 'GOOGLE_NEWS_RSS_ENABLED=false.'
+            : undefined,
+        fetchArticles: (
+          opportunity: NewsTargetOpportunity,
+          query: string,
+          limit: number,
+        ) => this.fetchGoogleNewsRssArticles(opportunity, query, limit),
+      },
     ];
 
     const activeProviders = providers.filter(
@@ -657,7 +653,7 @@ export class SourceIngestionService {
         ingested: 0,
         skipped: true,
         reason:
-          'No CRYPTOPANIC_API_KEY, GNEWS_API_KEY, or NEWSAPI_KEY configured.',
+          'No news provider is active. Configure CRYPTOPANIC_API_KEY, GNEWS_API_KEY, NEWSAPI_KEY, or enable Google News RSS.',
         providers: providers.map(({ provider, skipped, reason }) => ({
           provider,
           ingested: 0,
@@ -940,6 +936,31 @@ export class SourceIngestionService {
     }));
   }
 
+  private async fetchGoogleNewsRssArticles(
+    opportunity: NewsTargetOpportunity,
+    query: string,
+    limit: number,
+  ): Promise<ProviderArticle[]> {
+    const feedUrl = new URL('https://news.google.com/rss/search');
+    feedUrl.searchParams.set('q', query);
+    feedUrl.searchParams.set('hl', 'en-US');
+    feedUrl.searchParams.set('gl', 'US');
+    feedUrl.searchParams.set('ceid', 'US:en');
+
+    const xml = await this.fetchText(feedUrl.toString());
+    const items = this.parseGoogleNewsRss(xml);
+
+    return items
+      .map((article) => ({
+        article,
+        score: this.scoreNewsArticleMatch(opportunity, article),
+      }))
+      .filter(({ score }) => score > 0)
+      .sort((left, right) => right.score - left.score)
+      .slice(0, limit)
+      .map(({ article }) => article);
+  }
+
   private async fetchCoinGeckoHistory(coinId: string) {
     const baseUrl = this.configService.get<string>('COINGECKO_BASE_URL')!;
     const url = this.buildUrl(baseUrl, `coins/${coinId}/market_chart`);
@@ -1171,6 +1192,19 @@ export class SourceIngestionService {
     }
   }
 
+  private async fetchText(
+    url: string,
+    extraHeaders?: Record<string, string>,
+  ): Promise<string> {
+    const response = await axios.get<string>(url, {
+      headers: { Accept: 'application/xml,text/xml,text/plain,*/*', ...extraHeaders },
+      timeout: 20_000,
+      responseType: 'text',
+    });
+
+    return response.data;
+  }
+
   private buildOpportunityNewsQuery(opportunity: NewsTargetOpportunity) {
     return opportunity.type === 'TOKEN' && opportunity.symbol
       ? `\"${opportunity.title}\" OR \"${opportunity.symbol}\" crypto`
@@ -1237,6 +1271,88 @@ export class SourceIngestionService {
     }
 
     return round((positive - negative + important * 0.25) / total, 4);
+  }
+
+  private parseGoogleNewsRss(xml: string): ProviderArticle[] {
+    const items = Array.from(xml.matchAll(/<item\b[\s\S]*?<\/item>/gi));
+
+    const articles: Array<ProviderArticle | null> = items.map((match) => {
+        const itemXml = match[0];
+        const title = this.decodeHtmlEntities(
+          this.extractXmlTag(itemXml, 'title') ?? '',
+        ).replace(/\s+-\s+[^-]+$/, '');
+        const url = this.decodeHtmlEntities(
+          this.extractXmlTag(itemXml, 'link') ?? '',
+        );
+        const publishedAt =
+          this.decodeHtmlEntities(this.extractXmlTag(itemXml, 'pubDate') ?? '') ||
+          new Date().toUTCString();
+        const publishedDate = new Date(publishedAt);
+        const sourceName =
+          this.decodeHtmlEntities(
+            this.extractXmlTag(itemXml, 'source') ??
+              this.extractXmlTag(itemXml, 'author') ??
+              'Google News',
+          ) || 'Google News';
+        const descriptionHtml = this.extractXmlTag(itemXml, 'description') ?? '';
+        const summary = this.decodeHtmlEntities(
+          descriptionHtml
+            .replace(/<a\b[^>]*>[\s\S]*?<\/a>/gi, ' ')
+            .replace(/<img\b[^>]*>/gi, ' ')
+            .replace(/<br\s*\/?>/gi, ' ')
+            .replace(/<\/?[^>]+>/g, ' '),
+        )
+          .replace(/\s+/g, ' ')
+          .trim();
+
+        if (!title || !url) {
+          return null;
+        }
+
+        return {
+          externalId: url,
+          provider: SourceKind.GOOGLE_NEWS_RSS,
+          title,
+          summary,
+          url,
+          publishedAt: Number.isFinite(publishedDate.getTime())
+            ? publishedDate.toISOString()
+            : new Date().toISOString(),
+          sourceName,
+          metadata: {
+            feed: 'google-news-rss',
+          },
+        };
+      });
+
+    return articles.filter(
+      (article): article is ProviderArticle => article !== null,
+    );
+  }
+
+  private extractXmlTag(xml: string, tagName: string) {
+    const match = xml.match(
+      new RegExp(`<${tagName}\\b[^>]*>([\\s\\S]*?)<\\/${tagName}>`, 'i'),
+    );
+    return match?.[1]?.trim() ?? null;
+  }
+
+  private decodeHtmlEntities(value: string) {
+    return value
+      .replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, '$1')
+      .replace(/&amp;/g, '&')
+      .replace(/&quot;/g, '"')
+      .replace(/&#39;/g, "'")
+      .replace(/&apos;/g, "'")
+      .replace(/&lt;/g, '<')
+      .replace(/&gt;/g, '>')
+      .replace(/&#x2F;/gi, '/')
+      .replace(/&#(\d+);/g, (_match, code) =>
+        String.fromCharCode(Number(code)),
+      )
+      .replace(/&#x([0-9a-f]+);/gi, (_match, code) =>
+        String.fromCharCode(parseInt(code, 16)),
+      );
   }
 
   private describeProviderError(error: unknown) {

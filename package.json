@@ -8,13 +8,13 @@
     "dev:web": "npx next dev ./web -p 3000",
     "build": "npx nx run-many -t build --projects=api,web",
     "db:generate": "npx prisma generate",
-    "db:push": "npx tsx scripts/db-push.ts",
+    "db:push": "node node_modules/tsx/dist/cli.mjs scripts/db-push.ts",
     "db:migrate": "npm run db:push",
-    "db:seed": "npx tsx prisma/seed.ts",
+    "db:seed": "node node_modules/tsx/dist/cli.mjs prisma/seed.ts",
     "setup": "npm run db:generate && npm run db:push && npm run db:seed",
-    "pipeline": "npx tsx scripts/run-pipeline.ts",
-    "pipeline:fast": "cross-env SKIP_MEMOS=1 npx tsx scripts/run-pipeline.ts",
-    "data:export": "npx tsx scripts/export-local-data.ts"
+    "pipeline": "node node_modules/tsx/dist/cli.mjs scripts/run-pipeline.ts",
+    "pipeline:fast": "SKIP_MEMOS=1 node node_modules/tsx/dist/cli.mjs scripts/run-pipeline.ts",
+    "data:export": "node node_modules/tsx/dist/cli.mjs scripts/export-local-data.ts"
   },
   "keywords": [],
   "author": "",

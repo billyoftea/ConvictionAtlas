@@ -1,18 +1,7 @@
 import Link from 'next/link';
-import { IBM_Plex_Sans, Space_Grotesk } from 'next/font/google';
 import { SiteWordmark } from '../components/site-wordmark';
+import { API_DOCS_URL } from '../lib/runtime-config';
 import './global.css';
-
-const headingFont = Space_Grotesk({
-  subsets: ['latin'],
-  variable: '--font-heading',
-});
-
-const bodyFont = IBM_Plex_Sans({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-  variable: '--font-body',
-});
 
 export const metadata = {
   title: 'Conviction Atlas',
@@ -31,7 +20,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${headingFont.variable} ${bodyFont.variable}`}>
+    <html lang="en">
       <body className="reference-theme">
         <div className="site-shell">
           <header className="topbar">
@@ -50,7 +39,7 @@ export default function RootLayout({
                 </Link>
               ))}
               <a
-                href="http://localhost:3001/docs"
+                href={API_DOCS_URL}
                 target="_blank"
                 rel="noreferrer"
                 className="nav-pill"
@@ -67,7 +56,7 @@ export default function RootLayout({
                 </Link>
               ))}
               <a
-                href="http://localhost:3001/docs"
+                href={API_DOCS_URL}
                 target="_blank"
                 rel="noreferrer"
                 className="nav-pill"
