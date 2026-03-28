@@ -1,9 +1,11 @@
 'use client';
+
 import { useEffect, useState } from 'react';
-import { useParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { AssetAvatar } from '../../../components/asset-avatar';
 import {
+  fetchPageData,
   formatCompact,
   formatDate,
   formatDateTime,
@@ -13,7 +15,6 @@ import {
   getDirectionClass,
   getSignedClass,
 } from '../../../lib/api';
-import { API_BASE_URL } from '../../../lib/runtime-config';
 import type {
   ManagerDecision,
   NewsItem,
@@ -22,9 +23,9 @@ import type {
   Signal,
 } from '../../../lib/types';
 
-export default function OpportunityDetailPage() {
-  const params = useParams();
-  const id = params?.id as string;
+export default function OpportunityDetailClient() {
+  const searchParams = useSearchParams();
+  const slug = searchParams.get('slug') ?? '';
 
   const [opportunity, setOpportunity] = useState<OpportunityDetail | null>(null);
   const [managers, setManagers] = useState<ManagerDecision[]>([]);
@@ -34,13 +35,17 @@ export default function OpportunityDetailPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!id) return;
+    if (!slug) {
+      setLoading(false);
+      return;
+    }
+
     Promise.all([
-      fetch(`${API_BASE_URL}/opportunities/${id}`).then(r => r.json()),
-      fetch(`${API_BASE_URL}/opportunities/${id}/managers`).then(r => r.json()),
-      fetch(`${API_BASE_URL}/opportunities/${id}/signals`).then(r => r.json()),
-      fetch(`${API_BASE_URL}/opportunities/${id}/news`).then(r => r.json()),
-      fetch(`${API_BASE_URL}/opportunities/${id}/history`).then(r => r.json()),
+      fetchPageData<OpportunityDetail>(`/opportunities/${slug}`),
+      fetchPageData<ManagerDecision[]>(`/opportunities/${slug}/managers`),
+      fetchPageData<Signal[]>(`/opportunities/${slug}/signals`),
+      fetchPageData<NewsItem[]>(`/opportunities/${slug}/news`),
+      fetchPageData<OpportunityHistoryPoint[]>(`/opportunities/${slug}/history`),
     ])
       .then(([opportunityData, managersData, signalsData, newsData, historyData]) => {
         setOpportunity(opportunityData ?? null);
@@ -51,16 +56,16 @@ export default function OpportunityDetailPage() {
         setLoading(false);
       })
       .catch(() => setLoading(false));
-  }, [id]);
+  }, [slug]);
 
   if (loading) return <div className="loading">Loading...</div>;
 
-  if (!opportunity) {
+  if (!slug || !opportunity) {
     return (
       <section className="section">
         <div className="error-card">
-          Opportunity detail is not available. Confirm the API is running and the
-          ingestion pipeline has produced live rows.
+          Opportunity detail is not available. Open this page from an opportunity card
+          after the latest Pages snapshot has been published.
         </div>
       </section>
     );
@@ -263,41 +268,37 @@ export default function OpportunityDetailPage() {
                 >
                   <div className="mini-metrics">
                     <strong>{item.title}</strong>
-                    <span>{formatDateTime(item.publishedAt)}</span>
+                    <span>{item.provider}</span>
                   </div>
-                  <div className="muted">{item.summary ?? item.sourceName ?? 'No summary'}</div>
+                  <div className="muted">
+                    {item.sourceName ?? 'Unknown source'} • {formatDateTime(item.publishedAt)}
+                  </div>
+                  {item.summary ? <p className="muted">{item.summary}</p> : null}
                 </a>
               ))}
             </div>
           ) : (
-            <div className="muted">
-              No mapped news items yet. Add `CRYPTOPANIC_API_KEY`, `GNEWS_API_KEY`, or
-              `NEWSAPI_KEY` and rerun the pipeline to populate this section.
-            </div>
+            <div className="muted">No linked news yet.</div>
           )}
         </div>
       </section>
 
-      <section className="section">
-        <div className="section-header">
-          <h2 className="section-title">Metadata</h2>
-          <span className="muted">Normalized provider extras</span>
-        </div>
-        {metadataEntries.length ? (
-          <div className="card-grid">
+      {metadataEntries.length ? (
+        <section className="section">
+          <div className="section-header">
+            <h2 className="section-title">Metadata</h2>
+            <span className="muted">Source-specific fields</span>
+          </div>
+          <div className="table-card">
             {metadataEntries.map(([key, value]) => (
-              <div key={key} className="panel">
-                <div className="eyebrow">{formatSignalName(key)}</div>
-                <div className="metadata-value">
-                  {Array.isArray(value) ? value.join(', ') : String(value)}
-                </div>
+              <div key={key} className="data-table-row" style={{ gridTemplateColumns: '1fr 2fr' }}>
+                <span>{key}</span>
+                <strong>{typeof value === 'string' ? value : JSON.stringify(value)}</strong>
               </div>
             ))}
           </div>
-        ) : (
-          <div className="muted">This opportunity does not currently expose provider metadata.</div>
-        )}
-      </section>
+        </section>
+      ) : null}
     </div>
   );
 }

@@ -6,12 +6,13 @@ import { PositionStack } from '../../components/position-stack';
 import { SignalBars } from '../../components/signal-bars';
 import { Sparkline } from '../../components/sparkline';
 import {
+  fetchPageData,
   formatMoney,
   formatPercent,
   formatReturn,
   getSignedClass,
 } from '../../lib/api';
-import { API_BASE_URL, API_DOCS_URL } from '../../lib/runtime-config';
+import { API_DOCS_URL } from '../../lib/runtime-config';
 import type {
   ManagerLeaderboardEntry,
   ManagerSummary,
@@ -24,8 +25,8 @@ export default function ManagersPage() {
 
   useEffect(() => {
     Promise.all([
-      fetch(`${API_BASE_URL}/managers`).then(r => r.json()),
-      fetch(`${API_BASE_URL}/leaderboard/managers`).then(r => r.json()),
+      fetchPageData<ManagerSummary[]>('/managers'),
+      fetchPageData<ManagerLeaderboardEntry[]>('/leaderboard/managers'),
     ])
       .then(([managersData, leaderboardData]) => {
         setManagers(managersData ?? []);

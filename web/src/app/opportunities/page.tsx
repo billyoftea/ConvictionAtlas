@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { AssetAvatar } from '../../components/asset-avatar';
 import {
+  fetchPageData,
   formatCompact,
   formatDate,
   formatMoney,
@@ -10,7 +11,6 @@ import {
   formatSignalName,
   getSignedClass,
 } from '../../lib/api';
-import { API_BASE_URL } from '../../lib/runtime-config';
 import type {
   OpportunityLeaderboardEntry,
   OpportunitySummary,
@@ -23,8 +23,8 @@ export default function OpportunitiesPage() {
 
   useEffect(() => {
     Promise.all([
-      fetch(`${API_BASE_URL}/opportunities`).then(r => r.json()),
-      fetch(`${API_BASE_URL}/leaderboard/opportunities`).then(r => r.json()),
+      fetchPageData<OpportunitySummary[]>('/opportunities'),
+      fetchPageData<OpportunityLeaderboardEntry[]>('/leaderboard/opportunities'),
     ])
       .then(([opportunitiesData, leaderboardData]) => {
         setOpportunities(opportunitiesData ?? []);
@@ -88,7 +88,7 @@ export default function OpportunitiesPage() {
             {rows.map((opportunity) => (
               <Link
                 key={opportunity.id}
-                href={`/opportunities/${opportunity.slug}`}
+                href={`/opportunities/detail?slug=${opportunity.slug}`}
                 className="panel"
               >
                 <div className="action-card-row">
@@ -164,7 +164,7 @@ export default function OpportunitiesPage() {
             {leaderboard.slice(0, 10).map((entry) => (
               <Link
                 key={entry.id}
-                href={`/opportunities/${entry.slug}`}
+                href={`/opportunities/detail?slug=${entry.slug}`}
                 className="data-table-row"
                 style={{ gridTemplateColumns: '1.4fr .8fr .8fr .8fr .8fr' }}
               >

@@ -1,15 +1,27 @@
-import { API_BASE_URL } from './runtime-config';
+import { API_BASE_URL, buildReadApiUrl } from './runtime-config';
+
+async function parseJsonResponse<T>(response: Response, path: string): Promise<T> {
+  if (!response.ok) {
+    throw new Error(`API request failed for ${path}: ${response.status}`);
+  }
+
+  return (await response.json()) as T;
+}
+
+export async function fetchPageData<T>(path: string): Promise<T> {
+  const response = await fetch(buildReadApiUrl(path), {
+    cache: 'no-store',
+  });
+
+  return parseJsonResponse<T>(response, path);
+}
 
 export async function fetchApi<T>(path: string): Promise<T> {
   const response = await fetch(`${API_BASE_URL}${path}`, {
     cache: 'no-store',
   });
 
-  if (!response.ok) {
-    throw new Error(`API request failed for ${path}: ${response.status}`);
-  }
-
-  return (await response.json()) as T;
+  return parseJsonResponse<T>(response, path);
 }
 
 export async function postApi<T>(path: string, body: unknown): Promise<T> {

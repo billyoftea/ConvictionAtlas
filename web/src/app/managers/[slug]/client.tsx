@@ -10,6 +10,7 @@ import { ReviewForm } from '../../../components/review-form';
 import { SignalBars } from '../../../components/signal-bars';
 import { Sparkline } from '../../../components/sparkline';
 import {
+  fetchPageData,
   formatDateTime,
   formatMoney,
   formatPercent,
@@ -17,7 +18,6 @@ import {
   getDirectionClass,
   getSignedClass,
 } from '../../../lib/api';
-import { API_BASE_URL } from '../../../lib/runtime-config';
 import type {
   ManagerDetail,
   ManagerRebalance,
@@ -40,11 +40,11 @@ export default function ManagerDetailPage() {
   useEffect(() => {
     if (!slug) return;
     Promise.all([
-      fetch(`${API_BASE_URL}/managers/${slug}`).then(r => r.json()),
-      fetch(`${API_BASE_URL}/managers/${slug}/portfolio`).then(r => r.json()),
-      fetch(`${API_BASE_URL}/managers/${slug}/rebalances`).then(r => r.json()),
-      fetch(`${API_BASE_URL}/managers/${slug}/memos`).then(r => r.json()),
-      fetch(`${API_BASE_URL}/managers/${slug}/reviews`).then(r => r.json()),
+      fetchPageData<ManagerDetail>(`/managers/${slug}`),
+      fetchPageData<PortfolioSnapshot>(`/managers/${slug}/portfolio`),
+      fetchPageData<ManagerRebalance[]>(`/managers/${slug}/rebalances`),
+      fetchPageData<Memo[]>(`/managers/${slug}/memos`),
+      fetchPageData<ManagerReviewsResponse>(`/managers/${slug}/reviews`),
     ])
       .then(([managerData, portfolioData, rebalancesData, memosData, reviewsData]) => {
         setManager(managerData ?? null);
@@ -234,7 +234,7 @@ export default function ManagerDetailPage() {
                         sourceKind={decision.opportunity.sourceKind}
                       />
                       <div>
-                        <Link href={`/opportunities/${decision.opportunity.slug}`}>
+                        <Link href={`/opportunities/detail?slug=${decision.opportunity.slug}`}>
                           <strong>{decision.opportunity.title}</strong>
                         </Link>
                         <div className="muted">
@@ -275,7 +275,7 @@ export default function ManagerDetailPage() {
                     <div className="mini-metrics">
                       <span>{formatDateTime(memo.createdAt)}</span>
                       {memo.opportunity ? (
-                        <Link href={`/opportunities/${memo.opportunity.slug}`}>
+                        <Link href={`/opportunities/detail?slug=${memo.opportunity.slug}`}>
                           {memo.opportunity.title}
                         </Link>
                       ) : (
@@ -341,7 +341,7 @@ export default function ManagerDetailPage() {
                         sourceKind={position.opportunity.sourceKind}
                       />
                       <div>
-                        <Link href={`/opportunities/${position.opportunity.slug}`}>
+                        <Link href={`/opportunities/detail?slug=${position.opportunity.slug}`}>
                           <strong>{position.opportunity.title}</strong>
                         </Link>
                         <div className="muted">
@@ -398,7 +398,7 @@ export default function ManagerDetailPage() {
                       />
                       <div>
                         {rebalance.opportunitySlug ? (
-                          <Link href={`/opportunities/${rebalance.opportunitySlug}`}>
+                          <Link href={`/opportunities/detail?slug=${rebalance.opportunitySlug}`}>
                             <strong>{rebalance.opportunityTitle}</strong>
                           </Link>
                         ) : (

@@ -2,13 +2,13 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import {
+  fetchPageData,
   formatCompact,
   formatMoney,
   formatPercent,
   formatReturn,
   getSignedClass,
 } from '../../lib/api';
-import { API_BASE_URL } from '../../lib/runtime-config';
 import type {
   ManagerLeaderboardEntry,
   OpportunityLeaderboardEntry,
@@ -21,8 +21,8 @@ export default function LeaderboardPage() {
 
   useEffect(() => {
     Promise.all([
-      fetch(`${API_BASE_URL}/leaderboard/managers`).then(r => r.json()),
-      fetch(`${API_BASE_URL}/leaderboard/opportunities`).then(r => r.json()),
+      fetchPageData<ManagerLeaderboardEntry[]>('/leaderboard/managers'),
+      fetchPageData<OpportunityLeaderboardEntry[]>('/leaderboard/opportunities'),
     ])
       .then(([managers, opportunities]) => {
         setManagerRows(managers ?? []);
@@ -128,7 +128,7 @@ export default function LeaderboardPage() {
             {opportunityRows.map((entry) => (
               <Link
                 key={entry.id}
-                href={`/opportunities/${entry.slug}`}
+                href={`/opportunities/detail?slug=${entry.slug}`}
                 className="data-table-row"
                 style={{ gridTemplateColumns: '1.5fr .7fr .7fr .8fr .8fr .8fr' }}
               >

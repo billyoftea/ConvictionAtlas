@@ -1,6 +1,9 @@
 import ManagerDetailClient from './client';
 import { API_BASE_URL } from '../../../lib/runtime-config';
 
+export const dynamic = 'force-static';
+export const dynamicParams = false;
+
 // 告诉 Next.js 静态导出时有哪些 slug
 export async function generateStaticParams() {
   try {
