@@ -1,6 +1,11 @@
-const DEFAULT_API_BASE_URL = process.env.GITHUB_PAGES
+const isGithubPages = process.env.GITHUB_PAGES === 'true';
+const isProductionBuild = process.env.NODE_ENV === 'production';
+
+const DEFAULT_API_BASE_URL = isGithubPages
   ? 'https://47.76.120.0.sslip.io/api'
-  : 'http://localhost:3001/api';
+  : isProductionBuild
+    ? '/api'
+    : 'http://localhost:3001/api';
 const STATIC_DATA_MODE = process.env.NEXT_PUBLIC_STATIC_DATA_MODE === 'true';
 const DEFAULT_STATIC_DATA_BASE_URL = '/ConvictionAtlas/data';
 

@@ -14,7 +14,8 @@
     "setup": "npm run db:generate && npm run db:push && npm run db:seed",
     "pipeline": "node node_modules/tsx/dist/cli.mjs scripts/run-pipeline.ts",
     "pipeline:fast": "SKIP_MEMOS=1 node node_modules/tsx/dist/cli.mjs scripts/run-pipeline.ts",
-    "data:export": "node node_modules/tsx/dist/cli.mjs scripts/export-local-data.ts"
+    "data:export": "node node_modules/tsx/dist/cli.mjs scripts/export-local-data.ts",
+    "deploy:web:prod": "bash scripts/deploy-web-prod.sh"
   },
   "keywords": [],
   "author": "",
