@@ -14,6 +14,10 @@ import {
   toSlug,
   truncate,
 } from '../core/helpers';
+import {
+  isCryptoRelevantPolymarketMarket,
+  isCryptoRelevantPredictionOpportunity,
+} from '../core/opportunity-universe';
 
 type CoinGeckoMarket = {
   id: string;
@@ -61,7 +65,12 @@ type PolymarketMarket = {
   updatedAt?: string;
   active?: boolean;
   closed?: boolean;
-  events?: Array<{ title?: string; slug?: string; image?: string }>;
+  events?: Array<{
+    title?: string;
+    slug?: string;
+    image?: string;
+    series?: Array<{ title?: string; slug?: string }>;
+  }>;
 };
 
 type NewsTargetOpportunity = {
@@ -396,6 +405,10 @@ export class SourceIngestionService {
     let ingested = 0;
 
     for (const market of markets) {
+      if (!isCryptoRelevantPolymarketMarket(market)) {
+        continue;
+      }
+
       const outcomes = parseJson<string[]>(market.outcomes, []);
       const outcomePrices = parseJson<string[]>(market.outcomePrices, []);
       const clobTokenIds = parseJson<string[]>(market.clobTokenIds, []);
@@ -452,6 +465,14 @@ export class SourceIngestionService {
               market.volume1wk ?? market.volume1wkClob ?? null,
             volume1mo:
               market.volume1mo ?? market.volume1moClob ?? null,
+            seriesTitle: event?.series?.[0]?.title ?? null,
+            seriesSlug: event?.series?.[0]?.slug ?? null,
+            seriesTitles: (event?.series ?? [])
+              .map((series) => series.title)
+              .filter((value): value is string => Boolean(value)),
+            seriesSlugs: (event?.series ?? [])
+              .map((series) => series.slug)
+              .filter((value): value is string => Boolean(value)),
           }),
         },
         create: {
@@ -491,6 +512,14 @@ export class SourceIngestionService {
               market.volume1wk ?? market.volume1wkClob ?? null,
             volume1mo:
               market.volume1mo ?? market.volume1moClob ?? null,
+            seriesTitle: event?.series?.[0]?.title ?? null,
+            seriesSlug: event?.series?.[0]?.slug ?? null,
+            seriesTitles: (event?.series ?? [])
+              .map((series) => series.title)
+              .filter((value): value is string => Boolean(value)),
+            seriesSlugs: (event?.series ?? [])
+              .map((series) => series.slug)
+              .filter((value): value is string => Boolean(value)),
           }),
         },
       });
@@ -538,6 +567,8 @@ export class SourceIngestionService {
 
       ingested += 1;
     }
+
+    await this.deactivateNonCryptoPolymarketMarkets();
 
     return { source: 'polymarket', ingested };
   }
@@ -1127,6 +1158,48 @@ export class SourceIngestionService {
       );
     } catch {
       return [];
+    }
+  }
+
+  private async deactivateNonCryptoPolymarketMarkets() {
+    const opportunities = await this.prisma.opportunity.findMany({
+      where: {
+        sourceKind: SourceKind.POLYMARKET,
+        type: 'PREDICTION_MARKET',
+        status: 'active',
+      },
+      select: {
+        id: true,
+        type: true,
+        sourceKind: true,
+        title: true,
+        summary: true,
+        description: true,
+        category: true,
+        metadata: true,
+      },
+    });
+
+    for (const opportunity of opportunities) {
+      if (isCryptoRelevantPredictionOpportunity(opportunity)) {
+        continue;
+      }
+
+      const metadata = parseJson<Record<string, unknown>>(
+        opportunity.metadata,
+        {},
+      );
+
+      await this.prisma.opportunity.update({
+        where: { id: opportunity.id },
+        data: {
+          status: 'inactive',
+          metadata: serializeJson({
+            ...metadata,
+            universeExclusion: 'non_crypto_polymarket',
+          }),
+        },
+      });
     }
   }
 

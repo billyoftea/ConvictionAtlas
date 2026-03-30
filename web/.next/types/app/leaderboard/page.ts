@@ -1,4 +1,4 @@
-// File: /var/www/ConvictionAtlas/web/src/app/leaderboard/page.tsx
+// File: /root/workspace/ConvictionAtlas/web/src/app/leaderboard/page.tsx
 import * as entry from '../../../../src/app/leaderboard/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

@@ -315,7 +315,8 @@
               "setup",
               "pipeline",
               "pipeline:fast",
-              "data:export"
+              "data:export",
+              "deploy:web:prod"
             ]
           },
           "description": "Conviction Atlas MVP for Web3 AI fund managers",
@@ -392,7 +393,7 @@
               "script": "db:push"
             },
             "metadata": {
-              "scriptContent": "npx tsx scripts/db-push.ts",
+              "scriptContent": "node node_modules/tsx/dist/cli.mjs scripts/db-push.ts",
               "runCommand": "npm run db:push"
             },
             "configurations": {},
@@ -416,7 +417,7 @@
               "script": "db:seed"
             },
             "metadata": {
-              "scriptContent": "npx tsx prisma/seed.ts",
+              "scriptContent": "node node_modules/tsx/dist/cli.mjs prisma/seed.ts",
               "runCommand": "npm run db:seed"
             },
             "configurations": {},
@@ -440,7 +441,7 @@
               "script": "pipeline"
             },
             "metadata": {
-              "scriptContent": "npx tsx scripts/run-pipeline.ts",
+              "scriptContent": "node node_modules/tsx/dist/cli.mjs scripts/run-pipeline.ts",
               "runCommand": "npm run pipeline"
             },
             "configurations": {},
@@ -452,7 +453,7 @@
               "script": "pipeline:fast"
             },
             "metadata": {
-              "scriptContent": "cross-env SKIP_MEMOS=1 npx tsx scripts/run-pipeline.ts",
+              "scriptContent": "SKIP_MEMOS=1 node node_modules/tsx/dist/cli.mjs scripts/run-pipeline.ts",
               "runCommand": "npm run pipeline:fast"
             },
             "configurations": {},
@@ -464,8 +465,20 @@
               "script": "data:export"
             },
             "metadata": {
-              "scriptContent": "npx tsx scripts/export-local-data.ts",
+              "scriptContent": "node node_modules/tsx/dist/cli.mjs scripts/export-local-data.ts",
               "runCommand": "npm run data:export"
+            },
+            "configurations": {},
+            "parallelism": true
+          },
+          "deploy:web:prod": {
+            "executor": "nx:run-script",
+            "options": {
+              "script": "deploy:web:prod"
+            },
+            "metadata": {
+              "scriptContent": "bash scripts/deploy-web-prod.sh",
+              "runCommand": "npm run deploy:web:prod"
             },
             "configurations": {},
             "parallelism": true
@@ -15566,27 +15579,17 @@
     "web": [
       {
         "source": "web",
-        "target": "npm:next",
-        "type": "dynamic"
-      },
-      {
-        "source": "web",
-        "target": "npm:next",
-        "type": "static"
-      },
-      {
-        "source": "web",
-        "target": "npm:react",
-        "type": "dynamic"
-      },
-      {
-        "source": "web",
-        "target": "npm:react",
-        "type": "static"
-      },
-      {
-        "source": "web",
         "target": "npm:@nx/next",
+        "type": "static"
+      },
+      {
+        "source": "web",
+        "target": "npm:next",
+        "type": "static"
+      },
+      {
+        "source": "web",
+        "target": "npm:react",
         "type": "static"
       },
       {
@@ -35480,5 +35483,5 @@
   },
   "version": "6.0",
   "errors": [],
-  "computedAt": 1774621577994
+  "computedAt": 1774673794200
 }

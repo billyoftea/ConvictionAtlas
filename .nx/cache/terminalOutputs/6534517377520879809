@@ -1,0 +1,5 @@
+> webpack-cli build --node-env=production
+
+webpack compiled [1m[32msuccessfully[39m[22m (0e10fc9ac3777f49)
+(node:76417) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)

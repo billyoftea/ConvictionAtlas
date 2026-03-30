@@ -29,90 +29,221 @@
   "fileMap": {
     "nonProjectFiles": [],
     "projectFileMap": {
+      "api": [
+        {
+          "file": "api/project.json",
+          "hash": "16408935989629927072"
+        },
+        {
+          "file": "api/src/app/app.controller.ts",
+          "hash": "12427857703307551944",
+          "deps": [
+            "npm:@nestjs/common"
+          ]
+        },
+        {
+          "file": "api/src/app/app.module.ts",
+          "hash": "3798553724486335736",
+          "deps": [
+            "npm:@nestjs/common",
+            "npm:@nestjs/config"
+          ]
+        },
+        {
+          "file": "api/src/app/app.service.ts",
+          "hash": "6951206166469692039",
+          "deps": [
+            "npm:@nestjs/common"
+          ]
+        },
+        {
+          "file": "api/src/app/controllers/internal.controller.ts",
+          "hash": "2041897051875241398",
+          "deps": [
+            "npm:@nestjs/common"
+          ]
+        },
+        {
+          "file": "api/src/app/controllers/leaderboard.controller.ts",
+          "hash": "8902902909722591589",
+          "deps": [
+            "npm:@nestjs/common"
+          ]
+        },
+        {
+          "file": "api/src/app/controllers/managers.controller.ts",
+          "hash": "4673187805141271548",
+          "deps": [
+            "npm:@nestjs/common"
+          ]
+        },
+        {
+          "file": "api/src/app/controllers/memos.controller.ts",
+          "hash": "18187401059584794494",
+          "deps": [
+            "npm:@nestjs/common"
+          ]
+        },
+        {
+          "file": "api/src/app/controllers/opportunities.controller.ts",
+          "hash": "1735992873407459055",
+          "deps": [
+            "npm:@nestjs/common"
+          ]
+        },
+        {
+          "file": "api/src/app/core/helpers.ts",
+          "hash": "11987649407053321254"
+        },
+        {
+          "file": "api/src/app/core/manager-blueprints.ts",
+          "hash": "11532494500830859475",
+          "deps": [
+            "npm:@prisma/client"
+          ]
+        },
+        {
+          "file": "api/src/app/core/opportunity-universe.ts",
+          "hash": "3287261420302057387",
+          "deps": [
+            "npm:@prisma/client"
+          ]
+        },
+        {
+          "file": "api/src/app/prisma/prisma.service.ts",
+          "hash": "1722435067500517337",
+          "deps": [
+            "npm:@nestjs/common",
+            "npm:@prisma/client"
+          ]
+        },
+        {
+          "file": "api/src/app/services/llm.service.ts",
+          "hash": "262554220621992294",
+          "deps": [
+            "npm:@nestjs/common",
+            "npm:@nestjs/config",
+            "npm:axios"
+          ]
+        },
+        {
+          "file": "api/src/app/services/manager-engine.service.ts",
+          "hash": "870535040792893220",
+          "deps": [
+            "npm:@prisma/client",
+            "npm:@nestjs/common"
+          ]
+        },
+        {
+          "file": "api/src/app/services/memo.service.ts",
+          "hash": "6123534376353156953",
+          "deps": [
+            "npm:@nestjs/common"
+          ]
+        },
+        {
+          "file": "api/src/app/services/performance.service.ts",
+          "hash": "13484502735110463965",
+          "deps": [
+            "npm:@nestjs/common"
+          ]
+        },
+        {
+          "file": "api/src/app/services/portfolio.service.ts",
+          "hash": "10308303207842456826",
+          "deps": [
+            "npm:@prisma/client",
+            "npm:@nestjs/common"
+          ]
+        },
+        {
+          "file": "api/src/app/services/query.service.ts",
+          "hash": "8420701138741976530",
+          "deps": [
+            "npm:@nestjs/common",
+            "npm:@prisma/client"
+          ]
+        },
+        {
+          "file": "api/src/app/services/signal-engine.service.ts",
+          "hash": "2943177108535574452",
+          "deps": [
+            "npm:@prisma/client",
+            "npm:@nestjs/common"
+          ]
+        },
+        {
+          "file": "api/src/app/services/source-ingestion.service.ts",
+          "hash": "3142229312082712412",
+          "deps": [
+            "npm:axios",
+            "npm:@nestjs/common",
+            "npm:@nestjs/config",
+            "npm:@prisma/client"
+          ]
+        },
+        {
+          "file": "api/src/app/services/tron-payment.service.ts",
+          "hash": "8411664185586330651",
+          "deps": [
+            "npm:@nestjs/common",
+            "npm:@nestjs/config",
+            "npm:axios"
+          ]
+        },
+        {
+          "file": "api/src/assets/.gitkeep",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "api/src/main.ts",
+          "hash": "14905836927512793688",
+          "deps": [
+            "npm:@nestjs/common",
+            "npm:@nestjs/core",
+            "npm:@nestjs/swagger"
+          ]
+        },
+        {
+          "file": "api/tsconfig.app.json",
+          "hash": "2083841899727192147"
+        },
+        {
+          "file": "api/tsconfig.json",
+          "hash": "4276712839166217253"
+        },
+        {
+          "file": "api/webpack.config.js",
+          "hash": "6809973803337539335",
+          "deps": [
+            "npm:@nx/webpack"
+          ]
+        }
+      ],
       "web": [
         {
-          "file": "web/.next/BUILD_ID",
-          "hash": "9549310250545366086"
-        },
-        {
-          "file": "web/.next/app-build-manifest.json",
-          "hash": "6642808631538785885"
-        },
-        {
-          "file": "web/.next/app-path-routes-manifest.json",
-          "hash": "7846469989244351770"
-        },
-        {
-          "file": "web/.next/build-manifest.json",
-          "hash": "2702609462139627143"
+          "file": "web/.env.local",
+          "hash": "1128859477705577892"
         },
         {
           "file": "web/.next/cache/.previewinfo",
-          "hash": "8613608811836508567"
+          "hash": "3119440955006125496"
         },
         {
           "file": "web/.next/cache/.rscinfo",
-          "hash": "15736868005274555081"
+          "hash": "15569976813266115845"
         },
         {
           "file": "web/.next/cache/.tsbuildinfo",
-          "hash": "3269843683925640759"
-        },
-        {
-          "file": "web/.next/cache/config.json",
-          "hash": "6769204628489153386"
-        },
-        {
-          "file": "web/.next/cache/next-devtools-config.json",
-          "hash": "1389868326933519382"
-        },
-        {
-          "file": "web/.next/cache/webpack/client-development/0.pack.gz",
-          "hash": "17524727742359586156"
-        },
-        {
-          "file": "web/.next/cache/webpack/client-development/1.pack.gz",
-          "hash": "15944041822676622187"
-        },
-        {
-          "file": "web/.next/cache/webpack/client-development/2.pack.gz",
-          "hash": "7829861750407363944"
-        },
-        {
-          "file": "web/.next/cache/webpack/client-development/3.pack.gz",
-          "hash": "13246963339264981191"
-        },
-        {
-          "file": "web/.next/cache/webpack/client-development/4.pack.gz",
-          "hash": "15333380172455761432"
-        },
-        {
-          "file": "web/.next/cache/webpack/client-development/5.pack.gz",
-          "hash": "8775847341520147024"
-        },
-        {
-          "file": "web/.next/cache/webpack/client-development/6.pack.gz",
-          "hash": "11756734513549645556"
-        },
-        {
-          "file": "web/.next/cache/webpack/client-development/index.pack.gz",
-          "hash": "14983256600370168480"
-        },
-        {
-          "file": "web/.next/cache/webpack/client-development/index.pack.gz.old",
-          "hash": "9574452895124428927"
+          "hash": "16787911212801891775"
         },
         {
           "file": "web/.next/cache/webpack/client-production/0.pack",
-          "hash": "17801919086767793562"
+          "hash": "13166155845921699429"
         },
         {
           "file": "web/.next/cache/webpack/client-production/index.pack",
-          "hash": "8547043455957306430"
-        },
-        {
-          "file": "web/.next/cache/webpack/client-production/index.pack.old",
-          "hash": "12904324404804687067"
+          "hash": "16673770426772973258"
         },
         {
           "file": "web/.next/cache/webpack/edge-server-production/0.pack",
@@ -120,998 +251,27 @@
         },
         {
           "file": "web/.next/cache/webpack/edge-server-production/index.pack",
-          "hash": "63388699978071842"
-        },
-        {
-          "file": "web/.next/cache/webpack/edge-server-production/index.pack.old",
-          "hash": "12066163513186281037"
-        },
-        {
-          "file": "web/.next/cache/webpack/server-development/0.pack.gz",
-          "hash": "17813478527778509702"
-        },
-        {
-          "file": "web/.next/cache/webpack/server-development/1.pack.gz",
-          "hash": "7183657031490964123"
-        },
-        {
-          "file": "web/.next/cache/webpack/server-development/2.pack.gz",
-          "hash": "14201725499007672230"
-        },
-        {
-          "file": "web/.next/cache/webpack/server-development/3.pack.gz",
-          "hash": "8789062351400149346"
-        },
-        {
-          "file": "web/.next/cache/webpack/server-development/4.pack.gz",
-          "hash": "8361434742818526566"
-        },
-        {
-          "file": "web/.next/cache/webpack/server-development/5.pack.gz",
-          "hash": "2688719652918475148"
-        },
-        {
-          "file": "web/.next/cache/webpack/server-development/6.pack.gz",
-          "hash": "1473789429802339106"
-        },
-        {
-          "file": "web/.next/cache/webpack/server-development/7.pack.gz",
-          "hash": "2766971000810610328"
-        },
-        {
-          "file": "web/.next/cache/webpack/server-development/8.pack.gz",
-          "hash": "6841181383283718632"
-        },
-        {
-          "file": "web/.next/cache/webpack/server-development/index.pack.gz",
-          "hash": "11755189846849013264"
-        },
-        {
-          "file": "web/.next/cache/webpack/server-development/index.pack.gz.old",
-          "hash": "10741825811009073127"
+          "hash": "12564147167106070833"
         },
         {
           "file": "web/.next/cache/webpack/server-production/0.pack",
-          "hash": "1320316272974011761"
+          "hash": "17378465040628155062"
         },
         {
           "file": "web/.next/cache/webpack/server-production/index.pack",
-          "hash": "17111307800467135639"
-        },
-        {
-          "file": "web/.next/cache/webpack/server-production/index.pack.old",
-          "hash": "13187372592814817813"
+          "hash": "3587791457718528910"
         },
         {
           "file": "web/.next/diagnostics/build-diagnostics.json",
-          "hash": "1709258988168414821"
+          "hash": "5303898229275808214"
         },
         {
           "file": "web/.next/diagnostics/framework.json",
           "hash": "17286661956815934050"
         },
         {
-          "file": "web/.next/export-detail.json",
-          "hash": "873718803689359001"
-        },
-        {
-          "file": "web/.next/export-marker.json",
-          "hash": "15591099675650914738"
-        },
-        {
-          "file": "web/.next/images-manifest.json",
-          "hash": "17015733606374654823"
-        },
-        {
-          "file": "web/.next/next-minimal-server.js.nft.json",
-          "hash": "9878099136683804098"
-        },
-        {
-          "file": "web/.next/next-server.js.nft.json",
-          "hash": "17862037674855272959"
-        },
-        {
           "file": "web/.next/package.json",
           "hash": "11338307439248427064"
-        },
-        {
-          "file": "web/.next/prerender-manifest.json",
-          "hash": "10507229063727458355"
-        },
-        {
-          "file": "web/.next/react-loadable-manifest.json",
-          "hash": "1389868326933519382"
-        },
-        {
-          "file": "web/.next/required-server-files.json",
-          "hash": "4707099080400419915"
-        },
-        {
-          "file": "web/.next/routes-manifest.json",
-          "hash": "7851074683847447992"
-        },
-        {
-          "file": "web/.next/server/app-paths-manifest.json",
-          "hash": "1389868326933519382"
-        },
-        {
-          "file": "web/.next/server/app/_not-found.html",
-          "hash": "4481308621044089059"
-        },
-        {
-          "file": "web/.next/server/app/_not-found.meta",
-          "hash": "2034810263151262482"
-        },
-        {
-          "file": "web/.next/server/app/_not-found.rsc",
-          "hash": "6984899649379416945"
-        },
-        {
-          "file": "web/.next/server/app/_not-found/page.js",
-          "hash": "3808747764718367599",
-          "deps": [
-            [
-              "npm:next",
-              "dynamic"
-            ]
-          ]
-        },
-        {
-          "file": "web/.next/server/app/_not-found/page.js.nft.json",
-          "hash": "5988561179049498673"
-        },
-        {
-          "file": "web/.next/server/app/_not-found/page_client-reference-manifest.js",
-          "hash": "16019649677631619142"
-        },
-        {
-          "file": "web/.next/server/app/index.html",
-          "hash": "4845242653265723546"
-        },
-        {
-          "file": "web/.next/server/app/index.meta",
-          "hash": "3414423732052082643"
-        },
-        {
-          "file": "web/.next/server/app/index.rsc",
-          "hash": "7331291277780029525"
-        },
-        {
-          "file": "web/.next/server/app/leaderboard.html",
-          "hash": "10152457437857263461"
-        },
-        {
-          "file": "web/.next/server/app/leaderboard.meta",
-          "hash": "13788663288278040368"
-        },
-        {
-          "file": "web/.next/server/app/leaderboard.rsc",
-          "hash": "2985002231993657025"
-        },
-        {
-          "file": "web/.next/server/app/leaderboard/page.js",
-          "hash": "481148329461833713",
-          "deps": [
-            [
-              "npm:next",
-              "dynamic"
-            ]
-          ]
-        },
-        {
-          "file": "web/.next/server/app/leaderboard/page.js.nft.json",
-          "hash": "5988561179049498673"
-        },
-        {
-          "file": "web/.next/server/app/leaderboard/page_client-reference-manifest.js",
-          "hash": "8127579265386023842"
-        },
-        {
-          "file": "web/.next/server/app/managers.html",
-          "hash": "12408275299846204177"
-        },
-        {
-          "file": "web/.next/server/app/managers.meta",
-          "hash": "16249775068697826763"
-        },
-        {
-          "file": "web/.next/server/app/managers.rsc",
-          "hash": "2626089062067600633"
-        },
-        {
-          "file": "web/.next/server/app/managers/[slug]/page.js",
-          "hash": "13614447887731658352",
-          "deps": [
-            [
-              "npm:next",
-              "dynamic"
-            ]
-          ]
-        },
-        {
-          "file": "web/.next/server/app/managers/[slug]/page.js.nft.json",
-          "hash": "11048770717704176019"
-        },
-        {
-          "file": "web/.next/server/app/managers/[slug]/page_client-reference-manifest.js",
-          "hash": "14685668735058424796"
-        },
-        {
-          "file": "web/.next/server/app/managers/event-driven-manager.html",
-          "hash": "12683459622836672940"
-        },
-        {
-          "file": "web/.next/server/app/managers/event-driven-manager.meta",
-          "hash": "6713159314830663543"
-        },
-        {
-          "file": "web/.next/server/app/managers/event-driven-manager.rsc",
-          "hash": "12203693769488577779"
-        },
-        {
-          "file": "web/.next/server/app/managers/hybrid-manager.html",
-          "hash": "12010047798076682820"
-        },
-        {
-          "file": "web/.next/server/app/managers/hybrid-manager.meta",
-          "hash": "16686317259675957889"
-        },
-        {
-          "file": "web/.next/server/app/managers/hybrid-manager.rsc",
-          "hash": "14722679921395628780"
-        },
-        {
-          "file": "web/.next/server/app/managers/narrative-manager.html",
-          "hash": "13962610578208982925"
-        },
-        {
-          "file": "web/.next/server/app/managers/narrative-manager.meta",
-          "hash": "13304362179954705894"
-        },
-        {
-          "file": "web/.next/server/app/managers/narrative-manager.rsc",
-          "hash": "9935993218233889258"
-        },
-        {
-          "file": "web/.next/server/app/managers/onchain-fundamentals-manager.html",
-          "hash": "3132168126355935575"
-        },
-        {
-          "file": "web/.next/server/app/managers/onchain-fundamentals-manager.meta",
-          "hash": "13221972022697946460"
-        },
-        {
-          "file": "web/.next/server/app/managers/onchain-fundamentals-manager.rsc",
-          "hash": "7391664577421447539"
-        },
-        {
-          "file": "web/.next/server/app/managers/page.js",
-          "hash": "12730088050953328209",
-          "deps": [
-            [
-              "npm:next",
-              "dynamic"
-            ]
-          ]
-        },
-        {
-          "file": "web/.next/server/app/managers/page.js.nft.json",
-          "hash": "15363367611520997108"
-        },
-        {
-          "file": "web/.next/server/app/managers/page_client-reference-manifest.js",
-          "hash": "6206890102564334259"
-        },
-        {
-          "file": "web/.next/server/app/managers/polymarket-specialist-manager.html",
-          "hash": "8170596724162226574"
-        },
-        {
-          "file": "web/.next/server/app/managers/polymarket-specialist-manager.meta",
-          "hash": "1320057355100095377"
-        },
-        {
-          "file": "web/.next/server/app/managers/polymarket-specialist-manager.rsc",
-          "hash": "16069286923111825001"
-        },
-        {
-          "file": "web/.next/server/app/managers/quant-manager.html",
-          "hash": "6027597580815539149"
-        },
-        {
-          "file": "web/.next/server/app/managers/quant-manager.meta",
-          "hash": "10074968773364374067"
-        },
-        {
-          "file": "web/.next/server/app/managers/quant-manager.rsc",
-          "hash": "11339687473136290040"
-        },
-        {
-          "file": "web/.next/server/app/opportunities.html",
-          "hash": "3076603315275816171"
-        },
-        {
-          "file": "web/.next/server/app/opportunities.meta",
-          "hash": "1438712662764644442"
-        },
-        {
-          "file": "web/.next/server/app/opportunities.rsc",
-          "hash": "11533952419459523448"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/[id]/page.js",
-          "hash": "17943730009523351498",
-          "deps": [
-            [
-              "npm:next",
-              "dynamic"
-            ]
-          ]
-        },
-        {
-          "file": "web/.next/server/app/opportunities/[id]/page.js.nft.json",
-          "hash": "12210309659957666460"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/[id]/page_client-reference-manifest.js",
-          "hash": "17590218268894104289"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/cmn8yflnm0001of2f1gx9wx2y.html",
-          "hash": "7084954125474095711"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/cmn8yflnm0001of2f1gx9wx2y.meta",
-          "hash": "15384317603615602670"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/cmn8yflnm0001of2f1gx9wx2y.rsc",
-          "hash": "11403280113888640648"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/cmn8yflqq002mof2frnnludyh.html",
-          "hash": "1785522874601624552"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/cmn8yflqq002mof2frnnludyh.meta",
-          "hash": "7612016174644878469"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/cmn8yflqq002mof2frnnludyh.rsc",
-          "hash": "11078823072486327070"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/cmn8yflrr0057of2f4zm1j7cd.html",
-          "hash": "1594193463658529272"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/cmn8yflrr0057of2f4zm1j7cd.meta",
-          "hash": "7951912900620156390"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/cmn8yflrr0057of2f4zm1j7cd.rsc",
-          "hash": "16090617468261101125"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/cmn8yflyi009xof2f2u1oh13e.html",
-          "hash": "15047039171559486558"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/cmn8yflyi009xof2f2u1oh13e.meta",
-          "hash": "3634208710288029025"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/cmn8yflyi009xof2f2u1oh13e.rsc",
-          "hash": "14810754736525467123"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/cmn8yfm6n00ciof2fgd2znlai.html",
-          "hash": "3735644790796176752"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/cmn8yfm6n00ciof2fgd2znlai.meta",
-          "hash": "1411818562660802402"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/cmn8yfm6n00ciof2fgd2znlai.rsc",
-          "hash": "13432979962262536763"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/cmn8yfmg600h8of2fvbucmsih.html",
-          "hash": "2875669948774117779"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/cmn8yfmg600h8of2fvbucmsih.meta",
-          "hash": "11306493598835870934"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/cmn8yfmg600h8of2fvbucmsih.rsc",
-          "hash": "5492959696162283064"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/cmn8yfmp600lyof2fhy2ffh9d.html",
-          "hash": "6003374995276900150"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/cmn8yfmp600lyof2fhy2ffh9d.meta",
-          "hash": "16254264279515877884"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/cmn8yfmp600lyof2fhy2ffh9d.rsc",
-          "hash": "1822409469627928894"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/cmn8yfmxa00qoof2fockl9nvb.html",
-          "hash": "14657437766332061161"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/cmn8yfmxa00qoof2fockl9nvb.meta",
-          "hash": "6933513236921005771"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/cmn8yfmxa00qoof2fockl9nvb.rsc",
-          "hash": "11147278797444583013"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/cmn8yfn4y00veof2ffvohp9j8.html",
-          "hash": "13173327248044809215"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/cmn8yfn4y00veof2ffvohp9j8.meta",
-          "hash": "15908046746461493563"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/cmn8yfn4y00veof2ffvohp9j8.rsc",
-          "hash": "16390648004292025516"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/cmn8yfnek00ymof2f0j1a2tdz.html",
-          "hash": "18243195443367477048"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/cmn8yfnek00ymof2f0j1a2tdz.meta",
-          "hash": "17135449513263817573"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/cmn8yfnek00ymof2f0j1a2tdz.rsc",
-          "hash": "16017972729728973116"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/cmn8yfnng013cof2fi1av00cd.html",
-          "hash": "7213010248393186235"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/cmn8yfnng013cof2fi1av00cd.meta",
-          "hash": "7689968484289978336"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/cmn8yfnng013cof2fi1av00cd.rsc",
-          "hash": "16760916938618381698"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/cmn8yfnvr0182of2fyemcd8xp.html",
-          "hash": "386852111976437221"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/cmn8yfnvr0182of2fyemcd8xp.meta",
-          "hash": "4058889160667796090"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/cmn8yfnvr0182of2fyemcd8xp.rsc",
-          "hash": "13423507876336872191"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/cmn8yfolz01csof2fpgetg28f.html",
-          "hash": "2625381293754135806"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/cmn8yfolz01csof2fpgetg28f.meta",
-          "hash": "14289749105456546349"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/cmn8yfolz01csof2fpgetg28f.rsc",
-          "hash": "12360126172399253134"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/cmn8yfp3201hgof2fidpgjrhq.html",
-          "hash": "9966585268235321210"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/cmn8yfp3201hgof2fidpgjrhq.meta",
-          "hash": "3624270623692654332"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/cmn8yfp3201hgof2fidpgjrhq.rsc",
-          "hash": "14059405048624516856"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/cmn8yfpif01m1of2fukudsb3p.html",
-          "hash": "2706884179306606312"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/cmn8yfpif01m1of2fukudsb3p.meta",
-          "hash": "5650447443203590858"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/cmn8yfpif01m1of2fukudsb3p.rsc",
-          "hash": "4221526058068455277"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/cmn8yfpvf01q4of2fpiru28dx.html",
-          "hash": "5064315977690490697"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/cmn8yfpvf01q4of2fpiru28dx.meta",
-          "hash": "12146497272208132371"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/cmn8yfpvf01q4of2fpiru28dx.rsc",
-          "hash": "17384232587312250376"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/cmn8yfq9p01usof2ffpzaqdg2.html",
-          "hash": "17343373269530376377"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/cmn8yfq9p01usof2ffpzaqdg2.meta",
-          "hash": "9469067251145993014"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/cmn8yfq9p01usof2ffpzaqdg2.rsc",
-          "hash": "7548453979435370420"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/cmn8yfqpp01z3of2f0zyf0164.html",
-          "hash": "15284327359260769824"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/cmn8yfqpp01z3of2f0zyf0164.meta",
-          "hash": "17762348306042470222"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/cmn8yfqpp01z3of2f0zyf0164.rsc",
-          "hash": "9951769692422673064"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/cmn8yfrmm023cof2fso84s0qc.html",
-          "hash": "4731358552226316854"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/cmn8yfrmm023cof2fso84s0qc.meta",
-          "hash": "10095669276012355601"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/cmn8yfrmm023cof2fso84s0qc.rsc",
-          "hash": "5340639468295676854"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/cmn8yfs3f027wof2fzd8djkzj.html",
-          "hash": "5930875764836321002"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/cmn8yfs3f027wof2fzd8djkzj.meta",
-          "hash": "11274965039926976451"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/cmn8yfs3f027wof2fzd8djkzj.rsc",
-          "hash": "6238884842573447974"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/cmn8yfsg8028jof2foa4e56uw.html",
-          "hash": "8446696366943146025"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/cmn8yfsg8028jof2foa4e56uw.meta",
-          "hash": "4552253509099503370"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/cmn8yfsg8028jof2foa4e56uw.rsc",
-          "hash": "10493428232414419691"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/cmn8yfssj02daof2fz1d6tfr5.html",
-          "hash": "8044597085045720395"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/cmn8yfssj02daof2fz1d6tfr5.meta",
-          "hash": "713036244081466388"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/cmn8yfssj02daof2fz1d6tfr5.rsc",
-          "hash": "7953613378033950269"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/cmn8yftch02hpof2fescadc1s.html",
-          "hash": "11165620582291249278"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/cmn8yftch02hpof2fescadc1s.meta",
-          "hash": "1610282460002694016"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/cmn8yftch02hpof2fescadc1s.rsc",
-          "hash": "706007770810334623"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/cmn8yftq302jdof2fl7vci7aa.html",
-          "hash": "2558007015925724155"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/cmn8yftq302jdof2fl7vci7aa.meta",
-          "hash": "15652604881058024167"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/cmn8yftq302jdof2fl7vci7aa.rsc",
-          "hash": "15843168061453029353"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/page.js",
-          "hash": "14068115708790580878",
-          "deps": [
-            [
-              "npm:next",
-              "dynamic"
-            ]
-          ]
-        },
-        {
-          "file": "web/.next/server/app/opportunities/page.js.nft.json",
-          "hash": "5988561179049498673"
-        },
-        {
-          "file": "web/.next/server/app/opportunities/page_client-reference-manifest.js",
-          "hash": "673294317504304957"
-        },
-        {
-          "file": "web/.next/server/app/page.js",
-          "hash": "796496202314068582",
-          "deps": [
-            [
-              "npm:next",
-              "dynamic"
-            ]
-          ]
-        },
-        {
-          "file": "web/.next/server/app/page.js.nft.json",
-          "hash": "10421596563790210257"
-        },
-        {
-          "file": "web/.next/server/app/page_client-reference-manifest.js",
-          "hash": "11382341008095971773"
-        },
-        {
-          "file": "web/.next/server/chunks/157.js",
-          "hash": "15304127380482853499"
-        },
-        {
-          "file": "web/.next/server/chunks/273.js",
-          "hash": "13412236841567544660"
-        },
-        {
-          "file": "web/.next/server/chunks/781.js",
-          "hash": "8274490582899558180"
-        },
-        {
-          "file": "web/.next/server/functions-config-manifest.json",
-          "hash": "18417749098027325250"
-        },
-        {
-          "file": "web/.next/server/interception-route-rewrite-manifest.js",
-          "hash": "10484309360224763022"
-        },
-        {
-          "file": "web/.next/server/middleware-build-manifest.js",
-          "hash": "10087042376963020870"
-        },
-        {
-          "file": "web/.next/server/middleware-manifest.json",
-          "hash": "9889576824779923310"
-        },
-        {
-          "file": "web/.next/server/middleware-react-loadable-manifest.js",
-          "hash": "9185069726031651908"
-        },
-        {
-          "file": "web/.next/server/next-font-manifest.js",
-          "hash": "16541577805185552134"
-        },
-        {
-          "file": "web/.next/server/next-font-manifest.json",
-          "hash": "11891788324563068681"
-        },
-        {
-          "file": "web/.next/server/pages-manifest.json",
-          "hash": "1389868326933519382"
-        },
-        {
-          "file": "web/.next/server/pages/404.html",
-          "hash": "4481308621044089059"
-        },
-        {
-          "file": "web/.next/server/pages/500.html",
-          "hash": "12743459402443527820"
-        },
-        {
-          "file": "web/.next/server/pages/_app.js",
-          "hash": "2782294626237527408",
-          "deps": [
-            [
-              "npm:react",
-              "dynamic"
-            ]
-          ]
-        },
-        {
-          "file": "web/.next/server/pages/_app.js.nft.json",
-          "hash": "11583129258981197872"
-        },
-        {
-          "file": "web/.next/server/pages/_document.js",
-          "hash": "2669387363976029618",
-          "deps": [
-            [
-              "npm:next",
-              "dynamic"
-            ],
-            [
-              "npm:react",
-              "dynamic"
-            ]
-          ]
-        },
-        {
-          "file": "web/.next/server/pages/_document.js.nft.json",
-          "hash": "9632568071717833151"
-        },
-        {
-          "file": "web/.next/server/pages/_error.js",
-          "hash": "347049460519053447",
-          "deps": [
-            [
-              "npm:next",
-              "dynamic"
-            ],
-            [
-              "npm:react",
-              "dynamic"
-            ]
-          ]
-        },
-        {
-          "file": "web/.next/server/pages/_error.js.nft.json",
-          "hash": "14452525144066906299"
-        },
-        {
-          "file": "web/.next/server/server-reference-manifest.js",
-          "hash": "13062913855343812063"
-        },
-        {
-          "file": "web/.next/server/server-reference-manifest.json",
-          "hash": "5970613626744416700"
-        },
-        {
-          "file": "web/.next/server/webpack-runtime.js",
-          "hash": "10505851258907960980"
-        },
-        {
-          "file": "web/.next/static/NUZ7fooLx6VsWl2jnaZu3/_buildManifest.js",
-          "hash": "12292452064906717114"
-        },
-        {
-          "file": "web/.next/static/NUZ7fooLx6VsWl2jnaZu3/_ssgManifest.js",
-          "hash": "2103547760195656471"
-        },
-        {
-          "file": "web/.next/static/chunks/131-44941cf6a71b57e9.js",
-          "hash": "15020369365529609641"
-        },
-        {
-          "file": "web/.next/static/chunks/197-58ecb5baa48e25dd.js",
-          "hash": "14334421287832650047"
-        },
-        {
-          "file": "web/.next/static/chunks/388-b7b43d5cdc596989.js",
-          "hash": "1677477780257898391"
-        },
-        {
-          "file": "web/.next/static/chunks/83607670-b63d9b78e5cee50f.js",
-          "hash": "949966366492151843"
-        },
-        {
-          "file": "web/.next/static/chunks/app/_not-found/page-d8395e18d189b17a.js",
-          "hash": "2244726745331249767"
-        },
-        {
-          "file": "web/.next/static/chunks/app/layout-77e489d6e015a2c7.js",
-          "hash": "3302632893220128647"
-        },
-        {
-          "file": "web/.next/static/chunks/app/leaderboard/page-540a7f9110b04483.js",
-          "hash": "98112430155729870"
-        },
-        {
-          "file": "web/.next/static/chunks/app/managers/[slug]/page-3f24818170c4ca0f.js",
-          "hash": "3871055967670163925"
-        },
-        {
-          "file": "web/.next/static/chunks/app/managers/page-e8e78ba82efda6fa.js",
-          "hash": "3947159082457095629"
-        },
-        {
-          "file": "web/.next/static/chunks/app/opportunities/[id]/page-9ee6c7f77df97d56.js",
-          "hash": "7822217261224502828"
-        },
-        {
-          "file": "web/.next/static/chunks/app/opportunities/page-7accaa106493b3ce.js",
-          "hash": "18245516309685257784"
-        },
-        {
-          "file": "web/.next/static/chunks/app/page-73af19e0ccce784a.js",
-          "hash": "2379426773250126742"
-        },
-        {
-          "file": "web/.next/static/chunks/c3f2cda1-6175e650bb09d94f.js",
-          "hash": "13602056059519300040"
-        },
-        {
-          "file": "web/.next/static/chunks/c7879cf7-b5ab1053c1d9a2e7.js",
-          "hash": "6711629933949069619"
-        },
-        {
-          "file": "web/.next/static/chunks/framework-9ad035430eed8b2b.js",
-          "hash": "4697397957752955547"
-        },
-        {
-          "file": "web/.next/static/chunks/main-app-0a511cacb4b73233.js",
-          "hash": "11360902868804874843"
-        },
-        {
-          "file": "web/.next/static/chunks/main-b6a92d4ce7bf187c.js",
-          "hash": "13576573971767178991"
-        },
-        {
-          "file": "web/.next/static/chunks/pages/_app-930c2e1cfe9b86bc.js",
-          "hash": "3085304791870828638"
-        },
-        {
-          "file": "web/.next/static/chunks/pages/_error-2a950c2742f550d2.js",
-          "hash": "18258752118752822082"
-        },
-        {
-          "file": "web/.next/static/chunks/polyfills-42372ed130431b0a.js",
-          "hash": "8152964857117933876"
-        },
-        {
-          "file": "web/.next/static/chunks/polyfills.js",
-          "hash": "8152964857117933876"
-        },
-        {
-          "file": "web/.next/static/chunks/webpack-a1fbf92d4b7bca00.js",
-          "hash": "14405655010577473444"
-        },
-        {
-          "file": "web/.next/static/css/daa7b57137f4b763.css",
-          "hash": "5019491608233284094"
-        },
-        {
-          "file": "web/.next/static/development/_buildManifest.js",
-          "hash": "2595516313715272730"
-        },
-        {
-          "file": "web/.next/static/development/_ssgManifest.js",
-          "hash": "17018243955171961484"
-        },
-        {
-          "file": "web/.next/static/media/26d4368bf94c0ec4-s.p.woff2",
-          "hash": "4619255680175106883"
-        },
-        {
-          "file": "web/.next/static/media/2801417b65625cf5-s.woff2",
-          "hash": "4599240760732176394"
-        },
-        {
-          "file": "web/.next/static/media/28793f5c5e3d822d-s.woff2",
-          "hash": "9137604034507838119"
-        },
-        {
-          "file": "web/.next/static/media/36966cca54120369-s.p.woff2",
-          "hash": "5975822321256779727"
-        },
-        {
-          "file": "web/.next/static/media/7b19b489dc6743ba-s.woff2",
-          "hash": "17487016941971723159"
-        },
-        {
-          "file": "web/.next/static/media/b3bf17a9041d9433-s.woff2",
-          "hash": "17981364108458375213"
-        },
-        {
-          "file": "web/.next/static/media/b7387a63dd068245-s.woff2",
-          "hash": "8152163975264871472"
-        },
-        {
-          "file": "web/.next/static/media/c9c3823090ec8b55-s.woff2",
-          "hash": "8764688631380558766"
-        },
-        {
-          "file": "web/.next/static/media/e1aab0933260df4d-s.woff2",
-          "hash": "2419557368995813171"
-        },
-        {
-          "file": "web/.next/trace",
-          "hash": "1899170542302939753"
-        },
-        {
-          "file": "web/.next/types/app/layout.ts",
-          "hash": "9644524382351783295",
-          "deps": [
-            "npm:next"
-          ]
-        },
-        {
-          "file": "web/.next/types/app/leaderboard/page.ts",
-          "hash": "3210922602061697581",
-          "deps": [
-            "npm:next"
-          ]
-        },
-        {
-          "file": "web/.next/types/app/managers/[slug]/page.ts",
-          "hash": "15963165992289926636",
-          "deps": [
-            "npm:next"
-          ]
-        },
-        {
-          "file": "web/.next/types/app/managers/page.ts",
-          "hash": "10848033570436951652",
-          "deps": [
-            "npm:next"
-          ]
-        },
-        {
-          "file": "web/.next/types/app/opportunities/[id]/page.ts",
-          "hash": "11418643128227138820",
-          "deps": [
-            "npm:next"
-          ]
-        },
-        {
-          "file": "web/.next/types/app/opportunities/page.ts",
-          "hash": "2789358117117461175",
-          "deps": [
-            "npm:next"
-          ]
-        },
-        {
-          "file": "web/.next/types/app/page.ts",
-          "hash": "9387519368569856883",
-          "deps": [
-            "npm:next"
-          ]
-        },
-        {
-          "file": "web/.next/types/cache-life.d.ts",
-          "hash": "4146217227981141382",
-          "deps": [
-            "npm:next"
-          ]
-        },
-        {
-          "file": "web/.next/types/package.json",
-          "hash": "6094546126370684104"
-        },
-        {
-          "file": "web/.next/types/routes.d.ts",
-          "hash": "14069033762938356282"
-        },
-        {
-          "file": "web/.next/types/validator.ts",
-          "hash": "15112878213923896472",
-          "deps": [
-            "npm:next"
-          ]
         },
         {
           "file": "web/.swcrc",
@@ -1127,7 +287,7 @@
         },
         {
           "file": "web/next.config.js",
-          "hash": "2126509825945616615",
+          "hash": "12741685102061271551",
           "deps": [
             "npm:@nx/next"
           ]
@@ -1138,107 +298,59 @@
         },
         {
           "file": "web/out/404.html",
-          "hash": "4481308621044089059"
+          "hash": "16518466224194071538"
         },
         {
           "file": "web/out/404/index.html",
-          "hash": "4481308621044089059"
+          "hash": "16518466224194071538"
         },
         {
-          "file": "web/out/_next/static/Mb7SNfsNTcneQKFQnRDtC/_buildManifest.js",
-          "hash": "12292452064906717114"
-        },
-        {
-          "file": "web/out/_next/static/Mb7SNfsNTcneQKFQnRDtC/_ssgManifest.js",
-          "hash": "2285259522902979167"
-        },
-        {
-          "file": "web/out/_next/static/NUZ7fooLx6VsWl2jnaZu3/_buildManifest.js",
-          "hash": "12292452064906717114"
-        },
-        {
-          "file": "web/out/_next/static/NUZ7fooLx6VsWl2jnaZu3/_ssgManifest.js",
-          "hash": "2103547760195656471"
-        },
-        {
-          "file": "web/out/_next/static/chunks/131-44941cf6a71b57e9.js",
-          "hash": "15020369365529609641"
+          "file": "web/out/_next/static/chunks/131-c9d365f0f0db2293.js",
+          "hash": "10872151025234441429"
         },
         {
           "file": "web/out/_next/static/chunks/197-58ecb5baa48e25dd.js",
           "hash": "14334421287832650047"
         },
         {
-          "file": "web/out/_next/static/chunks/388-b7b43d5cdc596989.js",
-          "hash": "1677477780257898391"
+          "file": "web/out/_next/static/chunks/388-d45eff1f00dc198d.js",
+          "hash": "18391836099059537270"
         },
         {
           "file": "web/out/_next/static/chunks/83607670-b63d9b78e5cee50f.js",
           "hash": "949966366492151843"
         },
         {
-          "file": "web/out/_next/static/chunks/app/_not-found/page-934bac47493305f7.js",
-          "hash": "14255510858219902231"
+          "file": "web/out/_next/static/chunks/app/_not-found/page-2cb3be0990d9c4c8.js",
+          "hash": "16064470492693556449"
         },
         {
-          "file": "web/out/_next/static/chunks/app/_not-found/page-d8395e18d189b17a.js",
-          "hash": "2244726745331249767"
+          "file": "web/out/_next/static/chunks/app/layout-49fe8ee7cc231556.js",
+          "hash": "504852602587782049"
         },
         {
-          "file": "web/out/_next/static/chunks/app/layout-60fd210edf824fa8.js",
-          "hash": "11491290793200283672"
+          "file": "web/out/_next/static/chunks/app/leaderboard/page-0c367ff6a87960de.js",
+          "hash": "18078838810980517210"
         },
         {
-          "file": "web/out/_next/static/chunks/app/layout-77e489d6e015a2c7.js",
-          "hash": "3302632893220128647"
+          "file": "web/out/_next/static/chunks/app/managers/[slug]/page-c9f1514c352c40b6.js",
+          "hash": "11285455777616998084"
         },
         {
-          "file": "web/out/_next/static/chunks/app/leaderboard/page-540a7f9110b04483.js",
-          "hash": "98112430155729870"
+          "file": "web/out/_next/static/chunks/app/managers/page-aa70e6aaa33a4315.js",
+          "hash": "2610988944727247958"
         },
         {
-          "file": "web/out/_next/static/chunks/app/leaderboard/page-cd589a7860b5f6ea.js",
-          "hash": "8789543993354135927"
+          "file": "web/out/_next/static/chunks/app/opportunities/detail/page-efde082aec8bc354.js",
+          "hash": "2552160886676251426"
         },
         {
-          "file": "web/out/_next/static/chunks/app/managers/[slug]/page-3f24818170c4ca0f.js",
-          "hash": "3871055967670163925"
+          "file": "web/out/_next/static/chunks/app/opportunities/page-ecc52bf93541e5d0.js",
+          "hash": "9806210586690183220"
         },
         {
-          "file": "web/out/_next/static/chunks/app/managers/[slug]/page-a3da5b6f43441c0b.js",
-          "hash": "9958638266333760682"
-        },
-        {
-          "file": "web/out/_next/static/chunks/app/managers/page-cd589a7860b5f6ea.js",
-          "hash": "8789543993354135927"
-        },
-        {
-          "file": "web/out/_next/static/chunks/app/managers/page-e8e78ba82efda6fa.js",
-          "hash": "3947159082457095629"
-        },
-        {
-          "file": "web/out/_next/static/chunks/app/opportunities/[id]/page-9ee6c7f77df97d56.js",
-          "hash": "7822217261224502828"
-        },
-        {
-          "file": "web/out/_next/static/chunks/app/opportunities/[id]/page-cd589a7860b5f6ea.js",
-          "hash": "8789543993354135927"
-        },
-        {
-          "file": "web/out/_next/static/chunks/app/opportunities/page-7accaa106493b3ce.js",
-          "hash": "18245516309685257784"
-        },
-        {
-          "file": "web/out/_next/static/chunks/app/opportunities/page-cd589a7860b5f6ea.js",
-          "hash": "8789543993354135927"
-        },
-        {
-          "file": "web/out/_next/static/chunks/app/page-73af19e0ccce784a.js",
-          "hash": "2379426773250126742"
-        },
-        {
-          "file": "web/out/_next/static/chunks/app/page-e3a876b53d3f2556.js",
-          "hash": "2654159231223913087"
+          "file": "web/out/_next/static/chunks/app/page-474ba7bbc3845482.js",
+          "hash": "17053841125153981852"
         },
         {
           "file": "web/out/_next/static/chunks/c3f2cda1-6175e650bb09d94f.js",
@@ -1253,16 +365,12 @@
           "hash": "4697397957752955547"
         },
         {
-          "file": "web/out/_next/static/chunks/main-app-0a511cacb4b73233.js",
-          "hash": "11360902868804874843"
+          "file": "web/out/_next/static/chunks/main-76d9f7c92cd20bd0.js",
+          "hash": "15681877179432043534"
         },
         {
-          "file": "web/out/_next/static/chunks/main-app-64418d95a0c05899.js",
-          "hash": "17090365284393996116"
-        },
-        {
-          "file": "web/out/_next/static/chunks/main-b6a92d4ce7bf187c.js",
-          "hash": "13576573971767178991"
+          "file": "web/out/_next/static/chunks/main-app-e19b563abb74d746.js",
+          "hash": "8697801361313395089"
         },
         {
           "file": "web/out/_next/static/chunks/pages/_app-930c2e1cfe9b86bc.js",
@@ -1277,52 +385,776 @@
           "hash": "8152964857117933876"
         },
         {
-          "file": "web/out/_next/static/chunks/webpack-4304d9270ffa014e.js",
-          "hash": "13439892879082572056"
+          "file": "web/out/_next/static/chunks/webpack-4c31c3e63bffdd89.js",
+          "hash": "5807900719872921971"
         },
         {
-          "file": "web/out/_next/static/chunks/webpack-a1fbf92d4b7bca00.js",
-          "hash": "14405655010577473444"
+          "file": "web/out/_next/static/css/ba33195cfef98137.css",
+          "hash": "389036784147621315"
         },
         {
-          "file": "web/out/_next/static/css/daa7b57137f4b763.css",
-          "hash": "5019491608233284094"
+          "file": "web/out/_next/static/qmmDE-l-dEMfSjjWIaymC/_buildManifest.js",
+          "hash": "2154745696039047994"
         },
         {
-          "file": "web/out/_next/static/media/26d4368bf94c0ec4-s.p.woff2",
-          "hash": "4619255680175106883"
+          "file": "web/out/_next/static/qmmDE-l-dEMfSjjWIaymC/_ssgManifest.js",
+          "hash": "16998061376889089516"
         },
         {
-          "file": "web/out/_next/static/media/2801417b65625cf5-s.woff2",
-          "hash": "4599240760732176394"
+          "file": "web/out/data/leaderboard/managers.json",
+          "hash": "11262867078551311976"
         },
         {
-          "file": "web/out/_next/static/media/28793f5c5e3d822d-s.woff2",
-          "hash": "9137604034507838119"
+          "file": "web/out/data/leaderboard/opportunities.json",
+          "hash": "13502742382097831801"
         },
         {
-          "file": "web/out/_next/static/media/36966cca54120369-s.p.woff2",
-          "hash": "5975822321256779727"
+          "file": "web/out/data/managers.json",
+          "hash": "17769003162792054004"
         },
         {
-          "file": "web/out/_next/static/media/7b19b489dc6743ba-s.woff2",
-          "hash": "17487016941971723159"
+          "file": "web/out/data/managers/event-driven-manager.json",
+          "hash": "11548380651906185330"
         },
         {
-          "file": "web/out/_next/static/media/b3bf17a9041d9433-s.woff2",
-          "hash": "17981364108458375213"
+          "file": "web/out/data/managers/event-driven-manager/memos.json",
+          "hash": "18302208651283099525"
         },
         {
-          "file": "web/out/_next/static/media/b7387a63dd068245-s.woff2",
-          "hash": "8152163975264871472"
+          "file": "web/out/data/managers/event-driven-manager/portfolio.json",
+          "hash": "13590067893810713679"
         },
         {
-          "file": "web/out/_next/static/media/c9c3823090ec8b55-s.woff2",
-          "hash": "8764688631380558766"
+          "file": "web/out/data/managers/event-driven-manager/rebalances.json",
+          "hash": "17599539236294873805"
         },
         {
-          "file": "web/out/_next/static/media/e1aab0933260df4d-s.woff2",
-          "hash": "2419557368995813171"
+          "file": "web/out/data/managers/event-driven-manager/reviews.json",
+          "hash": "11516645753921057828"
+        },
+        {
+          "file": "web/out/data/managers/hybrid-manager.json",
+          "hash": "14810045287575097852"
+        },
+        {
+          "file": "web/out/data/managers/hybrid-manager/memos.json",
+          "hash": "6705367795442402870"
+        },
+        {
+          "file": "web/out/data/managers/hybrid-manager/portfolio.json",
+          "hash": "3807657804602556013"
+        },
+        {
+          "file": "web/out/data/managers/hybrid-manager/rebalances.json",
+          "hash": "4049880835579275375"
+        },
+        {
+          "file": "web/out/data/managers/hybrid-manager/reviews.json",
+          "hash": "11516645753921057828"
+        },
+        {
+          "file": "web/out/data/managers/narrative-manager.json",
+          "hash": "13744954230058354871"
+        },
+        {
+          "file": "web/out/data/managers/narrative-manager/memos.json",
+          "hash": "7651073347584579796"
+        },
+        {
+          "file": "web/out/data/managers/narrative-manager/portfolio.json",
+          "hash": "12074826680886290034"
+        },
+        {
+          "file": "web/out/data/managers/narrative-manager/rebalances.json",
+          "hash": "8960427952125345560"
+        },
+        {
+          "file": "web/out/data/managers/narrative-manager/reviews.json",
+          "hash": "11516645753921057828"
+        },
+        {
+          "file": "web/out/data/managers/onchain-fundamentals-manager.json",
+          "hash": "9466640288455848256"
+        },
+        {
+          "file": "web/out/data/managers/onchain-fundamentals-manager/memos.json",
+          "hash": "8842123724236273164"
+        },
+        {
+          "file": "web/out/data/managers/onchain-fundamentals-manager/portfolio.json",
+          "hash": "7107482773989269384"
+        },
+        {
+          "file": "web/out/data/managers/onchain-fundamentals-manager/rebalances.json",
+          "hash": "11436394423025671231"
+        },
+        {
+          "file": "web/out/data/managers/onchain-fundamentals-manager/reviews.json",
+          "hash": "11516645753921057828"
+        },
+        {
+          "file": "web/out/data/managers/polymarket-specialist-manager.json",
+          "hash": "11119655143104073053"
+        },
+        {
+          "file": "web/out/data/managers/polymarket-specialist-manager/memos.json",
+          "hash": "10985658989281614853"
+        },
+        {
+          "file": "web/out/data/managers/polymarket-specialist-manager/portfolio.json",
+          "hash": "15936746457487314177"
+        },
+        {
+          "file": "web/out/data/managers/polymarket-specialist-manager/rebalances.json",
+          "hash": "3384699208462638743"
+        },
+        {
+          "file": "web/out/data/managers/polymarket-specialist-manager/reviews.json",
+          "hash": "11516645753921057828"
+        },
+        {
+          "file": "web/out/data/managers/quant-manager.json",
+          "hash": "14193614858080058353"
+        },
+        {
+          "file": "web/out/data/managers/quant-manager/memos.json",
+          "hash": "16643291210304601234"
+        },
+        {
+          "file": "web/out/data/managers/quant-manager/portfolio.json",
+          "hash": "1182778332947214571"
+        },
+        {
+          "file": "web/out/data/managers/quant-manager/rebalances.json",
+          "hash": "3795140544918106515"
+        },
+        {
+          "file": "web/out/data/managers/quant-manager/reviews.json",
+          "hash": "11516645753921057828"
+        },
+        {
+          "file": "web/out/data/opportunities.json",
+          "hash": "4855520348238945591"
+        },
+        {
+          "file": "web/out/data/opportunities/bitcoin-btc.json",
+          "hash": "9628970116300958096"
+        },
+        {
+          "file": "web/out/data/opportunities/bitcoin-btc/history.json",
+          "hash": "17756786940189920928"
+        },
+        {
+          "file": "web/out/data/opportunities/bitcoin-btc/managers.json",
+          "hash": "12549037098668906287"
+        },
+        {
+          "file": "web/out/data/opportunities/bitcoin-btc/news.json",
+          "hash": "11745213003521741378"
+        },
+        {
+          "file": "web/out/data/opportunities/bitcoin-btc/signals.json",
+          "hash": "13457352927253520674"
+        },
+        {
+          "file": "web/out/data/opportunities/bnb-bnb.json",
+          "hash": "8008972195850475934"
+        },
+        {
+          "file": "web/out/data/opportunities/bnb-bnb/history.json",
+          "hash": "694011200062125586"
+        },
+        {
+          "file": "web/out/data/opportunities/bnb-bnb/managers.json",
+          "hash": "5595463290115731091"
+        },
+        {
+          "file": "web/out/data/opportunities/bnb-bnb/news.json",
+          "hash": "9444422325801888874"
+        },
+        {
+          "file": "web/out/data/opportunities/bnb-bnb/signals.json",
+          "hash": "8764140034984074778"
+        },
+        {
+          "file": "web/out/data/opportunities/cbb-mst-uconn-2026-03-27.json",
+          "hash": "650082686647853829"
+        },
+        {
+          "file": "web/out/data/opportunities/cbb-mst-uconn-2026-03-27/history.json",
+          "hash": "15349079599058114788"
+        },
+        {
+          "file": "web/out/data/opportunities/cbb-mst-uconn-2026-03-27/managers.json",
+          "hash": "4007163505872924203"
+        },
+        {
+          "file": "web/out/data/opportunities/cbb-mst-uconn-2026-03-27/news.json",
+          "hash": "9444422325801888874"
+        },
+        {
+          "file": "web/out/data/opportunities/cbb-mst-uconn-2026-03-27/signals.json",
+          "hash": "9407552822859536855"
+        },
+        {
+          "file": "web/out/data/opportunities/cbb-stjohn-duke-2026-03-27.json",
+          "hash": "16267049514223138868"
+        },
+        {
+          "file": "web/out/data/opportunities/cbb-stjohn-duke-2026-03-27/history.json",
+          "hash": "11317898291479883600"
+        },
+        {
+          "file": "web/out/data/opportunities/cbb-stjohn-duke-2026-03-27/managers.json",
+          "hash": "11789046850413498711"
+        },
+        {
+          "file": "web/out/data/opportunities/cbb-stjohn-duke-2026-03-27/news.json",
+          "hash": "9444422325801888874"
+        },
+        {
+          "file": "web/out/data/opportunities/cbb-stjohn-duke-2026-03-27/signals.json",
+          "hash": "4017554199483361668"
+        },
+        {
+          "file": "web/out/data/opportunities/cbb-tenn-iowast-2026-03-27.json",
+          "hash": "9060112527230985725"
+        },
+        {
+          "file": "web/out/data/opportunities/cbb-tenn-iowast-2026-03-27/history.json",
+          "hash": "3028652081959824587"
+        },
+        {
+          "file": "web/out/data/opportunities/cbb-tenn-iowast-2026-03-27/managers.json",
+          "hash": "8172682935804506787"
+        },
+        {
+          "file": "web/out/data/opportunities/cbb-tenn-iowast-2026-03-27/news.json",
+          "hash": "9444422325801888874"
+        },
+        {
+          "file": "web/out/data/opportunities/cbb-tenn-iowast-2026-03-27/signals.json",
+          "hash": "9555107219520704416"
+        },
+        {
+          "file": "web/out/data/opportunities/dogecoin-doge.json",
+          "hash": "10377108274265468655"
+        },
+        {
+          "file": "web/out/data/opportunities/dogecoin-doge/history.json",
+          "hash": "3927143291617665893"
+        },
+        {
+          "file": "web/out/data/opportunities/dogecoin-doge/managers.json",
+          "hash": "16073396220125932565"
+        },
+        {
+          "file": "web/out/data/opportunities/dogecoin-doge/news.json",
+          "hash": "9444422325801888874"
+        },
+        {
+          "file": "web/out/data/opportunities/dogecoin-doge/signals.json",
+          "hash": "13606512699188828896"
+        },
+        {
+          "file": "web/out/data/opportunities/ethereum-eth.json",
+          "hash": "8298475895405046592"
+        },
+        {
+          "file": "web/out/data/opportunities/ethereum-eth/history.json",
+          "hash": "1568050024176159479"
+        },
+        {
+          "file": "web/out/data/opportunities/ethereum-eth/managers.json",
+          "hash": "18298654276593016607"
+        },
+        {
+          "file": "web/out/data/opportunities/ethereum-eth/news.json",
+          "hash": "10523748128494910705"
+        },
+        {
+          "file": "web/out/data/opportunities/ethereum-eth/signals.json",
+          "hash": "5403690300286238795"
+        },
+        {
+          "file": "web/out/data/opportunities/figure-heloc-figr-heloc.json",
+          "hash": "8011745613032653025"
+        },
+        {
+          "file": "web/out/data/opportunities/figure-heloc-figr-heloc/history.json",
+          "hash": "13070876788590663681"
+        },
+        {
+          "file": "web/out/data/opportunities/figure-heloc-figr-heloc/managers.json",
+          "hash": "1888624193216724363"
+        },
+        {
+          "file": "web/out/data/opportunities/figure-heloc-figr-heloc/news.json",
+          "hash": "9444422325801888874"
+        },
+        {
+          "file": "web/out/data/opportunities/figure-heloc-figr-heloc/signals.json",
+          "hash": "11840024980331421094"
+        },
+        {
+          "file": "web/out/data/opportunities/nba-atl-bos-2026-03-27.json",
+          "hash": "6916524041514134443"
+        },
+        {
+          "file": "web/out/data/opportunities/nba-atl-bos-2026-03-27/history.json",
+          "hash": "5473498882936631319"
+        },
+        {
+          "file": "web/out/data/opportunities/nba-atl-bos-2026-03-27/managers.json",
+          "hash": "16511681441530792763"
+        },
+        {
+          "file": "web/out/data/opportunities/nba-atl-bos-2026-03-27/news.json",
+          "hash": "9444422325801888874"
+        },
+        {
+          "file": "web/out/data/opportunities/nba-atl-bos-2026-03-27/signals.json",
+          "hash": "5000671529674277855"
+        },
+        {
+          "file": "web/out/data/opportunities/nba-chi-okc-2026-03-27.json",
+          "hash": "17428320835656265159"
+        },
+        {
+          "file": "web/out/data/opportunities/nba-chi-okc-2026-03-27/history.json",
+          "hash": "1153515735843113667"
+        },
+        {
+          "file": "web/out/data/opportunities/nba-chi-okc-2026-03-27/managers.json",
+          "hash": "12926738924730502709"
+        },
+        {
+          "file": "web/out/data/opportunities/nba-chi-okc-2026-03-27/news.json",
+          "hash": "9444422325801888874"
+        },
+        {
+          "file": "web/out/data/opportunities/nba-chi-okc-2026-03-27/signals.json",
+          "hash": "7550272492390609807"
+        },
+        {
+          "file": "web/out/data/opportunities/nba-lac-ind-2026-03-27.json",
+          "hash": "15915791989297932646"
+        },
+        {
+          "file": "web/out/data/opportunities/nba-lac-ind-2026-03-27/history.json",
+          "hash": "1927506070703697416"
+        },
+        {
+          "file": "web/out/data/opportunities/nba-lac-ind-2026-03-27/managers.json",
+          "hash": "8291688065916637342"
+        },
+        {
+          "file": "web/out/data/opportunities/nba-lac-ind-2026-03-27/news.json",
+          "hash": "9444422325801888874"
+        },
+        {
+          "file": "web/out/data/opportunities/nba-lac-ind-2026-03-27/signals.json",
+          "hash": "16126923130583681005"
+        },
+        {
+          "file": "web/out/data/opportunities/nba-nop-tor-2026-03-27.json",
+          "hash": "13492845197286768239"
+        },
+        {
+          "file": "web/out/data/opportunities/nba-nop-tor-2026-03-27/history.json",
+          "hash": "13637924152204410568"
+        },
+        {
+          "file": "web/out/data/opportunities/nba-nop-tor-2026-03-27/managers.json",
+          "hash": "191732309216670116"
+        },
+        {
+          "file": "web/out/data/opportunities/nba-nop-tor-2026-03-27/news.json",
+          "hash": "9444422325801888874"
+        },
+        {
+          "file": "web/out/data/opportunities/nba-nop-tor-2026-03-27/signals.json",
+          "hash": "14191159091852161077"
+        },
+        {
+          "file": "web/out/data/opportunities/nba-uta-den-2026-03-27.json",
+          "hash": "12914022336731136583"
+        },
+        {
+          "file": "web/out/data/opportunities/nba-uta-den-2026-03-27/history.json",
+          "hash": "7382947367790219475"
+        },
+        {
+          "file": "web/out/data/opportunities/nba-uta-den-2026-03-27/managers.json",
+          "hash": "4067865726929794692"
+        },
+        {
+          "file": "web/out/data/opportunities/nba-uta-den-2026-03-27/news.json",
+          "hash": "9444422325801888874"
+        },
+        {
+          "file": "web/out/data/opportunities/nba-uta-den-2026-03-27/signals.json",
+          "hash": "6860801351519004750"
+        },
+        {
+          "file": "web/out/data/opportunities/netanyahu-out-by-march-31-854.json",
+          "hash": "3609331801253039951"
+        },
+        {
+          "file": "web/out/data/opportunities/netanyahu-out-by-march-31-854/history.json",
+          "hash": "6582396594906989909"
+        },
+        {
+          "file": "web/out/data/opportunities/netanyahu-out-by-march-31-854/managers.json",
+          "hash": "4343735625849996207"
+        },
+        {
+          "file": "web/out/data/opportunities/netanyahu-out-by-march-31-854/news.json",
+          "hash": "9444422325801888874"
+        },
+        {
+          "file": "web/out/data/opportunities/netanyahu-out-by-march-31-854/signals.json",
+          "hash": "10805819455995881654"
+        },
+        {
+          "file": "web/out/data/opportunities/solana-sol.json",
+          "hash": "7493605006347781430"
+        },
+        {
+          "file": "web/out/data/opportunities/solana-sol/history.json",
+          "hash": "238511209654363654"
+        },
+        {
+          "file": "web/out/data/opportunities/solana-sol/managers.json",
+          "hash": "12014507306148063840"
+        },
+        {
+          "file": "web/out/data/opportunities/solana-sol/news.json",
+          "hash": "15221195222683041634"
+        },
+        {
+          "file": "web/out/data/opportunities/solana-sol/signals.json",
+          "hash": "10992696568539142772"
+        },
+        {
+          "file": "web/out/data/opportunities/tether-usdt.json",
+          "hash": "11207810723087329061"
+        },
+        {
+          "file": "web/out/data/opportunities/tether-usdt/history.json",
+          "hash": "1118329557891273180"
+        },
+        {
+          "file": "web/out/data/opportunities/tether-usdt/managers.json",
+          "hash": "1168150304230291144"
+        },
+        {
+          "file": "web/out/data/opportunities/tether-usdt/news.json",
+          "hash": "3005990679592726004"
+        },
+        {
+          "file": "web/out/data/opportunities/tether-usdt/signals.json",
+          "hash": "1147296565095874768"
+        },
+        {
+          "file": "web/out/data/opportunities/tron-trx.json",
+          "hash": "15277867191207100189"
+        },
+        {
+          "file": "web/out/data/opportunities/tron-trx/history.json",
+          "hash": "2786509902032767717"
+        },
+        {
+          "file": "web/out/data/opportunities/tron-trx/managers.json",
+          "hash": "8338635355396324780"
+        },
+        {
+          "file": "web/out/data/opportunities/tron-trx/news.json",
+          "hash": "9444422325801888874"
+        },
+        {
+          "file": "web/out/data/opportunities/tron-trx/signals.json",
+          "hash": "1837130672539574951"
+        },
+        {
+          "file": "web/out/data/opportunities/us-forces-enter-iran-by-march-31-222-191-243-517-878-439-519.json",
+          "hash": "1951114239028185447"
+        },
+        {
+          "file": "web/out/data/opportunities/us-forces-enter-iran-by-march-31-222-191-243-517-878-439-519/history.json",
+          "hash": "11778525576604438887"
+        },
+        {
+          "file": "web/out/data/opportunities/us-forces-enter-iran-by-march-31-222-191-243-517-878-439-519/managers.json",
+          "hash": "6938132325457999036"
+        },
+        {
+          "file": "web/out/data/opportunities/us-forces-enter-iran-by-march-31-222-191-243-517-878-439-519/news.json",
+          "hash": "9444422325801888874"
+        },
+        {
+          "file": "web/out/data/opportunities/us-forces-enter-iran-by-march-31-222-191-243-517-878-439-519/signals.json",
+          "hash": "2774516066975603075"
+        },
+        {
+          "file": "web/out/data/opportunities/us-x-iran-ceasefire-by-march-31.json",
+          "hash": "9075571121797828433"
+        },
+        {
+          "file": "web/out/data/opportunities/us-x-iran-ceasefire-by-march-31/history.json",
+          "hash": "10407305521365986606"
+        },
+        {
+          "file": "web/out/data/opportunities/us-x-iran-ceasefire-by-march-31/managers.json",
+          "hash": "1554526754353455644"
+        },
+        {
+          "file": "web/out/data/opportunities/us-x-iran-ceasefire-by-march-31/news.json",
+          "hash": "9444422325801888874"
+        },
+        {
+          "file": "web/out/data/opportunities/us-x-iran-ceasefire-by-march-31/signals.json",
+          "hash": "3947725608932239877"
+        },
+        {
+          "file": "web/out/data/opportunities/usdc-usdc.json",
+          "hash": "6336478298146737710"
+        },
+        {
+          "file": "web/out/data/opportunities/usdc-usdc/history.json",
+          "hash": "17217924152797141322"
+        },
+        {
+          "file": "web/out/data/opportunities/usdc-usdc/managers.json",
+          "hash": "6957322456138592325"
+        },
+        {
+          "file": "web/out/data/opportunities/usdc-usdc/news.json",
+          "hash": "7154805383363121831"
+        },
+        {
+          "file": "web/out/data/opportunities/usdc-usdc/signals.json",
+          "hash": "15272692044335954395"
+        },
+        {
+          "file": "web/out/data/opportunities/usds-usds.json",
+          "hash": "1837084224570205876"
+        },
+        {
+          "file": "web/out/data/opportunities/usds-usds/history.json",
+          "hash": "7878527708952482843"
+        },
+        {
+          "file": "web/out/data/opportunities/usds-usds/managers.json",
+          "hash": "11487741789414027462"
+        },
+        {
+          "file": "web/out/data/opportunities/usds-usds/news.json",
+          "hash": "9444422325801888874"
+        },
+        {
+          "file": "web/out/data/opportunities/usds-usds/signals.json",
+          "hash": "13419119299052755956"
+        },
+        {
+          "file": "web/out/data/opportunities/whitebit-coin-wbt.json",
+          "hash": "5593475346962979664"
+        },
+        {
+          "file": "web/out/data/opportunities/whitebit-coin-wbt/history.json",
+          "hash": "11759916847248732540"
+        },
+        {
+          "file": "web/out/data/opportunities/whitebit-coin-wbt/managers.json",
+          "hash": "4903533354860920550"
+        },
+        {
+          "file": "web/out/data/opportunities/whitebit-coin-wbt/news.json",
+          "hash": "9444422325801888874"
+        },
+        {
+          "file": "web/out/data/opportunities/whitebit-coin-wbt/signals.json",
+          "hash": "6941520690617732727"
+        },
+        {
+          "file": "web/out/data/opportunities/will-a-tron-trx-etf-be-approved-in-2026.json",
+          "hash": "18023471101991300223"
+        },
+        {
+          "file": "web/out/data/opportunities/will-a-tron-trx-etf-be-approved-in-2026/history.json",
+          "hash": "9444422325801888874"
+        },
+        {
+          "file": "web/out/data/opportunities/will-a-tron-trx-etf-be-approved-in-2026/managers.json",
+          "hash": "10490306783754745595"
+        },
+        {
+          "file": "web/out/data/opportunities/will-a-tron-trx-etf-be-approved-in-2026/news.json",
+          "hash": "9444422325801888874"
+        },
+        {
+          "file": "web/out/data/opportunities/will-a-tron-trx-etf-be-approved-in-2026/signals.json",
+          "hash": "13517436751224317993"
+        },
+        {
+          "file": "web/out/data/opportunities/will-bitcoin-reach-100k-by-end-of-2026.json",
+          "hash": "7893681136427327368"
+        },
+        {
+          "file": "web/out/data/opportunities/will-bitcoin-reach-100k-by-end-of-2026/history.json",
+          "hash": "9444422325801888874"
+        },
+        {
+          "file": "web/out/data/opportunities/will-bitcoin-reach-100k-by-end-of-2026/managers.json",
+          "hash": "11004818276658698702"
+        },
+        {
+          "file": "web/out/data/opportunities/will-bitcoin-reach-100k-by-end-of-2026/news.json",
+          "hash": "9444422325801888874"
+        },
+        {
+          "file": "web/out/data/opportunities/will-bitcoin-reach-100k-by-end-of-2026/signals.json",
+          "hash": "7239517727742030678"
+        },
+        {
+          "file": "web/out/data/opportunities/will-defi-total-tvl-exceed-100-billion-in-2026.json",
+          "hash": "4213355746447360338"
+        },
+        {
+          "file": "web/out/data/opportunities/will-defi-total-tvl-exceed-100-billion-in-2026/history.json",
+          "hash": "9444422325801888874"
+        },
+        {
+          "file": "web/out/data/opportunities/will-defi-total-tvl-exceed-100-billion-in-2026/managers.json",
+          "hash": "10747876704747429459"
+        },
+        {
+          "file": "web/out/data/opportunities/will-defi-total-tvl-exceed-100-billion-in-2026/news.json",
+          "hash": "9444422325801888874"
+        },
+        {
+          "file": "web/out/data/opportunities/will-defi-total-tvl-exceed-100-billion-in-2026/signals.json",
+          "hash": "7590838413230357933"
+        },
+        {
+          "file": "web/out/data/opportunities/will-ethereum-reach-5000-by-end-of-2026.json",
+          "hash": "2402194026053074404"
+        },
+        {
+          "file": "web/out/data/opportunities/will-ethereum-reach-5000-by-end-of-2026/history.json",
+          "hash": "9444422325801888874"
+        },
+        {
+          "file": "web/out/data/opportunities/will-ethereum-reach-5000-by-end-of-2026/managers.json",
+          "hash": "9011926838109411902"
+        },
+        {
+          "file": "web/out/data/opportunities/will-ethereum-reach-5000-by-end-of-2026/news.json",
+          "hash": "9444422325801888874"
+        },
+        {
+          "file": "web/out/data/opportunities/will-ethereum-reach-5000-by-end-of-2026/signals.json",
+          "hash": "5460492327136494466"
+        },
+        {
+          "file": "web/out/data/opportunities/will-haiti-win-the-2026-fifa-world-cup.json",
+          "hash": "18075176893150896359"
+        },
+        {
+          "file": "web/out/data/opportunities/will-haiti-win-the-2026-fifa-world-cup/history.json",
+          "hash": "1003430916208005224"
+        },
+        {
+          "file": "web/out/data/opportunities/will-haiti-win-the-2026-fifa-world-cup/managers.json",
+          "hash": "15940534727053166374"
+        },
+        {
+          "file": "web/out/data/opportunities/will-haiti-win-the-2026-fifa-world-cup/news.json",
+          "hash": "9444422325801888874"
+        },
+        {
+          "file": "web/out/data/opportunities/will-haiti-win-the-2026-fifa-world-cup/signals.json",
+          "hash": "3651049668608118132"
+        },
+        {
+          "file": "web/out/data/opportunities/will-solana-reach-200-by-q2-2026.json",
+          "hash": "17701807481730261808"
+        },
+        {
+          "file": "web/out/data/opportunities/will-solana-reach-200-by-q2-2026/history.json",
+          "hash": "9444422325801888874"
+        },
+        {
+          "file": "web/out/data/opportunities/will-solana-reach-200-by-q2-2026/managers.json",
+          "hash": "5048638208831695845"
+        },
+        {
+          "file": "web/out/data/opportunities/will-solana-reach-200-by-q2-2026/news.json",
+          "hash": "9444422325801888874"
+        },
+        {
+          "file": "web/out/data/opportunities/will-solana-reach-200-by-q2-2026/signals.json",
+          "hash": "11872615553376947620"
+        },
+        {
+          "file": "web/out/data/opportunities/will-the-iranian-regime-fall-by-march-31.json",
+          "hash": "6460243202662379551"
+        },
+        {
+          "file": "web/out/data/opportunities/will-the-iranian-regime-fall-by-march-31/history.json",
+          "hash": "17934876171808815427"
+        },
+        {
+          "file": "web/out/data/opportunities/will-the-iranian-regime-fall-by-march-31/managers.json",
+          "hash": "15401215438460263619"
+        },
+        {
+          "file": "web/out/data/opportunities/will-the-iranian-regime-fall-by-march-31/news.json",
+          "hash": "9444422325801888874"
+        },
+        {
+          "file": "web/out/data/opportunities/will-the-iranian-regime-fall-by-march-31/signals.json",
+          "hash": "5202288954742968733"
+        },
+        {
+          "file": "web/out/data/opportunities/will-total-crypto-market-cap-reach-5-trillion-in-2026.json",
+          "hash": "9052364205302390482"
+        },
+        {
+          "file": "web/out/data/opportunities/will-total-crypto-market-cap-reach-5-trillion-in-2026/history.json",
+          "hash": "9444422325801888874"
+        },
+        {
+          "file": "web/out/data/opportunities/will-total-crypto-market-cap-reach-5-trillion-in-2026/managers.json",
+          "hash": "15953061938102525108"
+        },
+        {
+          "file": "web/out/data/opportunities/will-total-crypto-market-cap-reach-5-trillion-in-2026/news.json",
+          "hash": "9444422325801888874"
+        },
+        {
+          "file": "web/out/data/opportunities/will-total-crypto-market-cap-reach-5-trillion-in-2026/signals.json",
+          "hash": "4386029204126608091"
+        },
+        {
+          "file": "web/out/data/opportunities/xrp-xrp.json",
+          "hash": "17439906698497339586"
+        },
+        {
+          "file": "web/out/data/opportunities/xrp-xrp/history.json",
+          "hash": "17238312041481611368"
+        },
+        {
+          "file": "web/out/data/opportunities/xrp-xrp/managers.json",
+          "hash": "6959992056634800707"
+        },
+        {
+          "file": "web/out/data/opportunities/xrp-xrp/news.json",
+          "hash": "16995765095112876093"
+        },
+        {
+          "file": "web/out/data/opportunities/xrp-xrp/signals.json",
+          "hash": "13233142220359623008"
         },
         {
           "file": "web/out/favicon.ico",
@@ -1338,275 +1170,91 @@
         },
         {
           "file": "web/out/index.html",
-          "hash": "4845242653265723546"
+          "hash": "4236087204666354985"
         },
         {
           "file": "web/out/index.txt",
-          "hash": "7331291277780029525"
+          "hash": "15857293066698127259"
         },
         {
           "file": "web/out/leaderboard/index.html",
-          "hash": "10152457437857263461"
+          "hash": "8971872551432838987"
         },
         {
           "file": "web/out/leaderboard/index.txt",
-          "hash": "2985002231993657025"
+          "hash": "14683862364954096324"
         },
         {
           "file": "web/out/managers/event-driven-manager/index.html",
-          "hash": "12683459622836672940"
+          "hash": "14208354925794806208"
         },
         {
           "file": "web/out/managers/event-driven-manager/index.txt",
-          "hash": "12203693769488577779"
+          "hash": "176584820451843399"
         },
         {
           "file": "web/out/managers/hybrid-manager/index.html",
-          "hash": "12010047798076682820"
+          "hash": "12783008176045327310"
         },
         {
           "file": "web/out/managers/hybrid-manager/index.txt",
-          "hash": "14722679921395628780"
+          "hash": "1409913418501529180"
         },
         {
           "file": "web/out/managers/index.html",
-          "hash": "12408275299846204177"
+          "hash": "5457632685789754642"
         },
         {
           "file": "web/out/managers/index.txt",
-          "hash": "2626089062067600633"
+          "hash": "9774901639876886151"
         },
         {
           "file": "web/out/managers/narrative-manager/index.html",
-          "hash": "13962610578208982925"
+          "hash": "16210236697754361911"
         },
         {
           "file": "web/out/managers/narrative-manager/index.txt",
-          "hash": "9935993218233889258"
+          "hash": "7289384405365311062"
         },
         {
           "file": "web/out/managers/onchain-fundamentals-manager/index.html",
-          "hash": "3132168126355935575"
+          "hash": "2442903708165591035"
         },
         {
           "file": "web/out/managers/onchain-fundamentals-manager/index.txt",
-          "hash": "7391664577421447539"
+          "hash": "811205640008440721"
         },
         {
           "file": "web/out/managers/polymarket-specialist-manager/index.html",
-          "hash": "8170596724162226574"
+          "hash": "11009491532173770062"
         },
         {
           "file": "web/out/managers/polymarket-specialist-manager/index.txt",
-          "hash": "16069286923111825001"
+          "hash": "70783558109638449"
         },
         {
           "file": "web/out/managers/quant-manager/index.html",
-          "hash": "6027597580815539149"
+          "hash": "8673810211867918223"
         },
         {
           "file": "web/out/managers/quant-manager/index.txt",
-          "hash": "11339687473136290040"
+          "hash": "14207472893461508198"
         },
         {
-          "file": "web/out/opportunities/cmn8yflnm0001of2f1gx9wx2y/index.html",
-          "hash": "7084954125474095711"
+          "file": "web/out/opportunities/detail/index.html",
+          "hash": "4149314854799579075"
         },
         {
-          "file": "web/out/opportunities/cmn8yflnm0001of2f1gx9wx2y/index.txt",
-          "hash": "11403280113888640648"
-        },
-        {
-          "file": "web/out/opportunities/cmn8yflqq002mof2frnnludyh/index.html",
-          "hash": "1785522874601624552"
-        },
-        {
-          "file": "web/out/opportunities/cmn8yflqq002mof2frnnludyh/index.txt",
-          "hash": "11078823072486327070"
-        },
-        {
-          "file": "web/out/opportunities/cmn8yflrr0057of2f4zm1j7cd/index.html",
-          "hash": "1594193463658529272"
-        },
-        {
-          "file": "web/out/opportunities/cmn8yflrr0057of2f4zm1j7cd/index.txt",
-          "hash": "16090617468261101125"
-        },
-        {
-          "file": "web/out/opportunities/cmn8yflyi009xof2f2u1oh13e/index.html",
-          "hash": "15047039171559486558"
-        },
-        {
-          "file": "web/out/opportunities/cmn8yflyi009xof2f2u1oh13e/index.txt",
-          "hash": "14810754736525467123"
-        },
-        {
-          "file": "web/out/opportunities/cmn8yfm6n00ciof2fgd2znlai/index.html",
-          "hash": "3735644790796176752"
-        },
-        {
-          "file": "web/out/opportunities/cmn8yfm6n00ciof2fgd2znlai/index.txt",
-          "hash": "13432979962262536763"
-        },
-        {
-          "file": "web/out/opportunities/cmn8yfmg600h8of2fvbucmsih/index.html",
-          "hash": "2875669948774117779"
-        },
-        {
-          "file": "web/out/opportunities/cmn8yfmg600h8of2fvbucmsih/index.txt",
-          "hash": "5492959696162283064"
-        },
-        {
-          "file": "web/out/opportunities/cmn8yfmp600lyof2fhy2ffh9d/index.html",
-          "hash": "6003374995276900150"
-        },
-        {
-          "file": "web/out/opportunities/cmn8yfmp600lyof2fhy2ffh9d/index.txt",
-          "hash": "1822409469627928894"
-        },
-        {
-          "file": "web/out/opportunities/cmn8yfmxa00qoof2fockl9nvb/index.html",
-          "hash": "14657437766332061161"
-        },
-        {
-          "file": "web/out/opportunities/cmn8yfmxa00qoof2fockl9nvb/index.txt",
-          "hash": "11147278797444583013"
-        },
-        {
-          "file": "web/out/opportunities/cmn8yfn4y00veof2ffvohp9j8/index.html",
-          "hash": "13173327248044809215"
-        },
-        {
-          "file": "web/out/opportunities/cmn8yfn4y00veof2ffvohp9j8/index.txt",
-          "hash": "16390648004292025516"
-        },
-        {
-          "file": "web/out/opportunities/cmn8yfnek00ymof2f0j1a2tdz/index.html",
-          "hash": "18243195443367477048"
-        },
-        {
-          "file": "web/out/opportunities/cmn8yfnek00ymof2f0j1a2tdz/index.txt",
-          "hash": "16017972729728973116"
-        },
-        {
-          "file": "web/out/opportunities/cmn8yfnng013cof2fi1av00cd/index.html",
-          "hash": "7213010248393186235"
-        },
-        {
-          "file": "web/out/opportunities/cmn8yfnng013cof2fi1av00cd/index.txt",
-          "hash": "16760916938618381698"
-        },
-        {
-          "file": "web/out/opportunities/cmn8yfnvr0182of2fyemcd8xp/index.html",
-          "hash": "386852111976437221"
-        },
-        {
-          "file": "web/out/opportunities/cmn8yfnvr0182of2fyemcd8xp/index.txt",
-          "hash": "13423507876336872191"
-        },
-        {
-          "file": "web/out/opportunities/cmn8yfolz01csof2fpgetg28f/index.html",
-          "hash": "2625381293754135806"
-        },
-        {
-          "file": "web/out/opportunities/cmn8yfolz01csof2fpgetg28f/index.txt",
-          "hash": "12360126172399253134"
-        },
-        {
-          "file": "web/out/opportunities/cmn8yfp3201hgof2fidpgjrhq/index.html",
-          "hash": "9966585268235321210"
-        },
-        {
-          "file": "web/out/opportunities/cmn8yfp3201hgof2fidpgjrhq/index.txt",
-          "hash": "14059405048624516856"
-        },
-        {
-          "file": "web/out/opportunities/cmn8yfpif01m1of2fukudsb3p/index.html",
-          "hash": "2706884179306606312"
-        },
-        {
-          "file": "web/out/opportunities/cmn8yfpif01m1of2fukudsb3p/index.txt",
-          "hash": "4221526058068455277"
-        },
-        {
-          "file": "web/out/opportunities/cmn8yfpvf01q4of2fpiru28dx/index.html",
-          "hash": "5064315977690490697"
-        },
-        {
-          "file": "web/out/opportunities/cmn8yfpvf01q4of2fpiru28dx/index.txt",
-          "hash": "17384232587312250376"
-        },
-        {
-          "file": "web/out/opportunities/cmn8yfq9p01usof2ffpzaqdg2/index.html",
-          "hash": "17343373269530376377"
-        },
-        {
-          "file": "web/out/opportunities/cmn8yfq9p01usof2ffpzaqdg2/index.txt",
-          "hash": "7548453979435370420"
-        },
-        {
-          "file": "web/out/opportunities/cmn8yfqpp01z3of2f0zyf0164/index.html",
-          "hash": "15284327359260769824"
-        },
-        {
-          "file": "web/out/opportunities/cmn8yfqpp01z3of2f0zyf0164/index.txt",
-          "hash": "9951769692422673064"
-        },
-        {
-          "file": "web/out/opportunities/cmn8yfrmm023cof2fso84s0qc/index.html",
-          "hash": "4731358552226316854"
-        },
-        {
-          "file": "web/out/opportunities/cmn8yfrmm023cof2fso84s0qc/index.txt",
-          "hash": "5340639468295676854"
-        },
-        {
-          "file": "web/out/opportunities/cmn8yfs3f027wof2fzd8djkzj/index.html",
-          "hash": "5930875764836321002"
-        },
-        {
-          "file": "web/out/opportunities/cmn8yfs3f027wof2fzd8djkzj/index.txt",
-          "hash": "6238884842573447974"
-        },
-        {
-          "file": "web/out/opportunities/cmn8yfsg8028jof2foa4e56uw/index.html",
-          "hash": "8446696366943146025"
-        },
-        {
-          "file": "web/out/opportunities/cmn8yfsg8028jof2foa4e56uw/index.txt",
-          "hash": "10493428232414419691"
-        },
-        {
-          "file": "web/out/opportunities/cmn8yfssj02daof2fz1d6tfr5/index.html",
-          "hash": "8044597085045720395"
-        },
-        {
-          "file": "web/out/opportunities/cmn8yfssj02daof2fz1d6tfr5/index.txt",
-          "hash": "7953613378033950269"
-        },
-        {
-          "file": "web/out/opportunities/cmn8yftch02hpof2fescadc1s/index.html",
-          "hash": "11165620582291249278"
-        },
-        {
-          "file": "web/out/opportunities/cmn8yftch02hpof2fescadc1s/index.txt",
-          "hash": "706007770810334623"
-        },
-        {
-          "file": "web/out/opportunities/cmn8yftq302jdof2fl7vci7aa/index.html",
-          "hash": "2558007015925724155"
-        },
-        {
-          "file": "web/out/opportunities/cmn8yftq302jdof2fl7vci7aa/index.txt",
-          "hash": "15843168061453029353"
+          "file": "web/out/opportunities/detail/index.txt",
+          "hash": "11320682879742368275"
         },
         {
           "file": "web/out/opportunities/index.html",
-          "hash": "3076603315275816171"
+          "hash": "788941933262632111"
         },
         {
           "file": "web/out/opportunities/index.txt",
-          "hash": "11533952419459523448"
+          "hash": "11627789616920070113"
         },
         {
           "file": "web/out/reference-hero/_app/immutable/assets/0.B1bBUiLG.css",
@@ -2102,18 +1750,18 @@
         },
         {
           "file": "web/src/app/global.css",
-          "hash": "17948707573117490063"
+          "hash": "16160173486593227202"
         },
         {
           "file": "web/src/app/layout.tsx",
-          "hash": "9833112706264183281",
+          "hash": "15891015677255096415",
           "deps": [
             "npm:next"
           ]
         },
         {
           "file": "web/src/app/leaderboard/page.tsx",
-          "hash": "18324586974608035101",
+          "hash": "9321005117808646671",
           "deps": [
             "npm:react",
             "npm:next"
@@ -2121,7 +1769,7 @@
         },
         {
           "file": "web/src/app/managers/[slug]/client.tsx",
-          "hash": "10292621763046014701",
+          "hash": "1370055198742025648",
           "deps": [
             "npm:react",
             "npm:next"
@@ -2129,31 +1777,34 @@
         },
         {
           "file": "web/src/app/managers/[slug]/page.tsx",
-          "hash": "13640100742395004221"
+          "hash": "12876355253144886022"
         },
         {
           "file": "web/src/app/managers/page.tsx",
-          "hash": "17344474842900018652",
+          "hash": "11846876462334435329",
           "deps": [
             "npm:react",
             "npm:next"
           ]
         },
         {
-          "file": "web/src/app/opportunities/[id]/client.tsx",
-          "hash": "8936987372689725712",
+          "file": "web/src/app/opportunities/detail/client.tsx",
+          "hash": "4897112334998931368",
           "deps": [
             "npm:react",
             "npm:next"
           ]
         },
         {
-          "file": "web/src/app/opportunities/[id]/page.tsx",
-          "hash": "5771039534833131837"
+          "file": "web/src/app/opportunities/detail/page.tsx",
+          "hash": "16007637581699760237",
+          "deps": [
+            "npm:react"
+          ]
         },
         {
           "file": "web/src/app/opportunities/page.tsx",
-          "hash": "4466498758830547542",
+          "hash": "11601719056314921023",
           "deps": [
             "npm:react",
             "npm:next"
@@ -2161,7 +1812,7 @@
         },
         {
           "file": "web/src/app/page.tsx",
-          "hash": "11606017432515128219",
+          "hash": "14906126382881121248",
           "deps": [
             "npm:next"
           ]
@@ -2190,7 +1841,7 @@
         },
         {
           "file": "web/src/components/memo-unlock-button.tsx",
-          "hash": "16732568810125445099",
+          "hash": "3823736973857214638",
           "deps": [
             "npm:react"
           ]
@@ -2201,7 +1852,7 @@
         },
         {
           "file": "web/src/components/reference-hero-scene.tsx",
-          "hash": "8961877236395394140",
+          "hash": "11290331023537405090",
           "deps": [
             "npm:react",
             "npm:three"
@@ -2232,11 +1883,15 @@
         },
         {
           "file": "web/src/lib/api.ts",
-          "hash": "5480775776855642557"
+          "hash": "11351364525486630934"
+        },
+        {
+          "file": "web/src/lib/runtime-config.ts",
+          "hash": "10469954700240223689"
         },
         {
           "file": "web/src/lib/types.ts",
-          "hash": "7489668663491423008"
+          "hash": "18095377670778624770"
         },
         {
           "file": "web/tsconfig.json",
@@ -2250,7 +1905,7 @@
       "conviction-atlas": [
         {
           "file": ".env",
-          "hash": "15053285765087310012"
+          "hash": "1128859477705577892"
         },
         {
           "file": ".env.example",
@@ -2258,11 +1913,11 @@
         },
         {
           "file": ".github/workflows/deploy-pages.yml",
-          "hash": "11852749052735634077"
+          "hash": "15265253161081825432"
         },
         {
           "file": ".gitignore",
-          "hash": "7663861978715868291"
+          "hash": "11603955193997475340"
         },
         {
           "file": ".prettierignore",
@@ -2273,8 +1928,16 @@
           "hash": "16267754514737964994"
         },
         {
+          "file": ".vscode/settings.json",
+          "hash": "12023486099118587079"
+        },
+        {
           "file": "AGENTS.md",
           "hash": "12984563140775026289"
+        },
+        {
+          "file": "conviction-atlas.db",
+          "hash": "3244421341483603138"
         },
         {
           "file": "data/downloads/2026-03-19T02-29-13-691Z/api/leaderboard-managers.csv",
@@ -2469,8 +2132,20 @@
           "hash": "277534425898940602"
         },
         {
+          "file": "deploy/nginx/conviction-atlas-api.conf",
+          "hash": "10321890228992371072"
+        },
+        {
+          "file": "deploy/nginx/conviction-atlas-sslip.conf",
+          "hash": "3605083133582767720"
+        },
+        {
+          "file": "deploy/systemd/conviction-atlas-api.service",
+          "hash": "6677418884845893227"
+        },
+        {
           "file": "dist/api/main.js",
-          "hash": "3980975716554841616",
+          "hash": "7154139615160778180",
           "deps": [
             [
               "npm:@nestjs/common",
@@ -2504,7 +2179,7 @@
         },
         {
           "file": "dist/api/main.js.map",
-          "hash": "9435886543456645214"
+          "hash": "12128678252825369211"
         },
         {
           "file": "dist/api/package-lock.json",
@@ -2528,19 +2203,19 @@
         },
         {
           "file": "package.json",
-          "hash": "18027997089586531221"
+          "hash": "6267995747783081847"
         },
         {
           "file": "prisma/conviction-atlas.db",
-          "hash": "12196479679167162828"
+          "hash": "4575526906393312279"
         },
         {
           "file": "prisma/schema.prisma",
-          "hash": "10331106872147743645"
+          "hash": "5120044548833004008"
         },
         {
           "file": "prisma/seed.ts",
-          "hash": "991105897791305351",
+          "hash": "6809647174424880081",
           "deps": [
             "npm:@prisma/client"
           ]
@@ -2562,6 +2237,10 @@
           ]
         },
         {
+          "file": "scripts/deploy-web-prod.sh",
+          "hash": "14506370228044567762"
+        },
+        {
           "file": "scripts/export-local-data.ts",
           "hash": "60855432372560126",
           "deps": [
@@ -2569,8 +2248,12 @@
           ]
         },
         {
+          "file": "scripts/export-pages-snapshot.mjs",
+          "hash": "9589236772606450031"
+        },
+        {
           "file": "scripts/gen-memos.ts",
-          "hash": "6873806237287041610",
+          "hash": "5130389313796749150",
           "deps": [
             "npm:@prisma/client",
             "npm:axios"
@@ -2588,196 +2271,16 @@
           ]
         },
         {
+          "file": "scripts/start-api-prod.sh",
+          "hash": "16676447859910467245"
+        },
+        {
           "file": "tsconfig.base.json",
           "hash": "13038139458062512339"
         },
         {
           "file": "前端_example",
           "hash": "3432563518333224223"
-        }
-      ],
-      "api": [
-        {
-          "file": "api/project.json",
-          "hash": "16408935989629927072"
-        },
-        {
-          "file": "api/src/app/app.controller.ts",
-          "hash": "12427857703307551944",
-          "deps": [
-            "npm:@nestjs/common"
-          ]
-        },
-        {
-          "file": "api/src/app/app.module.ts",
-          "hash": "3798553724486335736",
-          "deps": [
-            "npm:@nestjs/common",
-            "npm:@nestjs/config"
-          ]
-        },
-        {
-          "file": "api/src/app/app.service.ts",
-          "hash": "6951206166469692039",
-          "deps": [
-            "npm:@nestjs/common"
-          ]
-        },
-        {
-          "file": "api/src/app/controllers/internal.controller.ts",
-          "hash": "2041897051875241398",
-          "deps": [
-            "npm:@nestjs/common"
-          ]
-        },
-        {
-          "file": "api/src/app/controllers/leaderboard.controller.ts",
-          "hash": "8902902909722591589",
-          "deps": [
-            "npm:@nestjs/common"
-          ]
-        },
-        {
-          "file": "api/src/app/controllers/managers.controller.ts",
-          "hash": "4673187805141271548",
-          "deps": [
-            "npm:@nestjs/common"
-          ]
-        },
-        {
-          "file": "api/src/app/controllers/memos.controller.ts",
-          "hash": "18187401059584794494",
-          "deps": [
-            "npm:@nestjs/common"
-          ]
-        },
-        {
-          "file": "api/src/app/controllers/opportunities.controller.ts",
-          "hash": "1735992873407459055",
-          "deps": [
-            "npm:@nestjs/common"
-          ]
-        },
-        {
-          "file": "api/src/app/core/helpers.ts",
-          "hash": "11987649407053321254"
-        },
-        {
-          "file": "api/src/app/core/manager-blueprints.ts",
-          "hash": "11532494500830859475",
-          "deps": [
-            "npm:@prisma/client"
-          ]
-        },
-        {
-          "file": "api/src/app/prisma/prisma.service.ts",
-          "hash": "1722435067500517337",
-          "deps": [
-            "npm:@nestjs/common",
-            "npm:@prisma/client"
-          ]
-        },
-        {
-          "file": "api/src/app/services/llm.service.ts",
-          "hash": "8298616680251017463",
-          "deps": [
-            "npm:@nestjs/common",
-            "npm:@nestjs/config",
-            "npm:axios"
-          ]
-        },
-        {
-          "file": "api/src/app/services/manager-engine.service.ts",
-          "hash": "4333021828005737021",
-          "deps": [
-            "npm:@prisma/client",
-            "npm:@nestjs/common"
-          ]
-        },
-        {
-          "file": "api/src/app/services/memo.service.ts",
-          "hash": "4770025434266654601",
-          "deps": [
-            "npm:@nestjs/common"
-          ]
-        },
-        {
-          "file": "api/src/app/services/performance.service.ts",
-          "hash": "13484502735110463965",
-          "deps": [
-            "npm:@nestjs/common"
-          ]
-        },
-        {
-          "file": "api/src/app/services/portfolio.service.ts",
-          "hash": "15699027015202548975",
-          "deps": [
-            "npm:@prisma/client",
-            "npm:@nestjs/common"
-          ]
-        },
-        {
-          "file": "api/src/app/services/query.service.ts",
-          "hash": "10325407101917788760",
-          "deps": [
-            "npm:@nestjs/common",
-            "npm:@prisma/client"
-          ]
-        },
-        {
-          "file": "api/src/app/services/signal-engine.service.ts",
-          "hash": "2943177108535574452",
-          "deps": [
-            "npm:@prisma/client",
-            "npm:@nestjs/common"
-          ]
-        },
-        {
-          "file": "api/src/app/services/source-ingestion.service.ts",
-          "hash": "13634932296771256317",
-          "deps": [
-            "npm:axios",
-            "npm:@nestjs/common",
-            "npm:@nestjs/config",
-            "npm:@prisma/client"
-          ]
-        },
-        {
-          "file": "api/src/app/services/tron-payment.service.ts",
-          "hash": "8170954572298408009",
-          "deps": [
-            "npm:@nestjs/common",
-            "npm:@nestjs/config",
-            "npm:axios"
-          ]
-        },
-        {
-          "file": "api/src/assets/.gitkeep",
-          "hash": "3244421341483603138"
-        },
-        {
-          "file": "api/src/main.ts",
-          "hash": "14905836927512793688",
-          "deps": [
-            "npm:@nestjs/common",
-            "npm:@nestjs/core",
-            "npm:@nestjs/swagger"
-          ]
-        },
-        {
-          "file": "api/tsconfig.app.json",
-          "hash": "2083841899727192147"
-        },
-        {
-          "file": "api/tsconfig.json",
-          "hash": "4276712839166217253"
-        },
-        {
-          "file": "api/webpack.config.js",
-          "hash": "6809973803337539335",
-          "deps": [
-            "npm:@nx/webpack"
-          ]
         }
       ]
     }

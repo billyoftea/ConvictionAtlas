@@ -52,12 +52,11 @@ export default function ManagersPage() {
           </div>
           <span className="hero-kicker">Manager layer</span>
           <h1 className="detail-headline">
-            Productized manager desks on top of live token and prediction-market flow.
+            Six manager desks reading one live token tape and crypto prediction surface.
           </h1>
           <p className="detail-copy">
-            Each manager now carries its own curve, position map, signal bias, and
-            packaging. The card is no longer just copy. It is the current state of the
-            desk.
+            Each desk now carries its own curve, book map, signal bias, and packaging.
+            The card is the current state of the strategy, not placeholder copy.
           </p>
           <div className="cta-row">
             <Link href="/leaderboard" className="button-link primary">

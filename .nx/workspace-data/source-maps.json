@@ -576,6 +576,10 @@
       "package.json",
       "nx/core/package-json"
     ],
+    "metadata.targetGroups.NPM Scripts.12": [
+      "package.json",
+      "nx/core/package-json"
+    ],
     "metadata.description": [
       "package.json",
       "nx/core/package-json"
@@ -933,6 +937,34 @@
       "nx/core/package-json"
     ],
     "targets.data:export.metadata.runCommand": [
+      "package.json",
+      "nx/core/package-json"
+    ],
+    "targets.deploy:web:prod": [
+      "package.json",
+      "nx/core/package-json"
+    ],
+    "targets.deploy:web:prod.executor": [
+      "package.json",
+      "nx/core/package-json"
+    ],
+    "targets.deploy:web:prod.options": [
+      "package.json",
+      "nx/core/package-json"
+    ],
+    "targets.deploy:web:prod.metadata": [
+      "package.json",
+      "nx/core/package-json"
+    ],
+    "targets.deploy:web:prod.options.script": [
+      "package.json",
+      "nx/core/package-json"
+    ],
+    "targets.deploy:web:prod.metadata.scriptContent": [
+      "package.json",
+      "nx/core/package-json"
+    ],
+    "targets.deploy:web:prod.metadata.runCommand": [
       "package.json",
       "nx/core/package-json"
     ]

@@ -2,6 +2,7 @@ import { Direction } from '@prisma/client';
 import { Injectable } from '@nestjs/common';
 import { getManagerBlueprint } from '../core/manager-blueprints';
 import { average, parseJson, round, serializeJson } from '../core/helpers';
+import { isCurrentInvestableOpportunity } from '../core/opportunity-universe';
 import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
@@ -26,15 +27,23 @@ export class PortfolioService {
           },
         },
       });
+      const investableDecisions = decisions.filter((decision) =>
+        isCurrentInvestableOpportunity(decision.opportunity),
+      );
       const previousSnapshot = await this.prisma.portfolioSnapshot.findFirst({
         where: { managerId: manager.id },
         orderBy: { computedAt: 'desc' },
       });
 
-      const investableCapital = decisions.length ? 1 - blueprint.cashFloor : 0;
+      const investableCapital = investableDecisions.length
+        ? 1 - blueprint.cashFloor
+        : 0;
       const scoreTotal =
-        decisions.reduce((sum, decision) => sum + decision.targetWeight, 0) || 1;
-      const riskValues = decisions.map((decision) => {
+        investableDecisions.reduce(
+          (sum, decision) => sum + decision.targetWeight,
+          0,
+        ) || 1;
+      const riskValues = investableDecisions.map((decision) => {
         const riskSignal = decision.opportunity.signals.find(
           (signal) => signal.name === 'risk_flag',
         );
@@ -50,15 +59,15 @@ export class PortfolioService {
           riskScore: round(average(riskValues), 4),
           nav: previousSnapshot?.nav ?? 100,
           metadata: serializeJson({
-            decisionCount: decisions.length,
+            decisionCount: investableDecisions.length,
             model: 'portfolio-engine-v1',
           }),
         },
       });
 
-      if (decisions.length) {
+      if (investableDecisions.length) {
         await this.prisma.position.createMany({
-          data: decisions.map((decision) => ({
+          data: investableDecisions.map((decision) => ({
             portfolioSnapshotId: snapshot.id,
             opportunityId: decision.opportunityId,
             weight: round((decision.targetWeight / scoreTotal) * investableCapital, 4),

@@ -3,7 +3,7 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { OpportunityType } from '@prisma/client';
+import { OpportunityType, SourceKind } from '@prisma/client';
 import { getManagerBlueprint } from '../core/manager-blueprints';
 import { PrismaService } from '../prisma/prisma.service';
 import {
@@ -13,6 +13,10 @@ import {
   round,
   standardDeviation,
 } from '../core/helpers';
+import {
+  isCryptoRelevantPredictionOpportunity,
+  isCurrentInvestableOpportunity,
+} from '../core/opportunity-universe';
 import { TronPaymentService } from './tron-payment.service';
 
 type HistoryPointLike = {
@@ -30,6 +34,13 @@ type ManagerSeriesPoint = {
 type ReplayOpportunityLike = {
   id: string;
   type: OpportunityType;
+  sourceKind: SourceKind;
+  title: string;
+  summary: string | null;
+  description: string | null;
+  category: string | null;
+  status: string | null;
+  currentPrice: number | null;
   eventDate: Date | null;
   volume24h: number | null;
   marketCap: number | null;
@@ -287,6 +298,7 @@ export class QueryService {
 
   async getOpportunities() {
     const opportunities = await this.prisma.opportunity.findMany({
+      where: { status: 'active' },
       include: {
         signals: true,
         newsItems: {
@@ -304,20 +316,22 @@ export class QueryService {
       orderBy: [{ volume24h: 'desc' }, { marketCap: 'desc' }, { updatedAt: 'desc' }],
     });
 
-    return opportunities.map((opportunity) => ({
-      ...opportunity,
-      metadata: parseJson(opportunity.metadata, {}),
-      strongestSignal:
-        [...opportunity.signals].sort(
-          (left, right) => Math.abs(right.value) - Math.abs(left.value),
-        )[0] ?? null,
-      managers: opportunity.decisions.map((decision) => ({
-        manager: decision.manager.name,
-        slug: decision.manager.slug,
-        convictionScore: decision.convictionScore,
-        direction: decision.direction,
-      })),
-    }));
+    return opportunities
+      .filter((opportunity) => isCurrentInvestableOpportunity(opportunity))
+      .map((opportunity) => ({
+        ...opportunity,
+        metadata: parseJson(opportunity.metadata, {}),
+        strongestSignal:
+          [...opportunity.signals].sort(
+            (left, right) => Math.abs(right.value) - Math.abs(left.value),
+          )[0] ?? null,
+        managers: opportunity.decisions.map((decision) => ({
+          manager: decision.manager.name,
+          slug: decision.manager.slug,
+          convictionScore: decision.convictionScore,
+          direction: decision.direction,
+        })),
+      }));
   }
 
   async getOpportunity(idOrSlug: string) {
@@ -504,6 +518,7 @@ export class QueryService {
 
   async getOpportunityLeaderboard() {
     const opportunities = await this.prisma.opportunity.findMany({
+      where: { status: 'active' },
       include: {
         decisions: true,
         signals: true,
@@ -511,6 +526,7 @@ export class QueryService {
     });
 
     return opportunities
+      .filter((opportunity) => isCurrentInvestableOpportunity(opportunity))
       .map((opportunity) => {
         const convictionAverage = opportunity.decisions.length
           ? average(opportunity.decisions.map((decision) => decision.convictionScore))
@@ -1585,7 +1601,7 @@ export class QueryService {
           return null;
         }
 
-        return {
+        const prepared = {
           ...opportunity,
           historyPoints,
           metadataRecord: parseJson<Record<string, unknown>>(
@@ -1599,6 +1615,12 @@ export class QueryService {
             ]),
           ),
         };
+
+        if (!isCryptoRelevantPredictionOpportunity(prepared)) {
+          return null;
+        }
+
+        return prepared;
       })
       .filter(
         (opportunity): opportunity is ReplayPreparedOpportunity =>

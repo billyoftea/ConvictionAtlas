@@ -1,4 +1,4 @@
-// File: /var/www/ConvictionAtlas/web/src/app/managers/[slug]/page.tsx
+// File: /root/workspace/ConvictionAtlas/web/src/app/managers/[slug]/page.tsx
 import * as entry from '../../../../../src/app/managers/[slug]/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

@@ -2859,6 +2859,47 @@ body.reference-theme {
   gap: 12px;
 }
 
+/* Compact subpage heroes — calmer than the homepage masthead */
+.hero-compact {
+  gap: 30px;
+}
+
+.hero-compact > :first-child {
+  max-width: 58rem;
+}
+
+.hero-compact .detail-headline {
+  max-width: 12.5ch;
+  margin: 16px 0 18px;
+  font-size: clamp(2.3rem, 3.35vw, 3.8rem);
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+
+.reference-theme .hero-compact .detail-headline {
+  letter-spacing: -0.035em;
+}
+
+.hero-compact .detail-copy,
+.hero-compact .detail-copy p {
+  max-width: 60ch;
+  font-size: 1.04rem;
+  line-height: 1.9;
+}
+
+.manager-hero {
+  grid-template-columns: minmax(0, 1.12fr) minmax(320px, 0.88fr);
+}
+
+.manager-lead-title,
+.position-stack-name,
+.portfolio-row strong,
+.manager-card h3 {
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+}
+
 /* Review form inputs */
 .inline-form input,
 .inline-form textarea,

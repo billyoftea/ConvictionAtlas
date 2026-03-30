@@ -2,6 +2,7 @@ import { Direction } from '@prisma/client';
 import { Injectable } from '@nestjs/common';
 import { getManagerBlueprint } from '../core/manager-blueprints';
 import { clamp, round, serializeJson } from '../core/helpers';
+import { isCurrentInvestableOpportunity } from '../core/opportunity-universe';
 import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
@@ -12,15 +13,18 @@ export class ManagerEngineService {
     await this.prisma.managerDecision.deleteMany({});
 
     const managers = await this.prisma.manager.findMany();
-    const opportunities = await this.prisma.opportunity.findMany({
-      include: {
-        signals: true,
-        newsItems: {
-          orderBy: { publishedAt: 'desc' },
-          take: 2,
+    const opportunities = (
+      await this.prisma.opportunity.findMany({
+        where: { status: 'active' },
+        include: {
+          signals: true,
+          newsItems: {
+            orderBy: { publishedAt: 'desc' },
+            take: 2,
+          },
         },
-      },
-    });
+      })
+    ).filter((opportunity) => isCurrentInvestableOpportunity(opportunity));
 
     const computedAt = new Date();
     const rows = [];
