@@ -30,20 +30,13 @@ jobs:
       - name: Install root dependencies
         run: npm install --legacy-peer-deps
 
-      - name: Snapshot live API data for Pages
-        run: node scripts/export-pages-snapshot.mjs
-        env:
-          SNAPSHOT_API_BASE_URL: ${{ vars.SNAPSHOT_API_BASE_URL || 'http://47.76.120.0/api' }}
-
       - name: Build web (static export)
         run: node node_modules/next/dist/bin/next build ./web
         env:
           NODE_ENV: production
           GITHUB_PAGES: true
           NEXT_PUBLIC_API_BASE_URL: ${{ vars.NEXT_PUBLIC_API_BASE_URL || 'https://47.76.120.0.sslip.io/api' }}
-          NEXT_PUBLIC_API_DOCS_URL: ${{ vars.NEXT_PUBLIC_API_DOCS_URL || 'http://47.76.120.0/docs' }}
-          NEXT_PUBLIC_STATIC_DATA_MODE: 'true'
-          NEXT_PUBLIC_STATIC_DATA_BASE_URL: '/ConvictionAtlas/data'
+          NEXT_PUBLIC_API_DOCS_URL: ${{ vars.NEXT_PUBLIC_API_DOCS_URL || 'https://47.76.120.0.sslip.io/docs' }}
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
