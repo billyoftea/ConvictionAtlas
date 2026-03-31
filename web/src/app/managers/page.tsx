@@ -94,6 +94,8 @@ export default function ManagersPage() {
                     ? 'negative'
                     : 'neutral'
               }
+              dateLabels={leadManager?.performanceSeries.map((point) => formatShortDate(point.pointAt))}
+              formatValue={(v) => formatMoney(v)}
             />
             <div className="hero-spotlight-grid">
               <div>
@@ -168,6 +170,8 @@ export default function ManagersPage() {
                       showAxes
                       xLabels={chartLabels}
                       yLabels={valueLabels}
+                      dateLabels={manager.performanceSeries.map((point) => formatShortDate(point.pointAt))}
+                      formatValue={(v) => formatMoney(v)}
                       tone={
                         manager.cumulativeReturn > 0
                           ? 'positive'
@@ -281,6 +285,8 @@ export default function ManagersPage() {
                         ? 'negative'
                         : 'neutral'
                   }
+                  dateLabels={entry.performanceSeries.map((point) => formatShortDate(point.pointAt))}
+                  formatValue={(v) => formatMoney(v)}
                 />
                 <span>{formatMoney(entry.nav)}</span>
                 <span className={getSignedClass(entry.cumulativeReturn)}>

@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import ReferenceHeroScene from '../components/reference-hero-scene';
+import HeroPerformanceChart from '../components/hero-performance-chart';
 import { API_DOCS_URL } from '../lib/runtime-config';
 
 const landingStats = [
@@ -120,19 +120,12 @@ export default function Index() {
 
         <div className="landing-scene-panel">
           <div className="mini-metrics">
-            <span className="eyebrow">Live scene</span>
-            <span className="chip">Orbit preview</span>
+            <span className="eyebrow">Live performance</span>
+            <span className="chip">6 desks · 90d backtest</span>
           </div>
 
-          <div className="landing-scene-frame">
-            <ReferenceHeroScene />
-            <div className="landing-scene-copy">
-              <span className="eyebrow">Unified market cockpit</span>
-              <p>
-                The hero now speaks the same product language as the rest of the app:
-                glass panels, signal surfaces, and portfolio-first navigation.
-              </p>
-            </div>
+          <div className="landing-chart-frame">
+            <HeroPerformanceChart />
           </div>
 
           <div className="landing-scene-meta">

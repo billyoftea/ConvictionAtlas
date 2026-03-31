@@ -1,4 +1,5 @@
-import { useId } from 'react';
+'use client';
+import { useId, useRef, useState, useCallback, type MouseEvent } from 'react';
 
 type SparklineProps = {
   points: Array<number | null | undefined>;
@@ -10,6 +11,25 @@ type SparklineProps = {
   showAxes?: boolean;
   xLabels?: [string, string];
   yLabels?: [string, string];
+  /** Optional date labels for tooltip X display, same length as points */
+  dateLabels?: string[];
+  /** Optional value formatter for tooltip */
+  formatValue?: (value: number) => string;
+};
+
+type HoverState = {
+  /** Index into cleanPoints */
+  index: number;
+  /** SVG x coordinate */
+  svgX: number;
+  /** SVG y coordinate */
+  svgY: number;
+  /** The actual data value */
+  value: number;
+  /** Pixel x relative to canvas */
+  pxX: number;
+  /** Pixel y relative to canvas */
+  pxY: number;
 };
 
 export function Sparkline({
@@ -22,10 +42,15 @@ export function Sparkline({
   showAxes = false,
   xLabels,
   yLabels,
+  dateLabels,
+  formatValue,
 }: SparklineProps) {
   const cleanPoints = points.filter(
     (point): point is number => typeof point === 'number' && Number.isFinite(point),
   );
+
+  const [hover, setHover] = useState<HoverState | null>(null);
+  const canvasRef = useRef<HTMLDivElement>(null);
 
   if (!cleanPoints.length) {
     return <div className={className} />;
@@ -66,6 +91,59 @@ export function Sparkline({
     minValue.toFixed(2),
   ];
 
+  const handleMouseMove = useCallback(
+    (e: MouseEvent<HTMLDivElement>) => {
+      const el = canvasRef.current;
+      if (!el || cleanPoints.length < 2) return;
+
+      const rect = el.getBoundingClientRect();
+      // Account for padding when showAxes is on
+      const paddingLeft = showAxes ? 60 : 0;
+      const paddingTop = 0;
+      const chartWidth = rect.width - paddingLeft;
+      const chartHeight = rect.height - paddingTop;
+
+      const relX = e.clientX - rect.left - paddingLeft;
+      const relY = e.clientY - rect.top - paddingTop;
+
+      if (relX < 0 || relX > chartWidth) {
+        setHover(null);
+        return;
+      }
+
+      // Map pixel x to data index
+      const ratio = Math.max(0, Math.min(1, relX / chartWidth));
+      const floatIndex = ratio * (cleanPoints.length - 1);
+      const index = Math.round(floatIndex);
+      const coord = coordinates[index];
+      if (!coord) return;
+
+      // Map SVG coord back to pixel space
+      const pxX = paddingLeft + (coord.x / width) * chartWidth;
+      const pxY = (coord.y / svgHeight) * chartHeight;
+
+      setHover({
+        index,
+        svgX: coord.x,
+        svgY: coord.y,
+        value: cleanPoints[index],
+        pxX,
+        pxY,
+      });
+    },
+    [cleanPoints, coordinates, showAxes, width, svgHeight],
+  );
+
+  const handleMouseLeave = useCallback(() => {
+    setHover(null);
+  }, []);
+
+  const fmtVal = formatValue ?? ((v: number) => v.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+
+  const tooltipLabel = hover
+    ? dateLabels?.[hover.index] ?? `#${hover.index + 1}`
+    : '';
+
   return (
     <div
       className={[
@@ -73,12 +151,18 @@ export function Sparkline({
         'sparkline',
         toneClass,
         showAxes ? 'sparkline-with-axes' : null,
+        'sparkline-interactive',
       ]
         .filter(Boolean)
         .join(' ')}
       style={{ ['--sparkline-height' as string]: `${height}px` }}
     >
-      <div className="sparkline-canvas">
+      <div
+        className="sparkline-canvas"
+        ref={canvasRef}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+      >
         {showAxes ? (
           <>
             <span className="sparkline-y-label sparkline-y-top">{resolvedYLabels[0]}</span>
@@ -114,8 +198,8 @@ export function Sparkline({
           ) : null}
           <defs>
             <linearGradient id={gradientId} x1="0" x2="0" y1="0" y2="1">
-              <stop offset="0%" stopColor="currentColor" stopOpacity={0.18} />
-              <stop offset="100%" stopColor="currentColor" stopOpacity={0.01} />
+              <stop offset="0%" stopColor="currentColor" stopOpacity={0.22} />
+              <stop offset="100%" stopColor="currentColor" stopOpacity={0.02} />
             </linearGradient>
           </defs>
           {area ? <path d={areaPath} fill={`url(#${gradientId})`} /> : null}
@@ -128,7 +212,52 @@ export function Sparkline({
             strokeLinejoin="round"
             vectorEffect="non-scaling-stroke"
           />
+
+          {/* Hover crosshair — vertical dashed line */}
+          {hover ? (
+            <>
+              <line
+                x1={hover.svgX}
+                y1={topPadding}
+                x2={hover.svgX}
+                y2={svgHeight - bottomPadding}
+                className="sparkline-crosshair-v"
+                vectorEffect="non-scaling-stroke"
+              />
+              <line
+                x1={0}
+                y1={hover.svgY}
+                x2={width}
+                y2={hover.svgY}
+                className="sparkline-crosshair-h"
+                vectorEffect="non-scaling-stroke"
+              />
+            </>
+          ) : null}
         </svg>
+
+        {/* Hover dot + tooltip overlay (pixel-positioned) */}
+        {hover ? (
+          <>
+            <div
+              className="sparkline-hover-dot"
+              style={{
+                left: `${hover.pxX}px`,
+                top: `${hover.pxY}px`,
+              }}
+            />
+            <div
+              className="sparkline-tooltip"
+              style={{
+                left: `${hover.pxX}px`,
+                top: `${hover.pxY}px`,
+              }}
+            >
+              <span className="sparkline-tooltip-value">{fmtVal(hover.value)}</span>
+              <span className="sparkline-tooltip-label">{tooltipLabel}</span>
+            </div>
+          </>
+        ) : null}
       </div>
       {showAxes ? (
         <div className="sparkline-x-axis">

@@ -35,6 +35,63 @@ const CRYPTO_RELEVANCE_PATTERNS = [
   /\bprice target\b/i,
 ];
 
+/**
+ * Negative patterns — if ANY of these match the searchable text,
+ * the market is NOT crypto-relevant regardless of positive matches.
+ * This prevents sports betting, politics, and entertainment markets
+ * from leaking through just because their metadata tags include "crypto".
+ */
+const NON_CRYPTO_EXCLUSION_PATTERNS = [
+  // Sports
+  /\bnba\b/i,
+  /\bncaa\b/i,
+  /\bnfl\b/i,
+  /\bmlb\b/i,
+  /\bnhl\b/i,
+  /\bmls\b/i,
+  /\bpremier\s+league\b/i,
+  /\bchampions\s+league\b/i,
+  /\bla\s*liga\b/i,
+  /\bserie\s+a\b/i,
+  /\bbundesliga\b/i,
+  /\bworld\s+cup\b/i,
+  /\bolympic/i,
+  /\bsuper\s*bowl\b/i,
+  /\bplayoff/i,
+  /\btournament\b/i,
+  /\bchampionship\b/i,
+  /\bseed(?:ed|ing)?\b/i,
+  /\bbasketball\b/i,
+  /\bfootball\b/i,
+  /\bsoccer\b/i,
+  /\bbaseball\b/i,
+  /\bhockey\b/i,
+  /\btennis\b/i,
+  /\bgolf\b/i,
+  /\bboxing\b/i,
+  /\bufc\b/i,
+  /\bmma\b/i,
+  /\bf1\b/i,
+  /\bformula[\s-]?1\b/i,
+  /\bnascar\b/i,
+  /\besports?\b/i,
+  // Entertainment / pop culture
+  /\boscars?\b/i,
+  /\bemmy/i,
+  /\bgrammy/i,
+  /\bgolden\s+globes?\b/i,
+  /\bbox\s+office\b/i,
+  /\bmovie\b/i,
+  /\balbum\b/i,
+  /\bcelebrit/i,
+  /\breality\s+tv\b/i,
+  // Weather / natural events
+  /\bhurricane\b/i,
+  /\bearthquake\b/i,
+  /\bweather\b/i,
+  /\btemperature\b/i,
+];
+
 type PolymarketSeriesLike = {
   title?: string;
   slug?: string;
@@ -70,6 +127,11 @@ type CurrentOpportunityLike = PredictionOpportunityLike & {
 };
 
 function matchesCryptoUniverse(text: string) {
+  // First check exclusion patterns — if the text mentions sports / entertainment
+  // / weather, it is NOT crypto-relevant even if it also contains "crypto".
+  if (NON_CRYPTO_EXCLUSION_PATTERNS.some((pattern) => pattern.test(text))) {
+    return false;
+  }
   return CRYPTO_RELEVANCE_PATTERNS.some((pattern) => pattern.test(text));
 }
 

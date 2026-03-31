@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { AssetAvatar } from '../../../components/asset-avatar';
+import { BuySharesButton } from '../../../components/buy-shares-button';
 import { MarkdownContent } from '../../../components/markdown-content';
 import { MemoUnlockButton } from '../../../components/memo-unlock-button';
 import { PositionStack } from '../../../components/position-stack';
@@ -123,6 +124,7 @@ export default function ManagerDetailPage() {
               Browse opportunity tape
             </Link>
           </div>
+          <BuySharesButton managerSlug={manager.slug} managerName={manager.name} />
         </div>
 
         <div className="manager-detail-hero-card">
@@ -193,6 +195,8 @@ export default function ManagerDetailPage() {
               showAxes
               xLabels={chartLabels}
               yLabels={valueLabels}
+              dateLabels={manager.performanceSeries.map((point) => formatShortDate(point.pointAt))}
+              formatValue={(v) => formatMoney(v)}
               tone={
                 derivedPerformance.cumulativeReturn > 0
                   ? 'positive'

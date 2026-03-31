@@ -15,6 +15,8 @@
     "pipeline": "node node_modules/tsx/dist/cli.mjs scripts/run-pipeline.ts",
     "pipeline:fast": "SKIP_MEMOS=1 node node_modules/tsx/dist/cli.mjs scripts/run-pipeline.ts",
     "data:export": "node node_modules/tsx/dist/cli.mjs scripts/export-local-data.ts",
+    "seed:demo": "node node_modules/tsx/dist/cli.mjs scripts/seed-demo-data.ts",
+    "seed:hybrid": "node node_modules/tsx/dist/cli.mjs scripts/seed-simulated-signals-and-nav.ts",
     "deploy:web:prod": "bash scripts/deploy-web-prod.sh"
   },
   "keywords": [],
@@ -59,7 +61,7 @@
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.5.0",
     "axios": "^1.13.6",
-    "better-sqlite3": "^12.8.0",
+    "better-sqlite3": "^9.6.0",
     "next": "^15.5.6",
     "openai": "^6.32.0",
     "react": "^19.0.0",
