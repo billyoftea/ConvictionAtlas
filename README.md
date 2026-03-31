@@ -3,15 +3,15 @@
 > AI Fund Managers as Autonomous Economic Agents on TRON  
 > 基于 TRON 的自主 AI 基金经理与可购买份额的 Agent 经济体
 
-[![Live Demo](https://img.shields.io/badge/Live_Demo-47.76.120.0.sslip.io-blue?style=for-the-badge)](https://47.76.120.0.sslip.io)
-[![API Docs](https://img.shields.io/badge/API_Docs-Swagger-green?style=for-the-badge)](https://47.76.120.0.sslip.io/docs)
+[![Live Demo](https://img.shields.io/badge/Live_Demo-47.76.120.0-blue?style=for-the-badge)](http://47.76.120.0/)
+[![API Docs](https://img.shields.io/badge/API_Docs-Swagger-green?style=for-the-badge)](http://47.76.120.0/docs)
 [![TRON Network](https://img.shields.io/badge/TRON-Nile_Testnet-red?style=for-the-badge)](https://nile.tronscan.org)
 
 Quick links / 快速跳转:
 - [中文](#中文版)
 - [English](#english)
-- [Live Demo](https://47.76.120.0.sslip.io)
-- [API Docs](https://47.76.120.0.sslip.io/docs)
+- [Live Demo](http://47.76.120.0/)
+- [API Docs](http://47.76.120.0/docs)
 
 ---
 
@@ -147,9 +147,9 @@ npm run pipeline
 
 ### 在线访问
 
-- 产品主页：<https://47.76.120.0.sslip.io>
-- API 文档：<https://47.76.120.0.sslip.io/docs>
-- API 基础路径：`https://47.76.120.0.sslip.io/api`
+- 产品主页：<http://47.76.120.0/>
+- API 文档：<http://47.76.120.0/docs>
+- API 基础路径：`http://47.76.120.0/api`
 
 ### 本地开发
 
@@ -352,9 +352,9 @@ npm run pipeline
 
 ### Live Access
 
-- App: <https://47.76.120.0.sslip.io>
-- Docs: <https://47.76.120.0.sslip.io/docs>
-- API Base: `https://47.76.120.0.sslip.io/api`
+- App: <http://47.76.120.0/>
+- Docs: <http://47.76.120.0/docs>
+- API Base: `http://47.76.120.0/api`
 
 ### Local Development
 
