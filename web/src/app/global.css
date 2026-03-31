@@ -2633,6 +2633,7 @@ body.reference-theme {
 }
 
 .landing-stat-grid,
+.landing-hero-info-grid,
 .landing-feature-grid,
 .landing-pipeline-grid,
 .landing-scene-meta {
@@ -2641,6 +2642,8 @@ body.reference-theme {
   align-items: stretch;
 }
 
+.landing-hero-info-grid > .panel,
+.landing-hero-info-grid > .panel + .panel,
 .landing-feature-grid > .panel,
 .landing-feature-grid > .panel + .panel,
 .landing-pipeline-grid > .panel,
@@ -2653,14 +2656,21 @@ body.reference-theme {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
+.landing-hero-info-grid {
+  grid-column: 1 / -1;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
 .landing-stat-card {
   display: grid;
   align-content: start;
   gap: 10px;
   min-height: 184px;
+  height: 100%;
 }
 
 .landing-stat-card p,
+.landing-info-card p,
 .landing-mini-card p,
 .landing-step-card p,
 .landing-scene-copy p {
@@ -2865,10 +2875,26 @@ body.reference-theme {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
+.landing-info-card {
+  display: grid;
+  gap: 10px;
+  min-height: 184px;
+  height: 100%;
+  align-content: start;
+}
+
+.landing-info-title {
+  margin: 0;
+  font-size: 1.02rem;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
 .landing-mini-card {
   display: grid;
   gap: 10px;
-  min-height: 120px;
+  min-height: 184px;
+  height: 100%;
   align-content: start;
 }
 
@@ -2961,6 +2987,7 @@ body.reference-theme {
   }
 
   .landing-stat-grid,
+  .landing-hero-info-grid,
   .landing-scene-meta {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -2990,6 +3017,7 @@ body.reference-theme {
   }
 
   .landing-stat-grid,
+  .landing-hero-info-grid,
   .landing-scene-meta {
     grid-template-columns: 1fr;
   }

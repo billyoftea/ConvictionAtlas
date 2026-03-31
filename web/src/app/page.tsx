@@ -20,6 +20,21 @@ const landingStats = [
   },
 ];
 
+const landingInfoCards = [
+  ...landingStats,
+  {
+    label: 'Coverage',
+    title: 'Signals, books, trades, memos',
+    detail: 'Every surface ladders back to the same pipeline and database state.',
+  },
+  {
+    label: 'Use case',
+    title: 'From watchlist to thesis',
+    detail:
+      'Managers, opportunities, rankings, and docs now feel like one product family.',
+  },
+];
+
 const landingSurfaces = [
   {
     href: '/managers',
@@ -107,15 +122,6 @@ export default function Index() {
             </a>
           </div>
 
-          <div className="landing-stat-grid">
-            {landingStats.map((item) => (
-              <div key={item.label} className="stat-box landing-stat-card">
-                <div className="stat-label">{item.label}</div>
-                <div className="stat-value">{item.value}</div>
-                <p className="muted">{item.detail}</p>
-              </div>
-            ))}
-          </div>
         </div>
 
         <div className="landing-scene-panel">
@@ -127,24 +133,20 @@ export default function Index() {
           <div className="landing-chart-frame">
             <HeroPerformanceChart />
           </div>
+        </div>
 
-          <div className="landing-scene-meta">
-            <div className="panel landing-mini-card">
-              <div className="eyebrow">Coverage</div>
-              <strong>Signals, books, trades, memos</strong>
-              <p className="muted">
-                Every surface ladders back to the same pipeline and database state.
-              </p>
+        <div className="landing-hero-info-grid">
+          {landingInfoCards.map((item) => (
+            <div key={item.label} className="panel landing-info-card">
+              <div className="eyebrow">{item.label}</div>
+              {'value' in item ? (
+                <div className="stat-value">{item.value}</div>
+              ) : (
+                <strong className="landing-info-title">{item.title}</strong>
+              )}
+              <p className="muted">{item.detail}</p>
             </div>
-            <div className="panel landing-mini-card">
-              <div className="eyebrow">Use case</div>
-              <strong>From watchlist to thesis</strong>
-              <p className="muted">
-                Managers, opportunities, rankings, and docs now feel like one product
-                family.
-              </p>
-            </div>
-          </div>
+          ))}
         </div>
       </section>
 
